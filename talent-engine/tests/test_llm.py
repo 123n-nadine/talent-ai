@@ -391,3 +391,32 @@ def test_quote_matching_and_years_in_code():
     assert vp.dropped == 1 and len(vp.data["experience"]) == 1
     assert vp.derived["supervision_years"] == 7.8 and vp.derived["max_team_size"] == 8
     assert vp.derived["valid_certifications"] == ["Security guard licence"]
+
+
+def test_strict_schema_requires_every_property():
+    from app.llm.openai_compat import strict_schema
+
+    sch = strict_schema(CandidateProfile)
+    assert (
+        set(sch["required"]) == set(sch["properties"].keys())
+        and sch["additionalProperties"] is False
+    )
+    exp = sch["$defs"]["ExperienceItem"]
+    assert "team_size" in exp["required"] and exp["additionalProperties"] is False
+
+
+def test_form_value_tolerance_and_question_from_job():
+    from app.llm.schemas import CriterionJudgement
+    from app.llm.templates import SEC_QUESTIONS
+    from app.pipeline.stages.answers import normalise_answers
+    from app.pipeline.stages.evidence import resolve
+
+    norm = normalise_answers(SEC_QUESTIONS, {"years_sup": 7})
+    raw = CriterionJudgement(
+        key="supervision", form_level=100, form_field=None, form_value="7 سنوات"
+    )
+    j, probs = resolve(raw, norm, None, question_key="years_sup")
+    assert j.level == 100 and j.source == "form_field" and j.evidence == "7" and probs == []
+    raw2 = CriterionJudgement(key="supervision", form_level=100, form_field=None, form_value="9")
+    j2, probs2 = resolve(raw2, norm, None, question_key="years_sup")
+    assert j2.missing_evidence and probs2 == ["evidence_mismatch"]

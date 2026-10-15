@@ -58,14 +58,17 @@ class OpenAICompatLLM:
             log.warning("LLM provider %s not ready: %s", self.name, e)
             return False
 
+    MAX_TOKENS = {"candidate_profile": 1500, "judgement": 1500, "draft": 3000}
+
     def _complete(self, system: str, user: str, schema: type[BaseModel], name: str) -> str:
         kwargs: dict[str, Any] = {
             "model": self.model,
             "temperature": 0,
+            "max_tokens": self.MAX_TOKENS.get(name, 1500),  # bounds runaway generations
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
             "response_format": {
                 "type": "json_schema",
-                "json_schema": {"name": name, "schema": schema.model_json_schema()},
+                "json_schema": {"name": name, "schema": strict_schema(schema)},
             },
         }
         if self.disable_thinking:
@@ -94,7 +97,7 @@ class OpenAICompatLLM:
             )
             repair_user = (
                 "The JSON below does not match the schema. Return the corrected JSON only.\n\n"
-                f"Schema:\n{json.dumps(schema.model_json_schema(), ensure_ascii=False)}\n\n"
+                f"Schema:\n{json.dumps(strict_schema(schema), ensure_ascii=False)}\n\n"
                 f"Validation error:\n{str(first)[:800]}\n\nJSON:\n{raw[:6000]}"
             )
             raw2 = self._complete(system, repair_user, schema, name)
@@ -165,6 +168,26 @@ class OpenAICompatLLM:
             questions=[q.model_dump() for q in out.questions],
             rules=[],
         )
+
+
+def strict_schema(model: type[BaseModel]) -> dict[str, Any]:
+    """Pydantic schema with every property required and no extra keys, so guided decoding cannot
+    drop the lists (an 8B model otherwise answers with the summary only)."""
+    schema = model.model_json_schema()
+
+    def walk(node: Any) -> None:
+        if isinstance(node, dict):
+            if node.get("type") == "object" and "properties" in node:
+                node["required"] = list(node["properties"].keys())
+                node["additionalProperties"] = False
+            for v in node.values():
+                walk(v)
+        elif isinstance(node, list):
+            for v in node:
+                walk(v)
+
+    walk(schema)
+    return schema
 
 
 def _strip_fences(raw: str) -> str:

@@ -65,11 +65,18 @@ def main() -> int:
             print(
                 f"  cv {cand['ref']}: {d['status']} {d.get('extraction_method') or d.get('error')}{conf} chars={d['chars']} redacted={red}"
             )
-        r = c.post("/v1/screenings", json={"job_ref": cand["job"], "candidate_ref": cand["ref"]})
+        r = c.post(
+            "/v1/screenings",
+            json={
+                "job_ref": cand["job"],
+                "candidate_ref": cand["ref"],
+                "force": os.environ.get("SEED_FORCE") == "1",
+            },
+        )
         r.raise_for_status()
         ids.append(r.json()["screening_id"])
     print(f"{len(ids)} screenings submitted ({attached} with a CV); waiting for the worker ...")
-    deadline = time.time() + 120
+    deadline = time.time() + int(os.environ.get("SEED_WAIT_S", "900"))
     pending = set(ids)
     while pending and time.time() < deadline:
         for sid in list(pending):

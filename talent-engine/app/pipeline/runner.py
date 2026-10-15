@@ -192,7 +192,9 @@ def run_screening(
                     )
                 )
                 continue
-            j, probs = resolve(raw, answers, redacted_text, settings.quote_match_threshold)
+            j, probs = resolve(
+                raw, answers, redacted_text, settings.quote_match_threshold, c.get("question")
+            )
             problems.extend(probs)
             rows.append(
                 JudgedCriterion(

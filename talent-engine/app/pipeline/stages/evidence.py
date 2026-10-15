@@ -12,22 +12,36 @@ from app.pipeline.stages.answers import NormalisedAnswer
 from app.pipeline.stages.profile import quote_in_text
 
 
+def _same_value(model_value: str | None, canonical: str) -> bool:
+    """The model must be judging the stored answer: equal after normalisation, numerically equal,
+    or one contains the other (e.g. '7 سنوات' vs '7')."""
+    a, b = normalize(model_value), normalize(canonical)
+    if not a or not b:
+        return False
+    if a == b or a in b or b in a:
+        return True
+    try:
+        return float(a.replace("،", ".")) == float(b)
+    except ValueError:
+        return False
+
+
 def resolve(
     raw: CriterionJudgement,
     answers: dict[str, NormalisedAnswer],
     redacted_text: str | None,
     threshold: float = 0.9,
+    question_key: str | None = None,
 ) -> tuple[Judgement, list[str]]:
-    """Return the verified judgement and the problems found (evidence_mismatch, quote_not_found)."""
+    """Return the verified judgement and the problems found (evidence_mismatch, quote_not_found).
+    `question_key` is the question that feeds the criterion according to the job (code authority)."""
     problems: list[str] = []
     form_level: int | None = None
+    if question_key:
+        raw.form_field = question_key
     if raw.form_level is not None:
         ans = answers.get(raw.form_field or "")
-        if (
-            ans is not None
-            and ans.answered
-            and normalize(raw.form_value) == normalize(ans.canonical)
-        ):
+        if ans is not None and ans.answered and _same_value(raw.form_value, ans.canonical):
             form_level = int(raw.form_level)
         else:
             problems.append("evidence_mismatch")
