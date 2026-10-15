@@ -352,3 +352,30 @@ def test_engine_failure_becomes_failed_after_retries_then_retry_works(monkeypatc
     assert r.status_code == 202
     s = client.get(f"/v1/screenings/{sid}").json()
     assert s["status"] in ("completed", "needs_review") and s["error"] is None
+
+
+def test_unknown_rule_operator_rejected_by_api(client, sec_job):
+    bad = copy.deepcopy(sec_job)
+    bad["rules"][1]["operator"] = "~="
+    r = client.put(f"/v1/jobs/{SEC}", json=bad)
+    assert r.status_code == 422
+
+
+def test_api_key_rotation_on_restart():
+    from sqlalchemy import select
+
+    from app.core.security import hash_api_key
+    from app.main import ensure_default_tenant
+    from app.storage.db import make_engine, make_sessionmaker
+    from app.storage.models import Base, Tenant
+    from tests.conftest import make_settings
+
+    engine = make_engine("sqlite+pysqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    sm = make_sessionmaker(engine)
+    ensure_default_tenant(sm, make_settings(tenant_api_key="old-key"))
+    ensure_default_tenant(sm, make_settings(tenant_api_key="new-key"))
+    with sm() as db:
+        tenants = db.scalars(select(Tenant)).all()
+        assert len(tenants) == 1
+        assert tenants[0].api_key_hash == hash_api_key("new-key")

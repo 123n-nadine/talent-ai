@@ -6,8 +6,8 @@ x-engine: &engine
   image: talentai/engine:dev
   env_file: .env
   environment:
-    DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-talentai}:${POSTGRES_PASSWORD:-talentai}@db:5432/${POSTGRES_DB:-talentai}
-    REDIS_URL: redis://redis:6379/0
+    DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-talentai}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env (make env)}@db:5432/${POSTGRES_DB:-talentai}
+    REDIS_URL: redis://:${REDIS_PASSWORD:?set REDIS_PASSWORD in .env (make env)}@redis:6379/0
     FILE_STORE: /data/files
   extra_hosts:
     - "host.docker.internal:host-gateway"
@@ -19,27 +19,30 @@ services:
     image: pgvector/pgvector:pg16
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-talentai}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-talentai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env (make env)}
       POSTGRES_DB: ${POSTGRES_DB:-talentai}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:${DB_HOST_PORT:-18030}:5432"
+      - "127.0.0.1:${DB_HOST_PORT:-18030}:5432"   # loopback only: never reachable from outside the server
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-talentai} -d ${POSTGRES_DB:-talentai}"]
       interval: 5s
       timeout: 3s
-      retries: 20
+      retries: 40
+      start_period: 60s   # first init on a fresh volume can take ~1 minute on this disk
 
   redis:
     image: redis:7-alpine
-    command: ["redis-server", "--save", "60", "1", "--appendonly", "no"]
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD in .env (make env)}
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:?set REDIS_PASSWORD in .env (make env)}", "--save", "60", "1", "--appendonly", "no"]
     volumes:
       - redisdata:/data
     ports:
-      - "127.0.0.1:${REDIS_HOST_PORT:-18031}:6379"
+      - "127.0.0.1:${REDIS_HOST_PORT:-18031}:6379"   # loopback only + password
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" --no-auth-warning ping | grep -q PONG"]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -48,7 +51,9 @@ services:
     <<: *engine
     command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     ports:
-      - "${API_PORT:-18000}:8000"
+      # API reachable only on loopback and on the Tailscale address (never on 0.0.0.0 / LAN)
+      - "127.0.0.1:${API_PORT:-18000}:8000"
+      - "${API_BIND_TAILSCALE:?set API_BIND_TAILSCALE in .env (the server's Tailscale IPv4)}:${API_PORT:-18000}:8000"
     depends_on:
       db:
         condition: service_healthy

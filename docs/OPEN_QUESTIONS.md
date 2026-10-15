@@ -13,6 +13,7 @@ Questions we still need answered to finish or deploy. The discovery's own lists 
 | 7 | Consent text (Arabic) for the application form, and the retention period for applicants' data | Client (PDPL) | Phase 6 | open |
 | 8 | Dedicated API user / key on the client site for the engine callback, with minimum permissions | Frappe team | deploy | open |
 | 9 | Production time zone (demo runs Africa/Cairo; our dev site uses Asia/Riyadh) | Frappe team | deploy | open |
+| 10 | RQ worker overhead: the pipeline takes ~0.5 s per application with the fake provider, but each RQ job adds ~1.5 s (fork + new DB engine per job). Options: keep a warm engine/session factory in the worker process, batch several screenings per job, or more workers. Decide with the real numbers of the phase 4 report (time per 1000) | us | phase 4 | deferred (Nadine, 2026-10-15) |
 
 ## Answered
 

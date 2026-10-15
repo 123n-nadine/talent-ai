@@ -117,7 +117,16 @@ def _num(value: Any) -> float:
     return float(normalize(str(value)))
 
 
+OPERATORS: tuple[str, ...] = ("in", "not_in", ">=", "<=", ">", "<", "==", "!=", "between")
+
+
+class UnknownOperator(ValueError):
+    pass
+
+
 def check_value(value: Any, operator: str, expected: Any) -> bool:
+    if operator not in OPERATORS:
+        raise UnknownOperator(f"unknown rule operator '{operator}'")
     if operator in ("in", "not_in"):
         options = expected if isinstance(expected, list) else [expected]
         hit = any(normalize(str(value)) == normalize(str(o)) for o in options)
@@ -133,6 +142,8 @@ def check_value(value: Any, operator: str, expected: Any) -> bool:
         except ValueError:
             return normalize(str(value)) != normalize(str(expected))
     if operator == "between":
+        if not isinstance(expected, list | tuple) or len(expected) != 2:
+            raise ValueError("'between' needs a [low, high] pair")
         lo, hi = expected
         return _num(lo) <= _num(value) <= _num(hi)
     v, e = _num(value), _num(expected)
@@ -146,6 +157,8 @@ def evaluate(facts: dict[str, Any] | None, rules: list[dict[str, Any]]) -> Eligi
     missing = False
     for r in rules:
         fact, op, expected = r["fact"], r["operator"], r.get("value")
+        if op not in OPERATORS:
+            raise UnknownOperator(f"unknown rule operator '{op}' on fact '{fact}'")
         la, le = _label(fact)
         ra, re_ = requirement_text(fact, op, expected)
         value = facts.get(fact)

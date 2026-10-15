@@ -1,6 +1,6 @@
 """Tiny local receiver that verifies the HMAC callback and prints the result (port 18060).
 
-Usage: uv run python scripts/callback_receiver.py
+Usage: make receiver  (uv run python -m scripts.callback_receiver)
 Set CALLBACK_URL=http://host.docker.internal:18060/callback in .env so the worker container reaches it.
 """
 
@@ -11,12 +11,14 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import uvicorn
-from fastapi import FastAPI, Header, Request
-from fastapi.responses import JSONResponse
+import uvicorn  # noqa: E402
+from dotenv import load_dotenv  # noqa: E402
+from fastapi import FastAPI, Header, Request  # noqa: E402
+from fastapi.responses import JSONResponse  # noqa: E402
 
 from app.core.security import verify_callback  # noqa: E402
 
+load_dotenv()
 SECRET = os.environ.get("CALLBACK_SECRET", "dev-callback-secret-change-me")
 app = FastAPI(title="callback receiver (test)")
 RECEIVED: list[dict] = []

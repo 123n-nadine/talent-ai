@@ -3,7 +3,10 @@
 # build with the daemon's default builder instead.
 export BUILDX_BUILDER = default
 COMPOSE = docker compose -p talentai
-.PHONY: install test lint typecheck up down logs ps migrate revision seed receiver
+.PHONY: env install test lint typecheck up down logs ps migrate revision seed receiver
+
+env:
+> uv run python -m scripts.init_env
 
 install:
 > uv sync

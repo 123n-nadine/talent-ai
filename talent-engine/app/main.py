@@ -14,15 +14,30 @@ from app.core.config import Settings, get_settings
 from app.core.ids import new_id
 from app.core.logging import setup_logging
 from app.core.security import hash_api_key
+from app.services import audit as audit_svc
 from app.storage.db import make_engine, make_sessionmaker
 from app.storage.models import Base, Tenant
 
 
 def ensure_default_tenant(sessionmaker, settings: Settings) -> None:
+    """Create the default tenant, or rotate its API key when TENANT_API_KEY changed."""
+    new_hash = hash_api_key(settings.tenant_api_key)
     with sessionmaker() as db:
-        tenant = db.scalar(
-            select(Tenant).where(Tenant.api_key_hash == hash_api_key(settings.tenant_api_key))
-        )
+        tenant = db.scalar(select(Tenant).where(Tenant.api_key_hash == new_hash))
+        if tenant is None:
+            by_name = db.scalar(select(Tenant).where(Tenant.name == settings.tenant_name))
+            if by_name is not None:
+                by_name.api_key_hash = new_hash
+                audit_svc.log(
+                    db,
+                    by_name.id,
+                    "tenant",
+                    "tenant.key_rotated",
+                    "system",
+                    {"tenant": by_name.name},
+                )
+                db.commit()
+                return
         if tenant is None:
             tenant = Tenant(
                 id=new_id("ten"),

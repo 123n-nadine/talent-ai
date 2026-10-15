@@ -11,7 +11,7 @@ Phase 1 (engine core, fake LLM, form answers only) is implemented: API, worker, 
 ## Run (Docker Compose project `talentai`, host ports 18000–18099)
 
 ```bash
-cp .env.example .env          # once; never commit .env
+make env                      # once: writes .env with random secrets (chmod 600); never commit .env
 make up                       # builds the image, starts db (18030), redis (18031), api (18000), worker
 make seed                     # demo profile "مشرف أمن" + 26 synthetic applicants, prints the ranking
 open http://127.0.0.1:18000/docs
@@ -21,10 +21,17 @@ Optional: receive the HMAC-signed callbacks locally
 
 ```bash
 make receiver                 # listens on 18060
-curl -X PUT http://127.0.0.1:18000/v1/settings -H 'Authorization: Bearer dev-talentai-key-change-me' \
+curl -X PUT http://127.0.0.1:18000/v1/settings -H "Authorization: Bearer $(grep ^TENANT_API_KEY .env | cut -d= -f2)" \
   -H 'Content-Type: application/json' \
-  -d '{"callback_url":"http://host.docker.internal:18060/callback","callback_secret":"dev-callback-secret-change-me"}'
+  -d "{\"callback_url\":\"http://host.docker.internal:18060/callback\",\"callback_secret\":\"$(grep ^CALLBACK_SECRET .env | cut -d= -f2)\"}"
 ```
+
+## Network and secrets
+
+- Postgres and Redis are published on **127.0.0.1 only** (18030, 18031); Redis also requires a password. Nothing outside the server can reach them.
+- The API is published on **127.0.0.1:18000 and on the Tailscale address only** (`API_BIND_TAILSCALE` in `.env`), never on `0.0.0.0` or the LAN.
+- `make env` generates `TENANT_API_KEY`, `POSTGRES_PASSWORD`, `REDIS_PASSWORD` and `CALLBACK_SECRET`. To rotate the API key: change `TENANT_API_KEY` in `.env` and restart the api; the old key stops working immediately (audit event `tenant.key_rotated`).
+- Postgres password changes need a fresh volume (`docker compose -p talentai down -v` removes only our volumes) or an `ALTER USER` inside the container.
 
 ## Develop
 
