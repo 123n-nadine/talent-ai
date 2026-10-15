@@ -1,0 +1,97 @@
+{
+  "status": 200,
+  "api_methods": [
+    "ido_design.ido_desk.api.counts",
+    "ido_design.ido_desk.api.home_summary",
+    "ido_design.ido_desk.api.set_language",
+    "ido_design.ido_desk.hr.decide_request",
+    "ido_design.ido_desk.hr.expenses_summary",
+    "ido_design.ido_desk.hr.hiring_pipeline",
+    "ido_design.ido_desk.hr.hr_setup_summary",
+    "ido_design.ido_desk.hr.payroll_summary",
+    "ido_design.ido_desk.hr.requests_inbox",
+    "ido_design.ido_desk.hr.roster",
+    "ido_design.ido_desk.hr.self_service",
+    "ido_design.ido_desk.hr_gaps.api.evaluate",
+    "ido_design.ido_desk.hr_gaps.api.holidays",
+    "ido_design.ido_desk.hr_gaps.api.list_extras",
+    "ido_design.ido_desk.hr_gaps.api.panels",
+    "ido_design.ido_desk.leave_cal.leave_calendar",
+    "ido_design.ido_desk.records_hr.",
+    "ido_design.ido_desk.ws_hr.attendance_summary",
+    "ido_design.ido_desk.ws_hr.benefits_summary",
+    "ido_design.ido_desk.ws_hr.lifecycle_summary",
+    "ido_design.ido_desk.ws_hr.performance_summary",
+    "ido_design.ido_desk.ws_hr.recruitment_summary"
+  ],
+  "other_methods": [],
+  "hits": {
+    "requisition": {
+      "count": 1,
+      "snips": [
+        "promotion\":\"userplus\",\"employee feedback criteria\":\"list\",\"employee skill map\":\"grid\",\"job offer\":\"file\",\"job requisition\":\"inbox\",\"staffing plan\":\"layers\",\"employee referral\":\"userplus\",\"appointment letter\":\"mail\",\"interview type\":\"tag\",\"job opening template\""
+      ]
+    },
+    "hr_gaps": {
+      "count": 4,
+      "snips": [
+        "any||\"\",a=(this._hol=this._hol||{})[s];return a===void 0?(this._hol[s]=null,frappe.xcall(\"ido_design.ido_desk.hr_gaps.api.holidays\",{employee:e.doc.employee,company:e.doc.company}).then(n=>{this._hol[s]=n||{},this.checks(e,Qe(e.doctype))}),\"\"):!a||!a.days||a.d",
+        "let t=Qe(e.doctype);if(!t||!e.doc)return;let s=e.__idk_tok={},a;try{a=await frappe.xcall(\"ido_design.ido_desk.hr_gaps.api.evaluate\",{doctype:e.doctype,doc:e.doc})}catch(o){return}if(!(s!==e.__idk_tok||!a)){for(let[o,r]of Object.entries(a.values||{})){if(!e.fie",
+        ".data||[]).map(n=>n.name);if(!t.length)return;let s=e.__idk_rows={},a=await frappe.xcall(\"ido_design.ido_desk.hr_gaps.api.list_extras\",{doctype:e.doctype,names:t});s===e.__idk_rows&&e.$result.find(\".list-row-container\").each((n,i)=>{let o=$(i).find(\".list-row-",
+        "s(e.doctype)||e.is_new())return;let a=this.host(e),n=e.__idk_pan={},i=await frappe.xcall(\"ido_design.ido_desk.hr_gaps.api.panels\",{doctype:e.doctype,name:e.doc.name});if(n!==e.__idk_pan)return;a.children(\".idk-gpanels\").remove();let o=e.doctype===\"Job Opening\""
+      ]
+    },
+    "opening_panels": {
+      "count": 2,
+      "snips": [
+        "doc.name});if(n!==e.__idk_pan)return;a.children(\".idk-gpanels\").remove();let o=e.doctype===\"Job Opening\"?this.opening_panels(e,i):e.doctype===\"Staffing Plan\"?this.plan_panels(e,i):this.exit_panels(e,i);$(T(`<div class=\"gpanels scope\">${o}</div>`)).prependTo(a)",
+        "ventDefault(),e.scroll_to_field(p.currentTarget.dataset.goto)})},money(e,t){return format_currency(e||0,t,0)},opening_panels(e,t){let s=t.ready.filter(h=>!h.ok),a=h=>`<li class=\"${h.ok?\"y\":h.hard?\"n hard\":\"n\"}\"><span class=\"dot\">${h.ok?y(\"check\",\"i sm\"):\"!\"}</"
+      ]
+    },
+    "plan_panels": {
+      "count": 2,
+      "snips": [
+        "-gpanels\").remove();let o=e.doctype===\"Job Opening\"?this.opening_panels(e,i):e.doctype===\"Staffing Plan\"?this.plan_panels(e,i):this.exit_panels(e,i);$(T(`<div class=\"gpanels scope\">${o}</div>`)).prependTo(a).on(\"click\",\"[data-goto]\",p=>{p.preventDefault(),e.sc",
+        "num\">${l(h.openings===1?__(\"1 opening\"):__(\"{0} openings\",[h.openings]))}</span></a></section>`}return n+p+f},plan_panels(e,t){let s=t.currency,a=(r,c,p)=>`<div class=\"fig${p?\" \"+p:\"\"}\"><span>${l(r)}</span><b class=\"num\">${c}</b></div>`,n=r=>{var c;return r.pu"
+      ]
+    },
+    "applicant": {
+      "count": 28,
+      "snips": [
+        "ceipt\":/payment|salary|payroll|expense/.test(e)?\"wallet\":/customer|supplier|employee|user|contact|shareholder|applicant/.test(e)?\"users\":/item|stock|warehouse|batch|serial|bin/.test(e)?\"box\":/report|ledger|balance|analytics|trend/.test(e)?\"chart\":/dashboard/.t",
+        "plications & allocation\",Payroll:\"Salary slips & structures\",Performance:\"Appraisals\",Recruitment:\"Openings & applicants\",\"Shift & Attendance\":\"Shifts & check-ins\",\"Tax & Benefits\":\"Exemptions & benefits\",Tenure:\"Onboarding & separation\",Automation:\"Assignment",
+        "vel request\":\"plane\",\"expense claim type\":\"receipt\",driver:\"user\",vehicle:\"truck\",\"job opening\":\"target\",\"job applicant\":\"userplus\",interview:\"message\",\"salary component\":\"coins\",\"salary structure\":\"wallet\",\"payroll entry\":\"zap\",\"salary slip\":\"receipt\",\"salary",
+        "ate\":\"book\",\"appointment letter template\":\"printer\",\"job offer term template\":\"book\",\"offer term\":\"list\",\"job applicant source\":\"globe\",\"interview feedback\":\"star\"},Zn=e=>Yn[String(e||\"\").toLowerCase()]||de(e),Qn=e=>{var t,s;return((s=(t=frappe.boot.workspace_"
+      ]
+    },
+    "attach": {
+      "count": 9,
+      "snips": [
+        "none\"><div class=\"bar\"><i style=\"width:0\"></i></div> <b>${l(__(\"no tasks\"))}</b><small>${l(__(\"nothing is attached to this record\"))}</small></div>`,o=s||!a.length?\"\":`<div class=\"dnote\"><span class=\"pill neutral plain demo\" title=\"${l(__(\"Not this record ",
+        " plain demo\" title=\"${l(__(\"Not this record \\u2014 an illustration of what the field shows once a template is attached.\"))}\">${l(__(\"Proposal\"))}</span><span>${l(__(\"Attach a template and the field reads like this. These {0} steps are an illustration, not this",
+        "\"),e.is_new())return this.blocked(e);let t=Ai[e.doctype];t&&this.panel(e,t),e.doctype===\"Job Applicant\"&&this.attach_read(e)},host(e,t){let s=e.layout.wrapper[0],a=s.querySelector(\":scope > .form-page\")||s,n=a.querySelector(\":scope > .form-tab-content\");if(!n)",
+        " <div class=\"mrows\">${r}</div> ${c.length?`<p class=\"cyclegap\">${l(c.join(\" \\xB7 \"))}</p>`:\"\"}</section>`},attach_read(e){var t;(((t=e.layout)==null?void 0:t.fields_list)||[]).forEach(s=>{var u,m,f;let a=(u=s.$wrapper)==null?void 0:u[0];if(((m=s.df)==null?v"
+      ]
+    },
+    "score": {
+      "count": 12,
+      "snips": [
+        "}function x(q){let w=ys(q),D=new Set,z=[],B=S=>gt(S).startsWith(w[0]),F=(S,A,R)=>{D.has(R)||(D.add(R),z.push({score:S,html:A}))};return r.forEach(S=>{_t(S.label,w)&&F(B(S.label)?5:3,`<div class=\"ws2-lk\"><a href=\"#\" data-cat=\"${l(S.id)}\"><span class=\"tile\">${y(",
+        "}</small></span></a><span class=\"type\">${l(d(\"screen\"))}</span></div>`,`s:${S.key}|${A}`)})}),z.sort((S,A)=>A.score-S.score).slice(0,50)}function M(q){let w=a.value.trim();n.hidden=!w,E();let D=o.scrollTop,z=\"\",B=(S,A)=>`<div class=\"ws2-quick\">${S.map(R=>k(R,A",
+        "></span></a><span class=\"type\">${l(d(\"screen\"))}</span></div>`,`s:${S.key}|${A}`)})}),z.sort((S,A)=>A.score-S.score).slice(0,50)}function M(q){let w=a.value.trim();n.hidden=!w,E();let D=o.scrollTop,z=\"\",B=(S,A)=>`<div class=\"ws2-quick\">${S.map(R=>k(R,A?R.app:\"",
+        "revenue|income|expense|charges|tax(es)?)(_|$)/,nn=/qty|quantity|count|percent|rate|hours|days|weight|duration|score|rating|age/;function on(e){var a;let t=e.aggregate_function_based_on;if(e.function===\"Count\"||!t)return null;let s=((a=frappe.get_meta)==null?vo"
+      ]
+    },
+    "screen": {
+      "count": 7,
+      "snips": [
+        "v><label class=\"ws2-q\">${y(\"search\",\"i sm\")}<input type=\"search\" placeholder=\"${l(d(\"Search apps, modules and screens\\u2026\"))}\" autocomplete=\"off\"><button type=\"button\" class=\"clr\" hidden aria-label=\"${d(\"Clear\")}\">${y(\"x\",\"i sm\")}</button></label><div class=",
+        "\">${Ht(R,w)}<small>${l(S.app?`${S.app} \\xB7 ${S.label}`:S.label)}</small></span></a><span class=\"type\">${l(d(\"screen\"))}</span></div>`,`s:${S.key}|${A}`)})}),z.sort((S,A)=>A.score-S.score).slice(0,50)}function M(q){let w=a.value.trim();n.hidden=!w,E();let D=o.",
+        "th))}</h4></div><div class=\"ws2-res\">${S.map(A=>A.html).join(\"\")}</div></section>`:F(d(\"No results\"),d(\"Try a screen name, such as \\u201CSalary Slip\\u201D.\"))}else if(f===\"all\"){let S=u.map(R=>p[R]).filter(Boolean),A=m.filter(R=>!u.includes(R)).slice(0,4).map(",
+        ">${l(d(\"An exit is five documents across two workspaces, and nothing links them but the employee \\u2014 so no screen here can tell you a settlement is missing.\"))}</p></section>`}let o=e.probation;if(o&&o.people){let c=(u,m,f,h)=>`<a class=\"pseg ${f}\" href=\"${"
+      ]
+    }
+  },
+  "opening_panels_src": "opening_panels(e,i):e.doctype===\"Staffing Plan\"?this.plan_panels(e,i):this.exit_panels(e,i);$(T(`<div class=\"gpanels scope\">${o}</div>`)).prependTo(a).on(\"click\",\"[data-goto]\",p=>{p.preventDefault(),e.scroll_to_field(p.currentTarget.dataset.goto)})},money(e,t){return format_currency(e||0,t,0)},opening_panels(e,t){let s=t.ready.filter(h=>!h.ok),a=h=>`<li class=\"${h.ok?\"y\":h.hard?\"n hard\":\"n\"}\"><span class=\"dot\">${h.ok?y(\"check\",\"i sm\"):\"!\"}</span>\n\t\t\t<span><b>${l(h.t)}</b>${h.ok?\"\":` \\u2014 ${l(h.bad)}`}${h.ok||!h.fix?\"\":` <a href=\"#\" data-goto=\"${l(h.fix)}\">${l(__(\"Go to the field\"))}</a>`}</span></li>`,n=`<section class=\"card fsec ready${s.length?\" has\":\"\"}\"><h2>${l(__(\"Readiness\"))}<small>${l(s.length?__(\"{0} of {1} steps are not done\",[s.length,t.ready.length]):__(\"Ready \\u2014 nothing is missing\"))}</small></h2><ul class=\"readylist\">${t.ready.map(a).join(\"\")}</ul></section>`,i=h=>t.applicants.filter(g=>g.status===h).length,o=t.outcomes.filter(h=>i(h)),r=h=>{let g=t.applicants.filter(_=>_.status===h);return`<div class=\"pcol\"><h4>${l(__(h))}<b class=\"num\">${g.length}</b></h4>${g.length?g.map(_=>{let b=[_.source?__(\"Source: {0}\",[__(_.source)]):\"\",_.interviews?_.interviews===1?__(\"1 interview\"):__(\"{0} interviews\",[_.interviews]):\"\",_.offer?__(\"Offer {0}\",[__(_.offer)]):\"\"].filter(Boolean).join(\" \\xB7 \");return`<a class=\"pcand\" href=\"${frappe.utils.get_form_link(\"Job Applicant\",_.name)}\"><b>${l(_.applicant_name||_.name)}</b>${b?`<small>${l(b)}</small>`:\"\"}</a>`}).join(\"\"):'<span class=\"pnone\">\\u2014</span>'}</div>`},c=t.applicants.length,p=`<section class=\"card fsec pipe\"><h2>${l(__(\"Candidates\"))}<small>${l(c?c===1?__(\"1 candidate\"):__(\"{0} candidates\",[c]):__(\"nobody has applied yet\"))}</small></h2><div class=\"pboard\">${[...t.stages,...o].map(r).join(\"\")}</div>\n\t\t<a ",
+  "applicant_panel_src": "\")))} ${i.map(r=>`<a href=\"${Ci(r.dt)}\">${l(__(r.dt))}</a>`).join(\" \\xB7 \")}</span></div>`:\"\";return`<section class=\"card fsec\"><h2>${l(d(\"How the final score was reached\"))}</h2>\n\t\t\t<div class=\"scgrid\">${s.map(n).join(\"\")}\n\t\t\t\t<div class=\"sceq\">${y(\"chev-l\",\"i sm\")}</div>\n\t\t\t\t<div class=\"sc fin\"><span class=\"scl\">${l(d(\"Final score\"))}</span>\n\t\t\t\t\t<b class=\"num\">${a(t.final)}<small>${l(d(\"/ 5\"))}</small></b>\n\t\t\t\t\t<small class=\"scs\">${l(d(\"the mean of the three\"))}</small></div></div>${o}</section>`},applicant_html(e,t){let s=t.interviews||[],a=t.offer,n=t.opening;if(!s.length&&!a&&!n)return\"\";let i=(p,u,m,f,h)=>`<a class=\"wrow\" href=\"${f}\">\n\t\t\t<span class=\"tile\">${y(p,\"i sm\")}</span>\n\t\t\t<b class=\"wtitle\">${l(u)}</b><small class=\"wdet\">${l(m)}</small>\n\t\t\t<span class=\"wend\">${h||\"\"}</span></a>`,o=n?__(n.job_title||n.name):\"\",r=[n?i(\"target\",o,[__(n.department||\"\"),__(n.designation||\"\")===o?\"\":__(n.designation||\"\")].filter(Boolean).join(\" \\xB7 \"),Ot(\"Job Opening\",n.name),cs(\"Job Opening\",n.status)):\"\",...s.map(p=>i(\"message\",d(\"Interview\"),[Be(p.scheduled_on),p.from_time,__(p.interview_type||\"\")||d(\"Type not set\")].filter(Boolean).join(\" \\xB7 \"),Ot(\"Interview\",p.name),cs(\"Interview\",p.status))),a?i(\"file\",d(\"Job Offer\"),Be(a.offer_date),Ot(\"Job Offer\",a.name),cs(\"Job Offer\",a.status)):\"\"].join(\"\"),c=[s.length?\"\":d(\"No interview booked yet\"),s.length&&!a?d(\"Interviewed, with no offer on file\"):\"\"].filter(Boolean);return`<section class=\"card pad\"><div class=\"sec-head\"><h2>${l(d(\"Where this applicant stands\"))}</h2><span class=\"hint\">${l(xa(\"Job Applicant\",t.status))}</span></div>\n\t\t\t<div class=\"mrows\">${r}</div>\n\t\t\t${c.length?`<p class=\"cyclegap\">${l(c.join(\" \\xB7 \"))}</p>`:\"\"}</section>`},attach_read(e){var t;(((t=e.layout)==null?void 0:t.fields_list)||[]).forEach(s=>{var u,m,f;let a=(u=s.$wrapper)==null?void 0:u[0];if(((m=s.df)==null?void 0:m.fieldtype)!==\"Attach\"||!a)return;(f=a.querySelector(\":scope .idk-attro\"))==null||f.remove();let n=!e.is_new()&&s.disp_status===\"Write\"&&s.__idk_edit!==e.docname;if(a.classList.toggle(\"idk-attach-ro\",n),!n)return;let i=e.doc[s.d"
+}

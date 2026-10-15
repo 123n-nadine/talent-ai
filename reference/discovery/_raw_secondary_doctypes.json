@@ -1,0 +1,1722 @@
+{
+  "log": [
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Job Opening Template",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Job Applicant Source",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Interview Type",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Interview Round",
+      404
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Interview Feedback",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Appointment Letter",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Appointment Letter Template",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Employee Referral",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Designation",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Skill",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Department",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Employment Type",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Branch",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Offer Term",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Job Offer Term Template",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=HR Settings",
+      200
+    ]
+  ],
+  "doctypes": {
+    "Job Opening Template": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:template_title",
+      "naming_rule": "By fieldname",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "template_title",
+          "label": "Template Title",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "unique": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "department",
+          "label": "Department",
+          "fieldtype": "Link",
+          "options": "Department",
+          "in_list_view": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "idx": 3
+        },
+        {
+          "fieldname": "column_break_wkcr",
+          "fieldtype": "Column Break",
+          "idx": 4
+        },
+        {
+          "fieldname": "employment_type",
+          "label": "Employment Type",
+          "fieldtype": "Link",
+          "options": "Employment Type",
+          "idx": 5
+        },
+        {
+          "fieldname": "location",
+          "label": "Location",
+          "fieldtype": "Link",
+          "options": "Branch",
+          "idx": 6
+        },
+        {
+          "fieldname": "pay_details_section",
+          "label": "Pay Details",
+          "fieldtype": "Section Break",
+          "idx": 7
+        },
+        {
+          "fieldname": "currency",
+          "label": "Currency",
+          "fieldtype": "Link",
+          "options": "Currency",
+          "idx": 8
+        },
+        {
+          "fieldname": "upper_range",
+          "label": "Upper Range",
+          "fieldtype": "Currency",
+          "idx": 9
+        },
+        {
+          "fieldname": "lower_range",
+          "label": "Lower Range",
+          "fieldtype": "Currency",
+          "idx": 10
+        },
+        {
+          "fieldname": "column_break_vqyu",
+          "fieldtype": "Column Break",
+          "idx": 11
+        },
+        {
+          "fieldname": "salary_per",
+          "label": "Salary Paid Per",
+          "fieldtype": "Select",
+          "options": "Month\nYear",
+          "default": "Month",
+          "idx": 12
+        },
+        {
+          "fieldname": "publish_salary_range",
+          "label": "Publish Salary Range",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 13
+        },
+        {
+          "fieldname": "section_break_dwfh",
+          "fieldtype": "Section Break",
+          "idx": 14
+        },
+        {
+          "fieldname": "description",
+          "label": "Description",
+          "fieldtype": "Text Editor",
+          "idx": 15
+        }
+      ],
+      "__custom_js_len": 47,
+      "__custom_js": "\n\n//# sourceURL=job_opening_template__custom_js",
+      "__workflow_docs": []
+    },
+    "Job Applicant Source": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:source_name",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "source_name",
+          "label": "Source Name",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "unique": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "details",
+          "label": "Details",
+          "fieldtype": "Text Editor",
+          "idx": 2
+        }
+      ],
+      "__custom_js_len": 47,
+      "__custom_js": "\n\n//# sourceURL=job_applicant_source__custom_js",
+      "__workflow_docs": []
+    },
+    "Interview Type": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:interview_type_name",
+      "naming_rule": "By fieldname",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "interview_type_name",
+          "label": "Interview Type Name",
+          "fieldtype": "Data",
+          "unique": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "interviewers",
+          "label": "Interviewers",
+          "fieldtype": "Table MultiSelect",
+          "options": "Interviewer",
+          "idx": 2
+        },
+        {
+          "fieldname": "column_break_3",
+          "fieldtype": "Column Break",
+          "idx": 3
+        },
+        {
+          "fieldname": "expected_average_rating",
+          "label": "Expected Average Rating",
+          "fieldtype": "Rating",
+          "idx": 4
+        },
+        {
+          "fieldname": "expected_skills_section",
+          "fieldtype": "Section Break",
+          "idx": 5
+        },
+        {
+          "fieldname": "designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "idx": 6
+        },
+        {
+          "fieldname": "expected_skill_set",
+          "label": "Expected Skillset",
+          "fieldtype": "Table",
+          "options": "Expected Skill Set",
+          "reqd": 1,
+          "idx": 7
+        },
+        {
+          "fieldname": "section_break_xlzv",
+          "fieldtype": "Section Break",
+          "idx": 8
+        },
+        {
+          "fieldname": "description",
+          "label": "Description",
+          "fieldtype": "Text",
+          "idx": 9
+        }
+      ],
+      "__custom_js_len": 41,
+      "__custom_js": "\n\n//# sourceURL=interview_type__custom_js",
+      "__workflow_docs": []
+    },
+    "Interviewer": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "user",
+          "label": "User",
+          "fieldtype": "Link",
+          "options": "User",
+          "in_list_view": 1,
+          "idx": 1
+        }
+      ],
+      "__custom_js_len": 0,
+      "__custom_js": "",
+      "__workflow_docs": []
+    },
+    "Expected Skill Set": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "skill",
+          "label": "Skill",
+          "fieldtype": "Link",
+          "options": "Skill",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "description",
+          "label": "Description",
+          "fieldtype": "Small Text",
+          "in_list_view": 1,
+          "fetch_from": "skill.description",
+          "idx": 2
+        }
+      ],
+      "__custom_js_len": 0,
+      "__custom_js": "",
+      "__workflow_docs": []
+    },
+    "Interview Feedback": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 1,
+      "autoname": "HR-INT-FEED-.####",
+      "naming_rule": "Expression",
+      "title_field": "interviewer",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "details_section",
+          "label": "Details",
+          "fieldtype": "Section Break",
+          "idx": 1
+        },
+        {
+          "fieldname": "interview",
+          "label": "Interview",
+          "fieldtype": "Link",
+          "options": "Interview",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "interview_type",
+          "label": "Interview Type",
+          "fieldtype": "Link",
+          "options": "Interview Type",
+          "reqd": 1,
+          "read_only": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "fetch_from": "interview.interview_type",
+          "idx": 3
+        },
+        {
+          "fieldname": "job_applicant",
+          "label": "Job Applicant",
+          "fieldtype": "Link",
+          "options": "Job Applicant",
+          "read_only": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "fetch_from": "interview.job_applicant",
+          "idx": 4
+        },
+        {
+          "fieldname": "column_break_3",
+          "fieldtype": "Column Break",
+          "idx": 5
+        },
+        {
+          "fieldname": "interviewer",
+          "label": "Interviewer",
+          "fieldtype": "Link",
+          "options": "User",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 6
+        },
+        {
+          "fieldname": "result",
+          "label": "Result",
+          "fieldtype": "Select",
+          "options": "\nCleared\nRejected",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 7
+        },
+        {
+          "fieldname": "section_break_4",
+          "label": "Skill Assessment",
+          "fieldtype": "Section Break",
+          "idx": 8
+        },
+        {
+          "fieldname": "skill_assessment",
+          "fieldtype": "Table",
+          "options": "Skill Assessment",
+          "reqd": 1,
+          "idx": 9
+        },
+        {
+          "fieldname": "average_rating",
+          "label": "Average Rating",
+          "fieldtype": "Rating",
+          "read_only": 1,
+          "in_list_view": 1,
+          "idx": 10
+        },
+        {
+          "fieldname": "section_break_7",
+          "label": "Feedback",
+          "fieldtype": "Section Break",
+          "idx": 11
+        },
+        {
+          "fieldname": "feedback",
+          "fieldtype": "Text",
+          "idx": 12
+        },
+        {
+          "fieldname": "amended_from",
+          "label": "Amended From",
+          "fieldtype": "Link",
+          "options": "Interview Feedback",
+          "read_only": 1,
+          "idx": 13
+        }
+      ],
+      "__custom_js_len": 45,
+      "__custom_js": "\n\n//# sourceURL=interview_feedback__custom_js",
+      "__workflow_docs": []
+    },
+    "Skill Assessment": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "skill",
+          "label": "Skill",
+          "fieldtype": "Link",
+          "options": "Skill",
+          "reqd": 1,
+          "read_only": 1,
+          "in_list_view": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "rating",
+          "label": "Rating",
+          "fieldtype": "Rating",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 2
+        }
+      ],
+      "__custom_js_len": 0,
+      "__custom_js": "",
+      "__workflow_docs": []
+    },
+    "Appointment Letter": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "HR-APP-LETTER-.#####",
+      "naming_rule": "Expression (old style)",
+      "title_field": "applicant_name",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "job_applicant",
+          "label": "Job Applicant",
+          "fieldtype": "Link",
+          "options": "Job Applicant",
+          "reqd": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "applicant_name",
+          "label": "Applicant Name",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "read_only": 1,
+          "in_list_view": 1,
+          "fetch_from": "job_applicant.applicant_name",
+          "idx": 2
+        },
+        {
+          "fieldname": "column_break_3",
+          "fieldtype": "Column Break",
+          "idx": 3
+        },
+        {
+          "fieldname": "company",
+          "label": "Company",
+          "fieldtype": "Link",
+          "options": "Company",
+          "reqd": 1,
+          "idx": 4
+        },
+        {
+          "fieldname": "appointment_date",
+          "label": "Appointment Date",
+          "fieldtype": "Date",
+          "reqd": 1,
+          "idx": 5
+        },
+        {
+          "fieldname": "appointment_letter_template",
+          "label": "Appointment Letter Template",
+          "fieldtype": "Link",
+          "options": "Appointment Letter Template",
+          "reqd": 1,
+          "idx": 6
+        },
+        {
+          "fieldname": "body_section",
+          "label": "Body",
+          "fieldtype": "Section Break",
+          "idx": 7
+        },
+        {
+          "fieldname": "introduction",
+          "label": "Introduction",
+          "fieldtype": "Long Text",
+          "reqd": 1,
+          "fetch_from": "appointment_letter_template.introduction",
+          "idx": 8
+        },
+        {
+          "fieldname": "terms",
+          "label": "Terms",
+          "fieldtype": "Table",
+          "options": "Appointment Letter content",
+          "reqd": 1,
+          "idx": 9
+        },
+        {
+          "fieldname": "closing_notes",
+          "label": "Closing Notes",
+          "fieldtype": "Text",
+          "idx": 10
+        }
+      ],
+      "__custom_js_len": 45,
+      "__custom_js": "\n\n//# sourceURL=appointment_letter__custom_js",
+      "__workflow_docs": []
+    },
+    "Appointment Letter content": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "title",
+          "label": "Title",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "description",
+          "label": "Description",
+          "fieldtype": "Long Text",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 2
+        }
+      ],
+      "__custom_js_len": 0,
+      "__custom_js": "",
+      "__workflow_docs": []
+    },
+    "Appointment Letter Template": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:template_name",
+      "naming_rule": "By fieldname",
+      "title_field": "template_name",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "template_name",
+          "label": "Template Name",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "unique": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "introduction",
+          "label": "Introduction",
+          "fieldtype": "Long Text",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "terms",
+          "label": "Terms",
+          "fieldtype": "Table",
+          "options": "Appointment Letter content",
+          "reqd": 1,
+          "idx": 3
+        },
+        {
+          "fieldname": "closing_notes",
+          "label": "Closing Notes",
+          "fieldtype": "Text",
+          "idx": 4
+        }
+      ],
+      "__custom_js_len": 54,
+      "__custom_js": "\n\n//# sourceURL=appointment_letter_template__custom_js",
+      "__workflow_docs": []
+    },
+    "Employee Referral": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 1,
+      "autoname": "format:HR-REF-{####}",
+      "title_field": "full_name",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "first_name",
+          "label": "First Name ",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "last_name",
+          "label": "Last Name",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "full_name",
+          "label": "Full Name",
+          "fieldtype": "Data",
+          "read_only": 1,
+          "in_list_view": 1,
+          "idx": 3
+        },
+        {
+          "fieldname": "column_break_6",
+          "fieldtype": "Column Break",
+          "idx": 4
+        },
+        {
+          "fieldname": "date",
+          "label": "Date",
+          "fieldtype": "Date",
+          "reqd": 1,
+          "in_standard_filter": 1,
+          "idx": 5
+        },
+        {
+          "fieldname": "status",
+          "label": "Status",
+          "fieldtype": "Select",
+          "options": "Pending\nIn Process\nAccepted\nRejected\nCancelled",
+          "reqd": 1,
+          "read_only": 1,
+          "in_standard_filter": 1,
+          "idx": 6
+        },
+        {
+          "fieldname": "for_designation",
+          "label": "For Designation ",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 7
+        },
+        {
+          "fieldname": "referral_details_section",
+          "label": "Referral Details",
+          "fieldtype": "Section Break",
+          "idx": 8
+        },
+        {
+          "fieldname": "email",
+          "label": "Email",
+          "fieldtype": "Data",
+          "options": "Email",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 9
+        },
+        {
+          "fieldname": "contact_no",
+          "label": "Contact No.",
+          "fieldtype": "Data",
+          "options": "Phone",
+          "in_standard_filter": 1,
+          "idx": 10
+        },
+        {
+          "fieldname": "resume_link",
+          "label": "Resume Link",
+          "fieldtype": "Data",
+          "idx": 11
+        },
+        {
+          "fieldname": "column_break_12",
+          "fieldtype": "Column Break",
+          "idx": 12
+        },
+        {
+          "fieldname": "current_employer",
+          "label": "Current Employer ",
+          "fieldtype": "Data",
+          "idx": 13
+        },
+        {
+          "fieldname": "current_job_title",
+          "label": "Current Job Title",
+          "fieldtype": "Data",
+          "idx": 14
+        },
+        {
+          "fieldname": "resume",
+          "label": "Resume",
+          "fieldtype": "Attach",
+          "idx": 15
+        },
+        {
+          "fieldname": "referrer_details_section",
+          "label": "Referrer Details",
+          "fieldtype": "Section Break",
+          "idx": 16
+        },
+        {
+          "fieldname": "referrer",
+          "label": "Referrer",
+          "fieldtype": "Link",
+          "options": "Employee",
+          "reqd": 1,
+          "in_standard_filter": 1,
+          "idx": 17
+        },
+        {
+          "fieldname": "referrer_name",
+          "label": "Referrer Name",
+          "fieldtype": "Data",
+          "read_only": 1,
+          "in_list_view": 1,
+          "fetch_from": "referrer.employee_name",
+          "idx": 18
+        },
+        {
+          "fieldname": "column_break_14",
+          "fieldtype": "Column Break",
+          "idx": 19
+        },
+        {
+          "fieldname": "is_applicable_for_referral_bonus",
+          "label": "Is Applicable for Referral Bonus",
+          "fieldtype": "Check",
+          "default": "1",
+          "idx": 20
+        },
+        {
+          "fieldname": "referral_payment_status",
+          "label": "Referral Bonus Payment Status",
+          "fieldtype": "Select",
+          "options": "\nUnpaid\nPaid",
+          "read_only": 1,
+          "idx": 21
+        },
+        {
+          "fieldname": "department",
+          "label": "Department",
+          "fieldtype": "Link",
+          "options": "Department",
+          "read_only": 1,
+          "fetch_from": "employee.department",
+          "idx": 22
+        },
+        {
+          "fieldname": "additional_information_section",
+          "label": "Additional Information ",
+          "fieldtype": "Section Break",
+          "idx": 23
+        },
+        {
+          "fieldname": "qualification_reason",
+          "label": "Why is this Candidate Qualified for this Position?",
+          "fieldtype": "Text Editor",
+          "idx": 24
+        },
+        {
+          "fieldname": "work_references",
+          "label": "Work References",
+          "fieldtype": "Text Editor",
+          "idx": 25
+        },
+        {
+          "fieldname": "amended_from",
+          "label": "Amended From",
+          "fieldtype": "Link",
+          "options": "Employee Referral",
+          "read_only": 1,
+          "idx": 26
+        }
+      ],
+      "__custom_js_len": 44,
+      "__custom_js": "\n\n//# sourceURL=employee_referral__custom_js",
+      "__workflow_docs": []
+    },
+    "Designation": {
+      "module": "Setup",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:designation_name",
+      "naming_rule": "By fieldname",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "designation_name",
+          "label": "Designation",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "unique": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "description",
+          "label": "Description",
+          "fieldtype": "Text",
+          "idx": 2
+        },
+        {
+          "fieldname": "appraisal_template",
+          "label": "Appraisal Template",
+          "fieldtype": "Link",
+          "options": "Appraisal Template",
+          "is_custom_field": 1,
+          "insert_after": "description",
+          "idx": 3
+        },
+        {
+          "fieldname": "required_skills_section",
+          "label": "Required Skills",
+          "fieldtype": "Section Break",
+          "is_custom_field": 1,
+          "insert_after": "appraisal_template",
+          "idx": 4
+        },
+        {
+          "fieldname": "skills",
+          "label": "Skills",
+          "fieldtype": "Table",
+          "options": "Designation Skill",
+          "is_custom_field": 1,
+          "insert_after": "required_skills_section",
+          "idx": 5
+        }
+      ],
+      "__custom_js_len": 38,
+      "__custom_js": "\n\n//# sourceURL=designation__custom_js",
+      "__workflow_docs": []
+    },
+    "Designation Skill": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "skill",
+          "label": "Skill",
+          "fieldtype": "Link",
+          "options": "Skill",
+          "in_list_view": 1,
+          "idx": 1
+        }
+      ],
+      "__custom_js_len": 0,
+      "__custom_js": "",
+      "__workflow_docs": []
+    },
+    "Skill": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:skill_name",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "skill_name",
+          "label": "Skill Name",
+          "fieldtype": "Data",
+          "unique": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "description",
+          "label": "Description",
+          "fieldtype": "Text",
+          "idx": 2
+        }
+      ],
+      "__custom_js_len": 32,
+      "__custom_js": "\n\n//# sourceURL=skill__custom_js",
+      "__workflow_docs": []
+    },
+    "Department": {
+      "module": "Setup",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "is_tree": 1,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "department_name",
+          "label": "Department",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "parent_department",
+          "label": "Parent Department",
+          "fieldtype": "Link",
+          "options": "Department",
+          "in_list_view": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "column_break_3",
+          "fieldtype": "Column Break",
+          "idx": 3
+        },
+        {
+          "fieldname": "company",
+          "label": "Company",
+          "fieldtype": "Link",
+          "options": "Company",
+          "reqd": 1,
+          "in_standard_filter": 1,
+          "idx": 4
+        },
+        {
+          "fieldname": "is_group",
+          "label": "Is Group",
+          "fieldtype": "Check",
+          "in_list_view": 1,
+          "default": "0",
+          "idx": 5
+        },
+        {
+          "fieldname": "disabled",
+          "label": "Disabled",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 6
+        },
+        {
+          "fieldname": "lft",
+          "label": "lft",
+          "fieldtype": "Int",
+          "hidden": 1,
+          "read_only": 1,
+          "idx": 7
+        },
+        {
+          "fieldname": "rgt",
+          "label": "rgt",
+          "fieldtype": "Int",
+          "hidden": 1,
+          "read_only": 1,
+          "idx": 8
+        },
+        {
+          "fieldname": "old_parent",
+          "label": "Old Parent",
+          "fieldtype": "Data",
+          "hidden": 1,
+          "idx": 9
+        },
+        {
+          "fieldname": "section_break_4",
+          "fieldtype": "Section Break",
+          "is_custom_field": 1,
+          "insert_after": "disabled",
+          "idx": 10
+        },
+        {
+          "fieldname": "payroll_cost_center",
+          "label": "Payroll Cost Center",
+          "fieldtype": "Link",
+          "options": "Cost Center",
+          "is_custom_field": 1,
+          "insert_after": "section_break_4",
+          "idx": 11
+        },
+        {
+          "fieldname": "column_break_9",
+          "fieldtype": "Column Break",
+          "is_custom_field": 1,
+          "insert_after": "payroll_cost_center",
+          "idx": 12
+        },
+        {
+          "fieldname": "leave_block_list",
+          "label": "Leave Block List",
+          "fieldtype": "Link",
+          "options": "Leave Block List",
+          "in_list_view": 1,
+          "description": "Days for which Holidays are blocked for this department.",
+          "is_custom_field": 1,
+          "insert_after": "column_break_9",
+          "idx": 13
+        },
+        {
+          "fieldname": "approvers",
+          "label": "Approvers",
+          "fieldtype": "Section Break",
+          "description": "The first Approver in the list will be set as the default Approver.",
+          "is_custom_field": 1,
+          "insert_after": "leave_block_list",
+          "idx": 14
+        },
+        {
+          "fieldname": "shift_request_approver",
+          "label": "Shift Request Approver",
+          "fieldtype": "Table",
+          "options": "Department Approver",
+          "is_custom_field": 1,
+          "insert_after": "approvers",
+          "idx": 15
+        },
+        {
+          "fieldname": "leave_approvers",
+          "label": "Leave Approver",
+          "fieldtype": "Table",
+          "options": "Department Approver",
+          "is_custom_field": 1,
+          "insert_after": "shift_request_approver",
+          "idx": 16
+        },
+        {
+          "fieldname": "expense_approvers",
+          "label": "Expense Approver",
+          "fieldtype": "Table",
+          "options": "Department Approver",
+          "is_custom_field": 1,
+          "insert_after": "leave_approvers",
+          "idx": 17
+        }
+      ],
+      "__custom_js_len": 37,
+      "__custom_js": "\n\n//# sourceURL=department__custom_js",
+      "__workflow_docs": []
+    },
+    "Department Approver": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "hash",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "approver",
+          "label": "Approver",
+          "fieldtype": "Link",
+          "options": "User",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 1
+        }
+      ],
+      "__custom_js_len": 0,
+      "__custom_js": "",
+      "__workflow_docs": []
+    },
+    "Employment Type": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:employee_type_name",
+      "naming_rule": "By fieldname",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "employee_type_name",
+          "label": "Employment Type",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "unique": 1,
+          "idx": 1
+        }
+      ],
+      "__custom_js_len": 42,
+      "__custom_js": "\n\n//# sourceURL=employment_type__custom_js",
+      "__workflow_docs": []
+    },
+    "Branch": {
+      "module": "Setup",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:branch",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "branch",
+          "label": "Branch",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "unique": 1,
+          "idx": 1
+        }
+      ],
+      "__custom_js_len": 33,
+      "__custom_js": "\n\n//# sourceURL=branch__custom_js",
+      "__workflow_docs": []
+    },
+    "Offer Term": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:offer_term",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "offer_term",
+          "label": "Offer Term",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "unique": 1,
+          "idx": 1
+        }
+      ],
+      "__custom_js_len": 37,
+      "__custom_js": "\n\n//# sourceURL=offer_term__custom_js",
+      "__workflow_docs": []
+    },
+    "Job Offer Term Template": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "field:title",
+      "naming_rule": "By fieldname",
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "title",
+          "label": "Title",
+          "fieldtype": "Data",
+          "unique": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "offer_terms",
+          "label": "Offer Terms",
+          "fieldtype": "Table",
+          "options": "Job Offer Term",
+          "idx": 2
+        }
+      ],
+      "__custom_js_len": 50,
+      "__custom_js": "\n\n//# sourceURL=job_offer_term_template__custom_js",
+      "__workflow_docs": []
+    },
+    "Job Offer Term": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "offer_term",
+          "label": "Offer Term",
+          "fieldtype": "Link",
+          "options": "Offer Term",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "column_break_2",
+          "fieldtype": "Column Break",
+          "idx": 2
+        },
+        {
+          "fieldname": "value",
+          "label": "Value / Description",
+          "fieldtype": "Small Text",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 3
+        }
+      ],
+      "__custom_js_len": 0,
+      "__custom_js": "",
+      "__workflow_docs": []
+    },
+    "HR Settings": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 1,
+      "is_submittable": 0,
+      "is_tree": 0,
+      "links": [],
+      "fields": [
+        {
+          "fieldname": "employee_tab",
+          "label": "Employee",
+          "fieldtype": "Tab Break",
+          "idx": 1
+        },
+        {
+          "fieldname": "employee_settings_section",
+          "label": "Employee Settings",
+          "fieldtype": "Section Break",
+          "idx": 2
+        },
+        {
+          "fieldname": "emp_created_by",
+          "label": "Employee Naming By",
+          "fieldtype": "Select",
+          "options": "Naming Series\nEmployee Number\nFull Name",
+          "default": "Naming Series",
+          "description": "Employee records are created using the selected option",
+          "idx": 3
+        },
+        {
+          "fieldname": "standard_working_hours",
+          "label": "Standard Working Hours",
+          "fieldtype": "Float",
+          "idx": 4
+        },
+        {
+          "fieldname": "column_break_lrow",
+          "fieldtype": "Column Break",
+          "idx": 5
+        },
+        {
+          "fieldname": "retirement_age",
+          "label": "Retirement Age (In Years)",
+          "fieldtype": "Data",
+          "idx": 6
+        },
+        {
+          "fieldname": "reminders_section",
+          "label": "Reminders",
+          "fieldtype": "Section Break",
+          "idx": 7
+        },
+        {
+          "fieldname": "column_break_11",
+          "fieldtype": "Column Break",
+          "idx": 8
+        },
+        {
+          "fieldname": "send_work_anniversary_reminders",
+          "label": "Work Anniversaries ",
+          "fieldtype": "Check",
+          "default": "1",
+          "idx": 9
+        },
+        {
+          "fieldname": "send_birthday_reminders",
+          "label": "Birthdays",
+          "fieldtype": "Check",
+          "default": "1",
+          "idx": 10
+        },
+        {
+          "fieldname": "send_holiday_reminders",
+          "label": "Holidays",
+          "fieldtype": "Check",
+          "default": "1",
+          "idx": 11
+        },
+        {
+          "fieldname": "frequency",
+          "label": "Set the frequency for holiday reminders",
+          "fieldtype": "Select",
+          "options": "Weekly\nMonthly",
+          "depends_on": "eval:doc.send_holiday_reminders",
+          "mandatory_depends_on": "send_holiday_reminders",
+          "default": "Weekly",
+          "idx": 12
+        },
+        {
+          "fieldname": "column_break_hyec",
+          "fieldtype": "Column Break",
+          "idx": 13
+        },
+        {
+          "fieldname": "sender",
+          "label": "Sender",
+          "fieldtype": "Link",
+          "options": "Email Account",
+          "idx": 14
+        },
+        {
+          "fieldname": "sender_email",
+          "label": "Sender Email",
+          "fieldtype": "Data",
+          "read_only": 1,
+          "depends_on": "eval:doc.sender",
+          "fetch_from": "sender.email_id",
+          "idx": 15
+        },
+        {
+          "fieldname": "leaves_tab",
+          "label": "Leaves",
+          "fieldtype": "Tab Break",
+          "idx": 16
+        },
+        {
+          "fieldname": "leave_settings_section",
+          "label": "Leave Settings",
+          "fieldtype": "Section Break",
+          "idx": 17
+        },
+        {
+          "fieldname": "auto_leave_encashment",
+          "label": "Auto Leave Encashment",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 18
+        },
+        {
+          "fieldname": "leave_approver_mandatory_in_leave_application",
+          "label": "Leave Approver Mandatory In Leave Application",
+          "fieldtype": "Check",
+          "default": "1",
+          "idx": 19
+        },
+        {
+          "fieldname": "prevent_self_leave_approval",
+          "label": "Prevent self approval for leaves even if user has permissions",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 20
+        },
+        {
+          "fieldname": "show_leaves_of_all_department_members_in_calendar",
+          "label": "Show Leaves Of All Department Members In Calendar",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 21
+        },
+        {
+          "fieldname": "column_break_29",
+          "fieldtype": "Column Break",
+          "idx": 22
+        },
+        {
+          "fieldname": "send_leave_notification",
+          "label": "Send Leave Notification",
+          "fieldtype": "Check",
+          "default": "1",
+          "idx": 23
+        },
+        {
+          "fieldname": "leave_approval_notification_template",
+          "label": "Leave Approval Notification Template",
+          "fieldtype": "Link",
+          "options": "Email Template",
+          "depends_on": "eval: doc.send_leave_notification == 1",
+          "mandatory_depends_on": "eval: doc.send_leave_notification == 1",
+          "idx": 24
+        },
+        {
+          "fieldname": "leave_status_notification_template",
+          "label": "Leave Status Notification Template",
+          "fieldtype": "Link",
+          "options": "Email Template",
+          "depends_on": "eval: doc.send_leave_notification == 1",
+          "mandatory_depends_on": "eval: doc.send_leave_notification == 1",
+          "idx": 25
+        },
+        {
+          "fieldname": "restrict_backdated_leave_application",
+          "label": "Restrict Backdated Leave Application",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 26
+        },
+        {
+          "fieldname": "role_allowed_to_create_backdated_leave_application",
+          "label": "Role Allowed to Create Backdated Leave Application",
+          "fieldtype": "Link",
+          "options": "Role",
+          "depends_on": "eval:doc.restrict_backdated_leave_application == 1",
+          "mandatory_depends_on": "eval:doc.restrict_backdated_leave_application == 1",
+          "idx": 27
+        },
+        {
+          "fieldname": "expenses_tab",
+          "label": "Expenses",
+          "fieldtype": "Tab Break",
+          "idx": 28
+        },
+        {
+          "fieldname": "expenses_settings_section",
+          "label": "Expenses Settings",
+          "fieldtype": "Section Break",
+          "idx": 29
+        },
+        {
+          "fieldname": "expense_approver_mandatory_in_expense_claim",
+          "label": "Expense Approver Mandatory In Expense Claim",
+          "fieldtype": "Check",
+          "default": "1",
+          "idx": 30
+        },
+        {
+          "fieldname": "prevent_self_expense_approval",
+          "label": "Prevent self approval for expense claims even if user has permissions",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 31
+        },
+        {
+          "fieldname": "unlink_payment_on_cancellation_of_employee_advance",
+          "label": " Unlink Payment on Cancellation of Employee Advance",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 32
+        },
+        {
+          "fieldname": "ksa_excuse_policy_section",
+          "label": "Excuse Policy (KSA)",
+          "fieldtype": "Section Break",
+          "is_custom_field": 1,
+          "insert_after": "unlink_payment_on_cancellation_of_employee_advance",
+          "idx": 33
+        },
+        {
+          "fieldname": "excuse_type",
+          "label": "Excuse Type",
+          "fieldtype": "Select",
+          "options": "\nPersonal\nOfficial",
+          "is_custom_field": 1,
+          "insert_after": "ksa_excuse_policy_section",
+          "idx": 34
+        },
+        {
+          "fieldname": "max_excuse_days",
+          "label": "Maximum Excuse Days Per Month",
+          "fieldtype": "Int",
+          "is_custom_field": 1,
+          "insert_after": "excuse_type",
+          "idx": 35
+        },
+        {
+          "fieldname": "max_excuse_hours",
+          "label": "Maximum Excuse Hours Per Month",
+          "fieldtype": "Time",
+          "is_custom_field": 1,
+          "insert_after": "max_excuse_days",
+          "idx": 36
+        },
+        {
+          "fieldname": "ksa_missing_punch_section",
+          "label": "Missing Punch Policy (KSA)",
+          "fieldtype": "Section Break",
+          "is_custom_field": 1,
+          "insert_after": "max_excuse_hours",
+          "idx": 37
+        },
+        {
+          "fieldname": "max_missing_punch_days",
+          "label": "Maximum Missing Punch Days Per Month",
+          "fieldtype": "Int",
+          "is_custom_field": 1,
+          "insert_after": "ksa_missing_punch_section",
+          "idx": 38
+        },
+        {
+          "fieldname": "enable_multi_currency_expense_claim",
+          "label": "Enable Multi-Currency Expense Claims",
+          "fieldtype": "Check",
+          "default": "0",
+          "description": "Allow expense claims to be raised in a currency other than the company currency",
+          "idx": 39
+        },
+        {
+          "fieldname": "shift_and_attendance_tab",
+          "label": "Shift and Attendance",
+          "fieldtype": "Tab Break",
+          "idx": 40
+        },
+        {
+          "fieldname": "shift_settings_section",
+          "label": "Shift Settings",
+          "fieldtype": "Section Break",
+          "idx": 41
+        },
+        {
+          "fieldname": "allow_multiple_shift_assignments",
+          "label": "Allow Multiple Shift Assignments for Same Date",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 42
+        },
+        {
+          "fieldname": "attendance_settings_section",
+          "label": "Attendance Settings",
+          "fieldtype": "Section Break",
+          "idx": 43
+        },
+        {
+          "fieldname": "allow_employee_checkin_from_mobile_app",
+          "label": "Allow Employee Checkin from Mobile App",
+          "fieldtype": "Check",
+          "default": "1",
+          "idx": 44
+        },
+        {
+          "fieldname": "allow_geolocation_tracking",
+          "label": "Allow Geolocation Tracking",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 45
+        },
+        {
+          "fieldname": "tenure_tab",
+          "label": "Tenure",
+          "fieldtype": "Tab Break",
+          "idx": 46
+        },
+        {
+          "fieldname": "employee_exit_settings_section",
+          "label": "Employee Exit Settings",
+          "fieldtype": "Section Break",
+          "idx": 47
+        },
+        {
+          "fieldname": "exit_questionnaire_web_form",
+          "label": "Exit Questionnaire Web Form",
+          "fieldtype": "Link",
+          "options": "Web Form",
+          "idx": 48
+        },
+        {
+          "fieldname": "exit_questionnaire_notification_template",
+          "label": "Exit Questionnaire Notification Template",
+          "fieldtype": "Link",
+          "options": "Email Template",
+          "idx": 49
+        },
+        {
+          "fieldname": "recruitment_tab",
+          "label": "Recruitment",
+          "fieldtype": "Tab Break",
+          "idx": 50
+        },
+        {
+          "fieldname": "hiring_settings_section",
+          "label": "Hiring Settings",
+          "fieldtype": "Section Break",
+          "idx": 51
+        },
+        {
+          "fieldname": "check_vacancies",
+          "label": "Check Vacancies On Job Offer Creation",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 52
+        },
+        {
+          "fieldname": "send_interview_reminder",
+          "label": "Send Interview Reminder",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 53
+        },
+        {
+          "fieldname": "interview_reminder_template",
+          "label": "Interview Reminder Notification Template",
+          "fieldtype": "Link",
+          "options": "Email Template",
+          "depends_on": "send_interview_reminder",
+          "mandatory_depends_on": "send_interview_reminder",
+          "idx": 54
+        },
+        {
+          "fieldname": "remind_before",
+          "label": "Remind Before",
+          "fieldtype": "Time",
+          "depends_on": "send_interview_reminder",
+          "default": "00:15:00",
+          "idx": 55
+        },
+        {
+          "fieldname": "send_interview_feedback_reminder",
+          "label": "Send Interview Feedback Reminder",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 56
+        },
+        {
+          "fieldname": "feedback_reminder_notification_template",
+          "label": "Feedback Reminder Notification Template",
+          "fieldtype": "Link",
+          "options": "Email Template",
+          "depends_on": "send_interview_feedback_reminder",
+          "mandatory_depends_on": "send_interview_feedback_reminder",
+          "idx": 57
+        },
+        {
+          "fieldname": "column_break_4",
+          "fieldtype": "Column Break",
+          "idx": 58
+        },
+        {
+          "fieldname": "hiring_sender",
+          "label": "Sender",
+          "fieldtype": "Link",
+          "options": "Email Account",
+          "idx": 59
+        },
+        {
+          "fieldname": "hiring_sender_email",
+          "label": "Sender Email",
+          "fieldtype": "Data",
+          "read_only": 1,
+          "depends_on": "eval:doc.hiring_sender",
+          "fetch_from": "hiring_sender.email_id",
+          "idx": 60
+        }
+      ],
+      "__custom_js_len": 38,
+      "__custom_js": "\n\n//# sourceURL=hr_settings__custom_js",
+      "__workflow_docs": []
+    }
+  }
+}

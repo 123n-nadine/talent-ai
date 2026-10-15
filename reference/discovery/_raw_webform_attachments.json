@@ -1,0 +1,497 @@
+{
+  "log": [
+    [
+      "/api/method/frappe.client.get_count?doctype=File&filters=%5B%5B%22attached_to_doctype%22%2C%22in%22%2C%5B%22Job%20Applicant%22%2C%22Job%20Opening%22%2C%22Job%20Requisition%22%2C%22Interview%22%2C%22Job%20Offer%22%2C%22Employee%20Referral%22%5D%5D%5D",
+      200
+    ],
+    [
+      "/api/resource/File?filters=%5B%5B%22attached_to_doctype%22%2C%22in%22%2C%5B%22Job%20Applicant%22%2C%22Job%20Opening%22%2C%22Job%20Requisition%22%2C%22Interview%22%2C%22Job%20Offer%22%2C%22Employee%20Referral%22%5D%5D%5D&fields=%5B%22file_name%22%2C%22file_size%22%2C%22is_private%22%2C%22attached_to_field%22%2C%22attached_to_doctype%22%2C%22creation%22%2C%22owner%22%5D&order_by=creation%20desc&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Job%20Opening?filters=%5B%5B%22publish%22%2C%22%3D%22%2C1%5D%5D&fields=%5B%22name%22%2C%22job_title%22%2C%22status%22%2C%22route%22%2C%22job_application_route%22%2C%22designation%22%2C%22closes_on%22%5D&limit_page_length=20",
+      200
+    ],
+    [
+      "/api/resource/Web%20Form?fields=%5B%22name%22%2C%22title%22%2C%22doc_type%22%2C%22route%22%2C%22published%22%2C%22login_required%22%2C%22allow_multiple%22%2C%22allow_edit%22%2C%22allow_delete%22%2C%22allow_incomplete%22%2C%22allow_print%22%2C%22anonymous%22%2C%22apply_document_permissions%22%2C%22is_standard%22%2C%22module%22%2C%22max_attachment_size%22%2C%22allow_comments%22%2C%22show_attachments%22%2C%22condition_json%22%2C%22success_url%22%2C%22client_script%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Web%20Form/job-application",
+      200
+    ]
+  ],
+  "file_count": 1,
+  "attachments": {
+    "sampled": 1,
+    "by_doctype": {
+      "Job Applicant": 1
+    },
+    "by_ext": {
+      "jpg": 1
+    },
+    "by_field": {
+      "Job Applicant.(none / sidebar attachment)": 1
+    },
+    "private_vs_public": {
+      "private": 1
+    },
+    "by_doctype_ext": {
+      "Job Applicant:jpg": 1
+    },
+    "size": {
+      "avg_kb": 74,
+      "max_kb": 74,
+      "min_kb": 74
+    },
+    "uploaded_by_guest": 0,
+    "creation_min": "2026-09-15",
+    "creation_max": "2026-09-15"
+  },
+  "published_openings": [
+    {
+      "name": "HR-OPN-2026-0004",
+      "job_title": "Analyst",
+      "status": "Open",
+      "route": "jobs/contracting_eg/analyst",
+      "job_application_route": null,
+      "designation": "Analyst",
+      "closes_on": "2026-02-28"
+    },
+    {
+      "name": "HR-OPN-2026-0006",
+      "job_title": "Customer Service Representative",
+      "status": "Open",
+      "route": "jobs/contracting_eg/customer-service-representative",
+      "job_application_route": null,
+      "designation": "Customer Service Representative",
+      "closes_on": "2026-03-03"
+    }
+  ],
+  "web_forms_all": [
+    {
+      "name": "access-permit",
+      "title": "Access Permit",
+      "doc_type": "Access Permit",
+      "route": "access-permit",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 1,
+      "module": "work_permit",
+      "anonymous": 0
+    },
+    {
+      "name": "addresses",
+      "title": "Address",
+      "doc_type": "Address",
+      "route": "address",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 1,
+      "module": "Utilities",
+      "anonymous": 0
+    },
+    {
+      "name": "edit-profile",
+      "title": "Update Profile",
+      "doc_type": "User",
+      "route": "update-profile",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 1,
+      "module": "Core",
+      "anonymous": 0
+    },
+    {
+      "name": "issues",
+      "title": "Issue",
+      "doc_type": "Issue",
+      "route": "issues",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 1,
+      "module": "Support",
+      "anonymous": 0
+    },
+    {
+      "name": "job-application",
+      "title": "Job Application",
+      "doc_type": "Job Applicant",
+      "route": "job_application",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 1,
+      "module": "HR",
+      "anonymous": 0
+    },
+    {
+      "name": "lost-items",
+      "title": "Lost Items",
+      "doc_type": "Lost Items",
+      "route": "lost-items",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 1,
+      "module": "Ido Lost And Found",
+      "anonymous": 0
+    },
+    {
+      "name": "nhc-lead-capture",
+      "title": "NHC Lead Capture",
+      "doc_type": "Lead",
+      "route": "nhc-lead-webform",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 0,
+      "module": "Custom",
+      "anonymous": 0
+    },
+    {
+      "name": "report-lost-item",
+      "title": "Report Lost Item",
+      "doc_type": "Lost Item",
+      "route": "report-lost-item",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 1,
+      "module": "Lost and Found",
+      "anonymous": 1
+    },
+    {
+      "name": "request-data",
+      "title": "Request Data",
+      "doc_type": "Personal Data Download Request",
+      "route": "request-data",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 1,
+      "module": "Website",
+      "anonymous": 0
+    },
+    {
+      "name": "request-to-delete-data",
+      "title": "Request for Account Deletion",
+      "doc_type": "Personal Data Deletion Request",
+      "route": "request-for-account-deletion",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 1,
+      "module": "Website",
+      "anonymous": 0
+    },
+    {
+      "name": "swiss-design-get-in-touch",
+      "title": "Swiss Design - Get in Touch",
+      "doc_type": "Lead",
+      "route": "swiss-design-enquiry-form",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 0,
+      "module": "CRM",
+      "anonymous": 1
+    },
+    {
+      "name": "tasks",
+      "title": "Task",
+      "doc_type": "Task",
+      "route": "tasks",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 1,
+      "module": "Projects",
+      "anonymous": 0
+    },
+    {
+      "name": "work-permit",
+      "title": "Work Permit",
+      "doc_type": "Work Permit",
+      "route": "work-permit",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 1,
+      "module": "work_permit",
+      "anonymous": 0
+    },
+    {
+      "name": "اطلب-أونلاين-go-greek",
+      "title": "اطلب أونلاين - Go Greek",
+      "doc_type": "Sales Order",
+      "route": "go-greek-order",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 0,
+      "module": "Selling",
+      "anonymous": 0
+    },
+    {
+      "name": "التحقق-من-الهوية",
+      "title": "التحقق من الهوية",
+      "doc_type": "IDO KYC Verification",
+      "route": "ido-kyc",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 0,
+      "module": "IDO Event",
+      "anonymous": 0
+    },
+    {
+      "name": "تتبع-الطلب-go-greek",
+      "title": "تتبع الطلب - Go Greek",
+      "doc_type": "Sales Order",
+      "route": "track-order",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 0,
+      "module": "Selling",
+      "anonymous": 0
+    },
+    {
+      "name": "تذكرة-دعم",
+      "title": "تذكرة دعم",
+      "doc_type": "IDO Support Ticket",
+      "route": "ido-support",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 0,
+      "module": "IDO Event",
+      "anonymous": 0
+    },
+    {
+      "name": "تقييم-التجربة",
+      "title": "تقييم التجربة",
+      "doc_type": "IDO Guest Feedback",
+      "route": "ido-feedback",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 0,
+      "module": "IDO Event",
+      "anonymous": 0
+    },
+    {
+      "name": "طلب-طيران",
+      "title": "طلب طيران",
+      "doc_type": "IDO Flight Request",
+      "route": "ido-flight-request",
+      "published": 1,
+      "login_required": 1,
+      "is_standard": 0,
+      "module": "IDO Event",
+      "anonymous": 0
+    },
+    {
+      "name": "طلب-عرض-توضيحي",
+      "title": "طلب عرض توضيحي",
+      "doc_type": "IDO Demo Request",
+      "route": "ido-demo-request",
+      "published": 1,
+      "login_required": 0,
+      "is_standard": 0,
+      "module": "IDO Event",
+      "anonymous": 0
+    }
+  ],
+  "recruitment_web_forms": [
+    {
+      "name": "job-application",
+      "title": "Job Application",
+      "doc_type": "Job Applicant",
+      "route": "job_application",
+      "published": 1,
+      "login_required": 0,
+      "allow_multiple": 0,
+      "allow_edit": 0,
+      "allow_delete": 0,
+      "allow_incomplete": 0,
+      "allow_print": 0,
+      "anonymous": 0,
+      "apply_document_permissions": 0,
+      "is_standard": 1,
+      "module": "HR",
+      "max_attachment_size": 0,
+      "allow_comments": 1,
+      "show_attachments": 0,
+      "show_list": 0,
+      "list_columns": [],
+      "success_url": "/jobs",
+      "success_message": "Thank you for applying.",
+      "condition_json": "[]",
+      "client_script_len": 648,
+      "client_script": "frappe.web_form.after_load = () => {\n\tconst job_opening = frappe.utils.get_query_params().job_title;\n\tif (!job_opening) return;\n\n\tfrappe.call({\n\t\tmethod: \"frappe.client.get_value\",\n\t\targs: {\n\t\t\tdoctype: \"Job Opening\",\n\t\t\tfilters: job_opening,\n\t\t\tfieldname: \"job_title\",\n\t\t},\n\t\tcallback: (r) => {\n\t\t\tif (!r?.message) return;\n\t\t\tconst title = frappe.utils.escape_html(r.message.job_title);\n\t\t\t$(frappe.web_form.fields_dict[\"job_title\"].wrapper)\n\t\t\t\t.find(\".control-value\")\n\t\t\t\t.text(title);\n\t\t},\n\t});\n};\n\nfrappe.web_form.on(\"resume_link\", (field, value) => {\n\tif (!frappe.utils.is_url(value)) {\n\t\tfrappe.msgprint(__(\"Resume link not valid\"));\n\t}\n});\n",
+      "custom_css_len": 0,
+      "introduction_text_len": 0,
+      "web_form_fields": [
+        {
+          "fieldname": "job_title",
+          "label": "Job Opening",
+          "fieldtype": "Data",
+          "options": "",
+          "reqd": 0,
+          "read_only": 1,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "applicant_name",
+          "label": "Full Name",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "email_id",
+          "label": "Email Address",
+          "fieldtype": "Data",
+          "options": "Email",
+          "reqd": 1,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "phone_number",
+          "label": "Phone Number",
+          "fieldtype": "Data",
+          "options": "Phone",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "country",
+          "label": "Country of Residence",
+          "fieldtype": "Link",
+          "options": "Country",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "source",
+          "label": "Source",
+          "fieldtype": "Link",
+          "options": "Job Applicant Source",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "cover_letter",
+          "label": "Cover Letter",
+          "fieldtype": "Text",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "resume_link",
+          "label": "Resume Link",
+          "fieldtype": "Data",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "resume_attachment",
+          "label": "Resume Attachment",
+          "fieldtype": "Attach",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "",
+          "label": "Expected Salary Range per month",
+          "fieldtype": "Section Break",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "currency",
+          "label": "Currency",
+          "fieldtype": "Link",
+          "options": "Currency",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "",
+          "fieldtype": "Column Break",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "lower_range",
+          "label": "Lower Range",
+          "fieldtype": "Currency",
+          "options": "currency",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "",
+          "fieldtype": "Column Break",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        },
+        {
+          "fieldname": "upper_range",
+          "label": "Upper Range",
+          "fieldtype": "Currency",
+          "options": "currency",
+          "reqd": 0,
+          "read_only": 0,
+          "hidden": 0,
+          "allow_read_on_all_link_options": 0,
+          "show_in_filter": 0,
+          "max_length": 0
+        }
+      ]
+    }
+  ]
+}

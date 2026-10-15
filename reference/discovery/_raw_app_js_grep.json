@@ -1,0 +1,121 @@
+{
+  "log": [
+    [
+      "/assets/ido_design/dist/js/ido_design.bundle.U3W5SFKU.js",
+      200
+    ],
+    [
+      "/api/method/ido_design.api.theme_js",
+      200
+    ],
+    [
+      "/assets/ido_design/dist/js/idk.bundle.DQOBYY2K.js",
+      200
+    ],
+    [
+      "/assets/ido_design/dist/js/ido_org_chart_boot.bundle.OJJRE2WI.js",
+      200
+    ],
+    [
+      "/assets/ido_event/js/ido_engine_client.js",
+      200
+    ],
+    [
+      "/assets/ido_event/js/ido_workspace_event.js",
+      200
+    ]
+  ],
+  "/assets/ido_design/dist/js/ido_design.bundle.U3W5SFKU.js": {
+    "len": 27474,
+    "hits": {}
+  },
+  "/api/method/ido_design.api.theme_js": {
+    "len": 0,
+    "hits": {}
+  },
+  "/assets/ido_design/dist/js/idk.bundle.DQOBYY2K.js": {
+    "len": 295081,
+    "hits": {
+      "Staffing Plan": {
+        "count": 4,
+        "snips": [
+          "ll?void 0:t.layout)==null?void 0:c.kind)===\"collection\")return this.people(e,t);if(![\"Job Opening\",\"Staffing Plan\",\"Employee Separation\"].includes(e.doctype)||e.is_new())return;let a=this.host(e),n=e.__idk_pan={},i=await frappe.xcall(\"ido_d",
+          "dren(\".idk-gpanels\").remove();let o=e.doctype===\"Job Opening\"?this.opening_panels(e,i):e.doctype===\"Staffing Plan\"?this.plan_panels(e,i):this.exit_panels(e,i);$(T(`<div class=\"gpanels scope\">${o}</div>`)).prependTo(a).on(\"click\",\"[data-goto",
+          "/span></div> ${t.plan_candidates.map(h=>`<a class=\"planrow\" href=\"${frappe.utils.get_form_link(\"Staffing Plan\",h.name)}\"><b>${l(h.name)}</b><span>${l(__(h.department||\"\"))}</span><span class=\"num\">${this.money(h.total_estimated_budget,u"
+        ]
+      },
+      "Job Applicant": {
+        "count": 10,
+        "snips": [
+          "Term Template\",item:{label:\"Offer Term\",dt:\"Offer Term\"}},{op:\"add\",after:\"Offer Term\",item:{label:\"Job Applicant Source\",dt:\"Job Applicant Source\"}},{op:\"add\",after:\"Interview\",item:{label:\"Interview Feedback\",dt:\"Interview Feedback\"}}],As",
+          ":\"Offer Term\",dt:\"Offer Term\"}},{op:\"add\",after:\"Offer Term\",item:{label:\"Job Applicant Source\",dt:\"Job Applicant Source\"}},{op:\"add\",after:\"Interview\",item:{label:\"Interview Feedback\",dt:\"Interview Feedback\"}}],Assets:[{op:\"add\",after:\"Ass",
+          "bel:d(\"Applicants in play\"),sub:P(e.applicants,\"1 in total\",\"{0} in total\"),href:e.pipeline_url||H(\"Job Applicant\")}),Q(e.interviews_week)&&s.push({v:Y(e.interviews_week),label:d(\"Interviews this week\"),href:H(\"Interview\")}),Q(e.offers_wait"
+        ]
+      },
+      "Job Opening": {
+        "count": 10,
+        "snips": [
+          "s.push({v:Y(e.open),label:d(\"Open positions\"),sub:P(e.openings,\"1 in total\",\"{0} in total\"),href:H(\"Job Opening\")}),Q(e.applicants)&&s.push({v:Y(e.in_play),label:d(\"Applicants in play\"),sub:P(e.applicants,\"1 in total\",\"{0} in total\"),href:e",
+          "[e.no_desc?be(P(e.no_desc,\"1 published with no description\",\"{0} published with no description\"),H(\"Job Opening\",{publish:1})):\"\",e.late?be(P(e.late,\"1 past its closing date\",\"{0} past their closing date\"),H(\"Job Opening\",{status:\"Open\"})):",
+          "ng\",{publish:1})):\"\",e.late?be(P(e.late,\"1 past its closing date\",\"{0} past their closing date\"),H(\"Job Opening\",{status:\"Open\"})):\"\"].filter(Boolean),n=a.length?Ge(l(P(e.attention||a.length,\"1 opening needs attention\",\"{0} openings need at"
+        ]
+      },
+      "applicant stands": {
+        "count": 1,
+        "snips": [
+          "\"):\"\"].filter(Boolean);return`<section class=\"card pad\"><div class=\"sec-head\"><h2>${l(d(\"Where this applicant stands\"))}</h2><span class=\"hint\">${l(xa(\"Job Applicant\",t.status))}</span></div> <div class=\"mrows\">${r}</div> ${c.length?`"
+        ]
+      },
+      "Interview": {
+        "count": 17,
+        "snips": [
+          "learance Request\",dt:\"Clearance Request\"},{label:\"Exit Clearance\",dt:\"Exit Clearance\"},{label:\"Exit Interview\",dt:\"Exit Interview\"}]},{op:\"add\",after:\"Grievance Type\",item:{label:\"Onboarding Document Type\",dt:\"Onboarding Document Type\"}},{o",
+          ":\"Clearance Request\"},{label:\"Exit Clearance\",dt:\"Exit Clearance\"},{label:\"Exit Interview\",dt:\"Exit Interview\"}]},{op:\"add\",after:\"Grievance Type\",item:{label:\"Onboarding Document Type\",dt:\"Onboarding Document Type\"}},{op:\"add\",after:\"Onboa",
+          ",after:\"Offer Term\",item:{label:\"Job Applicant Source\",dt:\"Job Applicant Source\"}},{op:\"add\",after:\"Interview\",item:{label:\"Interview Feedback\",dt:\"Interview Feedback\"}}],Assets:[{op:\"add\",after:\"Asset Movement\",item:{label:\"Asset Consumabl"
+        ]
+      },
+      "Job Offer": {
+        "count": 5,
+        "snips": [
+          "s\"}},{op:\"remove\",label:\"Dashboard\"}],Recruitment:[{op:\"remove\",label:\"Dashboard\"},{op:\"add\",after:\"Job Offer Term Template\",item:{label:\"Offer Term\",dt:\"Offer Term\"}},{op:\"add\",after:\"Offer Term\",item:{label:\"Job Applicant Source\",dt:\"Job ",
+          "w\")}),Q(e.offers_waiting)&&s.push({v:Y(e.offers_waiting),label:d(\"Offers awaiting a reply\"),href:H(\"Job Offer\",{status:\"Awaiting Response\"})});let a=[e.no_desc?be(P(e.no_desc,\"1 published with no description\",\"{0} published with no descript",
+          "t\")].filter(Boolean).join(\" \\xB7 \"),Ot(\"Interview\",p.name),cs(\"Interview\",p.status))),a?i(\"file\",d(\"Job Offer\"),Be(a.offer_date),Ot(\"Job Offer\",a.name),cs(\"Job Offer\",a.status)):\"\"].join(\"\"),c=[s.length?\"\":d(\"No interview booked yet\"),s.len"
+        ]
+      },
+      "seats": {
+        "count": 4,
+        "snips": [
+          "t?\" \\xB7 \"+l(__(h.department)):\"\"}</small></h2> <div class=\"figs\">${m(__(\"Seats in the plan\"),h.seats)}${m(__(\"Taken by openings\"),h.taken)}${m(__(\"Left\"),h.left,h.left<=0?\"warn\":\"ok\")}${m(__(\"Cost per seat\"),this.money(h.cost,u))}${m(_",
+          "lass=\"dnote warn\">${y(\"alert\",\"i sm\")}<span>${l(__(\"This opening does not say how many of those {0} seats it takes, so nothing is deducted.\",[h.seats]))}</span></div>`} <a class=\"planrow\" href=\"${frappe.utils.get_form_link(\"Staffing Pla",
+          "${l(__(\"This opening does not say how many of those {0} seats it takes, so nothing is deducted.\",[h.seats]))}</span></div>`} <a class=\"planrow\" href=\"${frappe.utils.get_form_link(\"Staffing Plan\",h.name)}\"><b>${l(__(\"Open the plan\"))}</b"
+        ]
+      },
+      "idk-gpanels": {
+        "count": 1,
+        "snips": [
+          "esk.hr_gaps.api.panels\",{doctype:e.doctype,name:e.doc.name});if(n!==e.__idk_pan)return;a.children(\".idk-gpanels\").remove();let o=e.doctype===\"Job Opening\"?this.opening_panels(e,i):e.doctype===\"Staffing Plan\"?this.plan_panels(e,i):this.exit_"
+        ]
+      },
+      "recruit": {
+        "count": 4,
+        "snips": [
+          ",Performance:\"ido_design.ido_desk.ws_hr.performance_summary\",Recruitment:\"ido_design.ido_desk.ws_hr.recruitment_summary\",\"Shift & Attendance\":\"ido_design.ido_desk.ws_hr.attendance_summary\",\"Tax & Benefits\":\"ido_design.ido_desk.ws_hr.benefit",
+          "ll:()=>this.payroll_figures(s,e),Performance:()=>this.performance_figures(s,e),Recruitment:()=>this.recruitment_figures(s,e),\"Shift & Attendance\":()=>this.attendance_figures(s,e),\"Tax & Benefits\":()=>this.benefits_figures(s,e),Tenure:()=>th",
+          "b>${C?`<small>${l(C)}</small>`:\"\"}</a>`).join(\"\")}</div>${b}</section>`}return Ce(s,r)+ge(we(t))+c},recruitment_figures(e,t){let s=[];Q(e.openings)&&s.push({v:Y(e.open),label:d(\"Open positions\"),sub:P(e.openings,\"1 in total\",\"{0} in total\")"
+        ]
+      }
+    }
+  },
+  "/assets/ido_design/dist/js/ido_org_chart_boot.bundle.OJJRE2WI.js": {
+    "len": 1525,
+    "hits": {}
+  },
+  "/assets/ido_event/js/ido_engine_client.js": {
+    "len": 5580,
+    "hits": {}
+  },
+  "/assets/ido_event/js/ido_workspace_event.js": {
+    "len": 15625,
+    "hits": {}
+  }
+}

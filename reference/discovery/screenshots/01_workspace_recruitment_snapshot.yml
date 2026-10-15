@@ -1,0 +1,333 @@
+- generic [active] [ref=f2e1]:
+  - navigation "Primary" [ref=f2e3]:
+    - img "i-do enterprise" [ref=f2e4]
+    - link "Home" [ref=f2e9] [cursor=pointer]:
+      - /url: /desk
+    - link "Apps" [ref=f2e13] [cursor=pointer]:
+      - /url: "#"
+    - link "Settings" [ref=f2e19] [cursor=pointer]:
+      - /url: /desk/system-settings
+    - link "Help" [ref=f2e23] [cursor=pointer]:
+      - /url: "#"
+    - button "Log out" [ref=f2e27] [cursor=pointer]
+  - generic [ref=f2e33]:
+    - link [ref=f2e35] [cursor=pointer]:
+      - /url: /desk
+      - img "i-do enterprise" [ref=f2e36]
+    - button "Recruitment HR · hrms" [ref=f2e37] [cursor=pointer]:
+      - generic [ref=f2e43]:
+        - generic [ref=f2e44]: Recruitment
+        - generic [ref=f2e45]: HR · hrms
+    - generic [ref=f2e50]:
+      - generic "Home" [ref=f2e51]:
+        - link "Home" [ref=f2e53] [cursor=pointer]:
+          - /url: /desk/recruitment
+      - generic "Hiring Pipeline" [ref=f2e59]:
+        - link "Hiring Pipeline" [ref=f2e61] [cursor=pointer]:
+          - /url: /desk/job-applicant/view/kanban
+      - generic "Job Opening" [ref=f2e67]:
+        - link "Job Opening 5" [ref=f2e69] [cursor=pointer]:
+          - /url: /desk/job-opening
+          - generic [ref=f2e74]: Job Opening
+          - generic [ref=f2e75]: "5"
+      - generic "Job Applicant" [ref=f2e76]:
+        - link "Job Applicant 5" [ref=f2e78] [cursor=pointer]:
+          - /url: /desk/job-applicant
+          - generic [ref=f2e85]: Job Applicant
+          - generic [ref=f2e86]: "5"
+      - generic "Interview" [ref=f2e87]:
+        - link "Interview 2" [ref=f2e89] [cursor=pointer]:
+          - /url: /desk/interview
+          - generic [ref=f2e94]: Interview
+          - generic [ref=f2e95]: "2"
+      - generic "Interview Feedback" [ref=f2e96]:
+        - link "Interview Feedback 1" [ref=f2e98] [cursor=pointer]:
+          - /url: /desk/interview-feedback
+          - generic [ref=f2e103]: Interview Feedback
+          - generic [ref=f2e104]: "1"
+      - generic "Job Offer" [ref=f2e105]:
+        - link "Job Offer 3" [ref=f2e107] [cursor=pointer]:
+          - /url: /desk/job-offer
+          - generic [ref=f2e112]: Job Offer
+          - generic [ref=f2e113]: "3"
+      - generic "Appointment Letter" [ref=f2e114]:
+        - link "Appointment Letter" [ref=f2e116] [cursor=pointer]:
+          - /url: /desk/appointment-letter
+      - generic "Planning" [ref=f2e122]:
+        - button "Planning Planning" [ref=f2e124] [cursor=pointer]:
+          - generic [ref=f2e129]: Planning
+          - button "Planning" [ref=f2e131]
+      - generic "Reports" [ref=f2e133]:
+        - button "Reports Reports" [ref=f2e135] [cursor=pointer]:
+          - generic [ref=f2e138]: Reports
+          - button "Reports" [ref=f2e140]
+      - generic "Setup" [ref=f2e142]:
+        - button "Setup Setup" [ref=f2e144] [cursor=pointer]:
+          - generic [ref=f2e149]: Setup
+          - button "Setup" [ref=f2e151]
+      - generic "Job Portal" [ref=f2e153]:
+        - link "Job Portal" [ref=f2e155] [cursor=pointer]:
+          - /url: /jobs
+      - generic "Settings" [ref=f2e161]:
+        - link "Settings" [ref=f2e163] [cursor=pointer]:
+          - /url: /desk/hr-settings/HR Settings
+    - generic [ref=f2e169]:
+      - paragraph
+      - button "NS Nadine Sherif View profile" [ref=f2e171] [cursor=pointer]:
+        - generic "Nadine Sherif" [ref=f2e173]:
+          - generic "Nadine Sherif" [ref=f2e174]: NS
+        - generic [ref=f2e175]:
+          - generic [ref=f2e176]: Nadine Sherif
+          - generic [ref=f2e177]: View profile
+  - generic [ref=f2e2]:
+    - banner [ref=f2e178]:
+      - navigation "Breadcrumb" [ref=f2e179]:
+        - link "Home" [ref=f2e180] [cursor=pointer]:
+          - /url: /desk
+        - generic [ref=f2e184]: /
+        - generic [ref=f2e185]: Recruitment
+      - generic [ref=f2e186]:
+        - searchbox "Ctrl K" [ref=f2e191]
+        - generic [ref=f2e192]: Ctrl K
+      - generic [ref=f2e193]:
+        - button "Notifications" [ref=f2e194] [cursor=pointer]
+        - button "Language" [ref=f2e198] [cursor=pointer]:
+          - generic [ref=f2e202]: ع
+        - button "Hi, Nadine" [ref=f2e203] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f2e205]: "N"
+    - banner
+    - generic [ref=f2e207]:
+      - generic [ref=f2e210]:
+        - generic [ref=f2e212]:
+          - generic [ref=f2e213]:
+            - heading "Recruitment" [level=1] [ref=f2e214]
+            - generic [ref=f2e215]:
+              - generic [ref=f2e216]: Ladan Saudi
+              - generic [ref=f2e217]:
+                - generic [aria-hidden] [ref=f2e218]: ·
+                - generic [ref=f2e219]: Recruitment
+          - text: /
+        - button "Menu" [ref=f2e224] [cursor=pointer]
+      - generic [ref=f2e232]:
+        - generic [ref=f2e233]:
+          - link "5 Open positions 5 in total" [ref=f2e234] [cursor=pointer]:
+            - /url: /desk/job-opening
+            - generic [ref=f2e235]: "5"
+            - generic [ref=f2e236]: Open positions
+            - generic [ref=f2e237]: 5 in total
+          - link "5 Applicants in play 5 in total" [ref=f2e238] [cursor=pointer]:
+            - /url: /desk/job-applicant/view/kanban
+            - generic [ref=f2e239]: "5"
+            - generic [ref=f2e240]: Applicants in play
+            - generic [ref=f2e241]: 5 in total
+          - link "0 Interviews this week" [ref=f2e242] [cursor=pointer]:
+            - /url: /desk/interview
+            - generic [ref=f2e243]: "0"
+            - generic [ref=f2e244]: Interviews this week
+          - link "1 Offers awaiting a reply" [ref=f2e245] [cursor=pointer]:
+            - /url: /desk/job-offer?status=Awaiting%20Response
+            - generic [ref=f2e246]: "1"
+            - generic [ref=f2e247]: Offers awaiting a reply
+          - generic [ref=f2e248]:
+            - generic [ref=f2e251]: 3 openings need attention
+            - generic [ref=f2e252]:
+              - link "2 published with no description" [ref=f2e253] [cursor=pointer]:
+                - /url: /desk/job-opening?publish=1
+              - text: ·
+              - link "3 past their closing date" [ref=f2e254] [cursor=pointer]:
+                - /url: /desk/job-opening?status=Open
+        - generic [ref=f2e255]:
+          - heading "Create" [level=2] [ref=f2e257]
+          - generic [ref=f2e258]:
+            - link "Job Applicant" [ref=f2e259] [cursor=pointer]:
+              - /url: /desk/job-applicant/new
+            - link "Job Opening" [ref=f2e265] [cursor=pointer]:
+              - /url: /desk/job-opening/new
+            - link "Interview" [ref=f2e272] [cursor=pointer]:
+              - /url: /desk/interview/new
+            - link "Interview Feedback" [ref=f2e277] [cursor=pointer]:
+              - /url: /desk/interview-feedback/new
+            - link "Job Offer" [ref=f2e282] [cursor=pointer]:
+              - /url: /desk/job-offer/new
+            - link "Appointment Letter" [ref=f2e288] [cursor=pointer]:
+              - /url: /desk/appointment-letter/new
+            - link "Hiring Request" [ref=f2e294] [cursor=pointer]:
+              - /url: /desk/job-requisition/new
+            - link "Staffing Plan" [ref=f2e300] [cursor=pointer]:
+              - /url: /desk/staffing-plan/new
+            - link "Employee Referral" [ref=f2e307] [cursor=pointer]:
+              - /url: /desk/employee-referral/new
+            - link "Interview Type" [ref=f2e313] [cursor=pointer]:
+              - /url: /desk/interview-type/new
+            - link "Job Opening Template" [ref=f2e319] [cursor=pointer]:
+              - /url: /desk/job-opening-template/new
+            - link "Appointment Letter Template" [ref=f2e325] [cursor=pointer]:
+              - /url: /desk/appointment-letter-template/new
+            - link "Job Offer Term Template" [ref=f2e332] [cursor=pointer]:
+              - /url: /desk/job-offer-term-template/new
+            - link "Offer Term" [ref=f2e338] [cursor=pointer]:
+              - /url: /desk/offer-term/new
+            - link "Job Applicant Source" [ref=f2e342] [cursor=pointer]:
+              - /url: /desk/job-applicant-source/new
+        - generic [ref=f2e348]:
+          - generic [ref=f2e349]:
+            - heading "Charts" [level=2] [ref=f2e350]
+            - generic [ref=f2e351]: 8 charts
+          - generic [ref=f2e352]:
+            - generic [ref=f2e353]:
+              - generic [ref=f2e354]:
+                - generic [ref=f2e355]:
+                  - heading "Job Application Frequency" [level=2] [ref=f2e356]
+                  - link "Job Applicant" [ref=f2e358] [cursor=pointer]:
+                    - /url: /desk/job-applicant
+                - generic [ref=f2e359]:
+                  - button "Filter" [ref=f2e360] [cursor=pointer]
+                  - button "More" [ref=f2e363] [cursor=pointer]
+              - img "Job Application Frequency" [ref=f2e369]:
+                - generic [ref=f2e370]: "0"
+                - generic [ref=f2e371]: "0.5"
+                - generic [ref=f2e372]: "1"
+                - generic [ref=f2e373]: "1.5"
+                - generic [ref=f2e374]: "2"
+                - 'generic "2025-07: 1" [ref=f2e377]'
+                - 'generic "2025-11: 1" [ref=f2e378]'
+                - 'generic "2026-02: 2" [ref=f2e379]'
+                - 'generic "2026-03: 1" [ref=f2e380]'
+                - generic [ref=f2e384]: "1"
+                - generic [ref=f2e385]: 2025-07
+                - generic [ref=f2e386]: 2025-11
+                - generic [ref=f2e387]: 2026-02
+                - generic [ref=f2e388]: 2026-03
+            - generic [ref=f2e389]:
+              - generic [ref=f2e390]:
+                - generic [ref=f2e391]:
+                  - heading "Department Wise Openings" [level=2] [ref=f2e392]
+                  - link "Job Opening" [ref=f2e394] [cursor=pointer]:
+                    - /url: /desk/job-opening
+                - generic [ref=f2e395]:
+                  - button "Filter" [ref=f2e396] [cursor=pointer]
+                  - button "More" [ref=f2e399] [cursor=pointer]
+              - img "Department Wise Openings" [ref=f2e405]:
+                - generic [ref=f2e406]: "0"
+                - generic [ref=f2e407]: "0.25"
+                - generic [ref=f2e408]: "0.5"
+                - generic [ref=f2e409]: "0.75"
+                - generic [ref=f2e410]: "1"
+                - 'generic "Accounts: 1" [ref=f2e411]'
+                - 'generic "Human Resources: 1" [ref=f2e413]'
+                - 'generic "Operations: 1" [ref=f2e415]'
+                - 'generic "Marketing: 1" [ref=f2e417]'
+                - 'generic "Security - D: 1" [ref=f2e419]'
+                - generic [ref=f2e421]: "1"
+                - generic [ref=f2e422]: "1"
+                - generic [ref=f2e423]: "1"
+                - generic [ref=f2e424]: "1"
+                - generic [ref=f2e425]: "1"
+                - generic [ref=f2e426]: Accounts
+                - generic [ref=f2e427]: Human Resources
+                - generic [ref=f2e428]: Operations
+                - generic [ref=f2e429]: Marketing
+                - generic [ref=f2e430]: Security - D
+            - generic [ref=f2e431]:
+              - generic [ref=f2e432]:
+                - generic [ref=f2e433]:
+                  - heading "Designation Wise Openings" [level=2] [ref=f2e434]
+                  - link "Job Opening" [ref=f2e436] [cursor=pointer]:
+                    - /url: /desk/job-opening
+                - generic [ref=f2e437]:
+                  - button "Filter" [ref=f2e438] [cursor=pointer]
+                  - button "More" [ref=f2e441] [cursor=pointer]
+              - img "Designation Wise Openings" [ref=f2e447]:
+                - generic [ref=f2e448]: "0"
+                - generic [ref=f2e449]: "0.5"
+                - generic [ref=f2e450]: "1"
+                - generic [ref=f2e451]: "1.5"
+                - generic [ref=f2e452]: "2"
+                - 'generic "Customer Service Representative: 2" [ref=f2e453]'
+                - 'generic "Accountant: 1" [ref=f2e455]'
+                - 'generic "HR: 1" [ref=f2e457]'
+                - 'generic "Analyst: 1" [ref=f2e459]'
+                - generic [ref=f2e461]: "2"
+                - generic [ref=f2e462]: "1"
+                - generic [ref=f2e463]: "1"
+                - generic [ref=f2e464]: "1"
+                - generic [ref=f2e465]: Customer Service Representative
+                - generic [ref=f2e466]: Accountant
+                - generic [ref=f2e467]: HR
+                - generic [ref=f2e468]: Analyst
+          - generic [ref=f2e469]:
+            - heading "Breakdowns" [level=2] [ref=f2e471]
+            - generic [ref=f2e472]:
+              - generic [ref=f2e473]:
+                - heading "Job Applicant Pipeline" [level=2] [ref=f2e475]
+                - generic [ref=f2e476]:
+                  - generic [ref=f2e477]:
+                    - generic "Accepted" [ref=f2e478]
+                    - generic [ref=f2e479]: "2"
+                    - generic [ref=f2e480]: 40%
+                  - generic [ref=f2e481]:
+                    - generic "Replied" [ref=f2e482]
+                    - generic [ref=f2e483]: "1"
+                    - generic [ref=f2e484]: 20%
+                  - generic [ref=f2e485]:
+                    - generic "Shortlisted" [ref=f2e486]
+                    - generic [ref=f2e487]: "1"
+                    - generic [ref=f2e488]: 20%
+                  - generic [ref=f2e489]:
+                    - generic "Open" [ref=f2e490]
+                    - generic [ref=f2e491]: "1"
+                    - generic [ref=f2e492]: 20%
+              - generic [ref=f2e493]:
+                - heading "Job Applicant Source" [level=2] [ref=f2e495]
+                - generic [ref=f2e496]:
+                  - generic [ref=f2e497]:
+                    - generic "Not Set" [ref=f2e498]
+                    - generic [ref=f2e499]: "3"
+                    - generic [ref=f2e500]: 60%
+                  - generic [ref=f2e501]:
+                    - generic "Linkedin" [ref=f2e502]
+                    - generic [ref=f2e503]: "1"
+                    - generic [ref=f2e504]: 20%
+                  - generic [ref=f2e505]:
+                    - generic "Recommendation" [ref=f2e506]
+                    - generic [ref=f2e507]: "1"
+                    - generic [ref=f2e508]: 20%
+              - generic [ref=f2e509]:
+                - heading "Job Applicants by Country" [level=2] [ref=f2e511]
+                - generic [ref=f2e512]:
+                  - generic [ref=f2e513]:
+                    - generic "Egypt" [ref=f2e514]
+                    - generic [ref=f2e515]: "2"
+                    - generic [ref=f2e516]: 40%
+                  - generic [ref=f2e517]:
+                    - generic "Saudi Arabia" [ref=f2e518]
+                    - generic [ref=f2e519]: "2"
+                    - generic [ref=f2e520]: 40%
+                  - generic [ref=f2e521]:
+                    - generic "Albania" [ref=f2e522]
+                    - generic [ref=f2e523]: "1"
+                    - generic [ref=f2e524]: 20%
+              - generic [ref=f2e525]:
+                - heading "Job Offer Status" [level=2] [ref=f2e527]
+                - generic [ref=f2e528]:
+                  - generic [ref=f2e529]:
+                    - generic "Accepted" [ref=f2e530]
+                    - generic [ref=f2e531]: "2"
+                    - generic [ref=f2e532]: 67%
+                  - generic [ref=f2e533]:
+                    - generic "Awaiting Response" [ref=f2e534]
+                    - generic [ref=f2e535]: "1"
+                    - generic [ref=f2e536]: 33%
+              - generic [ref=f2e537]:
+                - heading "Interview Status" [level=2] [ref=f2e539]
+                - generic [ref=f2e540]:
+                  - generic [ref=f2e541]:
+                    - generic "Cleared" [ref=f2e542]
+                    - generic [ref=f2e543]: "1"
+                    - generic [ref=f2e544]: 50%
+                  - generic [ref=f2e545]:
+                    - generic "Pending" [ref=f2e546]
+                    - generic [ref=f2e547]: "1"
+                    - generic [ref=f2e548]: 50%
+    - contentinfo
+  - button "فتح الشات" [ref=f2e549] [cursor=pointer]

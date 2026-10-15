@@ -1,0 +1,637 @@
+{
+  "log": [
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25llm%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25openai%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25gpt%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25gemini%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25claude%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25anthropic%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25parse%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25whisper%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25vision%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25ocr%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25ai%20%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25ai_%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/DocType?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25AI%25%22%5D%5D&fields=%5B%22name%22%2C%22module%22%2C%22custom%22%2C%22istable%22%5D&limit_page_length=50",
+      200
+    ],
+    [
+      "/api/resource/Module%20Def?fields=%5B%22name%22%2C%22app_name%22%2C%22custom%22%5D&limit_page_length=300",
+      200
+    ],
+    [
+      "/api/resource/Scheduled%20Job%20Type?fields=%5B%22name%22%2C%22method%22%2C%22frequency%22%2C%22stopped%22%2C%22cron_format%22%2C%22last_execution%22%5D&filters=%5B%5B%22method%22%2C%22like%22%2C%22%25hrms%25%22%5D%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Scheduled%20Job%20Type?fields=%5B%22name%22%2C%22method%22%2C%22frequency%22%2C%22stopped%22%2C%22last_execution%22%5D&filters=%5B%5B%22method%22%2C%22like%22%2C%22%25hr_ksa%25%22%5D%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/method/frappe.client.get_count?doctype=Scheduled%20Job%20Type",
+      200
+    ],
+    [
+      "/api/resource/Scheduled%20Job%20Log?fields=%5B%22name%22%2C%22creation%22%5D&order_by=creation%20desc&limit_page_length=1",
+      200
+    ],
+    [
+      "/api/resource/User/<logged-in user>",
+      200
+    ],
+    [
+      "/api/resource/Custom%20Field?fields=%5B%22dt%22%2C%22count(name)%20as%20n%22%5D&filters=%5B%5B%22dt%22%2C%22in%22%2C%5B%22Employee%22%2C%22Job%20Applicant%22%2C%22Job%20Opening%22%2C%22Job%20Requisition%22%2C%22Staffing%20Plan%22%2C%22Interview%22%2C%22Job%20Offer%22%2C%22Designation%22%2C%22Department%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%5D%5D%5D&group_by=dt&limit_page_length=50",
+      417
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Employee",
+      200
+    ],
+    [
+      "/api/method/frappe.model.utils.user_settings.get?doctype=Job%20Applicant",
+      200
+    ],
+    [
+      "/api/resource/List%20Filter?fields=%5B%22name%22%2C%22filter_name%22%2C%22reference_doctype%22%2C%22for_user%22%2C%22filters%22%5D&filters=%5B%5B%22reference_doctype%22%2C%22in%22%2C%5B%22Job%20Applicant%22%2C%22Job%20Opening%22%2C%22Job%20Requisition%22%2C%22Staffing%20Plan%22%2C%22Interview%22%2C%22Job%20Offer%22%5D%5D%5D&limit_page_length=100",
+      200
+    ],
+    [
+      "/api/resource/Report%20View%20Settings?limit_page_length=1",
+      404
+    ]
+  ],
+  "ai_doctype_matches": {
+    "llm": [
+      "Rental Contract Installment (Real Estate)"
+    ],
+    "vision": [
+      "Loan IRAC Provisioning Configuration (Loan Management)"
+    ],
+    "ai_": [
+      "Accounting Dimension Detail (Accounts)",
+      "Appraisal (HR)",
+      "Appraisal Cycle (HR)",
+      "Appraisal Goal (HR)",
+      "Appraisal KBI (HR KSA)",
+      "Appraisal KPI (HR KSA)",
+      "Appraisal KRA (HR)",
+      "Appraisal Template (HR)",
+      "Appraisal Template Goal (HR)",
+      "Appraisal Template KBI (HR KSA)",
+      "Appraisal Template KPI (HR KSA)",
+      "Appraisee (HR)",
+      "Asset Maintenance (Assets)",
+      "Asset Maintenance Log (Assets)",
+      "Asset Maintenance Task (Assets)",
+      "Asset Maintenance Team (Assets)",
+      "Asset Repair (Assets)",
+      "Asset Repair Consumed Item (Assets)",
+      "Asset Repair Purchase Invoice (Assets)",
+      "Audit Trail (Core)",
+      "Auto Email Report (Email)",
+      "Availability Of Slots (CRM)",
+      "Bank Clearance Detail (Accounts)",
+      "Bulk Transaction Log Detail (Bulk Transaction)",
+      "Campaign (CRM)",
+      "Campaign Email Schedule (CRM)",
+      "Campaign Item (Accounts)",
+      "Claims (Ido Lost And Found)",
+      "Competitor Detail (CRM)",
+      "Contact Email (Contacts)",
+      "Corrective Maintenance Task (maintenanceApp)",
+      "Currency Exchange Settings Details (Accounts)",
+      "Daily Work Summary (HR)",
+      "Daily Work Summary Group (HR)",
+      "Daily Work Summary Group User (HR)",
+      "Domain (Core)",
+      "Domain Settings (Core)",
+      "Email Account (Email)",
+      "Email Campaign (CRM)",
+      "Email Digest (Setup)",
+      "Email Digest Recipient (Setup)",
+      "Email Domain (Email)",
+      "Email Flag Queue (Email)",
+      "Email Group (Email)",
+      "Email Group Member (Email)",
+      "Email Queue (Email)",
+      "Email Queue Recipient (Email)",
+      "Email Rule (Email)",
+      "Email Template (Email)",
+      "Email Unsubscribe (Email)"
+    ],
+    "AI": [
+      "Accounting Dimension Detail (Accounts)",
+      "Appraisal (HR)",
+      "Appraisal Cycle (HR)",
+      "Appraisal Goal (HR)",
+      "Appraisal KBI (HR KSA)",
+      "Appraisal KPI (HR KSA)",
+      "Appraisal KRA (HR)",
+      "Appraisal Template (HR)",
+      "Appraisal Template Goal (HR)",
+      "Appraisal Template KBI (HR KSA)",
+      "Appraisal Template KPI (HR KSA)",
+      "Appraisee (HR)",
+      "Asset Maintenance (Assets)",
+      "Asset Maintenance Log (Assets)",
+      "Asset Maintenance Task (Assets)",
+      "Asset Maintenance Team (Assets)",
+      "Asset Repair (Assets)",
+      "Asset Repair Consumed Item (Assets)",
+      "Asset Repair Purchase Invoice (Assets)",
+      "Audit Trail (Core)",
+      "Auto Email Report (Email)",
+      "Availability Of Slots (CRM)",
+      "Bank Clearance Detail (Accounts)",
+      "Bulk Transaction Log Detail (Bulk Transaction)",
+      "Campaign (CRM)",
+      "Campaign Email Schedule (CRM)",
+      "Campaign Item (Accounts)",
+      "Claims (Ido Lost And Found)",
+      "Competitor Detail (CRM)",
+      "Contact Email (Contacts)",
+      "Corrective Maintenance Task (maintenanceApp)",
+      "Currency Exchange Settings Details (Accounts)",
+      "Daily Work Summary (HR)",
+      "Daily Work Summary Group (HR)",
+      "Daily Work Summary Group User (HR)",
+      "Domain (Core)",
+      "Domain Settings (Core)",
+      "Email Account (Email)",
+      "Email Campaign (CRM)",
+      "Email Digest (Setup)",
+      "Email Digest Recipient (Setup)",
+      "Email Domain (Email)",
+      "Email Flag Queue (Email)",
+      "Email Group (Email)",
+      "Email Group Member (Email)",
+      "Email Queue (Email)",
+      "Email Queue Recipient (Email)",
+      "Email Rule (Email)",
+      "Email Template (Email)",
+      "Email Unsubscribe (Email)"
+    ]
+  },
+  "modules_by_app": {
+    "erpnext": [
+      "Accounts",
+      "Assets",
+      "Bulk Transaction",
+      "Buying",
+      "Communication",
+      "CRM",
+      "EDI",
+      "ERPNext Integrations",
+      "Maintenance",
+      "Manufacturing",
+      "Portal",
+      "Projects",
+      "Quality Management",
+      "Regional",
+      "Selling",
+      "Setup",
+      "Stock",
+      "Subcontracting",
+      "Support",
+      "Telephony",
+      "Utilities"
+    ],
+    "agriculture": [
+      "agriculture"
+    ],
+    "frappe": [
+      "Automation",
+      "Contacts",
+      "Core",
+      "Custom",
+      "Desk",
+      "Email",
+      "Geo",
+      "Integrations",
+      "Printing",
+      "Social",
+      "Website",
+      "Workflow"
+    ],
+    "cleaning_app": [
+      "Cleaning"
+    ],
+    "hrms": [
+      "HR",
+      "Payroll"
+    ],
+    "hr_ksa_customization": [
+      "HR KSA"
+    ],
+    "ido_design": [
+      "I Do Design",
+      "IDO Desk"
+    ],
+    "real_estate": [
+      "ido",
+      "Real Estate"
+    ],
+    "ido_api": [
+      "Ido Api"
+    ],
+    "ido_camera": [
+      "IDO Camera"
+    ],
+    "ido_chat": [
+      "IDO Chat"
+    ],
+    "ido_core": [
+      "Ido Core"
+    ],
+    "ido_event": [
+      "IDO Event"
+    ],
+    "ido_lost_and_found": [
+      "Ido Lost And Found"
+    ],
+    "issue": [
+      "issue"
+    ],
+    "lending": [
+      "Loan Management",
+      "Loan Origination"
+    ],
+    "laf_module": [
+      "Lost and Found"
+    ],
+    "maintenanceapp": [
+      "maintenanceApp"
+    ],
+    "push_notification": [
+      "Push Notification"
+    ],
+    "work_permit": [
+      "work_permit"
+    ]
+  },
+  "scheduled_jobs_hrms": [
+    {
+      "method": "hrms.hr.doctype.daily_work_summary_group.daily_work_summary_group.send_summary",
+      "frequency": "Daily",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.doctype.daily_work_summary_group.daily_work_summary_group.trigger_emails",
+      "frequency": "Hourly",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.telemetry.capture_daily_attendance_pulse",
+      "frequency": "Daily",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": null
+    },
+    {
+      "method": "hrms.hr.doctype.shift_assignment.shift_assignment.mark_expired_shift_assignments_as_inactive",
+      "frequency": "Daily",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": null
+    },
+    {
+      "method": "hrms.controllers.employee_reminders.send_birthday_reminders",
+      "frequency": "Daily",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.controllers.employee_reminders.send_reminders_in_advance_monthly",
+      "frequency": "Monthly",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-01"
+    },
+    {
+      "method": "hrms.controllers.employee_reminders.send_reminders_in_advance_weekly",
+      "frequency": "Weekly",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-27"
+    },
+    {
+      "method": "hrms.controllers.employee_reminders.send_work_anniversary_reminders",
+      "frequency": "Daily",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.doctype.interview.interview.send_daily_feedback_reminder",
+      "frequency": "Daily",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.doctype.interview.interview.send_interview_reminder",
+      "frequency": "All",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.doctype.job_opening.job_opening.close_expired_job_openings",
+      "frequency": "Daily",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.doctype.leave_ledger_entry.leave_ledger_entry.process_expired_allocation",
+      "frequency": "Daily Long",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.doctype.shift_schedule_assignment.shift_schedule_assignment.process_auto_shift_creation",
+      "frequency": "Hourly Long",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.doctype.shift_type.shift_type.process_auto_attendance_for_all_shifts",
+      "frequency": "Hourly Long",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.doctype.shift_type.shift_type.update_last_sync_of_checkin",
+      "frequency": "Hourly Long",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.utils.allocate_earned_leaves",
+      "frequency": "Daily Long",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    },
+    {
+      "method": "hrms.hr.utils.generate_leave_encashment",
+      "frequency": "Daily Long",
+      "stopped": 0,
+      "cron": "",
+      "last_execution": "2025-07-31"
+    }
+  ],
+  "scheduled_jobs_hr_ksa": [],
+  "scheduled_job_total": 113,
+  "last_scheduled_job_log": "2025-08-21 19:06",
+  "my_user": {
+    "has_api_key": false,
+    "user_type": "System User",
+    "language": "en",
+    "enabled": 1
+  },
+  "custom_field_counts": null,
+  "employee_fields_eligibility": [
+    {
+      "fieldname": "gender",
+      "label": "Gender",
+      "fieldtype": "Link",
+      "options": "Gender",
+      "custom": 0,
+      "reqd": 1
+    },
+    {
+      "fieldname": "date_of_birth",
+      "label": "Date of Birth",
+      "fieldtype": "Date",
+      "custom": 0,
+      "reqd": 1
+    },
+    {
+      "fieldname": "image",
+      "label": "Image",
+      "fieldtype": "Attach Image",
+      "custom": 0,
+      "reqd": 0
+    },
+    {
+      "fieldname": "ksa_experience_allowance",
+      "label": "Experience Allowance",
+      "fieldtype": "Currency",
+      "custom": 1,
+      "reqd": 0
+    },
+    {
+      "fieldname": "marital_status",
+      "label": "Marital Status",
+      "fieldtype": "Select",
+      "options": "\nSingle\nMarried\nDivorced\nWidowed",
+      "custom": 0,
+      "reqd": 0
+    },
+    {
+      "fieldname": "nationality",
+      "label": "Nationality",
+      "fieldtype": "Link",
+      "options": "Country",
+      "custom": 1,
+      "reqd": 0
+    },
+    {
+      "fieldname": "religion",
+      "label": "Religion",
+      "fieldtype": "Select",
+      "options": "\nMuslim\nNon-Muslim",
+      "custom": 1,
+      "reqd": 0
+    },
+    {
+      "fieldname": "blood_group",
+      "label": "Blood Group",
+      "fieldtype": "Select",
+      "options": "\nA+\nA-\nB+\nB-\nAB+\nAB-\nO+\nO-",
+      "custom": 0,
+      "reqd": 0
+    },
+    {
+      "fieldname": "passport_details_section",
+      "label": "Passport Details",
+      "fieldtype": "Section Break",
+      "custom": 0,
+      "reqd": 0
+    },
+    {
+      "fieldname": "passport_number",
+      "label": "Passport Number",
+      "fieldtype": "Data",
+      "custom": 0,
+      "reqd": 0
+    },
+    {
+      "fieldname": "educational_qualification",
+      "label": "Educational Qualification",
+      "fieldtype": "Section Break",
+      "custom": 0,
+      "reqd": 0
+    },
+    {
+      "fieldname": "education",
+      "label": "Education",
+      "fieldtype": "Table",
+      "options": "Employee Education",
+      "custom": 0,
+      "reqd": 0
+    },
+    {
+      "fieldname": "previous_work_experience",
+      "label": "Previous Work Experience",
+      "fieldtype": "Section Break",
+      "options": "Simple",
+      "custom": 0,
+      "reqd": 0
+    }
+  ],
+  "employee_custom_fields": [
+    "ksa_arabic_section:Section Break",
+    "first_name_ar:Data",
+    "middle_name_ar:Data",
+    "last_name_ar:Data",
+    "location:Link(Location)",
+    "ksa_family_section:Section Break",
+    "family_members:Table(Employee Family Member)",
+    "ksa_contract_section:Section Break",
+    "contract_start_date:Date",
+    "contract_type:Select()",
+    "contract_status:Data",
+    "ksa_asset_section:Section Break",
+    "asset_allocations:Table(Employee Asset Allocation)",
+    "enable_virtual_attendance:Check",
+    "ksa_probation_section:Section Break",
+    "probation_period:Select()",
+    "probation_start_date:Date",
+    "probation_end_date:Date",
+    "probation_action:Select()",
+    "probation_status:Data",
+    "basic_info_section:Section Break",
+    "employment_type:Link(Employment Type)",
+    "grade:Link(Employee Grade)",
+    "default_shift:Link(Shift Type)",
+    "approvers_section:Section Break",
+    "expense_approver:Link(User)",
+    "leave_approver:Link(User)",
+    "column_break_45:Column Break",
+    "shift_request_approver:Link(User)",
+    "salary:Currency(salary_currency)",
+    "ksa_salary_breakdown_section:Section Break",
+    "ksa_basic_salary:Currency",
+    "ksa_housing_allowance:Currency",
+    "ksa_transportation_allowance:Currency",
+    "ksa_communication_allowance:Currency",
+    "ksa_fuel_allowance:Currency",
+    "ksa_experience_allowance:Currency",
+    "ksa_other_allowances:Currency",
+    "ksa_food_allowance:Currency",
+    "employee_advance_account:Link(Account)",
+    "salary_cb:Column Break",
+    "payroll_cost_center:Link(Cost Center)",
+    "gosi_section:Section Break",
+    "gosi_subscriber_no:Data",
+    "gosi_section_cb1:Column Break",
+    "gosi_subscription_date:Date",
+    "gosi_section_cb2:Column Break",
+    "gosi_contribution_base:Currency",
+    "nationality:Link(Country)",
+    "religion:Select()",
+    "health_insurance_section:Section Break",
+    "health_insurance_provider:Link(Employee Health Insurance)",
+    "health_insurance_no:Data",
+    "job_applicant:Link(Job Applicant)",
+    "job_offer:Link(Job Offer)",
+    "custom_custody:Tab Break",
+    "custom_custody_items:Table(Custody)"
+  ],
+  "employee_child_tables": [
+    "family_members->Employee Family Member",
+    "asset_allocations->Employee Asset Allocation",
+    "education->Employee Education",
+    "external_work_history->Employee External Work History",
+    "internal_work_history->Employee Internal Work History",
+    "custom_custody_items->Custody"
+  ],
+  "job_applicant_user_settings": "{}",
+  "saved_list_filters": [],
+  "report_view_settings_status": 404,
+  "boot_flags": {
+    "sysdefaults_lang": "ar",
+    "user_lang": "en",
+    "is_rtl_desk": "ltr",
+    "website_settings_title": null,
+    "apps_in_boot": [
+      "frappe",
+      "erpnext",
+      "hrms",
+      "ido_lost_and_found",
+      "ido_api",
+      "real_estate",
+      "cleaning_app",
+      "maintenanceapp",
+      "issue",
+      "agriculture",
+      "lending",
+      "work_permit",
+      "ido_chat",
+      "ido_design",
+      "ido_camera",
+      "hr_ksa_customization",
+      "ido_event",
+      "push_notification"
+    ],
+    "socketio_port": 9000
+  }
+}

@@ -1,0 +1,1734 @@
+{
+  "log": [
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Staffing Plan",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Job Requisition",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Job Opening",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Job Applicant",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Interview",
+      200
+    ],
+    [
+      "/api/method/frappe.desk.form.load.getdoctype?doctype=Job Offer",
+      200
+    ]
+  ],
+  "doctypes": {
+    "Staffing Plan": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 1,
+      "autoname": "prompt",
+      "naming_rule": "Set by user",
+      "sort_field": "creation",
+      "sort_order": "DESC",
+      "track_changes": 1,
+      "allow_rename": 0,
+      "allow_import": 1,
+      "has_web_view": 0,
+      "quick_entry": 1,
+      "max_attachments": 0,
+      "states": [],
+      "links": [],
+      "actions": [],
+      "permissions": [
+        {
+          "role": "HR Manager",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 1,
+          "cancel": 1,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "HR User",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 1,
+          "cancel": 0,
+          "delete": 0,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "Support Read Only",
+          "read": 1,
+          "write": 0,
+          "create": 0,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 0,
+          "if_owner": 0,
+          "permlevel": 0
+        }
+      ],
+      "fields": [
+        {
+          "fieldname": "company",
+          "label": "Company",
+          "fieldtype": "Link",
+          "options": "Company",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "department",
+          "label": "Department",
+          "fieldtype": "Link",
+          "options": "Department",
+          "idx": 2
+        },
+        {
+          "fieldname": "column_break_3",
+          "fieldtype": "Column Break",
+          "idx": 3
+        },
+        {
+          "fieldname": "from_date",
+          "label": "From Date",
+          "fieldtype": "Date",
+          "reqd": 1,
+          "idx": 4
+        },
+        {
+          "fieldname": "to_date",
+          "label": "To Date",
+          "fieldtype": "Date",
+          "reqd": 1,
+          "idx": 5
+        },
+        {
+          "fieldname": "staffing_plan_details",
+          "label": "Details",
+          "fieldtype": "Section Break",
+          "idx": 6
+        },
+        {
+          "fieldname": "get_job_requisitions",
+          "label": "Get Job Requisitions",
+          "fieldtype": "Button",
+          "idx": 7
+        },
+        {
+          "fieldname": "staffing_details",
+          "label": "Staffing Details",
+          "fieldtype": "Table",
+          "options": "Staffing Plan Detail",
+          "reqd": 1,
+          "idx": 8
+        },
+        {
+          "fieldname": "section_break_8",
+          "fieldtype": "Section Break",
+          "idx": 9
+        },
+        {
+          "fieldname": "total_estimated_budget",
+          "label": "Total Estimated Budget",
+          "fieldtype": "Currency",
+          "options": "Company:company:default_currency",
+          "read_only": 1,
+          "default": "0.00",
+          "idx": 10
+        },
+        {
+          "fieldname": "amended_from",
+          "label": "Amended From",
+          "fieldtype": "Link",
+          "options": "Staffing Plan",
+          "read_only": 1,
+          "no_copy": 1,
+          "idx": 11
+        }
+      ],
+      "__client_scripts": "has_standard_js",
+      "__custom_js_len": 40,
+      "__list_js_len": 0,
+      "__custom_list_js_len": 45,
+      "__custom_js": "\n\n//# sourceURL=staffing_plan__custom_js",
+      "__workflow_docs": [],
+      "__form_grid_templates": [],
+      "__dashboard": {
+        "fieldname": "staffing_plan",
+        "transactions": [
+          {
+            "items": [
+              "Job Opening"
+            ]
+          }
+        ],
+        "non_standard_fieldnames": {},
+        "internal_links": {}
+      }
+    },
+    "Staffing Plan Detail": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "sort_field": "creation",
+      "sort_order": "DESC",
+      "track_changes": 1,
+      "allow_rename": 0,
+      "allow_import": 0,
+      "has_web_view": 0,
+      "quick_entry": 1,
+      "max_attachments": 0,
+      "states": [],
+      "links": [],
+      "actions": [],
+      "permissions": [],
+      "fields": [
+        {
+          "fieldname": "designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "vacancies",
+          "label": "Vacancies",
+          "fieldtype": "Int",
+          "in_list_view": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "estimated_cost_per_position",
+          "label": "Estimated Cost Per Position",
+          "fieldtype": "Currency",
+          "options": "Company:company:default_currency",
+          "in_list_view": 1,
+          "idx": 3
+        },
+        {
+          "fieldname": "total_estimated_cost",
+          "label": "Total Estimated Cost",
+          "fieldtype": "Currency",
+          "options": "Company:company:default_currency",
+          "read_only": 1,
+          "in_list_view": 1,
+          "idx": 4
+        },
+        {
+          "fieldname": "column_break_5",
+          "fieldtype": "Column Break",
+          "idx": 5
+        },
+        {
+          "fieldname": "current_count",
+          "label": "Current Count",
+          "fieldtype": "Int",
+          "read_only": 1,
+          "idx": 6
+        },
+        {
+          "fieldname": "current_openings",
+          "label": "Current Openings",
+          "fieldtype": "Int",
+          "read_only": 1,
+          "idx": 7
+        },
+        {
+          "fieldname": "number_of_positions",
+          "label": "Number Of Positions",
+          "fieldtype": "Int",
+          "read_only": 1,
+          "in_list_view": 1,
+          "idx": 8
+        }
+      ]
+    },
+    "Job Requisition": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "naming_series:",
+      "naming_rule": "By \"Naming Series\" field",
+      "title_field": "designation",
+      "sort_field": "creation",
+      "sort_order": "DESC",
+      "track_changes": 0,
+      "allow_rename": 1,
+      "allow_import": 1,
+      "has_web_view": 0,
+      "quick_entry": 0,
+      "max_attachments": 0,
+      "states": [],
+      "links": [
+        {
+          "link_doctype": "Job Opening",
+          "link_fieldname": "job_requisition",
+          "is_child_table": 0
+        }
+      ],
+      "actions": [],
+      "permissions": [
+        {
+          "role": "System Manager",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "Support Read Only",
+          "read": 1,
+          "write": 0,
+          "create": 0,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 0,
+          "if_owner": 0,
+          "permlevel": 0
+        }
+      ],
+      "fields": [
+        {
+          "fieldname": "naming_series",
+          "label": "Naming Series",
+          "fieldtype": "Select",
+          "options": "HR-HIREQ-",
+          "idx": 1
+        },
+        {
+          "fieldname": "designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "staffing_plan",
+          "label": "Workforce Plan",
+          "fieldtype": "Link",
+          "options": "Staffing Plan",
+          "is_custom_field": 1,
+          "insert_after": "designation",
+          "idx": 3
+        },
+        {
+          "fieldname": "plan_seats_left",
+          "label": "Seats Left in the Plan",
+          "fieldtype": "Int",
+          "read_only": 1,
+          "is_custom_field": 1,
+          "insert_after": "staffing_plan",
+          "idx": 4
+        },
+        {
+          "fieldname": "department",
+          "label": "Department",
+          "fieldtype": "Link",
+          "options": "Department",
+          "idx": 5
+        },
+        {
+          "fieldname": "column_break_qkna",
+          "fieldtype": "Column Break",
+          "idx": 6
+        },
+        {
+          "fieldname": "plan_over_notice",
+          "label": "This request asks for more than the plan has left.",
+          "fieldtype": "HTML",
+          "is_custom_field": 1,
+          "insert_after": "column_break_qkna",
+          "idx": 7
+        },
+        {
+          "fieldname": "no_of_positions",
+          "label": "No of. Positions",
+          "fieldtype": "Int",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 8
+        },
+        {
+          "fieldname": "expected_compensation",
+          "label": "Expected Compensation",
+          "fieldtype": "Currency",
+          "options": "Company:company:default_currency",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 9
+        },
+        {
+          "fieldname": "column_break_4",
+          "fieldtype": "Column Break",
+          "idx": 10
+        },
+        {
+          "fieldname": "company",
+          "label": "Company",
+          "fieldtype": "Link",
+          "options": "Company",
+          "reqd": 1,
+          "idx": 11
+        },
+        {
+          "fieldname": "status",
+          "label": "Status",
+          "fieldtype": "Select",
+          "options": "Pending\nOpen & Approved\nRejected\nFilled\nOn Hold\nCancelled",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 12
+        },
+        {
+          "fieldname": "section_break_7",
+          "label": "Requested By",
+          "fieldtype": "Section Break",
+          "idx": 13
+        },
+        {
+          "fieldname": "requested_by",
+          "label": "Requested By",
+          "fieldtype": "Link",
+          "options": "Employee",
+          "reqd": 1,
+          "in_standard_filter": 1,
+          "idx": 14
+        },
+        {
+          "fieldname": "requested_by_name",
+          "label": "Requested By (Name)",
+          "fieldtype": "Data",
+          "read_only": 1,
+          "in_list_view": 1,
+          "fetch_from": "requested_by.employee_name",
+          "idx": 15
+        },
+        {
+          "fieldname": "column_break_10",
+          "fieldtype": "Column Break",
+          "idx": 16
+        },
+        {
+          "fieldname": "requested_by_dept",
+          "label": "Department",
+          "fieldtype": "Link",
+          "options": "Department",
+          "read_only": 1,
+          "fetch_from": "requested_by.department",
+          "idx": 17
+        },
+        {
+          "fieldname": "requested_by_designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "read_only": 1,
+          "fetch_from": "requested_by.designation",
+          "idx": 18
+        },
+        {
+          "fieldname": "timelines_tab",
+          "label": "Timelines",
+          "fieldtype": "Section Break",
+          "idx": 19
+        },
+        {
+          "fieldname": "posting_date",
+          "label": "Posting Date",
+          "fieldtype": "Date",
+          "reqd": 1,
+          "default": "Today",
+          "idx": 20
+        },
+        {
+          "fieldname": "completed_on",
+          "label": "Completed On",
+          "fieldtype": "Date",
+          "depends_on": "eval:doc.status==\"Filled\"",
+          "mandatory_depends_on": "eval:doc.status==\"Filled\"",
+          "idx": 21
+        },
+        {
+          "fieldname": "column_break_15",
+          "fieldtype": "Column Break",
+          "idx": 22
+        },
+        {
+          "fieldname": "expected_by",
+          "label": "Expected By",
+          "fieldtype": "Date",
+          "in_list_view": 1,
+          "idx": 23
+        },
+        {
+          "fieldname": "time_to_fill",
+          "label": "Time to Fill",
+          "fieldtype": "Duration",
+          "read_only": 1,
+          "description": "Time taken to fill the open positions",
+          "idx": 24
+        },
+        {
+          "fieldname": "job_description_tab",
+          "label": "Job Description",
+          "fieldtype": "Tab Break",
+          "idx": 25
+        },
+        {
+          "fieldname": "description",
+          "label": "Job Description",
+          "fieldtype": "Text Editor",
+          "reqd": 1,
+          "fetch_from": "designation.description",
+          "idx": 26
+        },
+        {
+          "fieldname": "reason_for_requesting",
+          "label": "Reason for Requesting",
+          "fieldtype": "Text",
+          "idx": 27
+        },
+        {
+          "fieldname": "connections_tab",
+          "label": "Connections",
+          "fieldtype": "Tab Break",
+          "idx": 28
+        }
+      ],
+      "__client_scripts": "has_standard_js",
+      "__custom_js_len": 42,
+      "__list_js_len": 902,
+      "__custom_list_js_len": 47,
+      "__custom_js": "\n\n//# sourceURL=job_requisition__custom_js",
+      "__workflow_docs": [],
+      "__form_grid_templates": [],
+      "__dashboard": {
+        "transactions": [
+          {
+            "label": null,
+            "items": [
+              "Job Opening"
+            ]
+          }
+        ],
+        "non_standard_fieldnames": {
+          "Job Opening": "job_requisition"
+        },
+        "internal_links": {},
+        "fieldname": "job_requisition"
+      }
+    },
+    "Job Opening": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "HR-OPN-.YYYY.-.####",
+      "naming_rule": "Expression",
+      "title_field": "job_title",
+      "sort_field": "creation",
+      "sort_order": "ASC",
+      "track_changes": 0,
+      "allow_rename": 0,
+      "allow_import": 1,
+      "has_web_view": 1,
+      "is_published_field": "publish",
+      "quick_entry": 0,
+      "max_attachments": 0,
+      "states": [
+        {
+          "title": "Open",
+          "color": "Green"
+        },
+        {
+          "title": "Closed",
+          "color": "Gray"
+        }
+      ],
+      "links": [],
+      "actions": [],
+      "permissions": [
+        {
+          "role": "HR User",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "Support Read Only",
+          "read": 1,
+          "write": 0,
+          "create": 0,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 0,
+          "if_owner": 0,
+          "permlevel": 0
+        }
+      ],
+      "fields": [
+        {
+          "fieldname": "job_details_section",
+          "fieldtype": "Section Break",
+          "idx": 1
+        },
+        {
+          "fieldname": "job_opening_template",
+          "label": "Job Opening Template",
+          "fieldtype": "Link",
+          "options": "Job Opening Template",
+          "idx": 2
+        },
+        {
+          "fieldname": "job_title",
+          "label": "Job Title",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 3
+        },
+        {
+          "fieldname": "designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 4
+        },
+        {
+          "fieldname": "column_break_5",
+          "fieldtype": "Column Break",
+          "idx": 5
+        },
+        {
+          "fieldname": "status",
+          "label": "Status",
+          "fieldtype": "Select",
+          "options": "Open\nClosed",
+          "hidden": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 6
+        },
+        {
+          "fieldname": "posted_on",
+          "label": "Posted On",
+          "fieldtype": "Datetime",
+          "default": "Now",
+          "idx": 7
+        },
+        {
+          "fieldname": "closes_on",
+          "label": "Closes On",
+          "fieldtype": "Date",
+          "depends_on": "eval:doc.status == 'Open'",
+          "description": "If set, the job opening will be closed automatically after this date",
+          "idx": 8
+        },
+        {
+          "fieldname": "closed_on",
+          "label": "Closed On",
+          "fieldtype": "Date",
+          "depends_on": "eval:doc.status == 'Closed'",
+          "idx": 9
+        },
+        {
+          "fieldname": "section_break_nngy",
+          "label": "Company Details",
+          "fieldtype": "Section Break",
+          "idx": 10
+        },
+        {
+          "fieldname": "company",
+          "label": "Company",
+          "fieldtype": "Link",
+          "options": "Company",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 11
+        },
+        {
+          "fieldname": "department",
+          "label": "Department",
+          "fieldtype": "Link",
+          "options": "Department",
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 12
+        },
+        {
+          "fieldname": "column_break_dxpv",
+          "fieldtype": "Column Break",
+          "idx": 13
+        },
+        {
+          "fieldname": "employment_type",
+          "label": "Employment Type",
+          "fieldtype": "Link",
+          "options": "Employment Type",
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 14
+        },
+        {
+          "fieldname": "location",
+          "label": "Location",
+          "fieldtype": "Link",
+          "options": "Branch",
+          "idx": 15
+        },
+        {
+          "fieldname": "references_section",
+          "label": "References",
+          "fieldtype": "Section Break",
+          "collapsible": 1,
+          "idx": 16
+        },
+        {
+          "fieldname": "staffing_plan",
+          "label": "Staffing Plan",
+          "fieldtype": "Link",
+          "options": "Staffing Plan",
+          "idx": 17
+        },
+        {
+          "fieldname": "planned_vacancies",
+          "label": "Planned number of Positions",
+          "fieldtype": "Int",
+          "read_only": 1,
+          "depends_on": "staffing_plan",
+          "idx": 18
+        },
+        {
+          "fieldname": "job_requisition",
+          "label": "Job Requisition",
+          "fieldtype": "Link",
+          "options": "Job Requisition",
+          "read_only": 1,
+          "idx": 19
+        },
+        {
+          "fieldname": "vacancies",
+          "label": "Vacancies",
+          "fieldtype": "Int",
+          "fetch_from": "job_requisition.no_of_positions",
+          "read_only_depends_on": "eval:doc.job_requisition",
+          "idx": 20
+        },
+        {
+          "fieldname": "section_break_6",
+          "fieldtype": "Section Break",
+          "idx": 21
+        },
+        {
+          "fieldname": "publish",
+          "label": "Publish on website",
+          "fieldtype": "Check",
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "default": "0",
+          "idx": 22
+        },
+        {
+          "fieldname": "prevent_duplicate_applicant",
+          "label": "Prevent Duplicate Applications",
+          "fieldtype": "Check",
+          "depends_on": "publish",
+          "default": "0",
+          "description": "If enabled, candidates who have already applied with the same email address will not be allowed to apply again",
+          "idx": 23
+        },
+        {
+          "fieldname": "route",
+          "label": "Route",
+          "fieldtype": "Data",
+          "depends_on": "publish",
+          "unique": 1,
+          "idx": 24
+        },
+        {
+          "fieldname": "publish_applications_received",
+          "label": "Publish Applications Received",
+          "fieldtype": "Check",
+          "depends_on": "publish",
+          "default": "1",
+          "description": "If enabled, the total no. of applications received for this opening will be displayed on the website",
+          "idx": 25
+        },
+        {
+          "fieldname": "column_break_12",
+          "fieldtype": "Column Break",
+          "idx": 26
+        },
+        {
+          "fieldname": "job_application_route",
+          "label": "Application Web Form Route",
+          "fieldtype": "Data",
+          "depends_on": "publish",
+          "description": "Route to the custom Job Application Webform",
+          "idx": 27
+        },
+        {
+          "fieldname": "section_break_14",
+          "fieldtype": "Section Break",
+          "idx": 28
+        },
+        {
+          "fieldname": "description",
+          "label": "Description",
+          "fieldtype": "Text Editor",
+          "in_list_view": 1,
+          "description": "Job profile, qualifications required etc.",
+          "idx": 29
+        },
+        {
+          "fieldname": "pay_details_tab",
+          "label": "Pay Details",
+          "fieldtype": "Tab Break",
+          "idx": 30
+        },
+        {
+          "fieldname": "currency",
+          "label": "Currency",
+          "fieldtype": "Link",
+          "options": "Currency",
+          "idx": 31
+        },
+        {
+          "fieldname": "lower_range",
+          "label": "Lower Range",
+          "fieldtype": "Currency",
+          "options": "currency",
+          "idx": 32
+        },
+        {
+          "fieldname": "upper_range",
+          "label": "Upper Range",
+          "fieldtype": "Currency",
+          "options": "currency",
+          "idx": 33
+        },
+        {
+          "fieldname": "column_break_pfir",
+          "fieldtype": "Column Break",
+          "idx": 34
+        },
+        {
+          "fieldname": "salary_per",
+          "label": "Salary Paid Per",
+          "fieldtype": "Select",
+          "options": "Month\nYear",
+          "default": "Month",
+          "idx": 35
+        },
+        {
+          "fieldname": "publish_salary_range",
+          "label": "Publish Salary Range",
+          "fieldtype": "Check",
+          "default": "0",
+          "idx": 36
+        }
+      ],
+      "__client_scripts": "has_standard_js",
+      "__custom_js_len": 38,
+      "__list_js_len": 0,
+      "__custom_list_js_len": 43,
+      "__custom_js": "\n\n//# sourceURL=job_opening__custom_js",
+      "__workflow_docs": [],
+      "__form_grid_templates": [],
+      "__dashboard": {
+        "fieldname": "job_title",
+        "transactions": [
+          {
+            "items": [
+              "Job Applicant"
+            ]
+          }
+        ],
+        "non_standard_fieldnames": {},
+        "internal_links": {}
+      }
+    },
+    "Job Applicant": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 0,
+      "autoname": "HR-APP-.YYYY.-.#####",
+      "naming_rule": "Expression",
+      "title_field": "applicant_name",
+      "search_fields": "applicant_name, email_id, job_title, phone_number",
+      "sort_field": "creation",
+      "sort_order": "ASC",
+      "track_changes": 0,
+      "allow_rename": 1,
+      "allow_import": 1,
+      "has_web_view": 0,
+      "quick_entry": 0,
+      "max_attachments": 0,
+      "states": [],
+      "links": [],
+      "actions": [],
+      "permissions": [
+        {
+          "role": "HR User",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "Employee Self Service",
+          "read": 0,
+          "write": 0,
+          "create": 0,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 0,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "Support Read Only",
+          "read": 1,
+          "write": 0,
+          "create": 0,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 0,
+          "if_owner": 0,
+          "permlevel": 0
+        }
+      ],
+      "fields": [
+        {
+          "fieldname": "details_section",
+          "label": "Details",
+          "fieldtype": "Section Break",
+          "idx": 1
+        },
+        {
+          "fieldname": "applicant_name",
+          "label": "Full Name",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "bold": 1,
+          "in_global_search": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "email_id",
+          "label": "Email Address",
+          "fieldtype": "Data",
+          "options": "Email",
+          "reqd": 1,
+          "bold": 1,
+          "idx": 3
+        },
+        {
+          "fieldname": "phone_number",
+          "label": "Phone Number",
+          "fieldtype": "Data",
+          "options": "Phone",
+          "idx": 4
+        },
+        {
+          "fieldname": "column_break_3",
+          "fieldtype": "Column Break",
+          "idx": 5
+        },
+        {
+          "fieldname": "job_title",
+          "label": "Job Opening",
+          "fieldtype": "Link",
+          "options": "Job Opening",
+          "in_list_view": 1,
+          "search_index": 1,
+          "idx": 6
+        },
+        {
+          "fieldname": "designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "fetch_from": "job_title.designation",
+          "idx": 7
+        },
+        {
+          "fieldname": "country",
+          "label": "Country",
+          "fieldtype": "Link",
+          "options": "Country",
+          "idx": 8
+        },
+        {
+          "fieldname": "column_break_enue",
+          "fieldtype": "Column Break",
+          "idx": 9
+        },
+        {
+          "fieldname": "status",
+          "label": "Status",
+          "fieldtype": "Select",
+          "options": "Open\nReplied\nShortlisted\nRejected\nHold\nAccepted",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 10
+        },
+        {
+          "fieldname": "applicant_rating",
+          "label": "Applicant Rating",
+          "fieldtype": "Rating",
+          "in_list_view": 1,
+          "idx": 11
+        },
+        {
+          "fieldname": "section_break_6",
+          "label": "Resume",
+          "fieldtype": "Section Break",
+          "idx": 12
+        },
+        {
+          "fieldname": "resume_link",
+          "label": "Link",
+          "fieldtype": "Data",
+          "idx": 13
+        },
+        {
+          "fieldname": "resume_preview_html",
+          "label": "Preview",
+          "fieldtype": "HTML",
+          "hidden": 1,
+          "idx": 14
+        },
+        {
+          "fieldname": "open_resume_button",
+          "label": "Open Resume in New Tab",
+          "fieldtype": "Button",
+          "hidden": 1,
+          "idx": 15
+        },
+        {
+          "fieldname": "cover_letter",
+          "label": "Cover Letter",
+          "fieldtype": "Text",
+          "idx": 16
+        },
+        {
+          "fieldname": "resume_attachment",
+          "label": "Attachment",
+          "fieldtype": "Attach",
+          "idx": 17
+        },
+        {
+          "fieldname": "notes",
+          "label": "Notes",
+          "fieldtype": "Data",
+          "read_only": 1,
+          "idx": 18
+        },
+        {
+          "fieldname": "source_and_rating_section",
+          "label": "Source",
+          "fieldtype": "Section Break",
+          "idx": 19
+        },
+        {
+          "fieldname": "source",
+          "label": "Source",
+          "fieldtype": "Link",
+          "options": "Job Applicant Source",
+          "idx": 20
+        },
+        {
+          "fieldname": "source_name",
+          "label": "Source Name",
+          "fieldtype": "Link",
+          "options": "Employee",
+          "depends_on": "eval: doc.source==\"Employee Referral\" ",
+          "idx": 21
+        },
+        {
+          "fieldname": "column_break_13",
+          "fieldtype": "Column Break",
+          "idx": 22
+        },
+        {
+          "fieldname": "employee_referral",
+          "label": "Employee Referral",
+          "fieldtype": "Link",
+          "options": "Employee Referral",
+          "read_only": 1,
+          "idx": 23
+        },
+        {
+          "fieldname": "salary_expectation_tab",
+          "label": "Salary Expectation",
+          "fieldtype": "Tab Break",
+          "idx": 24
+        },
+        {
+          "fieldname": "currency",
+          "label": "Currency",
+          "fieldtype": "Link",
+          "options": "Currency",
+          "idx": 25
+        },
+        {
+          "fieldname": "column_break_18",
+          "fieldtype": "Column Break",
+          "idx": 26
+        },
+        {
+          "fieldname": "lower_range",
+          "label": "Lower Range",
+          "fieldtype": "Currency",
+          "options": "currency",
+          "idx": 27
+        },
+        {
+          "fieldname": "upper_range",
+          "label": "Upper Range",
+          "fieldtype": "Currency",
+          "options": "currency",
+          "idx": 28
+        }
+      ],
+      "__client_scripts": "has_standard_js",
+      "__custom_js_len": 40,
+      "__list_js_len": 4679,
+      "__custom_list_js_len": 45,
+      "__custom_js": "\n\n//# sourceURL=job_applicant__custom_js",
+      "__workflow_docs": [],
+      "__form_grid_templates": [],
+      "__dashboard": {
+        "fieldname": "job_applicant",
+        "transactions": [
+          {
+            "items": [
+              "Employee",
+              "Employee Onboarding"
+            ]
+          },
+          {
+            "items": [
+              "Job Offer",
+              "Appointment Letter"
+            ]
+          },
+          {
+            "items": [
+              "Interview"
+            ]
+          }
+        ],
+        "non_standard_fieldnames": {},
+        "internal_links": {}
+      }
+    },
+    "Interview": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 1,
+      "autoname": "HR-INT-.YYYY.-.####",
+      "naming_rule": "Expression",
+      "title_field": "job_applicant",
+      "sort_field": "creation",
+      "sort_order": "DESC",
+      "track_changes": 1,
+      "allow_rename": 0,
+      "allow_import": 1,
+      "has_web_view": 0,
+      "quick_entry": 0,
+      "max_attachments": 0,
+      "states": [],
+      "links": [
+        {
+          "link_doctype": "Interview Feedback",
+          "link_fieldname": "interview",
+          "is_child_table": 0
+        }
+      ],
+      "actions": [],
+      "permissions": [
+        {
+          "role": "System Manager",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 1,
+          "cancel": 1,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "HR Manager",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 1,
+          "cancel": 1,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "Interviewer",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 1,
+          "cancel": 1,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "HR User",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 1,
+          "cancel": 1,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "Support Read Only",
+          "read": 1,
+          "write": 0,
+          "create": 0,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 0,
+          "if_owner": 0,
+          "permlevel": 0
+        }
+      ],
+      "fields": [
+        {
+          "fieldname": "interview_details_section",
+          "label": "Details",
+          "fieldtype": "Section Break",
+          "idx": 1
+        },
+        {
+          "fieldname": "interview_type",
+          "label": "Interview Type",
+          "fieldtype": "Link",
+          "options": "Interview Type",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "job_applicant",
+          "label": "Job Applicant",
+          "fieldtype": "Link",
+          "options": "Job Applicant",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "idx": 3
+        },
+        {
+          "fieldname": "job_opening",
+          "label": "Job Opening",
+          "fieldtype": "Link",
+          "options": "Job Opening",
+          "read_only": 1,
+          "fetch_from": "job_applicant.job_title",
+          "idx": 4
+        },
+        {
+          "fieldname": "designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "read_only": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "fetch_from": "interview_type.designation",
+          "idx": 5
+        },
+        {
+          "fieldname": "resume_link",
+          "label": "Resume link",
+          "fieldtype": "Data",
+          "fetch_from": "job_applicant.resume_link",
+          "idx": 6
+        },
+        {
+          "fieldname": "column_break_4",
+          "fieldtype": "Column Break",
+          "idx": 7
+        },
+        {
+          "fieldname": "status",
+          "label": "Status",
+          "fieldtype": "Select",
+          "options": "Pending\nUnder Review\nCleared\nRejected\nCancelled",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "default": "Pending",
+          "idx": 8
+        },
+        {
+          "fieldname": "scheduled_on",
+          "label": "Scheduled On",
+          "fieldtype": "Date",
+          "reqd": 1,
+          "in_list_view": 1,
+          "in_standard_filter": 1,
+          "set_only_once": 1,
+          "idx": 9
+        },
+        {
+          "fieldname": "from_time",
+          "label": "From Time",
+          "fieldtype": "Time",
+          "reqd": 1,
+          "in_list_view": 1,
+          "set_only_once": 1,
+          "idx": 10
+        },
+        {
+          "fieldname": "to_time",
+          "label": "To Time",
+          "fieldtype": "Time",
+          "reqd": 1,
+          "in_list_view": 1,
+          "set_only_once": 1,
+          "idx": 11
+        },
+        {
+          "fieldname": "section_break_hqvh",
+          "fieldtype": "Section Break",
+          "idx": 12
+        },
+        {
+          "fieldname": "interview_details",
+          "label": "Interviewers",
+          "fieldtype": "Table",
+          "options": "Interview Detail",
+          "allow_on_submit": 1,
+          "idx": 13
+        },
+        {
+          "fieldname": "ratings_section",
+          "label": "Ratings",
+          "fieldtype": "Section Break",
+          "idx": 14
+        },
+        {
+          "fieldname": "expected_average_rating",
+          "label": "Expected Average Rating",
+          "fieldtype": "Rating",
+          "read_only": 1,
+          "fetch_from": "interview_type.expected_average_rating",
+          "idx": 15
+        },
+        {
+          "fieldname": "column_break_12",
+          "fieldtype": "Column Break",
+          "idx": 16
+        },
+        {
+          "fieldname": "average_rating",
+          "label": "Obtained Average Rating",
+          "fieldtype": "Rating",
+          "read_only": 1,
+          "in_list_view": 1,
+          "allow_on_submit": 1,
+          "idx": 17
+        },
+        {
+          "fieldname": "section_break_13",
+          "label": "Interview Summary",
+          "fieldtype": "Section Break",
+          "collapsible": 1,
+          "idx": 18
+        },
+        {
+          "fieldname": "interview_summary",
+          "fieldtype": "Text",
+          "allow_on_submit": 1,
+          "idx": 19
+        },
+        {
+          "fieldname": "reminded",
+          "label": "Reminded",
+          "fieldtype": "Check",
+          "hidden": 1,
+          "default": "0",
+          "idx": 20
+        },
+        {
+          "fieldname": "amended_from",
+          "label": "Amended From",
+          "fieldtype": "Link",
+          "options": "Interview",
+          "read_only": 1,
+          "no_copy": 1,
+          "idx": 21
+        },
+        {
+          "fieldname": "feedback_tab",
+          "label": "Feedback",
+          "fieldtype": "Tab Break",
+          "idx": 22
+        },
+        {
+          "fieldname": "feedback_html",
+          "label": "Feedback HTML",
+          "fieldtype": "HTML",
+          "idx": 23
+        }
+      ],
+      "__client_scripts": "has_standard_js",
+      "__custom_js_len": 36,
+      "__list_js_len": 412,
+      "__custom_list_js_len": 41,
+      "__custom_js": "\n\n//# sourceURL=interview__custom_js",
+      "__workflow_docs": [],
+      "__form_grid_templates": [],
+      "__dashboard": {
+        "transactions": [
+          {
+            "label": null,
+            "items": [
+              "Interview Feedback"
+            ]
+          }
+        ],
+        "non_standard_fieldnames": {
+          "Interview Feedback": "interview"
+        },
+        "internal_links": {},
+        "fieldname": "interview"
+      }
+    },
+    "Interview Detail": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "sort_field": "creation",
+      "sort_order": "DESC",
+      "track_changes": 1,
+      "allow_rename": 0,
+      "allow_import": 0,
+      "has_web_view": 0,
+      "quick_entry": 0,
+      "max_attachments": 0,
+      "states": [],
+      "links": [],
+      "actions": [],
+      "permissions": [],
+      "fields": [
+        {
+          "fieldname": "interviewer",
+          "label": "Interviewer",
+          "fieldtype": "Link",
+          "options": "User",
+          "in_list_view": 1,
+          "idx": 1
+        }
+      ]
+    },
+    "Job Offer": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 0,
+      "issingle": 0,
+      "is_submittable": 1,
+      "autoname": "HR-OFF-.YYYY.-.#####",
+      "naming_rule": "Expression (old style)",
+      "title_field": "applicant_name",
+      "sort_field": "creation",
+      "sort_order": "DESC",
+      "track_changes": 0,
+      "allow_rename": 0,
+      "allow_import": 1,
+      "has_web_view": 0,
+      "quick_entry": 0,
+      "max_attachments": 0,
+      "states": [],
+      "links": [],
+      "actions": [],
+      "permissions": [
+        {
+          "role": "HR User",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "submit": 1,
+          "cancel": 1,
+          "delete": 1,
+          "if_owner": 0,
+          "permlevel": 0
+        },
+        {
+          "role": "Support Read Only",
+          "read": 1,
+          "write": 0,
+          "create": 0,
+          "submit": 0,
+          "cancel": 0,
+          "delete": 0,
+          "if_owner": 0,
+          "permlevel": 0
+        }
+      ],
+      "fields": [
+        {
+          "fieldname": "job_applicant",
+          "label": "Job Applicant",
+          "fieldtype": "Link",
+          "options": "Job Applicant",
+          "depends_on": "eval:doc.job_applicant",
+          "idx": 1
+        },
+        {
+          "fieldname": "applicant_name",
+          "label": "Applicant Name",
+          "fieldtype": "Data",
+          "reqd": 1,
+          "in_list_view": 1,
+          "fetch_from": "job_applicant.applicant_name",
+          "in_global_search": 1,
+          "idx": 2
+        },
+        {
+          "fieldname": "applicant_email",
+          "label": "Applicant Email Address",
+          "fieldtype": "Data",
+          "options": "Email",
+          "reqd": 1,
+          "fetch_from": "job_applicant.email_id",
+          "in_global_search": 1,
+          "idx": 3
+        },
+        {
+          "fieldname": "column_break_3",
+          "fieldtype": "Column Break",
+          "idx": 4
+        },
+        {
+          "fieldname": "offer_date",
+          "label": "Offer Date",
+          "fieldtype": "Date",
+          "reqd": 1,
+          "idx": 5
+        },
+        {
+          "fieldname": "designation",
+          "label": "Designation",
+          "fieldtype": "Link",
+          "options": "Designation",
+          "reqd": 1,
+          "in_list_view": 1,
+          "fetch_from": "job_applicant.designation",
+          "idx": 6
+        },
+        {
+          "fieldname": "company",
+          "label": "Company",
+          "fieldtype": "Link",
+          "options": "Company",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 7
+        },
+        {
+          "fieldname": "status",
+          "label": "Status",
+          "fieldtype": "Select",
+          "options": "Awaiting Response\nAccepted\nRejected\nCancelled",
+          "in_standard_filter": 1,
+          "no_copy": 1,
+          "allow_on_submit": 1,
+          "idx": 8
+        },
+        {
+          "fieldname": "section_break_4",
+          "fieldtype": "Section Break",
+          "idx": 9
+        },
+        {
+          "fieldname": "job_offer_term_template",
+          "label": "Job Offer Term Template",
+          "fieldtype": "Link",
+          "options": "Job Offer Term Template",
+          "idx": 10
+        },
+        {
+          "fieldname": "offer_terms",
+          "label": "Job Offer Terms",
+          "fieldtype": "Table",
+          "options": "Job Offer Term",
+          "idx": 11
+        },
+        {
+          "fieldname": "section_break_14",
+          "fieldtype": "Section Break",
+          "idx": 12
+        },
+        {
+          "fieldname": "select_terms",
+          "label": "Select Terms and Conditions",
+          "fieldtype": "Link",
+          "options": "Terms and Conditions",
+          "idx": 13
+        },
+        {
+          "fieldname": "terms",
+          "label": "Terms and Conditions",
+          "fieldtype": "Text Editor",
+          "idx": 14
+        },
+        {
+          "fieldname": "printing_details",
+          "label": "Printing Details",
+          "fieldtype": "Section Break",
+          "collapsible": 1,
+          "idx": 15
+        },
+        {
+          "fieldname": "letter_head",
+          "label": "Letter Head",
+          "fieldtype": "Link",
+          "options": "Letter Head",
+          "fetch_from": "company.default_letter_head",
+          "allow_on_submit": 1,
+          "idx": 16
+        },
+        {
+          "fieldname": "column_break_16",
+          "fieldtype": "Column Break",
+          "idx": 17
+        },
+        {
+          "fieldname": "select_print_heading",
+          "label": "Print Heading",
+          "fieldtype": "Link",
+          "options": "Print Heading",
+          "allow_on_submit": 1,
+          "idx": 18
+        },
+        {
+          "fieldname": "amended_from",
+          "label": "Amended From",
+          "fieldtype": "Link",
+          "options": "Job Offer",
+          "read_only": 1,
+          "no_copy": 1,
+          "idx": 19
+        }
+      ],
+      "__client_scripts": "has_standard_js",
+      "__custom_js_len": 36,
+      "__list_js_len": 674,
+      "__custom_list_js_len": 41,
+      "__custom_js": "\n\n//# sourceURL=job_offer__custom_js",
+      "__workflow_docs": [],
+      "__form_grid_templates": [],
+      "__dashboard": {
+        "transactions": [],
+        "non_standard_fieldnames": {},
+        "internal_links": {}
+      }
+    },
+    "Job Offer Term": {
+      "module": "HR",
+      "custom": 0,
+      "istable": 1,
+      "issingle": 0,
+      "is_submittable": 0,
+      "sort_field": "creation",
+      "sort_order": "DESC",
+      "track_changes": 0,
+      "allow_rename": 0,
+      "allow_import": 0,
+      "has_web_view": 0,
+      "quick_entry": 0,
+      "max_attachments": 0,
+      "states": [],
+      "links": [],
+      "actions": [],
+      "permissions": [],
+      "fields": [
+        {
+          "fieldname": "offer_term",
+          "label": "Offer Term",
+          "fieldtype": "Link",
+          "options": "Offer Term",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 1
+        },
+        {
+          "fieldname": "column_break_2",
+          "fieldtype": "Column Break",
+          "idx": 2
+        },
+        {
+          "fieldname": "value",
+          "label": "Value / Description",
+          "fieldtype": "Small Text",
+          "reqd": 1,
+          "in_list_view": 1,
+          "idx": 3
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,389 @@
+{
+ "log": [
+  [
+   "/api/method/frappe.client.get_count?doctype=Staffing%20Plan",
+   200
+  ],
+  [
+   "/api/resource/Staffing%20Plan?fields=%5B%22name%22%2C%22company%22%2C%22department%22%2C%22from_date%22%2C%22to_date%22%2C%22total_estimated_budget%22%2C%22docstatus%22%2C%22creation%22%5D&order_by=creation%20desc&limit_page_length=200",
+   200
+  ],
+  [
+   "/api/method/frappe.client.get_count?doctype=Job%20Requisition",
+   200
+  ],
+  [
+   "/api/resource/Job%20Requisition?fields=%5B%22name%22%2C%22designation%22%2C%22staffing_plan%22%2C%22plan_seats_left%22%2C%22department%22%2C%22no_of_positions%22%2C%22expected_compensation%22%2C%22company%22%2C%22status%22%2C%22requested_by%22%2C%22requested_by_dept%22%2C%22requested_by_designation%22%2C%22posting_date%22%2C%22completed_on%22%2C%22expected_by%22%2C%22time_to_fill%22%2C%22description%22%2C%22reason_for_requesting%22%2C%22creation%22%5D&order_by=creation%20desc&limit_page_length=200",
+   200
+  ],
+  [
+   "/api/method/frappe.client.get_count?doctype=Job%20Opening",
+   200
+  ],
+  [
+   "/api/resource/Job%20Opening?fields=%5B%22name%22%2C%22job_opening_template%22%2C%22job_title%22%2C%22designation%22%2C%22status%22%2C%22posted_on%22%2C%22closes_on%22%2C%22closed_on%22%2C%22company%22%2C%22department%22%2C%22employment_type%22%2C%22location%22%2C%22staffing_plan%22%2C%22planned_vacancies%22%2C%22job_requisition%22%2C%22vacancies%22%2C%22publish%22%2C%22prevent_duplicate_applicant%22%2C%22route%22%2C%22publish_applications_received%22%2C%22job_application_route%22%2C%22description%22%2C%22currency%22%2C%22lower_range%22%2C%22upper_range%22%2C%22salary_per%22%2C%22publish_salary_range%22%2C%22creation%22%5D&order_by=creation%20desc&limit_page_length=200",
+   200
+  ],
+  [
+   "/api/method/frappe.client.get_count?doctype=Job%20Applicant",
+   200
+  ],
+  [
+   "/api/resource/Job%20Applicant?fields=%5B%22name%22%2C%22applicant_name%22%2C%22email_id%22%2C%22phone_number%22%2C%22job_title%22%2C%22designation%22%2C%22country%22%2C%22status%22%2C%22applicant_rating%22%2C%22resume_link%22%2C%22cover_letter%22%2C%22resume_attachment%22%2C%22notes%22%2C%22source%22%2C%22source_name%22%2C%22employee_referral%22%2C%22currency%22%2C%22lower_range%22%2C%22upper_range%22%2C%22creation%22%2C%22owner%22%5D&order_by=creation%20desc&limit_page_length=200",
+   200
+  ],
+  [
+   "/api/method/frappe.client.get_count?doctype=Interview",
+   200
+  ],
+  [
+   "/api/resource/Interview?fields=%5B%22name%22%2C%22interview_type%22%2C%22job_applicant%22%2C%22job_opening%22%2C%22designation%22%2C%22resume_link%22%2C%22status%22%2C%22scheduled_on%22%2C%22from_time%22%2C%22to_time%22%2C%22expected_average_rating%22%2C%22average_rating%22%2C%22interview_summary%22%2C%22docstatus%22%2C%22creation%22%5D&order_by=creation%20desc&limit_page_length=200",
+   200
+  ],
+  [
+   "/api/method/frappe.client.get_count?doctype=Job%20Offer",
+   200
+  ],
+  [
+   "/api/resource/Job%20Offer?fields=%5B%22name%22%2C%22job_applicant%22%2C%22applicant_name%22%2C%22applicant_email%22%2C%22offer_date%22%2C%22designation%22%2C%22company%22%2C%22status%22%2C%22job_offer_term_template%22%2C%22select_terms%22%2C%22terms%22%2C%22letter_head%22%2C%22docstatus%22%2C%22creation%22%5D&order_by=creation%20desc&limit_page_length=200",
+   200
+  ]
+ ],
+ "counts": {
+  "Staffing Plan": 2,
+  "Job Requisition": 0,
+  "Job Opening": 5,
+  "Job Applicant": 5,
+  "Interview": 2,
+  "Job Offer": 3
+ },
+ "profiles": {
+  "Staffing Plan": {
+   "sampled": 2,
+   "fill_rate_pct": {
+    "name": 100,
+    "company": 100,
+    "department": 100,
+    "from_date": 100,
+    "to_date": 100,
+    "total_estimated_budget": 100,
+    "docstatus": 100,
+    "creation": 100
+   },
+   "distributions": {
+    "company": {
+     "Contracting EG": 2
+    },
+    "department": {
+     "Security - D": 1,
+     "Marketing": 1
+    },
+    "docstatus": {
+     "1": 2
+    }
+   },
+   "extra": {}
+  },
+  "Job Requisition": {
+   "sampled": 0,
+   "fill_rate_pct": {
+    "name": null,
+    "designation": null,
+    "staffing_plan": null,
+    "plan_seats_left": null,
+    "department": null,
+    "no_of_positions": null,
+    "expected_compensation": null,
+    "company": null,
+    "status": null,
+    "requested_by": null,
+    "requested_by_dept": null,
+    "requested_by_designation": null,
+    "posting_date": null,
+    "completed_on": null,
+    "expected_by": null,
+    "time_to_fill": null,
+    "description": null,
+    "reason_for_requesting": null,
+    "creation": null
+   },
+   "distributions": {
+    "designation": {},
+    "department": {},
+    "company": {},
+    "status": {},
+    "requested_by_dept": {}
+   },
+   "extra": {
+    "description_len_buckets": {},
+    "with_staffing_plan": 0
+   }
+  },
+  "Job Opening": {
+   "sampled": 5,
+   "fill_rate_pct": {
+    "name": 100,
+    "job_opening_template": 0,
+    "job_title": 100,
+    "designation": 100,
+    "status": 100,
+    "posted_on": 100,
+    "closes_on": 60,
+    "closed_on": 0,
+    "company": 100,
+    "department": 100,
+    "employment_type": 100,
+    "location": 80,
+    "staffing_plan": 40,
+    "planned_vacancies": 100,
+    "job_requisition": 0,
+    "vacancies": 100,
+    "publish": 100,
+    "prevent_duplicate_applicant": 100,
+    "route": 100,
+    "publish_applications_received": 100,
+    "job_application_route": 0,
+    "description": 60,
+    "currency": 100,
+    "lower_range": 100,
+    "upper_range": 100,
+    "salary_per": 100,
+    "publish_salary_range": 100,
+    "creation": 100
+   },
+   "distributions": {
+    "designation": {
+     "Customer Service Representative": 2,
+     "Analyst": 1,
+     "HR": 1,
+     "Accountant": 1
+    },
+    "status": {
+     "Open": 5
+    },
+    "department": {
+     "Security - D": 1,
+     "Marketing": 1,
+     "Operations": 1,
+     "Human Resources": 1,
+     "Accounts": 1
+    },
+    "employment_type": {
+     "Full-time": 4,
+     "Part-time": 1
+    },
+    "location": {
+     "Riyadh": 3,
+     "Jeddah": 1,
+     "(empty)": 1
+    },
+    "publish": {
+     "0": 3,
+     "1": 2
+    },
+    "prevent_duplicate_applicant": {
+     "0": 5
+    },
+    "publish_applications_received": {
+     "1": 5
+    },
+    "salary_per": {
+     "Month": 5
+    },
+    "publish_salary_range": {
+     "0": 5
+    },
+    "company": {
+     "Contracting EG": 5
+    }
+   },
+   "extra": {
+    "description_len_buckets": {
+     "0": 2,
+     "500-1999": 2,
+     "1-99": 1
+    },
+    "with_job_requisition": 0,
+    "with_staffing_plan": 2,
+    "published": 2,
+    "routes_sample_pattern": [
+     "jobs/contracting_eg/<slug>",
+     "jobs/contracting_eg/<slug>",
+     "jobs/contracting_eg/<slug>"
+    ],
+    "job_application_route_values": [
+     [
+      "(empty)",
+      5
+     ]
+    ],
+    "creation_min": "2025-07-05",
+    "creation_max": "2026-03-01"
+   }
+  },
+  "Job Applicant": {
+   "sampled": 5,
+   "fill_rate_pct": {
+    "name": 100,
+    "applicant_name": 100,
+    "email_id": 100,
+    "phone_number": 60,
+    "job_title": 80,
+    "designation": 80,
+    "country": 100,
+    "status": 100,
+    "applicant_rating": 100,
+    "resume_link": 0,
+    "cover_letter": 0,
+    "resume_attachment": 0,
+    "notes": 0,
+    "source": 40,
+    "source_name": 20,
+    "employee_referral": 0,
+    "currency": 80,
+    "lower_range": 100,
+    "upper_range": 100,
+    "creation": 100,
+    "owner": 100
+   },
+   "distributions": {
+    "job_title": {
+     "HR-OPN-2026-0006": 1,
+     "HR-OPN-2026-0004": 1,
+     "HR-OPN-2026-0002": 1,
+     "HR-OPN-2025-0004": 1,
+     "(empty)": 1
+    },
+    "designation": {
+     "Customer Service Representative": 2,
+     "Analyst": 1,
+     "HR": 1,
+     "(empty)": 1
+    },
+    "country": {
+     "Egypt": 2,
+     "Saudi Arabia": 2,
+     "Albania": 1
+    },
+    "status": {
+     "Accepted": 2,
+     "Open": 1,
+     "Shortlisted": 1,
+     "Replied": 1
+    },
+    "applicant_rating": {
+     "0": 5
+    },
+    "source": {
+     "(empty)": 3,
+     "Recommendation": 1,
+     "Linkedin": 1
+    },
+    "currency": {
+     "EGP": 2,
+     "SAR": 2,
+     "(empty)": 1
+    },
+    "owner_is_guest": {
+     "Logged-in user": 5
+    }
+   },
+   "extra": {
+    "linked_to_job_opening": 4,
+    "not_linked": 1,
+    "has_resume_attachment": 0,
+    "has_resume_link": 0,
+    "has_cover_letter": 0,
+    "cover_letter_len_avg": 0,
+    "distinct_email_domains_count": 3,
+    "phone_filled": 3,
+    "creation_min": "2025-07-05",
+    "creation_max": "2026-03-01",
+    "created_by_month": {
+     "2025-07": 1,
+     "2025-11": 1,
+     "2026-02": 2,
+     "2026-03": 1
+    }
+   }
+  },
+  "Interview": {
+   "sampled": 2,
+   "fill_rate_pct": {
+    "name": 100,
+    "interview_type": 0,
+    "job_applicant": 100,
+    "job_opening": 100,
+    "designation": 100,
+    "resume_link": 0,
+    "status": 100,
+    "scheduled_on": 100,
+    "from_time": 100,
+    "to_time": 100,
+    "expected_average_rating": 100,
+    "average_rating": 100,
+    "interview_summary": 0,
+    "docstatus": 100,
+    "creation": 100
+   },
+   "distributions": {
+    "interview_type": {
+     "(empty)": 2
+    },
+    "status": {
+     "Cleared": 1,
+     "Pending": 1
+    },
+    "designation": {
+     "Customer Service Representative": 2
+    },
+    "docstatus": {
+     "0": 2
+    }
+   },
+   "extra": {}
+  },
+  "Job Offer": {
+   "sampled": 3,
+   "fill_rate_pct": {
+    "name": 100,
+    "job_applicant": 100,
+    "applicant_name": 100,
+    "applicant_email": 100,
+    "offer_date": 100,
+    "designation": 100,
+    "company": 100,
+    "status": 100,
+    "job_offer_term_template": 33,
+    "select_terms": 0,
+    "terms": 0,
+    "letter_head": 0,
+    "docstatus": 100,
+    "creation": 100
+   },
+   "distributions": {
+    "designation": {
+     "Customer Service Representative": 1,
+     "HR": 1,
+     "Accountant": 1
+    },
+    "status": {
+     "Accepted": 2,
+     "Awaiting Response": 1
+    },
+    "company": {
+     "Contracting EG": 3
+    },
+    "docstatus": {
+     "0": 1,
+     "1": 2
+    },
+    "job_offer_term_template": {
+     "(empty)": 2,
+     "Customer Service Job Offer Template": 1
+    }
+   },
+   "extra": {}
+  }
+ }
+}

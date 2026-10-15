@@ -1,0 +1,462 @@
+{
+ "log": [
+  [
+   "/api/method/frappe.desk.form.load.getdoctype?doctype=Job%20Requisition",
+   200
+  ],
+  [
+   "/api/method/frappe.desk.form.load.getdoctype?doctype=Job%20Opening",
+   200
+  ],
+  [
+   "/api/method/frappe.desk.form.load.getdoctype?doctype=Job%20Applicant",
+   200
+  ],
+  [
+   "/api/method/frappe.desk.form.load.getdoctype?doctype=Staffing%20Plan",
+   200
+  ],
+  [
+   "/api/method/frappe.desk.form.load.getdoctype?doctype=Interview",
+   200
+  ],
+  [
+   "/api/method/frappe.desk.form.load.getdoctype?doctype=Job%20Offer",
+   200
+  ],
+  [
+   "/api/resource/List View Settings/Job Applicant",
+   404
+  ],
+  [
+   "/api/resource/List View Settings/Job Opening",
+   404
+  ],
+  [
+   "/api/resource/List View Settings/Job Requisition",
+   404
+  ],
+  [
+   "/api/resource/List View Settings/Staffing Plan",
+   404
+  ],
+  [
+   "/api/resource/Kanban%20Board?fields=%5B%22name%22%2C%22reference_doctype%22%2C%22field_name%22%2C%22columns%22%2C%22private%22%2C%22filters%22%5D&filters=%5B%5B%22reference_doctype%22%2C%22%3D%22%2C%22Job%20Applicant%22%5D%5D",
+   200
+  ],
+  [
+   "/api/resource/Job%20Opening?fields=%5B%22name%22%2C%22status%22%2C%22publish%22%2C%22staffing_plan%22%2C%22job_requisition%22%2C%22designation%22%2C%22department%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Staffing%20Plan?fields=%5B%22name%22%2C%22department%22%2C%22docstatus%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Staffing%20Plan%20Detail?fields=%5B%22parent%22%2C%22designation%22%2C%22vacancies%22%2C%22number_of_positions%22%2C%22current_count%22%2C%22current_openings%22%2C%22estimated_cost_per_position%22%5D&limit_page_length=50&parent=Staffing%20Plan",
+   200
+  ],
+  [
+   "/api/resource/Job%20Applicant?fields=%5B%22name%22%2C%22status%22%2C%22job_title%22%2C%22designation%22%2C%22country%22%2C%22source%22%2C%22creation%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Interview?fields=%5B%22name%22%2C%22status%22%2C%22job_opening%22%2C%22designation%22%2C%22docstatus%22%2C%22interview_type%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Job%20Offer?fields=%5B%22name%22%2C%22status%22%2C%22designation%22%2C%22docstatus%22%2C%22job_offer_term_template%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Job%20Opening%20Template?fields=%5B%22name%22%2C%22designation%22%2C%22department%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Interview%20Type?fields=%5B%22name%22%2C%22designation%22%2C%22expected_average_rating%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Job%20Applicant%20Source?fields=%5B%22name%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/method/frappe.client.get_count?doctype=Designation",
+   200
+  ],
+  [
+   "/api/method/frappe.client.get_count?doctype=Designation%20Skill",
+   403
+  ],
+  [
+   "/api/resource/Skill?fields=%5B%22name%22%5D&limit_page_length=50",
+   200
+  ],
+  [
+   "/api/resource/Designation?fields=%5B%22name%22%2C%22description%22%5D&limit_page_length=200",
+   200
+  ],
+  [
+   "/api/resource/Employment%20Type?fields=%5B%22name%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Branch?fields=%5B%22name%22%5D&limit_page_length=30",
+   200
+  ],
+  [
+   "/api/resource/Company?fields=%5B%22name%22%2C%22country%22%2C%22default_currency%22%5D&limit_page_length=20",
+   200
+  ],
+  [
+   "/api/resource/Portal%20Settings/Portal%20Settings",
+   200
+  ],
+  [
+   "/api/resource/Website%20Settings/Website%20Settings",
+   200
+  ]
+ ],
+ "js_hits": {
+  "Job Requisition": {
+   "js_len": 3052,
+   "list_js_len": 902,
+   "sourceURLs": [
+    "job_requisition__js"
+   ],
+   "hits": []
+  },
+  "Job Opening": {
+   "js_len": 3381,
+   "list_js_len": 0,
+   "sourceURLs": [
+    "job_opening__js"
+   ],
+   "hits": [
+    "frm.doc.designation); } if (frm.doc.designation && frm.doc.company) { frappe.call({ method: \"hrms.hr.doctype.staffing_plan.staffing_plan.get_active_staffing_plan_details\", args: { company: frm.doc.company, designation: frm.doc.designation, date: frap",
+    "ation); } if (frm.doc.designation && frm.doc.company) { frappe.call({ method: \"hrms.hr.doctype.staffing_plan.staffing_plan.get_active_staffing_plan_details\", args: { company: frm.doc.company, designation: frm.doc.designation, date: frappe.datetime.no",
+    ".designation && frm.doc.company) { frappe.call({ method: \"hrms.hr.doctype.staffing_plan.staffing_plan.get_active_staffing_plan_details\", args: { company: frm.doc.company, designation: frm.doc.designation, date: frappe.datetime.now_date(), // ToDo - Date ",
+    "(), // ToDo - Date in Job Opening? }, callback: function (data) { if (data.message) { frm.set_value(\"staffing_plan\", data.message[0].name); frm.set_value(\"planned_vacancies\", data.message[0].vacancies); } else { frm.set_value(\"staffing_plan\", \"",
+    "ssage[0].name); frm.set_value(\"planned_vacancies\", data.message[0].vacancies); } else { frm.set_value(\"staffing_plan\", \"\"); frm.set_value(\"planned_vacancies\", 0); frappe.show_alert({ indicator: \"orange\", message: __(\"No Staffing Plans fo",
+    "essage: __(\"No Staffing Plans found for this Designation\"), }); } }, }); } else { frm.set_value(\"staffing_plan\", \"\"); frm.set_value(\"planned_vacancies\", 0); } }, company: function (frm) { frm.set_value(\"designation\", \"\"); }, status: function (frm"
+   ]
+  },
+  "Job Applicant": {
+   "js_len": 6575,
+   "list_js_len": 4679,
+   "sourceURLs": [
+    "job_applicant__js"
+   ],
+   "hits": []
+  },
+  "Staffing Plan": {
+   "js_len": 4273,
+   "list_js_len": 0,
+   "sourceURLs": [
+    "staffing_plan__js"
+   ],
+   "hits": [
+    " /* Adding apps/hrms/hrms/hr/doctype/staffing_plan/staffing_plan.js */ // Copyright (c) 2018, Frappe Technologies Pvt. Ltd. and contributors // For license information, please see license.txt fra",
+    "]; if (!child.designation) frappe.throw(__(\"Please enter the designation\")); frappe.call({ method: \"hrms.hr.doctype.staffing_plan.staffing_plan.get_designation_counts\", args: { designation: child.designation, company: frm.doc.company, }, callback: function (data) ",
+    ".designation) frappe.throw(__(\"Please enter the designation\")); frappe.call({ method: \"hrms.hr.doctype.staffing_plan.staffing_plan.get_designation_counts\", args: { designation: child.designation, company: frm.doc.company, }, callback: function (data) { if (data.",
+    "ail.total_estimated_cost; } }); frm.set_value(\"total_estimated_budget\", estimated_budget); } }; //# sourceURL=staffing_plan__js"
+   ]
+  },
+  "Interview": {
+   "js_len": 6919,
+   "list_js_len": 412,
+   "sourceURLs": [
+    "interview__js"
+   ],
+   "hits": []
+  },
+  "Job Offer": {
+   "js_len": 1692,
+   "list_js_len": 674,
+   "sourceURLs": [
+    "job_offer__js"
+   ],
+   "hits": []
+  }
+ },
+ "kanban": {
+  "name": "نت",
+  "field_name": "status",
+  "private": 0,
+  "filters": null,
+  "columns": []
+ },
+ "job_openings": [
+  {
+   "name": "HR-OPN-2025-0002",
+   "status": "Open",
+   "publish": 0,
+   "staffing_plan": "",
+   "job_requisition": null,
+   "designation": "Accountant",
+   "department": "Accounts"
+  },
+  {
+   "name": "HR-OPN-2025-0004",
+   "status": "Open",
+   "publish": 0,
+   "staffing_plan": "",
+   "job_requisition": null,
+   "designation": "HR",
+   "department": "Human Resources"
+  },
+  {
+   "name": "HR-OPN-2026-0002",
+   "status": "Open",
+   "publish": 0,
+   "staffing_plan": "",
+   "job_requisition": null,
+   "designation": "Customer Service Representative",
+   "department": "Operations"
+  },
+  {
+   "name": "HR-OPN-2026-0004",
+   "status": "Open",
+   "publish": 1,
+   "staffing_plan": "Analyst",
+   "job_requisition": null,
+   "designation": "Analyst",
+   "department": "Marketing"
+  },
+  {
+   "name": "HR-OPN-2026-0006",
+   "status": "Open",
+   "publish": 1,
+   "staffing_plan": "hr",
+   "job_requisition": null,
+   "designation": "Customer Service Representative",
+   "department": "Security - D"
+  }
+ ],
+ "staffing_plans": [
+  {
+   "name": "Analyst",
+   "department": "Marketing",
+   "docstatus": 1
+  },
+  {
+   "name": "hr",
+   "department": "Security - D",
+   "docstatus": 1
+  }
+ ],
+ "staffing_plan_details": [
+  {
+   "parent": "Analyst",
+   "designation": "Analyst",
+   "vacancies": 3,
+   "number_of_positions": 3,
+   "current_count": 0,
+   "current_openings": 0,
+   "estimated_cost_per_position": 15000
+  },
+  {
+   "parent": "hr",
+   "designation": "Customer Service Representative",
+   "vacancies": 2,
+   "number_of_positions": 2,
+   "current_count": 0,
+   "current_openings": 1,
+   "estimated_cost_per_position": 1000
+  }
+ ],
+ "job_applicants_nonpersonal": "(removed: record IDs are email addresses; aggregates kept in _raw_data_profile.json)",
+ "interviews": [
+  {
+   "name": "HR-INT-2026-0001",
+   "status": "Pending",
+   "job_opening": "HR-OPN-2026-0006",
+   "designation": "Customer Service Representative",
+   "docstatus": 0,
+   "interview_type": null
+  },
+  {
+   "name": "HR-INT-2026-0002",
+   "status": "Cleared",
+   "job_opening": "HR-OPN-2026-0006",
+   "designation": "Customer Service Representative",
+   "docstatus": 0,
+   "interview_type": null
+  }
+ ],
+ "job_offers": [
+  {
+   "name": "HR-OFF-2025-00001",
+   "status": "Awaiting Response",
+   "designation": "Accountant",
+   "docstatus": 1,
+   "job_offer_term_template": null
+  },
+  {
+   "name": "HR-OFF-2025-00002",
+   "status": "Accepted",
+   "designation": "HR",
+   "docstatus": 1,
+   "job_offer_term_template": null
+  },
+  {
+   "name": "HR-OFF-2026-00001",
+   "status": "Accepted",
+   "designation": "Customer Service Representative",
+   "docstatus": 0,
+   "job_offer_term_template": "Customer Service Job Offer Template"
+  }
+ ],
+ "job_opening_templates": [],
+ "interview_types": [
+  {
+   "name": "First Round - HR Interview",
+   "designation": null,
+   "expected_average_rating": null
+  }
+ ],
+ "job_applicant_sources": [
+  "Website Listing",
+  "Walk In",
+  "Employee Referral",
+  "Campaign",
+  "Linkedin",
+  "Recommendation",
+  "Outsource"
+ ],
+ "designation_count": 34,
+ "designation_skill_rows": null,
+ "skills": [
+  "Good Search"
+ ],
+ "designations": {
+  "count": 34,
+  "with_description": 0,
+  "sample_names": [
+   "Accountant",
+   "Administrative Assistant",
+   "Administrative Officer",
+   "Analyst",
+   "Associate",
+   "Business Analyst",
+   "Business Development Manager",
+   "Chief Executive Officer",
+   "Chief Financial Officer",
+   "Chief Operating Officer",
+   "Chief Technology Officer",
+   "Consultant",
+   "Customer Service Representative",
+   "Designer",
+   "Engineer",
+   "Executive Assistant",
+   "Finance Manager",
+   "Head of Marketing and Sales",
+   "HR",
+   "HR Manager",
+   "Manager",
+   "Managing Director",
+   "Marketing Manager",
+   "Marketing Specialist",
+   "President",
+   "Product Manager",
+   "Project Manager",
+   "Researcher",
+   "Sales Representative",
+   "Secretary",
+   "Software Developer",
+   "Vice President",
+   "فرد امن",
+   "مدير قسم الامن"
+  ]
+ },
+ "employment_types": [
+  "Full-time",
+  "Part-time",
+  "Probation",
+  "Contract",
+  "Commission",
+  "Piecework",
+  "Intern",
+  "Apprentice",
+  "Cooptraining"
+ ],
+ "branches": [
+  "Riyadh",
+  "Jeddah"
+ ],
+ "companies": [
+  {
+   "name": "Al Nile Security Services Co.",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "Alsuwaiket Energy Company",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "company",
+   "country": "Egypt",
+   "default_currency": "EGP"
+  },
+  {
+   "name": "Company O3",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "Contracting - SA",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "Contracting EG",
+   "country": "Saudi Arabia",
+   "default_currency": "EGP"
+  },
+  {
+   "name": "Go Greek",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "Ladan Saudi",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "Ldaan Fo Comms. & Info. Tech.",
+   "country": "Egypt",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "NHC",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "O2 Company",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "شركة الرياض للتطوير وإدارة المرافق",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  },
+  {
+   "name": "شركة تقوى",
+   "country": "Saudi Arabia",
+   "default_currency": "SAR"
+  }
+ ],
+ "portal_menu_jobs": [],
+ "website": {
+  "top_bar_jobs": [],
+  "footer_jobs": [],
+  "website_theme": "colors",
+  "app_name": "I Do",
+  "disable_signup": 1
+ }
+}

@@ -1,0 +1,376 @@
+{
+  "log": [
+    [
+      "/api/resource/Custom%20Field?filters=%5B%5B%22dt%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22dt%22%2C%22fieldname%22%2C%22label%22%2C%22fieldtype%22%2C%22options%22%2C%22reqd%22%2C%22hidden%22%2C%22read_only%22%2C%22insert_after%22%2C%22module%22%2C%22owner%22%2C%22creation%22%2C%22in_list_view%22%2C%22in_standard_filter%22%2C%22depends_on%22%2C%22fetch_from%22%2C%22description%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Property%20Setter?filters=%5B%5B%22doc_type%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22doc_type%22%2C%22field_name%22%2C%22property%22%2C%22value%22%2C%22property_type%22%2C%22doctype_or_field%22%2C%22module%22%2C%22creation%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Workflow?filters=%5B%5B%22document_type%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22document_type%22%2C%22is_active%22%2C%22workflow_state_field%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Workflow?fields=%5B%22name%22%2C%22document_type%22%2C%22is_active%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Client%20Script?filters=%5B%5B%22dt%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22dt%22%2C%22view%22%2C%22enabled%22%2C%22module%22%2C%22script%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Server%20Script?filters=%5B%5B%22reference_doctype%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22script_type%22%2C%22reference_doctype%22%2C%22doctype_event%22%2C%22api_method%22%2C%22disabled%22%2C%22module%22%2C%22script%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Server%20Script?fields=%5B%22name%22%2C%22script_type%22%2C%22reference_doctype%22%2C%22api_method%22%2C%22disabled%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Notification?filters=%5B%5B%22document_type%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22document_type%22%2C%22event%22%2C%22enabled%22%2C%22channel%22%2C%22condition%22%2C%22subject%22%2C%22send_to_all_assignees%22%2C%22module%22%2C%22is_standard%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Assignment%20Rule?filters=%5B%5B%22document_type%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22document_type%22%2C%22disabled%22%2C%22assign_condition%22%2C%22unassign_condition%22%2C%22rule%22%2C%22priority%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Webhook?fields=%5B%22name%22%2C%22webhook_doctype%22%2C%22webhook_docevent%22%2C%22enabled%22%2C%22request_url%22%2C%22request_method%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/Print%20Format?filters=%5B%5B%22doc_type%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22doc_type%22%2C%22standard%22%2C%22disabled%22%2C%22custom_format%22%2C%22print_format_type%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/List%20View%20Settings?filters=%5B%5B%22name%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22name%22%2C%22fields%22%2C%22disable_count%22%2C%22disable_sidebar_stats%22%2C%22disable_auto_refresh%22%2C%22total_fields%22%5D&limit_page_length=200",
+      417
+    ],
+    [
+      "/api/resource/Email%20Template?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25interview%25%22%5D%5D&fields=%5B%22name%22%2C%22subject%22%5D&limit_page_length=200",
+      200
+    ],
+    [
+      "/api/resource/DocType%20Link?filters=%5B%5B%22parent%22%2C%22in%22%2C%5B%22Staffing%20Plan%22%2C%22Staffing%20Plan%20Detail%22%2C%22Job%20Requisition%22%2C%22Job%20Opening%22%2C%22Job%20Opening%20Template%22%2C%22Job%20Applicant%22%2C%22Job%20Applicant%20Source%22%2C%22Interview%22%2C%22Interview%20Type%22%2C%22Interview%20Feedback%22%2C%22Interview%20Detail%22%2C%22Job%20Offer%22%2C%22Job%20Offer%20Term%22%2C%22Appointment%20Letter%22%2C%22Employee%20Referral%22%2C%22Designation%22%2C%22Designation%20Skill%22%2C%22Skill%22%2C%22Employment%20Type%22%2C%22Interviewer%22%2C%22Expected%20Skill%20Set%22%2C%22Skill%20Assessment%22%5D%5D%5D&fields=%5B%22parent%22%2C%22link_doctype%22%2C%22link_fieldname%22%2C%22group%22%2C%22custom%22%2C%22table_fieldname%22%2C%22parent_doctype%22%5D&limit_page_length=200",
+      403
+    ]
+  ],
+  "custom_fields": [
+    {
+      "name": "Designation-appraisal_template",
+      "dt": "Designation",
+      "fieldname": "appraisal_template",
+      "label": "Appraisal Template",
+      "fieldtype": "Link",
+      "options": "Appraisal Template",
+      "reqd": 0,
+      "hidden": 0,
+      "read_only": 0,
+      "insert_after": "description",
+      "module": null,
+      "creation": "2025-04-23 17:57:06.362754",
+      "in_list_view": 0,
+      "in_standard_filter": 0,
+      "depends_on": null,
+      "fetch_from": null,
+      "description": null
+    },
+    {
+      "name": "Designation-required_skills_section",
+      "dt": "Designation",
+      "fieldname": "required_skills_section",
+      "label": "Required Skills",
+      "fieldtype": "Section Break",
+      "options": null,
+      "reqd": 0,
+      "hidden": 0,
+      "read_only": 0,
+      "insert_after": "appraisal_template",
+      "module": null,
+      "creation": "2025-04-23 17:57:06.366385",
+      "in_list_view": 0,
+      "in_standard_filter": 0,
+      "depends_on": null,
+      "fetch_from": null,
+      "description": null
+    },
+    {
+      "name": "Designation-skills",
+      "dt": "Designation",
+      "fieldname": "skills",
+      "label": "Skills",
+      "fieldtype": "Table",
+      "options": "Designation Skill",
+      "reqd": 0,
+      "hidden": 0,
+      "read_only": 0,
+      "insert_after": "required_skills_section",
+      "module": null,
+      "creation": "2025-04-23 17:57:06.369762",
+      "in_list_view": 0,
+      "in_standard_filter": 0,
+      "depends_on": null,
+      "fetch_from": null,
+      "description": null
+    },
+    {
+      "name": "Job Requisition-plan_over_notice",
+      "dt": "Job Requisition",
+      "fieldname": "plan_over_notice",
+      "label": "This request asks for more than the plan has left.",
+      "fieldtype": "HTML",
+      "options": null,
+      "reqd": 0,
+      "hidden": 0,
+      "read_only": 0,
+      "insert_after": "column_break_qkna",
+      "module": "IDO Desk",
+      "creation": "2026-10-04 13:12:54.279568",
+      "in_list_view": 0,
+      "in_standard_filter": 0,
+      "depends_on": null,
+      "fetch_from": null,
+      "description": null
+    },
+    {
+      "name": "Job Requisition-plan_seats_left",
+      "dt": "Job Requisition",
+      "fieldname": "plan_seats_left",
+      "label": "Seats Left in the Plan",
+      "fieldtype": "Int",
+      "options": null,
+      "reqd": 0,
+      "hidden": 0,
+      "read_only": 1,
+      "insert_after": "staffing_plan",
+      "module": "IDO Desk",
+      "creation": "2026-10-04 13:12:54.193876",
+      "in_list_view": 0,
+      "in_standard_filter": 0,
+      "depends_on": null,
+      "fetch_from": null,
+      "description": null
+    },
+    {
+      "name": "Job Requisition-staffing_plan",
+      "dt": "Job Requisition",
+      "fieldname": "staffing_plan",
+      "label": "Workforce Plan",
+      "fieldtype": "Link",
+      "options": "Staffing Plan",
+      "reqd": 0,
+      "hidden": 0,
+      "read_only": 0,
+      "insert_after": "designation",
+      "module": "IDO Desk",
+      "creation": "2026-10-04 13:12:54.133382",
+      "in_list_view": 0,
+      "in_standard_filter": 0,
+      "depends_on": null,
+      "fetch_from": null,
+      "description": null
+    }
+  ],
+  "property_setters": [
+    {
+      "name": "Job Opening-staffing_plan-read_only",
+      "doc_type": "Job Opening",
+      "field_name": "staffing_plan",
+      "property": "read_only",
+      "value": "0",
+      "property_type": "Check",
+      "doctype_or_field": "DocField",
+      "module": "IDO Desk",
+      "creation": "2026-10-04 13:12:55.404037"
+    },
+    {
+      "name": "Job Opening-vacancies-depends_on",
+      "doc_type": "Job Opening",
+      "field_name": "vacancies",
+      "property": "depends_on",
+      "value": "",
+      "property_type": "Code",
+      "doctype_or_field": "DocField",
+      "module": "IDO Desk",
+      "creation": "2026-10-04 13:12:55.400467"
+    },
+    {
+      "name": "Job Opening-vacancies-read_only",
+      "doc_type": "Job Opening",
+      "field_name": "vacancies",
+      "property": "read_only",
+      "value": "0",
+      "property_type": "Check",
+      "doctype_or_field": "DocField",
+      "module": "IDO Desk",
+      "creation": "2026-10-04 13:12:55.395089"
+    },
+    {
+      "name": "Job Opening-vacancies-read_only_depends_on",
+      "doc_type": "Job Opening",
+      "field_name": "vacancies",
+      "property": "read_only_depends_on",
+      "value": "eval:doc.job_requisition",
+      "property_type": "Code",
+      "doctype_or_field": "DocField",
+      "module": "IDO Desk",
+      "creation": "2026-10-04 13:12:55.397088"
+    },
+    {
+      "name": "Job Opening-vacancies-reqd",
+      "doc_type": "Job Opening",
+      "field_name": "vacancies",
+      "property": "reqd",
+      "value": "0",
+      "property_type": "Check",
+      "doctype_or_field": "DocField",
+      "module": "IDO Desk",
+      "creation": "2026-10-04 13:12:55.392924"
+    }
+  ],
+  "workflows": [],
+  "all_workflows": [
+    {
+      "name": "Access Permit",
+      "document_type": "Access Permit",
+      "is_active": 1
+    },
+    {
+      "name": "Access Permit Security Approval",
+      "document_type": "Work Permit",
+      "is_active": 1
+    },
+    {
+      "name": "Appraisal Approval Workflow",
+      "document_type": "Appraisal",
+      "is_active": 1
+    },
+    {
+      "name": "cleaning work order",
+      "document_type": "Cleaning Work Order",
+      "is_active": 1
+    },
+    {
+      "name": "corr work order",
+      "document_type": "Corrective Maintenance Task",
+      "is_active": 1
+    },
+    {
+      "name": "Corrective Tree Task Standard",
+      "document_type": "Corrective Tree Task",
+      "is_active": 1
+    },
+    {
+      "name": "Issue Custom WF",
+      "document_type": "Issue",
+      "is_active": 0
+    },
+    {
+      "name": "leave application",
+      "document_type": "Leave Application",
+      "is_active": 1
+    },
+    {
+      "name": "Loan Application Workflow",
+      "document_type": "Loan Application",
+      "is_active": 0
+    },
+    {
+      "name": "Loan Lead Workflow",
+      "document_type": "Loan Lead",
+      "is_active": 0
+    },
+    {
+      "name": "maintenance",
+      "document_type": "Maintenance work order",
+      "is_active": 1
+    },
+    {
+      "name": "NHC Cityscape Visit Workflow",
+      "document_type": "Lead",
+      "is_active": 1
+    },
+    {
+      "name": "project",
+      "document_type": "Project",
+      "is_active": 1
+    },
+    {
+      "name": "RFQ",
+      "document_type": "Request for Quotation",
+      "is_active": 1
+    },
+    {
+      "name": "Tree Inspection Standard",
+      "document_type": "Tree Inspection Order",
+      "is_active": 1
+    }
+  ],
+  "client_scripts": [],
+  "server_scripts": [],
+  "all_server_scripts": [
+    {
+      "name": "Age validation for Loan Lead",
+      "script_type": "DocType Event",
+      "reference_doctype": "Loan Lead",
+      "api_method": null,
+      "disabled": 0
+    },
+    {
+      "name": "Appraisal - Set Manager and Employee User",
+      "script_type": "DocType Event",
+      "reference_doctype": "Appraisal",
+      "api_method": null,
+      "disabled": 1
+    },
+    {
+      "name": "NHC Submit Lead",
+      "script_type": "API",
+      "reference_doctype": null,
+      "api_method": "nhc_submit_lead",
+      "disabled": 0
+    },
+    {
+      "name": "send_announcement",
+      "script_type": "API",
+      "reference_doctype": null,
+      "api_method": "send_announcement",
+      "disabled": 0
+    }
+  ],
+  "notifications": [],
+  "assignment_rules": [],
+  "webhooks": [],
+  "print_formats": [
+    {
+      "name": "Job Offer",
+      "doc_type": "Job Offer",
+      "standard": "Yes",
+      "disabled": 0,
+      "custom_format": 1,
+      "print_format_type": "Jinja"
+    },
+    {
+      "name": "Standard Appointment Letter",
+      "doc_type": "Appointment Letter",
+      "standard": "Yes",
+      "disabled": 0,
+      "custom_format": 0,
+      "print_format_type": "Jinja"
+    }
+  ],
+  "list_view_settings": null,
+  "email_templates_interview": [
+    {
+      "name": "Interview Feedback Reminder",
+      "subject": "Interview Feedback Reminder"
+    },
+    {
+      "name": "Interview Reminder",
+      "subject": "Interview Reminder"
+    }
+  ],
+  "doctype_links": null
+}
