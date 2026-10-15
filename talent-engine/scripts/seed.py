@@ -8,6 +8,7 @@ from __future__ import annotations
 import os
 import sys
 import time
+from pathlib import Path
 
 import httpx
 from dotenv import load_dotenv  # type: ignore[import-not-found]
@@ -22,7 +23,7 @@ H = {"Authorization": f"Bearer {KEY}", "X-Talent-Actor": "seed-script"}
 
 
 def main() -> int:
-    c = httpx.Client(base_url=API, headers=H, timeout=60)
+    c = httpx.Client(base_url=API, headers=H, timeout=300)
     r = c.get("/ready")
     print("ready:", r.status_code, r.json().get("ready"))
     for ref, job in JOBS.items():
@@ -32,6 +33,13 @@ def main() -> int:
             f"job {ref}: version {r.json()['version']['version']} (new={r.json()['new_version']})"
         )
     ids = []
+    cv_dir = Path(os.environ.get("CV_DIR", Path(__file__).resolve().parent.parent / "data" / "cvs"))
+    hints: dict[str, tuple[str, str]] = {}
+    if (cv_dir / "name_hints.txt").exists():
+        for line in (cv_dir / "name_hints.txt").read_text().splitlines():
+            ref, fn, name = line.split("\t")
+            hints[ref] = (fn, name)
+    attached = 0
     for cand in CANDIDATES:
         body = {
             "id_token": cand["id_token"],
@@ -41,10 +49,26 @@ def main() -> int:
         }
         r = c.put(f"/v1/candidates/{cand['ref']}", json=body)
         r.raise_for_status()
+        if cand["ref"] in hints:
+            fn, name = hints[cand["ref"]]
+            with open(cv_dir / fn, "rb") as fh:
+                r = c.put(
+                    f"/v1/candidates/{cand['ref']}/cv",
+                    files={"file": (fn, fh)},
+                    data={"name_hint": name},
+                )
+            r.raise_for_status()
+            d = r.json()["document"]
+            attached += 1
+            conf = f" conf={d['ocr_confidence']}" if d.get("ocr_confidence") is not None else ""
+            red = (d.get("redaction") or {}).get("counts")
+            print(
+                f"  cv {cand['ref']}: {d['status']} {d.get('extraction_method') or d.get('error')}{conf} chars={d['chars']} redacted={red}"
+            )
         r = c.post("/v1/screenings", json={"job_ref": cand["job"], "candidate_ref": cand["ref"]})
         r.raise_for_status()
         ids.append(r.json()["screening_id"])
-    print(f"{len(ids)} screenings submitted; waiting for the worker ...")
+    print(f"{len(ids)} screenings submitted ({attached} with a CV); waiting for the worker ...")
     deadline = time.time() + 120
     pending = set(ids)
     while pending and time.time() < deadline:

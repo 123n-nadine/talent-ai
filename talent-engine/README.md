@@ -6,14 +6,15 @@ Host systems plug in through a small adapter over HTTP; the first adapter is the
 
 ## Status
 
-Phase 1 (engine core, fake LLM, form answers only) is implemented: API, worker, Postgres + pgvector, Redis, Alembic migrations, scoring/eligibility/ranking/stale/duplicate logic, HMAC callbacks, seed data copied from the clickable demo, 45 tests. Next phases: documents and OCR (2), local LLM (3), evaluation (4), console (5).
+Phase 1 (engine core, fake LLM, form answers only) and phase 2 (documents: text extraction, PaddleOCR on CPU for scans, redaction before any LLM step) are implemented. Next phases: local LLM and structured CV profile (3), evaluation (4), console (5).
 
 ## Run (Docker Compose project `talentai`, host ports 18000–18099)
 
 ```bash
 make env                      # once: writes .env with random secrets (chmod 600); never commit .env
 make up                       # builds the image, starts db (18030), redis (18031), api (18000), worker
-make seed                     # demo profile "مشرف أمن" + 26 synthetic applicants, prints the ranking
+make cvs                      # 20 synthetic CV files into data/cvs (needs LibreOffice on the host; git-ignored)
+make seed                     # demo profile "مشرف أمن" + 26 synthetic applicants (18 with a CV), prints the ranking
 open http://127.0.0.1:18000/docs
 ```
 
@@ -32,6 +33,13 @@ curl -X PUT http://127.0.0.1:18000/v1/settings -H "Authorization: Bearer $(grep 
 - The API is published on **127.0.0.1:18000 and on the Tailscale address only** (`API_BIND_TAILSCALE` in `.env`), never on `0.0.0.0` or the LAN.
 - `make env` generates `TENANT_API_KEY`, `POSTGRES_PASSWORD`, `REDIS_PASSWORD` and `CALLBACK_SECRET`. To rotate the API key: change `TENANT_API_KEY` in `.env` and restart the api; the old key stops working immediately (audit event `tenant.key_rotated`).
 - Postgres password changes need a fresh volume (`docker compose -p talentai down -v` removes only our volumes) or an `ALTER USER` inside the container.
+
+## Documents and OCR
+
+- Extraction: text PDF through PyMuPDF, DOCX through python-docx, DOC/RTF through LibreOffice headless, scanned PDF or image through the OCR provider. Corrupt, encrypted or unsupported files are recorded as `unreadable`; the screening then continues from the form answers with flag `cv_unreadable` (never Failed).
+- OCR providers: `none`, `fake` (tests), `paddle_cpu` (PaddleOCR PP-OCRv5 server detector + Arabic mobile recogniser, CPU, oneDNN disabled because paddlepaddle 3.3 crashes with it), `paddle_vl` (GPU, phase 3). Models download on first use into the `models` volume (`PADDLE_PDX_CACHE_HOME`). First call takes ~30 s (model load), then a page takes a few seconds on 8 threads.
+- Confidence: text-length-weighted mean of the recogniser scores; below `OCR_MIN_CONFIDENCE` (0.80 for now, to calibrate in phase 4) the screening is flagged `low_ocr_confidence` and goes to Needs Review.
+- Redaction (before any LLM step): e-mails, URLs, Saudi mobiles and international numbers, national ID / iqama (10 digits starting 1 or 2), dates of birth and ages, nationality and gender words, addresses, the applicant's own name from `name_hint` (Arabic letter variants handled), plus English person names through Presidio + spaCy when installed. Arabic-Indic digits are normalised. The report counts what was removed; the engine never returns the raw text except through `inspect` with `include_raw`.
 
 ## Develop
 
@@ -73,6 +81,9 @@ All `/v1/*` routes need `Authorization: Bearer <tenant key>`; optional `X-Talent
 | `POST /v1/jobs/{ref}/rescreen` | rescreen every candidate against the active version |
 | `PUT /v1/candidates/{ref}` | facts (allowed list only), answers, consent, `id_token` (HMAC of the national ID, computed by the host) |
 | `DELETE /v1/candidates/{ref}` | full erasure |
+| `PUT /v1/candidates/{ref}/cv` | multipart `file` (+ optional `name_hint`): store, extract (PDF/DOCX/DOC/RTF/JPG/PNG, OCR for scans), redact; the hint is used once and never stored. Changes the data hash, so earlier results become stale |
+| `GET /v1/candidates/{ref}/cv`, `DELETE …/cv` | redacted text, method, OCR confidence, redaction counts / remove |
+| `POST /v1/documents/inspect` | same processing without storing anything (`include_raw=true` also returns the raw text; synthetic data only) |
 | `POST /v1/screenings` | screen candidate × job → 202; idempotent on the input hash unless `force` |
 | `GET /v1/screenings/{id}` | full result with stages, evidence per criterion, rank |
 | `POST /v1/screenings/{id}/override` | HR level override with a reason (recomputes) |

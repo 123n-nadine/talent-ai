@@ -258,9 +258,10 @@ The UX target is `reference/demo/talent-ai-demo.html`.
 ## 11. OCR
 
 - `OCRProvider` interface: `extract(file) -> pages[{text, confidence}]`.
-- Implementations: `paddle_vl` (PaddleOCR-VL on GPU, best for Arabic + layout), `paddle_cpu` (PaddleOCR classic Arabic model, CPU fallback), `cloud` (stub, disabled), `none`.
+- Implementations: `paddle_vl` (PaddleOCR-VL on GPU, best for Arabic + layout; phase 3), `paddle_cpu` (PaddleOCR 3.x: `PP-OCRv5_server_det` + `arabic_PP-OCRv5_mobile_rec`, CPU, `enable_mkldnn=False` because paddlepaddle 3.3's oneDNN path crashes on this detector; implemented in phase 2), `fake` (tests), `cloud` (stub, disabled), `none`. Models live in the `models` volume, downloaded on first use.
 - Used only when the PDF has no text layer or the file is an image.
-- Low confidence (< threshold, set after testing) → flag `low_ocr_confidence`, needs review.
+- Confidence = text-length-weighted mean of recogniser scores (punctuation-only boxes ignored). Low confidence (< `OCR_MIN_CONFIDENCE`, 0.80 until phase 4 calibrates it) → flag `low_ocr_confidence`, needs review.
+- Extraction and redaction run **at upload time** (`PUT /v1/candidates/{ref}/cv`), so the applicant's name hint is used once for redaction and never stored anywhere (not even in a queue). The pipeline's stages 3–4 then report what was stored. A new CV changes the candidate's data hash → earlier results become stale.
 - No training. Off-the-shelf models only.
 
 ## 12. Privacy, security, compliance

@@ -21,7 +21,7 @@ router = APIRouter(prefix="/v1/screenings", tags=["screenings"])
 
 def _out(db: Session, tenant: Tenant, s: Screening) -> dict:
     rank, total = rank_of(db, tenant, s)
-    return scr_svc.to_out(s, rank, total)
+    return scr_svc.to_out(s, rank, total, with_cv=True)
 
 
 @router.post("", status_code=202)

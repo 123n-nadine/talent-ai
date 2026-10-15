@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from sqlalchemy import select
 
-from app.api.routers import audit, candidates, console, health, jobs, screenings
+from app.api.routers import audit, candidates, console, documents, health, jobs, screenings
 from app.api.routers import settings as settings_router
 from app.core.config import Settings, get_settings
 from app.core.ids import new_id
@@ -88,6 +88,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(health.router)
     app.include_router(jobs.router)
     app.include_router(candidates.router)
+    app.include_router(documents.router)
     app.include_router(screenings.router)
     app.include_router(settings_router.router)
     app.include_router(audit.router)

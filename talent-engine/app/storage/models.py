@@ -129,6 +129,10 @@ class Document(Base):
     redacted_text: Mapped[str | None] = mapped_column(Text)
     redaction_report: Mapped[dict[str, Any] | None] = mapped_column(JSONType)
     error: Mapped[str | None] = mapped_column(Text)
+    page_count: Mapped[int] = mapped_column(Integer, default=0)
+    char_count: Mapped[int] = mapped_column(Integer, default=0)
+    name_hint_used: Mapped[bool] = mapped_column(Boolean, default=False)
+    processed_at: Mapped[datetime | None] = mapped_column(TS)
     created_at: Mapped[datetime] = mapped_column(TS, default=utcnow)
 
 

@@ -146,6 +146,9 @@ def candidate_out(
                 "status": d.status,
                 "extraction_method": d.extraction_method,
                 "ocr_confidence": d.ocr_confidence,
+                "pages": d.page_count,
+                "chars": d.char_count,
+                "error": d.error,
             }
             for d in cand.documents
         ],

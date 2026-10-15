@@ -1,4 +1,4 @@
-"""OCR provider contract (implementations arrive in phase 2)."""
+"""OCR provider contract. Implementations: none, fake (tests), paddle_cpu, paddle_vl (GPU, phase 3)."""
 
 from __future__ import annotations
 
@@ -18,8 +18,12 @@ class OCRProvider(Protocol):
     def extract(self, path: str) -> list[OCRPage]: ...
 
 
+class OCRUnavailable(RuntimeError):
+    pass
+
+
 class NoneOCR:
     name = "none"
 
     def extract(self, path: str) -> list[OCRPage]:
-        raise RuntimeError("OCR provider 'none': scanned documents cannot be read")
+        raise OCRUnavailable("OCR provider 'none': scanned documents cannot be read")

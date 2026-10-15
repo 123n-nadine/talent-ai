@@ -9,10 +9,13 @@ x-engine: &engine
     DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-talentai}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env (make env)}@db:5432/${POSTGRES_DB:-talentai}
     REDIS_URL: redis://:${REDIS_PASSWORD:?set REDIS_PASSWORD in .env (make env)}@redis:6379/0
     FILE_STORE: /data/files
+    OMP_NUM_THREADS: ${OCR_THREADS:-8}
+    PADDLE_PDX_CACHE_HOME: /data/models/paddlex
   extra_hosts:
     - "host.docker.internal:host-gateway"
   volumes:
     - files:/data/files
+    - models:/data/models
 
 services:
   db:
@@ -76,3 +79,4 @@ volumes:
   pgdata:
   redisdata:
   files:
+  models:   # OCR model files (downloaded on first use), never in git

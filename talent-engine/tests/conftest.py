@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import sys
+import tempfile
 
 import pytest
 from fastapi.testclient import TestClient
@@ -22,6 +23,8 @@ def make_settings(**overrides) -> Settings:
         auto_create_schema=True,
         queue_mode="inline",
         ai_provider="fake",
+        ocr_provider="fake",
+        file_store=tempfile.mkdtemp(prefix="talentai-test-files-"),
         tenant_api_key=API_KEY,
         tenant_name="test",
         callback_url="",

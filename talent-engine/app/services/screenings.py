@@ -16,6 +16,7 @@ from app.scoring.score import JudgedCriterion, compute, summary_text
 from app.services import audit
 from app.storage.models import Candidate, CriterionResult, Job, JobVersion, Screening, Tenant
 
+REVIEW_FLAGS = {"low_ocr_confidence"}  # pipeline flags that force Needs Review on their own
 SCORE_FLAGS = {
     "missing_evidence",
     "mandatory_missing",
@@ -202,15 +203,16 @@ def recompute(s: Screening) -> None:
     s.score = result.score
     s.coverage = result.coverage
     s.band = result.band
-    s.needs_review = result.needs_review
     s.flags = sorted(set(result.flags) | set(extra))
     s.strengths = result.strengths
     s.gaps = result.gaps
     s.raise_score = result.raise_score
     s.summary = summary_text(result, s.eligibility or "eligible", s.eligibility_reasons or [])
-    s.status = (
-        "needs_review" if (result.needs_review or s.eligibility == "needs_review") else "completed"
+    review = (
+        result.needs_review or s.eligibility == "needs_review" or bool(set(extra) & REVIEW_FLAGS)
     )
+    s.needs_review = review
+    s.status = "needs_review" if review else "completed"
 
 
 def apply_override(db: Session, tenant: Tenant, s: Screening, data: OverrideIn) -> Screening:
@@ -258,8 +260,27 @@ def mark_for_retry(db: Session, tenant: Tenant, s: Screening, actor: str) -> Scr
     return s
 
 
+def cv_out(cand: Candidate, with_text: bool = False) -> dict[str, Any] | None:
+    doc = next((d for d in cand.documents if d.kind == "cv"), None)
+    if doc is None:
+        return None
+    out: dict[str, Any] = {
+        "status": doc.status,
+        "method": doc.extraction_method,
+        "ocr_confidence": doc.ocr_confidence,
+        "pages": doc.page_count,
+        "chars": doc.char_count,
+        "error": doc.error,
+        "redaction": doc.redaction_report,
+        "sha256": doc.sha256,
+    }
+    if with_text:
+        out["redacted_text"] = doc.redacted_text
+    return out
+
+
 def to_out(
-    s: Screening, rank: int | None = None, ranked_total: int | None = None
+    s: Screening, rank: int | None = None, ranked_total: int | None = None, with_cv: bool = False
 ) -> dict[str, Any]:
     job, version, cand = s.job, s.job_version, s.candidate
     current, why = is_current(s, job, cand)
@@ -313,6 +334,7 @@ def to_out(
         "needs_review": s.needs_review,
         "flags": sorted(set(flags)),
         "criteria": criteria,
+        "cv": cv_out(cand, with_text=with_cv),
         "summary": s.summary,
         "strengths": s.strengths or [],
         "gaps": s.gaps or [],

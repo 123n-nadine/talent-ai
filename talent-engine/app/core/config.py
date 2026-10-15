@@ -47,6 +47,19 @@ class Settings(BaseSettings):
 
     profile_schema_version: str = "1.0"
 
+    # documents (phase 2)
+    max_upload_mb: int = 10
+    pdf_min_text_chars: int = (
+        50  # fewer letters/digits than this in a PDF -> treated as scanned -> OCR
+    )
+    ocr_render_dpi: int = 200
+    ocr_threads: int = 8
+    fake_ocr_text: str = ""
+    fake_ocr_confidence: float = 0.95
+    libreoffice_bin: str = "soffice"
+    libreoffice_timeout_s: int = 120
+    redaction_nlp: bool = True  # English names through Presidio/spaCy when installed
+
     @property
     def allowed_facts_list(self) -> list[str]:
         return [f.strip() for f in self.allowed_facts.split(",") if f.strip()]

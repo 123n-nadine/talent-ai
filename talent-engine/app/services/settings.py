@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from app.core.config import Settings
 from app.domain.models import SettingsIn
 from app.llm.registry import PROVIDER_STATUS, provider_available
+from app.ocr.registry import OCR_STATUS, ocr_available
 from app.services import audit
 from app.storage.models import Tenant
 
@@ -33,6 +34,9 @@ def settings_out(tenant: Tenant, settings: Settings) -> dict[str, Any]:
         "provider_ready": ok,
         "provider_note": why,
         "providers": PROVIDER_STATUS,
+        "ocr_ready": ocr_available(tenant.ocr_provider, settings)[0],
+        "ocr_note": ocr_available(tenant.ocr_provider, settings)[1],
+        "ocr_providers": OCR_STATUS,
         "defaults_from_env": {
             "ai_provider": settings.ai_provider,
             "llm_model": settings.llm_model,

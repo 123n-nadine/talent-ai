@@ -21,7 +21,7 @@ from app.scoring.score import JudgedCriterion, compute, summary_text
 from app.services import audit
 from app.services.callback import send as send_callback
 from app.services.ranking import rank_of
-from app.services.screenings import SCORE_FLAGS, to_out
+from app.services.screenings import REVIEW_FLAGS, SCORE_FLAGS, to_out
 from app.storage.models import CriterionResult, Screening, Tenant
 
 log = logging.getLogger(__name__)
@@ -72,9 +72,35 @@ def run_screening(
         answered = sum(1 for a in answers.values() if a.answered)
         tracker.set("answers", "done", f"{answered} من {len(version.questions)} إجابات")
 
-        has_cv = any(d.kind == "cv" for d in cand.documents)
-        for key in ("cv_text", "redaction", "profile", "evidence_check"):
-            tracker.set(key, "skipped", NO_CV_NOTE if not has_cv else "يُفعَّل في المرحلة 2")
+        extra_flags = {f for f in (s.flags or []) if f not in SCORE_FLAGS}
+        cv = next((d for d in cand.documents if d.kind == "cv"), None)
+        if cv is None:
+            for key in ("cv_text", "redaction", "profile", "evidence_check"):
+                tracker.set(key, "skipped", NO_CV_NOTE)
+        elif cv.status == "ready":
+            note = f"{cv.extraction_method} · {cv.char_count} حرف · {cv.page_count} صفحة"
+            if cv.ocr_confidence is not None:
+                note += f" · ثقة OCR {round(cv.ocr_confidence * 100)}%"
+                if cv.ocr_confidence < settings.ocr_min_confidence:
+                    extra_flags.add("low_ocr_confidence")
+            tracker.set("cv_text", "done", note)
+            counts = (cv.redaction_report or {}).get("counts", {})
+            tracker.set(
+                "redaction",
+                "done",
+                "حُذف: " + "، ".join(f"{k} {v}" for k, v in counts.items())
+                if counts
+                else "لم يُعثر على بيانات شخصية",
+            )
+            tracker.set("profile", "skipped", "يُفعَّل في المرحلة 3")
+            tracker.set("evidence_check", "skipped", "يُفعَّل في المرحلة 3")
+        else:
+            extra_flags.add("cv_unreadable")
+            tracker.set(
+                "cv_text", "failed", f"ملف السيرة غير مقروء: {cv.error} — التقييم من الإجابات فقط"
+            )
+            for key in ("redaction", "profile", "evidence_check"):
+                tracker.set(key, "skipped", "لا نص للسيرة")
 
         elig = evaluate(cand.facts, version.rules)
         tracker.set(
@@ -91,7 +117,6 @@ def run_screening(
         judgements = prov.judge(
             JudgeRequest(criteria=version.criteria, questions=questions, answers=answers)
         )
-        extra_flags = {f for f in (s.flags or []) if f not in SCORE_FLAGS}
         rows: list[JudgedCriterion] = []
         by_key = {j.key: j for j in judgements}
         for c in version.criteria:
@@ -164,7 +189,6 @@ def run_screening(
         s.score = result.score
         s.coverage = result.coverage
         s.band = result.band
-        s.needs_review = result.needs_review
         s.flags = sorted(set(result.flags) | extra_flags)
         s.strengths = result.strengths
         s.gaps = result.gaps
@@ -177,11 +201,11 @@ def run_screening(
             "prompt": prov.prompt_version,
             "profile_schema": settings.profile_schema_version,
         }
-        s.status = (
-            "needs_review"
-            if (result.needs_review or elig.status == "needs_review")
-            else "completed"
+        review = (
+            result.needs_review or elig.status == "needs_review" or bool(extra_flags & REVIEW_FLAGS)
         )
+        s.needs_review = review
+        s.status = "needs_review" if review else "completed"
         s.error = None
         s.completed_at = utcnow()
         s.stages = tracker.stages
