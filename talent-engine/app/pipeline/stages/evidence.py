@@ -74,6 +74,7 @@ def resolve(
             confirmed_by_cv=False,
             form_level=form_level,
             cv_level=cv_level,
+            cv_quote=raw.cv_quote,
         ), problems
     if form_level is not None:
         ans = answers[raw.form_field or ""]
@@ -88,6 +89,7 @@ def resolve(
             confirmed_by_cv=cv_level is not None and cv_level >= form_level,
             form_level=form_level,
             cv_level=cv_level,
+            cv_quote=raw.cv_quote if cv_level is not None else None,
         ), problems
     return Judgement(
         raw.key,
@@ -99,6 +101,7 @@ def resolve(
         raw.rationale,
         form_level=None,
         cv_level=cv_level,
+        cv_quote=raw.cv_quote,
     ), problems
 
 

@@ -244,6 +244,9 @@ def test_local_provider_full_cycle(tmp_path, mock_llm):
     assert (
         by["licence"]["confirmed_by_cv"] is True and by["security_exp"]["confirmed_by_cv"] is False
     )
+    assert by["supervision"]["cv_quote"] == "I supervise 8 guards and prepare the weekly roster"
+    assert by["supervision"]["form_level"] == 75 and by["supervision"]["cv_level"] == 75
+    assert by["security_exp"]["cv_quote"] is None
     stages = {st["key"]: st for st in s["stages"]}
     assert stages["profile"]["status"] == "done" and stages["evidence_check"]["status"] == "done"
     assert "1 حُذف" in stages["evidence_check"]["note"]  # the invented experience item was dropped

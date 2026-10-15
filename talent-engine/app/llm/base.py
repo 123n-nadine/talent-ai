@@ -36,6 +36,7 @@ class Judgement:
     confirmed_by_cv: bool = False
     form_level: int | None = None
     cv_level: int | None = None
+    cv_quote: str | None = None  # verified CV quote (also when the form answer is the source)
 
 
 @dataclass

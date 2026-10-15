@@ -196,6 +196,7 @@ def run_screening(
         by_key = {j.key: j for j in raw_judgements}
         rows: list[JudgedCriterion] = []
         problems: list[str] = []
+        verified: dict[str, Any] = {}
         for c in version.criteria:
             raw = by_key.get(c["key"])
             if raw is None and c["key"] in code_levels:
@@ -224,6 +225,7 @@ def run_screening(
                 code_level=code_levels.get(c["key"]),
             )
             problems.extend(probs)
+            verified[c["key"]] = j
             rows.append(
                 JudgedCriterion(
                     c["key"],
@@ -279,6 +281,9 @@ def run_screening(
                     missing_evidence=r.missing_evidence,
                     contradiction=r.contradiction,
                     confirmed_by_cv=r.confirmed_by_cv,
+                    form_level=getattr(verified.get(r.key), "form_level", None),
+                    cv_level=getattr(verified.get(r.key), "cv_level", None),
+                    cv_quote=getattr(verified.get(r.key), "cv_quote", None),
                 )
             )
         s.eligibility = elig.status

@@ -34,6 +34,15 @@ curl -X PUT http://127.0.0.1:18000/v1/settings -H "Authorization: Bearer $(grep 
 - `make env` generates `TENANT_API_KEY`, `POSTGRES_PASSWORD`, `REDIS_PASSWORD` and `CALLBACK_SECRET`. To rotate the API key: change `TENANT_API_KEY` in `.env` and restart the api; the old key stops working immediately (audit event `tenant.key_rotated`).
 - Postgres password changes need a fresh volume (`docker compose -p talentai down -v` removes only our volumes) or an `ALTER USER` inside the container.
 
+## Talent Console (phase 5)
+
+Open `http://127.0.0.1:18000/console` on the server or `http://100.85.37.127:18000/console` over Tailscale (the API port is bound to those two addresses only). Log in with `CONSOLE_USER` / `CONSOLE_PASSWORD` from `.env` (`make env` generates the password).
+
+- The session is a signed HttpOnly cookie (12 h). The API accepts it for the default tenant, so the browser never holds the API key; every action is audited as `console:<user>`.
+- The console stands in for the HR system: applicant names, e-mails, phones and national IDs stay in the browser (`localStorage`); the engine receives only allowed facts, answers, the CV and `id_token` (HMAC computed by `POST /console/id-token`, nothing stored). Seeded applicants therefore show their reference instead of a name.
+- Screens: openings, AI Job Profile editor (criteria, weights with the 100% check, rubric and code hints, rules, questions, AI draft, approve as a new version), application form, live processing, applicants, applicant (levels, evidence, CV with highlighted quotes, override with reason, re-score), ranking groups with CSV export and re-score all, AI jobs with retry, settings, audit log; Arabic RTL first with an English toggle; developer view shows the raw API calls.
+- Not in the console on purpose (postponed scope): interviews, tests, offers, comparison, talent pool. HR status changes (Shortlist/Reject/Hold) belong to Frappe (phase 6).
+
 ## LLM (phase 3)
 
 - `vllm` compose service: `Qwen/Qwen3-8B-AWQ` served as `qwen3-8b-awq`, fp16, max 8192 tokens, `--gpu-memory-utilization 0.40`; reachable only as `http://vllm:8000/v1` inside the compose network. Weights download once into the `talentai_models` volume (`make llm-logs` to watch).

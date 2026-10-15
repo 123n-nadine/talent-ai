@@ -64,7 +64,8 @@ def extract_pdf(
     try:
         doc = pymupdf.open(path)
     except Exception as e:  # noqa: BLE001
-        return Extraction("unreadable", error=f"corrupt PDF: {type(e).__name__}: {e}")
+        msg = str(e).replace(str(path), "<file>")  # never expose the storage path
+        return Extraction("unreadable", error=f"corrupt PDF: {type(e).__name__}: {msg}")
     with doc:
         if doc.needs_pass:
             return Extraction(
