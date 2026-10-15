@@ -15,6 +15,7 @@ from pydantic import BaseModel, ValidationError
 
 from app.llm import prompts
 from app.llm.base import DraftCriteria, JudgeRequest, LLMOutputError
+from app.llm.draft import normalise_draft
 from app.llm.schemas import CandidateProfile, CriterionJudgement, DraftOutput, JudgeOutput
 
 log = logging.getLogger(__name__)
@@ -155,23 +156,7 @@ class OpenAICompatLLM:
         user = f"Job title: {title}\nExisting description (may be empty): {description}"
         out = self._structured(prompts.load(prompts.DRAFT), user, DraftOutput, "draft")
         assert isinstance(out, DraftOutput)
-        total = sum(c.weight for c in out.criteria) or 1.0
-        criteria = []
-        for c in out.criteria:
-            d = c.model_dump()
-            d["weight"] = round(
-                c.weight * 100 / total, 1
-            )  # the draft must total 100, HR edits it anyway
-            criteria.append(d)
-        diff = round(100 - sum(c["weight"] for c in criteria), 1)
-        if criteria and diff:
-            criteria[0]["weight"] = round(criteria[0]["weight"] + diff, 1)
-        return DraftCriteria(
-            description=out.description,
-            criteria=criteria,
-            questions=[q.model_dump() for q in out.questions],
-            rules=[],
-        )
+        return normalise_draft(out)  # keys, question links, rubric levels and weights fixed in code
 
 
 def strict_schema(model: type[BaseModel]) -> dict[str, Any]:

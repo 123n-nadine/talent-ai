@@ -422,3 +422,68 @@ def test_form_value_tolerance_and_question_from_job():
     raw2 = CriterionJudgement(key="supervision", form_level=100, form_field=None, form_value="9")
     j2, probs2 = resolve(raw2, norm, None, question_key="years_sup")
     assert j2.missing_evidence and probs2 == ["evidence_mismatch"]
+
+
+def test_llm_draft_is_normalised_into_an_approvable_job():
+    from app.domain.models import JobIn
+    from app.llm.draft import normalise_draft
+    from app.llm.schemas import DraftOutput
+
+    raw = DraftOutput.model_validate(
+        {
+            "description": "وصف",
+            "criteria": [
+                {
+                    "key": "خبرة في المحاسبة",
+                    "text": "خبرة في المحاسبة",
+                    "weight": 30,
+                    "mandatory": True,
+                    "question": "ما عدد سنوات خبرتك في مجال المحاسبة؟",
+                    "rubric": [{"level": 0, "text": "لا"}, {"level": 100, "text": "أكثر من 5"}],
+                },
+                {
+                    "key": "tax_law",
+                    "text": "القوانين الضريبية",
+                    "weight": 50,
+                    "question": "tax_q",
+                    "rubric": [{"level": lv, "text": str(lv)} for lv in (0, 25, 50, 75, 100)],
+                },
+                {
+                    "key": "teamwork",
+                    "text": "العمل ضمن فريق",
+                    "weight": 20,
+                    "question": "سؤال غير موجود إطلاقًا",
+                    "rubric": [{"level": lv, "text": str(lv)} for lv in (0, 25, 50, 75, 100)],
+                },
+            ],
+            "questions": [
+                {
+                    "key": "سنوات الخبرة",
+                    "label": "ما عدد سنوات خبرتك في مجال المحاسبة؟",
+                    "type": "number",
+                },
+                {
+                    "key": "tax_q",
+                    "label": "ما مستوى معرفتك بالقوانين الضريبية؟",
+                    "type": "select",
+                    "options": [],
+                },
+            ],
+        }
+    )
+    d = normalise_draft(raw)
+    assert [c["key"] for c in d.criteria] == ["c1", "tax_law", "teamwork"]
+    assert [q["key"] for q in d.questions] == ["q1", "tax_q"]
+    assert [c["question"] for c in d.criteria] == ["q1", "tax_q", None]
+    assert d.questions[1]["type"] == "text"  # a select without options becomes free text
+    assert [r["level"] for r in d.criteria[0]["rubric"]] == [0, 25, 50, 75, 100]
+    assert sum(c["weight"] for c in d.criteria) == 100
+    JobIn.model_validate(
+        {
+            "title": "محاسب",
+            "description": d.description,
+            "criteria": d.criteria,
+            "questions": d.questions,
+            "rules": [],
+        }
+    )  # approvable as is
