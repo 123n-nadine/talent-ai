@@ -118,7 +118,7 @@ def redact(
 
     # tidy: collapse repeated tokens and spaces
     for tok in P.TOKENS.values():
-        t = re.sub(rf"(?:{re.escape(tok)}[\s،,]*){{2,}}", tok + " ", t)
+        t = re.sub(rf"(?:{re.escape(tok)}[ \t،,]*){{2,}}", tok + " ", t)
     t = re.sub(r"[ \t]{2,}", " ", t)
     t = "\n".join(line.strip() for line in t.split("\n"))
     return RedactionResult(t.strip(), report, engine)

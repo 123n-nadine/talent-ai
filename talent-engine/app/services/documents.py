@@ -99,10 +99,15 @@ def attach_cv(
     store = FileStore(settings.file_store)
     sha, path = store.save(content)
     pr = process(content, kind, mime, tenant, settings, name_hint, path=path)
+    preview_sha = None
+    if pr.extraction.preview_pdf:
+        preview_sha, _ = store.save(pr.extraction.preview_pdf)
     for old in [d for d in cand.documents if d.kind == "cv"]:
         db.delete(old)
         if old.sha256 != sha:
             store.delete(old.sha256)
+        if old.preview_sha256 and old.preview_sha256 != preview_sha:
+            store.delete(old.preview_sha256)
     doc = Document(
         id=new_id("doc"),
         candidate_id=cand.id,
@@ -123,6 +128,8 @@ def attach_cv(
         char_count=pr.extraction.chars,
         name_hint_used=bool(name_hint),
         processed_at=utcnow(),
+        layout=pr.extraction.layout,
+        preview_sha256=preview_sha,
     )
     db.add(doc)
     db.flush()
@@ -162,6 +169,8 @@ def remove_cv(
     for old in [d for d in cand.documents if d.kind == "cv"]:
         db.delete(old)
         store.delete(old.sha256)
+        if old.preview_sha256:
+            store.delete(old.preview_sha256)
         n += 1
     db.flush()
     db.refresh(cand)
@@ -180,7 +189,28 @@ def remove_cv(
     return n
 
 
-def document_out(doc: Document, include_text: bool = False) -> dict[str, Any]:
+def page_source(settings: Settings, doc: Document) -> tuple[Path, str]:
+    """File and kind used to render the page images of a stored CV."""
+    store = FileStore(settings.file_store)
+    if doc.preview_sha256:
+        return store.path_for(doc.preview_sha256), "pdf"
+    if (doc.mime or "").startswith("image/"):
+        return store.path_for(doc.sha256), "image"
+    return store.path_for(doc.sha256), "pdf"
+
+
+def raw_lines_vs_redacted(raw: str | None, redacted: str | None) -> list[list[str]]:
+    """Pairs of (before, after) lines for the redaction view (line breaks are preserved)."""
+    a = (raw or "").split("\n")
+    b = (redacted or "").split("\n")
+    if len(a) != len(b):
+        return []
+    return [[x, y] for x, y in zip(a, b, strict=False)]
+
+
+def document_out(
+    doc: Document, include_text: bool = False, include_raw: bool = False
+) -> dict[str, Any]:
     out: dict[str, Any] = {
         "id": doc.id,
         "kind": doc.kind,
@@ -200,6 +230,15 @@ def document_out(doc: Document, include_text: bool = False) -> dict[str, Any]:
     }
     if include_text:
         out["redacted_text"] = doc.redacted_text
+        out["layout"] = doc.layout
+        out["page_images"] = (
+            [f"pages/{i}" for i in range(doc.page_count or 0)]
+            if doc.status == "ready" or doc.layout
+            else []
+        )
+    if include_raw:
+        out["raw_text"] = doc.text
+        out["redaction_pairs"] = raw_lines_vs_redacted(doc.text, doc.redacted_text)
     return out
 
 
@@ -221,6 +260,36 @@ def inspect_out(pr: Processed, include_raw: bool = False) -> dict[str, Any]:
         else None,
         "redacted_text": pr.redaction.text if pr.redaction else None,
     }
+    out["layout"] = pr.extraction.layout
     if include_raw:
         out["raw_text"] = pr.extraction.text
+        out["redaction_pairs"] = raw_lines_vs_redacted(
+            pr.extraction.text, pr.redaction.text if pr.redaction else None
+        )
     return out
+
+
+def inspect_pages(content: bytes, pr: Processed, max_pages: int = 3) -> list[str]:
+    """Page images as data URIs for an uploaded (not stored) file."""
+    from app.documents.layout import page_data_uri, render_page
+
+    if pr.extraction.layout is None:
+        return []
+    with tempfile.TemporaryDirectory(prefix="talentai-insp-") as tmp:
+        if pr.extraction.preview_pdf:
+            src, kind = Path(tmp) / "preview.pdf", "pdf"
+            src.write_bytes(pr.extraction.preview_pdf)
+        elif pr.kind == "image":
+            src, kind = Path(tmp) / "img", "image"
+            src.write_bytes(content)
+        else:
+            src, kind = Path(tmp) / "doc.pdf", "pdf"
+            src.write_bytes(content)
+        out = []
+        for i in range(min(len(pr.extraction.layout.get("pages", [])), max_pages)):
+            try:
+                data, mime = render_page(src, kind, i)
+                out.append(page_data_uri(data, mime))
+            except Exception:  # noqa: BLE001
+                break
+        return out

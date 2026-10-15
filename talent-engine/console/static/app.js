@@ -62,9 +62,9 @@ function reqText(r){ const v = Array.isArray(r.value) ? r.value.join('، ') : r.
 /* ---------- shell ---------- */
 const NAV = [
   {sec:{ar:'التوظيف', en:'Recruitment'}}, {k:'home', ar:'الرئيسية', en:'Home'}, {k:'apply', ar:'نموذج التقديم', en:'Application form'}, {k:'list', ar:'المتقدمون', en:'Applicants'}, {k:'ranking', ar:'الترتيب', en:'Ranking'},
-  {sec:{ar:'Talent AI', en:'Talent AI'}}, {k:'profile', ar:'ملف المعايير', en:'AI Job Profile'}, {k:'processing', ar:'المعالجة', en:'Processing'}, {k:'jobs', ar:'مهام الذكاء', en:'AI Jobs'}, {k:'audit', ar:'سجل التدقيق', en:'Audit log'}, {k:'settings', ar:'الإعدادات', en:'Settings'},
+  {sec:{ar:'Talent AI', en:'Talent AI'}}, {k:'profile', ar:'ملف المعايير', en:'AI Job Profile'}, {k:'processing', ar:'المعالجة', en:'Processing'}, {k:'cv', ar:'تحليل السيرة', en:'CV analysis'}, {k:'tryfile', ar:'جرّب ملف', en:'Try a file'}, {k:'jobs', ar:'مهام الذكاء', en:'AI Jobs'}, {k:'audit', ar:'سجل التدقيق', en:'Audit log'}, {k:'settings', ar:'الإعدادات', en:'Settings'},
 ];
-const SCREENS = {home:rHome, profile:rProfile, apply:rApply, processing:rProcessing, list:rList, applicant:rApplicant, ranking:rRanking, jobs:rJobs, settings:rSettings, audit:rAudit};
+const SCREENS = {cv:rCvAnalysis, tryfile:rTryFile, home:rHome, profile:rProfile, apply:rApply, processing:rProcessing, list:rList, applicant:rApplicant, ranking:rRanking, jobs:rJobs, settings:rSettings, audit:rAudit};
 let renderSeq = 0;
 async function render(){
   const seq = ++renderSeq;
@@ -93,7 +93,7 @@ function renderDev(){
   const items = S.log.map(x => `<h4><span class="ep">${esc(x.method)} ${esc(x.url)}</span> → ${x.status} · ${x.ms}ms</h4>${x.req ? `<pre>${esc(typeof x.req === 'string' ? x.req : JSON.stringify(x.req, null, 1)).slice(0, 1500)}</pre>` : ''}<pre>${esc(JSON.stringify(x.res, null, 1) || '').slice(0, 2500)}</pre>`).join('');
   el.innerHTML = `<h3>Developer view</h3><p>${t('آخر نداءات الـ API من هذه الشاشة (الطلب والرد كما هما). المفتاح لا يظهر: الجلسة كوكي.', 'The latest API calls of this screen (request and response as sent). No key is visible: the session is a cookie.')}</p>${items || '<p>—</p>'}`;
 }
-function go(screen, opts){ S.log = []; S.screen = screen; S.hiliteKey = null; if (opts && opts.sel) S.sel = opts.sel; if (opts && opts.scr) S.scr = opts.scr; if (screen !== 'processing' && S.procTimer) { clearInterval(S.procTimer); S.procTimer = null; } render(); }
+function go(screen, opts){ S.log = []; if (screen === 'cv' || screen === 'tryfile') { S.cvPage = 0; S.cvSel = null; S.cvLine = null; } S.screen = screen; S.hiliteKey = null; if (opts && opts.sel) S.sel = opts.sel; if (opts && opts.scr) S.scr = opts.scr; if (screen !== 'processing' && S.procTimer) { clearInterval(S.procTimer); S.procTimer = null; } render(); }
 function pageTitle(title, sub, actions){ return `<div class="page-title"><div><h1>${title}</h1>${sub ? `<div class="sub">${sub}</div>` : ''}</div>${actions ? `<div class="actions">${actions}</div>` : ''}</div>`; }
 function modal(html){ document.getElementById('modal').innerHTML = html; document.getElementById('overlay').classList.add('on'); }
 function closeModal(){ document.getElementById('overlay').classList.remove('on'); }
@@ -233,6 +233,61 @@ function procHtml(s){
   `<div class="card"><h2>${t('خط المعالجة', 'Pipeline')} <small>${t('استلام ← قراءة الإجابات ← نص السيرة ← إخفاء الهوية ← الملف المنظّم ← التحقق من الأدلة ← الشروط ← الحكم ← الدرجة ← الفهرسة', 'intake → answers → CV text → redaction → profile → evidence → rules → judgement → score → index')}</small></h2><div class="pipe pipe-grid">${steps}</div>${result}</div>`;
 }
 
+
+/* ---------- CV analysis (shared by the applicant analysis and «جرّب ملف») ---------- */
+const confCls = c => c >= 0.9 ? 'hi' : c >= 0.8 ? 'mid' : 'lo';
+function cvAnalysisHtml(d){
+  const lay = d.layout || {pages:[], lines:[]}; const pages = lay.pages || []; const P = S.cvPage || 0; const pg = pages[P] || {w:1, h:1};
+  const sel = S.cvSel; const selBoxes = new Set(); const selLines = new Set();
+  if (sel && d.quote_boxes && d.quote_boxes[sel]) d.quote_boxes[sel].forEach(([li, bi]) => { selLines.add(li); selBoxes.add(li + ':' + bi); });
+  if (S.cvLine != null) selLines.add(S.cvLine);
+  const rects = (lay.lines || []).map((ln, li) => ln.p !== P ? '' : (ln.boxes && ln.boxes.length ? ln.boxes : [[...ln.b, ln.c, ln.t]]).map((b, bi) => {
+    const hit = selBoxes.has(li + ':' + bi) || selBoxes.has(li + ':-1') || S.cvLine === li;
+    return `<rect class="ocrbox ${confCls(b[4])} ${hit ? 'hit' : ''}" x="${b[0]}" y="${b[1]}" width="${Math.max(1, b[2] - b[0])}" height="${Math.max(1, b[3] - b[1])}" data-action="cvLine" data-line="${li}"><title>${esc(b[5] || ln.t)} — ${Math.round((b[4] ?? ln.c) * 100)}%</title></rect>`; }).join('')).join('');
+  const img = d.page_images && d.page_images[P] ? d.page_images[P] : null;
+  const viewer = img ? `<div class="pageview"><img src="${esc(img)}" alt="page ${P + 1}"><svg viewBox="0 0 ${pg.w} ${pg.h}" preserveAspectRatio="none">${rects}</svg></div>` : `<p class="hint">${t('لا توجد صورة للصفحة', 'No page image')}</p>`;
+  const pager = pages.length > 1 ? `<div class="seg" style="margin-bottom:8px">${pages.map((_, i) => `<button class="${i === P ? 'on' : ''}" data-action="cvPage" data-p="${i}">${t('صفحة', 'Page')} ${i + 1}</button>`).join('')}</div>` : '';
+  const lines = (lay.lines || []).map((ln, li) => `<div class="ocrline ${selLines.has(li) ? 'hit' : ''}" data-action="cvLine" data-line="${li}"><span class="cf ${confCls(ln.c)}">${lay.source === 'image' || d.ocr_confidence != null ? Math.round(ln.c * 100) + '%' : t('نص', 'text')}</span><span class="ln">${esc(ln.t)}</span>${pages.length > 1 ? `<span class="hint">p${ln.p + 1}</span>` : ''}</div>`).join('');
+  const tokenize = x => esc(x).replace(/\[[^\]]{1,20}\]/g, m => `<mark class="tok">${m}</mark>`);
+  const pairs = d.redaction_pairs && d.redaction_pairs.length ? `<table class="redact"><thead><tr><th>${t('قبل — النص كما استُخرج', 'Before — as extracted')}</th><th>${t('بعد — ما يصل إلى النموذج اللغوي', 'After — what reaches the language model')}</th></tr></thead><tbody>${d.redaction_pairs.filter(([a, b]) => a || b).map(([a, b]) => `<tr class="${a !== b ? 'chg' : ''}"><td>${esc(a)}</td><td>${tokenize(b)}</td></tr>`).join('')}</tbody></table>` : `<div class="grid2"><div><b class="lbl">${t('قبل', 'Before')}</b><div class="cvtext">${esc(d.raw_text || '')}</div></div><div><b class="lbl">${t('بعد', 'After')}</b><div class="cvtext">${tokenize(d.redacted_text || '')}</div></div></div>`;
+  const counts = d.redaction && d.redaction.counts ? Object.entries(d.redaction.counts).map(([k, v]) => `<span class="chip">${esc(k)} · ${v}</span>`).join(' ') : `<span class="hint">${t('لم يُعثر على بيانات شخصية', 'no personal data found')}</span>`;
+  const ev = (d.criteria || []).filter(c => d.quote_boxes && d.quote_boxes[c.key]).map(c => `<div class="evq ${sel === c.key ? 'on' : ''}" data-action="cvSel" data-key="${c.key}"><b>${esc(c.text)}</b> ${chipLvl(c.cv_level != null ? c.cv_level : c.effective_level)}<div class="quote">“${esc(c.cv_quote || String(c.evidence || '').split(' | ')[0])}”</div></div>`).join('');
+  const avg = d.ocr_confidence != null ? pct(d.ocr_confidence) : t('طبقة نصية (100%)', 'text layer (100%)');
+  return `<div class="aihead" style="grid-template-columns:repeat(4,1fr)"><div class="kpi"><small>${t('طريقة الاستخراج', 'Method')}</small><b style="font-size:15px">${esc(d.extraction_method || d.method || '—')}</b></div><div class="kpi"><small>${t('الصفحات / الأسطر', 'Pages / lines')}</small><b>${N(pages.length)} / ${N((lay.lines || []).length)}</b></div><div class="kpi"><small>${t('ثقة القراءة', 'Read confidence')}</small><b style="font-size:17px">${avg}</b></div><div class="kpi"><small>${t('حروف', 'Characters')}</small><b>${N(d.chars || 0)}</b></div></div>
+    <div class="split" style="grid-template-columns:1.1fr 1fr"><div class="card"><h2>${t('الملف الأصلي', 'Original file')} <small>${t('مربع لكل سطر أو مقطع بلون الثقة', 'one box per line or segment, coloured by confidence')}</small></h2>${pager}${viewer}<div class="legend"><span class="cf hi">≥ 90%</span><span class="cf mid">80–89%</span><span class="cf lo">&lt; 80%</span><span class="cf hitc">${t('دليل محدد', 'selected evidence')}</span></div></div>
+    <div><div class="card"><h2>${t('النص المستخرج', 'Extracted text')} <small>${t('انقر سطرًا لإبرازه على الصورة', 'click a line to locate it on the page')}</small></h2><div class="ocrlines">${lines || `<p class="hint">—</p>`}</div></div>
+    ${ev ? `<div class="card"><h2>${t('أدلة السيرة', 'CV evidence')} <small>${t('انقر دليلًا لتظليله في النص والصورة', 'click to highlight it in the text and on the page')}</small></h2>${ev}</div>` : ''}</div></div>
+    <div class="card"><h2>${t('إخفاء الهوية: قبل وبعد', 'Redaction: before and after')} <small>${counts}</small></h2>${pairs}<div class="note">${t('الاسم والهاتف والبريد والهوية وتاريخ الميلاد والجنسية والجنس والعنوان تُستبدل برموز قبل أي نموذج لغوي. النموذج يرى عمود «بعد» فقط.', 'Name, phone, e-mail, ID, date of birth, nationality, gender and address are replaced by tokens before any language model. The model only sees the "after" column.')}</div></div>`;
+}
+async function rCvAnalysis(){
+  if (!S.sel) return pageTitle(t('تحليل السيرة', 'CV analysis')) + `<div class="card"><p class="hint">${t('افتح متقدمًا له سيرة ثم اضغط «تحليل السيرة»، أو استخدم «جرّب ملف».', 'Open an applicant with a CV and press "CV analysis", or use "Try a file".')}</p></div>`;
+  if (!S.scr) S.scr = await latestScreening(S.sel);
+  const doc = (await get(`/v1/candidates/${encodeURIComponent(S.sel)}/cv?include_raw=true`)).document;
+  let s = null; if (S.scr) s = await get(`/v1/screenings/${S.scr}`);
+  const d = {...doc, page_images:(doc.page_images || []).map(x => `/v1/candidates/${encodeURIComponent(S.sel)}/cv/${x}`), quote_boxes:s && s.cv ? s.cv.quote_boxes : {}, criteria:s ? s.criteria : []};
+  if (doc.status !== 'ready') return pageTitle(t('تحليل السيرة', 'CV analysis'), who(S.sel)) + `<div class="card"><div class="note danger">${t('تعذّرت قراءة الملف:', 'The file could not be read:')} ${esc(doc.error)}</div><p><a href="/v1/candidates/${encodeURIComponent(S.sel)}/cv/file" target="_blank">${t('فتح الملف الأصلي', 'Open the original file')}</a></p></div>`;
+  return pageTitle(t('تحليل السيرة', 'CV analysis'), `${who(S.sel)} · ${s ? esc(s.job_title) : ''}`, `<a class="btn" href="/v1/candidates/${encodeURIComponent(S.sel)}/cv/file" target="_blank">⤓ ${t('الملف الأصلي', 'Original file')}</a><button class="btn" data-action="openApp" data-id="${esc(S.sel)}" data-scr="${S.scr || ''}">${t('شاشة المتقدم', 'Applicant')} ↗</button>`) + cvAnalysisHtml(d);
+}
+async function rTryFile(){
+  const res = S.tryRes;
+  const form = `<div class="card"><h2>${t('جرّب ملف', 'Try a file')} <small>${t('يُقرأ الملف ويُخفى ما فيه من بيانات شخصية ولا يُحفظ شيء', 'the file is read and redacted; nothing is stored')}</small></h2>
+    <div class="grid2"><div class="field"><label>${t('الملف', 'File')} (PDF · DOCX · DOC · RTF · JPG · PNG)</label><input type="file" id="try-file" accept=".pdf,.docx,.doc,.rtf,.jpg,.jpeg,.png"></div><div class="field"><label>${t('اسم صاحب السيرة (اختياري، لإخفائه)', 'Name on the CV (optional, to redact it)')}</label><input id="try-name"></div></div>
+    <button class="btn primary" data-action="tryRun">${t('اقرأ الملف', 'Read the file')}</button> <span class="hint">${t('الصور والملفات الممسوحة تمر بـ OCR (حوالي 20 ثانية للصفحة).', 'Images and scans go through OCR (about 20 s per page).')}</span>
+    <div class="note">${t('بيانات صناعية فقط على هذا الخادم.', 'Synthetic data only on this server.')}</div></div>`;
+  if (!res) return pageTitle(t('جرّب ملف', 'Try a file')) + form;
+  if (res.busy) return pageTitle(t('جرّب ملف', 'Try a file')) + form + `<div class="card"><span class="spin"></span> ${t('جارٍ القراءة…', 'Reading…')}</div>`;
+  if (res.error) return pageTitle(t('جرّب ملف', 'Try a file')) + form + `<div class="card"><div class="note danger">${esc(res.error)}</div></div>`;
+  if (res.status !== 'ready') return pageTitle(t('جرّب ملف', 'Try a file')) + form + `<div class="card"><div class="note danger">${t('تعذّرت قراءة الملف:', 'The file could not be read:')} ${esc(res.error || '')}</div></div>`;
+  return pageTitle(t('جرّب ملف', 'Try a file')) + form + cvAnalysisHtml(res);
+}
+async function tryRun(){
+  const f = document.getElementById('try-file').files[0]; if (!f) { toast(t('اختر ملفًا', 'Choose a file')); return; }
+  const fd = new FormData(); fd.append('file', f, f.name); fd.append('include_raw', 'true'); const nm = document.getElementById('try-name').value.trim(); if (nm) fd.append('name_hint', nm);
+  S.tryRes = {busy:true}; S.cvPage = 0; S.cvSel = null; S.cvLine = null; render();
+  try { const r = await api('POST', '/v1/documents/inspect', fd, true); S.tryRes = {...r, error: r.status === 'ready' ? null : r.error}; if (r.status !== 'ready') S.tryRes.error = r.error || 'unreadable'; } catch (e) { S.tryRes = {error:e.message}; }
+  render();
+}
+
 /* ---------- applicants list ---------- */
 async function rows_for(ref){ const rk = await get(`/v1/jobs/${encodeURIComponent(ref)}/ranking`); const out = rk.ranked.map(x => ({...x, group:'ranked'})); Object.keys(rk.groups).forEach(g => rk.groups[g].forEach(x => out.push({...x, group:g}))); return {rk, rows:out}; }
 async function rList(){
@@ -268,7 +323,7 @@ async function rApplicant(){
   const f = (lbl, val) => `<div class="field"><label>${lbl}</label><div class="val ro">${val}</div></div>`;
   const factRow = k => cand.facts && cand.facts[k] != null ? esc(cand.facts[k]) : `<span class="chip amber">${t('غير مصرّح', 'not declared')}</span>`;
   const head = pageTitle(esc(nameOf(s.candidate_ref)), `Job Applicant · ${N(s.candidate_ref)} · ${esc(s.job_title)} · ai_status ${chipAi(s.status)} ${flagChips(s.flags.filter(x => x !== 'hr_override'))}`,
-    `<button class="btn" data-action="rescreenOne" data-id="${esc(s.candidate_ref)}" data-job="${esc(s.job_ref)}">↻ ${t('إعادة التقييم', 'Re-score')}</button><button class="btn" data-action="go" data-screen="ranking">${t('الترتيب', 'Ranking')} ↗</button>`);
+    `${s.cv && s.cv.status === 'ready' ? `<button class="btn primary" data-action="go" data-screen="cv">◫ ${t('تحليل السيرة', 'CV analysis')}</button>` : ''}<button class="btn" data-action="rescreenOne" data-id="${esc(s.candidate_ref)}" data-job="${esc(s.job_ref)}">↻ ${t('إعادة التقييم', 'Re-score')}</button><button class="btn" data-action="go" data-screen="ranking">${t('الترتيب', 'Ranking')} ↗</button>`);
   const dupBox = s.duplicate_of ? `<div class="note danger">⧉ <b>${t('طلب مكرر', 'Duplicate application')}</b> — ${t('نفس بصمة الهوية مثل', 'Same id token as')} <b class="num">${esc(s.duplicate_of)}</b>. ${t('لا يُحذف أي طلب تلقائيًا؛ يُرتَّب الطلب الأصلي فقط.', 'Nothing is deleted automatically; only the original application is ranked.')}</div>` : '';
   const staleBox = !s.current ? `<div class="note strong">⚠ ${s.stale_reason === 'data_changed' ? t('النتيجة لا تعكس آخر تعديل على بيانات المتقدم', 'The result does not reflect the latest edit to the applicant data') : t('هذه النتيجة محسوبة بنسخة معايير سابقة', 'This result was computed with a previous criteria version')} (${N('v' + s.job_version)}). ${t('لا تدخل الترتيب حتى تُعاد.', 'It is not ranked until re-scored.')} <button class="btn sm primary" data-action="rescreenOne" data-id="${esc(s.candidate_ref)}" data-job="${esc(s.job_ref)}">↻ ${t('إعادة التقييم', 'Re-score')}</button></div>` : '';
   if (s.status === 'failed' || s.status === 'queued' || s.status === 'processing') return head + dupBox + `<div class="card"><h2>${t('تقييم الذكاء الاصطناعي', 'AI assessment')} ${chipAi(s.status)}</h2>${s.status === 'failed' ? `<div class="note danger">✗ ${esc(s.error)} — ${t('بعد', 'after')} ${s.attempts} ${t('محاولات. الطلب محفوظ وإجاباته كاملة.', 'attempts. The application is saved with its answers.')}</div><div style="margin-top:10px"><button class="btn primary" data-action="retry" data-id="${s.screening_id}">↻ ${t('إعادة المحاولة', 'Retry')}</button></div>` : `<div class="note"><span class="spin"></span> ${t('جاري المعالجة…', 'Processing…')} <button class="btn sm" data-action="go" data-screen="processing">${t('متابعة', 'Follow')}</button></div>`}</div>` + answersCard(cand, questions);
@@ -428,6 +483,10 @@ document.addEventListener('click', async e => {
   else if (a === 'exportCsv') exportCsv();
   else if (a === 'saveSettings') saveSettings();
   else if (a === 'closeModal') closeModal();
+  else if (a === 'cvPage') { S.cvPage = Number(d.p); render(); }
+  else if (a === 'cvSel') { S.cvSel = S.cvSel === d.key ? null : d.key; S.cvLine = null; const k = S.cvSel && document.querySelector('.ocrline.hit'); render(); }
+  else if (a === 'cvLine') { const li = Number(d.line); S.cvLine = S.cvLine === li ? null : li; S.cvSel = null; const lay = document.querySelector('.pageview'); render(); }
+  else if (a === 'tryRun') tryRun();
   else if (d.setting === 'ai_provider') { S.settingsPatch.ai_provider = d.val; S.settings.ai_provider = d.val; document.querySelectorAll('[data-setting="ai_provider"]').forEach(b => b.classList.toggle('on', b.dataset.val === d.val)); }
 });
 document.addEventListener('change', e => {

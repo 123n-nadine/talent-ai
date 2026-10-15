@@ -276,6 +276,27 @@ def cv_out(cand: Candidate, with_text: bool = False) -> dict[str, Any] | None:
     }
     if with_text:
         out["redacted_text"] = doc.redacted_text
+        out["layout"] = doc.layout
+        out["page_count"] = doc.page_count
+        out["quote_boxes"] = {}
+    return out
+
+
+def _cv_with_quotes(
+    cand: Candidate, criteria: list[dict[str, Any]], with_text: bool
+) -> dict[str, Any] | None:
+    out = cv_out(cand, with_text=with_text)
+    if out is None or not with_text:
+        return out
+    from app.documents.layout import boxes_for_quote
+
+    for c in criteria:
+        q = c.get("cv_quote") or (
+            str(c.get("evidence") or "").split(" | ")[0] if c.get("source") == "cv_quote" else None
+        )
+        hits = boxes_for_quote(q, out.get("layout"))
+        if hits:
+            out["quote_boxes"][c["key"]] = hits
     return out
 
 
@@ -337,7 +358,7 @@ def to_out(
         "needs_review": s.needs_review,
         "flags": sorted(set(flags)),
         "criteria": criteria,
-        "cv": cv_out(cand, with_text=with_cv),
+        "cv": _cv_with_quotes(cand, criteria, with_cv),
         "summary": s.summary,
         "strengths": s.strengths or [],
         "gaps": s.gaps or [],

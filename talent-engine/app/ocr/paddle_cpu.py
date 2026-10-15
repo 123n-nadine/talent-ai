@@ -15,7 +15,7 @@ import re
 import threading
 from typing import Any
 
-from app.ocr.base import OCRPage, OCRUnavailable
+from app.ocr.base import OCRBox, OCRLine, OCRPage, OCRUnavailable
 
 log = logging.getLogger(__name__)
 ARABIC = re.compile(r"[؀-ۿ]")
@@ -112,12 +112,21 @@ class PaddleCPUOCR:
                 continue
             x0, y0, x1, y1 = boxes[i] if i < len(boxes) else (0.0, i * 10.0, 0.0, i * 10.0 + 10)
             items.append(
-                {"t": t, "s": sc, "x0": x0, "x1": x1, "yc": (y0 + y1) / 2, "h": max(y1 - y0, 1.0)}
+                {
+                    "t": t,
+                    "s": sc,
+                    "x0": x0,
+                    "x1": x1,
+                    "y0": y0,
+                    "y1": y1,
+                    "yc": (y0 + y1) / 2,
+                    "h": max(y1 - y0, 1.0),
+                }
             )
         return items
 
     @staticmethod
-    def _lines(items: list[dict[str, Any]]) -> tuple[str, float]:
+    def _lines(items: list[dict[str, Any]]) -> tuple[str, float, list[OCRLine]]:
         """Reading order: rows top-down; right-to-left inside a row when the row has Arabic text."""
         items = sorted(items, key=lambda it: it["yc"])
         rows: list[list[dict[str, Any]]] = []
@@ -126,16 +135,22 @@ class PaddleCPUOCR:
                 rows[-1].append(it)
             else:
                 rows.append([it])
-        out_lines = []
+        lines: list[OCRLine] = []
         for row in rows:
             rtl = any(ARABIC.search(it["t"]) for it in row)
             row.sort(key=lambda it: -it["x1"] if rtl else it["x0"])
-            out_lines.append(" ".join(it["t"] for it in row))
+            text = " ".join(it["t"] for it in row)
+            boxes = [
+                OCRBox(it["x0"], it["y0"], it["x1"], it["y1"], it["t"], round(it["s"], 4))
+                for it in row
+            ]
+            conf = sum(it["s"] for it in row) / len(row)
+            lines.append(OCRLine(text, round(conf, 4), boxes))
         weighted = [(it["s"], len(ALNUM.findall(it["t"]))) for it in items]
         weighted = [(sc, n) for sc, n in weighted if n >= 2]
         total = sum(n for _, n in weighted)
         conf = sum(sc * n for sc, n in weighted) / total if total else 0.0
-        return "\n".join(out_lines), conf
+        return "\n".join(line.text for line in lines), conf, lines
 
     def extract(self, path: str) -> list[OCRPage]:
         ar_results = self._engine("ar").predict(path)
@@ -147,6 +162,18 @@ class PaddleCPUOCR:
         pages: list[OCRPage] = []
         for i, res in enumerate(ar_results):
             lat = self._res(lat_results[i]) if i < len(lat_results) else None
-            text, conf = self._lines(self.merge(self._res(res), lat))
-            pages.append(OCRPage(text=text, confidence=round(conf, 4)))
+            text, conf, lines = self._lines(self.merge(self._res(res), lat))
+            width = height = 0.0
+            try:
+                from PIL import Image
+
+                with Image.open(path) as im:
+                    width, height = float(im.width), float(im.height)
+            except Exception:  # noqa: BLE001
+                pass
+            pages.append(
+                OCRPage(
+                    text=text, confidence=round(conf, 4), width=width, height=height, lines=lines
+                )
+            )
         return pages or [OCRPage(text="", confidence=0.0)]
