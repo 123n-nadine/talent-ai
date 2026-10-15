@@ -1,0 +1,73 @@
+# Talent Engine - Docker Compose project "talentai" (host ports 18000-18099 only)
+name: talentai
+
+x-engine: &engine
+  build: .
+  image: talentai/engine:dev
+  env_file: .env
+  environment:
+    DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-talentai}:${POSTGRES_PASSWORD:-talentai}@db:5432/${POSTGRES_DB:-talentai}
+    REDIS_URL: redis://redis:6379/0
+    FILE_STORE: /data/files
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+  volumes:
+    - files:/data/files
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-talentai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-talentai}
+      POSTGRES_DB: ${POSTGRES_DB:-talentai}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:${DB_HOST_PORT:-18030}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-talentai} -d ${POSTGRES_DB:-talentai}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "60", "1", "--appendonly", "no"]
+    volumes:
+      - redisdata:/data
+    ports:
+      - "127.0.0.1:${REDIS_HOST_PORT:-18031}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    <<: *engine
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - "${API_PORT:-18000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  worker:
+    <<: *engine
+    command: python -m app.worker
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  redisdata:
+  files:

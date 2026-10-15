@@ -52,6 +52,7 @@ Rules we will apply regardless of the option: run `nvidia-smi` before every mode
 | User in `docker` group | **yes** (`nadine`), no sudo needed |
 | NVIDIA Container Toolkit | 1.20.1 installed; `nvidia` runtime registered in `/etc/docker/daemon.json` (default runtime is `runc`); CDI specs present (`nvidia.com/gpu=all`) |
 | GPU passthrough test | `docker run --rm --gpus all nvidia/cuda:12.4.1-base-ubuntu22.04 nvidia-smi` → **works** (saw the Quadro RTX 6000) |
+| buildx | the selected builder is `sdf-builder` (docker-container driver, Nadine's earlier project); builds inside it stall because the buildkit container has no working DNS. Our Makefile exports `BUILDX_BUILDER=default` so images build through the daemon's default builder |
 | Bridge networks | 14 networks exist (172.17–172.28 in use). Default address pools still have room; if a compose project ever fails with "no available network", that is the cause (needs `sudo` to change `default-address-pools`, not needed now) |
 | `docker system df` | took > 2 minutes (daemon busy with restarting containers). Result: images 42 (87.4 GB, 28 active), containers 29, volumes 31 (33.3 GB, only 1 attached to a running container), build cache 1.8 GB. All of it belongs to colleagues or to stopped projects; we never prune on this host |
 

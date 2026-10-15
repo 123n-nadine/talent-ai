@@ -1,0 +1,261 @@
+"""Runs the 10-stage pipeline for one screening (ARCHITECTURE §4). Phase 1: form answers only."""
+
+from __future__ import annotations
+
+import logging
+import traceback
+from typing import Any
+
+from sqlalchemy.orm import Session
+
+from app.core.config import Settings
+from app.core.ids import new_id
+from app.core.timeutil import utcnow
+from app.domain.labels import NO_CV_NOTE
+from app.llm.base import JudgeRequest, LLMProvider
+from app.llm.registry import get_provider
+from app.pipeline.stages.answers import normalise_answers
+from app.pipeline.stages.evidence import verify_form_evidence
+from app.rules.eligibility import evaluate
+from app.scoring.score import JudgedCriterion, compute, summary_text
+from app.services import audit
+from app.services.callback import send as send_callback
+from app.services.ranking import rank_of
+from app.services.screenings import SCORE_FLAGS, to_out
+from app.storage.models import CriterionResult, Screening, Tenant
+
+log = logging.getLogger(__name__)
+
+
+class StageTracker:
+    def __init__(self, stages: list[dict[str, Any]]):
+        self.stages = [dict(s) for s in stages]
+
+    def set(self, key: str, status: str, note: str | None = None) -> None:
+        for s in self.stages:
+            if s["key"] == key:
+                s["status"] = status
+                s["note"] = note
+                return
+
+
+def _load(db: Session, screening_id: str) -> Screening:
+    s = db.get(Screening, screening_id)
+    if s is None:
+        raise RuntimeError(f"screening {screening_id} not found")
+    return s
+
+
+def run_screening(
+    db: Session,
+    settings: Settings,
+    screening_id: str,
+    provider: LLMProvider | None = None,
+    deliver: bool = True,
+) -> Screening:
+    s = _load(db, screening_id)
+    if s.status in ("completed", "needs_review"):
+        return s
+    tenant: Tenant = db.get(Tenant, s.tenant_id)  # type: ignore[assignment]
+    s.status = "processing"
+    s.started_at = s.started_at or utcnow()
+    s.attempts = (s.attempts or 0) + 1
+    tracker = StageTracker(s.stages or [])
+    db.commit()
+
+    try:
+        prov = provider or get_provider(tenant.ai_provider, settings)
+        version, cand = s.job_version, s.candidate
+        tracker.set("intake", "done")
+
+        answers = normalise_answers(version.questions, cand.answers)
+        answered = sum(1 for a in answers.values() if a.answered)
+        tracker.set("answers", "done", f"{answered} من {len(version.questions)} إجابات")
+
+        has_cv = any(d.kind == "cv" for d in cand.documents)
+        for key in ("cv_text", "redaction", "profile", "evidence_check"):
+            tracker.set(key, "skipped", NO_CV_NOTE if not has_cv else "يُفعَّل في المرحلة 2")
+
+        elig = evaluate(cand.facts, version.rules)
+        tracker.set(
+            "eligibility",
+            "done",
+            {
+                "eligible": "مستوفٍ",
+                "not_eligible": "غير مستوفٍ بحسب ما كتبه",
+                "needs_review": "يحتاج مراجعة",
+            }[elig.status],
+        )
+
+        questions = {q["key"]: q for q in version.questions}
+        judgements = prov.judge(
+            JudgeRequest(criteria=version.criteria, questions=questions, answers=answers)
+        )
+        extra_flags = {f for f in (s.flags or []) if f not in SCORE_FLAGS}
+        rows: list[JudgedCriterion] = []
+        by_key = {j.key: j for j in judgements}
+        for c in version.criteria:
+            j = by_key.get(c["key"])
+            if j is None:
+                rows.append(
+                    JudgedCriterion(
+                        c["key"],
+                        c["text"],
+                        float(c["weight"]),
+                        bool(c["mandatory"]),
+                        0,
+                        None,
+                        c.get("question"),
+                        None,
+                        missing_evidence=True,
+                    )
+                )
+                continue
+            j, mismatch = verify_form_evidence(j, answers)
+            if mismatch:
+                extra_flags.add("evidence_mismatch")
+            rows.append(
+                JudgedCriterion(
+                    c["key"],
+                    c["text"],
+                    float(c["weight"]),
+                    bool(c["mandatory"]),
+                    int(j.level),
+                    j.source,
+                    j.field,
+                    j.evidence,
+                    j.missing_evidence,
+                )
+            )
+        tracker.set(
+            "judgement", "done", f"{sum(1 for r in rows if not r.missing_evidence)} معيار بدليل"
+        )
+
+        result = compute(rows)
+        tracker.set(
+            "scoring", "done", f"الدرجة {result.score:g} · التغطية {round(result.coverage * 100)}%"
+        )
+        tracker.set("index", "skipped", "يُفعَّل مع بنك المتقدمين (المرحلة 8)")
+
+        for old in list(s.criteria):
+            db.delete(old)
+        for i, r in enumerate(result.rows):
+            db.add(
+                CriterionResult(
+                    id=new_id("cr"),
+                    screening_id=s.id,
+                    position=i,
+                    criterion_key=r.key,
+                    text=r.text,
+                    weight=r.weight,
+                    mandatory=r.mandatory,
+                    level=r.level,
+                    source=None if r.missing_evidence else r.source,
+                    field=r.field,
+                    evidence_text=r.evidence,
+                    missing_evidence=r.missing_evidence,
+                    contradiction=r.contradiction,
+                    confirmed_by_cv=r.confirmed_by_cv,
+                )
+            )
+        s.eligibility = elig.status
+        s.eligibility_checks = [c.as_dict() for c in elig.checks]
+        s.eligibility_reasons = elig.reasons_ar
+        s.score = result.score
+        s.coverage = result.coverage
+        s.band = result.band
+        s.needs_review = result.needs_review
+        s.flags = sorted(set(result.flags) | extra_flags)
+        s.strengths = result.strengths
+        s.gaps = result.gaps
+        s.raise_score = result.raise_score
+        s.summary = summary_text(result, elig.status, elig.reasons_ar)
+        s.versions = {
+            **(s.versions or {}),
+            "provider": prov.name,
+            "model": prov.model,
+            "prompt": prov.prompt_version,
+            "profile_schema": settings.profile_schema_version,
+        }
+        s.status = (
+            "needs_review"
+            if (result.needs_review or elig.status == "needs_review")
+            else "completed"
+        )
+        s.error = None
+        s.completed_at = utcnow()
+        s.stages = tracker.stages
+        audit.log(
+            db,
+            tenant.id,
+            cand.external_ref,
+            "screening." + s.status,
+            "system",
+            {
+                "screening_id": s.id,
+                "score": s.score,
+                "coverage": s.coverage,
+                "band": s.band,
+                "eligibility": s.eligibility,
+                "flags": s.flags,
+                "job_version": version.version,
+            },
+        )
+        db.commit()
+        db.refresh(s)
+    except Exception as e:  # noqa: BLE001 - every failure must be recorded on the screening
+        db.rollback()
+        s = _load(db, screening_id)
+        msg = f"{type(e).__name__}: {e}"
+        log.error("screening %s attempt %s failed: %s", screening_id, s.attempts, msg)
+        log.debug(traceback.format_exc())
+        for st in tracker.stages:
+            if st["status"] == "running":
+                st["status"] = "failed"
+        s.stages = tracker.stages
+        s.error = msg
+        max_attempts = max(1, tenant.max_retries)
+        s.status = "failed" if s.attempts >= max_attempts else "queued"
+        audit.log(
+            db,
+            tenant.id,
+            s.candidate.external_ref,
+            "screening.failed" if s.status == "failed" else "screening.retry_scheduled",
+            "system",
+            {"screening_id": s.id, "attempt": s.attempts, "error": msg},
+        )
+        db.commit()
+        return s
+
+    if deliver and tenant.callback_url and tenant.callback_secret:
+        rank, total = rank_of(db, tenant, s)
+        outcome = send_callback(
+            tenant.callback_url, tenant.callback_secret, to_out(s, rank, total), settings
+        )
+        audit.log(
+            db,
+            tenant.id,
+            s.candidate.external_ref,
+            "callback.sent" if outcome["ok"] else "callback.failed",
+            "system",
+            {"screening_id": s.id, **outcome},
+        )
+        db.commit()
+    return s
+
+
+def execute_with_retries(
+    sessionmaker: Any, settings: Settings, screening_id: str, provider: LLMProvider | None = None
+) -> str:
+    """Run a screening; on engine errors retry with backoff until the tenant's max_retries."""
+    import time
+
+    backoff = settings.retry_backoff or [0.0]
+    for i in range(max(1, settings.max_attempts) + 10):
+        with sessionmaker() as db:
+            s = run_screening(db, settings, screening_id, provider=provider)
+            status = s.status
+        if status != "queued":
+            return status
+        time.sleep(backoff[min(i, len(backoff) - 1)])
+    return status
