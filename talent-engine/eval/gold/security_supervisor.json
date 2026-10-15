@@ -1,0 +1,2092 @@
+{
+  "job": {
+    "title": "مشرف أمن — مجموعة الاختبار",
+    "description": "الإشراف اليومي على أفراد الأمن في الموقع، توزيع الورديات وإعداد جداول المناوبة، متابعة الالتزام بالإجراءات الأمنية، كتابة التقارير الأمنية وتقارير الحوادث، والتنسيق مع إدارة العمليات والجهات المختصة عند الحاجة.",
+    "criteria": [
+      {
+        "key": "supervision",
+        "text": "خبرة الإشراف على أفراد الأمن",
+        "text_en": "Experience supervising security guards",
+        "weight": 30,
+        "mandatory": true,
+        "question": "years_sup",
+        "rubric": [
+          {
+            "level": 0,
+            "text": "لا يوجد",
+            "gte": null,
+            "gt": null
+          },
+          {
+            "level": 25,
+            "text": "أقل من سنة",
+            "gt": 0
+          },
+          {
+            "level": 50,
+            "text": "1–2 سنة",
+            "gte": 1
+          },
+          {
+            "level": 75,
+            "text": "3–5 سنوات",
+            "gt": 2
+          },
+          {
+            "level": 100,
+            "text": "أكثر من 5",
+            "gt": 5
+          }
+        ]
+      },
+      {
+        "key": "security_exp",
+        "text": "الخبرة الأمنية العامة",
+        "text_en": "General security experience",
+        "weight": 20,
+        "mandatory": true,
+        "question": "years_sec",
+        "rubric": [
+          {
+            "level": 0,
+            "text": "لا يوجد",
+            "gte": null,
+            "gt": null
+          },
+          {
+            "level": 25,
+            "text": "أقل من سنة",
+            "gt": 0
+          },
+          {
+            "level": 50,
+            "text": "1–2 سنة",
+            "gte": 1
+          },
+          {
+            "level": 75,
+            "text": "3–5 سنوات",
+            "gt": 2
+          },
+          {
+            "level": 100,
+            "text": "أكثر من 5",
+            "gt": 5
+          }
+        ]
+      },
+      {
+        "key": "shifts",
+        "text": "إدارة الورديات وجداول المناوبة",
+        "text_en": "Shift and roster management",
+        "weight": 15,
+        "mandatory": false,
+        "question": "shifts",
+        "rubric": [
+          {
+            "level": 0,
+            "text": "لا",
+            "answers": [
+              "لا"
+            ]
+          },
+          {
+            "level": 25,
+            "text": "—"
+          },
+          {
+            "level": 50,
+            "text": "شاركت",
+            "answers": [
+              "شاركت"
+            ]
+          },
+          {
+            "level": 75,
+            "text": "—"
+          },
+          {
+            "level": 100,
+            "text": "أعددتها بنفسي",
+            "answers": [
+              "أعددتها بنفسي"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "licence",
+        "text": "رخصة حارس أمن",
+        "text_en": "Security guard licence",
+        "weight": 15,
+        "mandatory": false,
+        "question": "licence",
+        "rubric": [
+          {
+            "level": 0,
+            "text": "لا",
+            "answers": [
+              "لا"
+            ]
+          },
+          {
+            "level": 25,
+            "text": "—"
+          },
+          {
+            "level": 50,
+            "text": "منتهية أو قيد الإصدار",
+            "answers": [
+              "منتهية أو قيد الإصدار"
+            ]
+          },
+          {
+            "level": 75,
+            "text": "—"
+          },
+          {
+            "level": 100,
+            "text": "سارية",
+            "answers": [
+              "سارية"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "reports",
+        "text": "كتابة التقارير الأمنية",
+        "text_en": "Writing security reports",
+        "weight": 8,
+        "mandatory": false,
+        "question": "reports",
+        "rubric": [
+          {
+            "level": 0,
+            "text": "لا",
+            "answers": [
+              "لا"
+            ]
+          },
+          {
+            "level": 25,
+            "text": "—"
+          },
+          {
+            "level": 50,
+            "text": "أحيانًا",
+            "answers": [
+              "أحيانًا"
+            ]
+          },
+          {
+            "level": 75,
+            "text": "—"
+          },
+          {
+            "level": 100,
+            "text": "بانتظام",
+            "answers": [
+              "بانتظام"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "first_aid",
+        "text": "إسعافات أولية أو سلامة",
+        "text_en": "First aid or safety training",
+        "weight": 7,
+        "mandatory": false,
+        "question": "first_aid",
+        "rubric": [
+          {
+            "level": 0,
+            "text": "لا",
+            "answers": [
+              "لا"
+            ]
+          },
+          {
+            "level": 25,
+            "text": "—"
+          },
+          {
+            "level": 50,
+            "text": "أقدم من سنتين",
+            "answers": [
+              "أقدم من سنتين"
+            ]
+          },
+          {
+            "level": 75,
+            "text": "—"
+          },
+          {
+            "level": 100,
+            "text": "حديثة",
+            "answers": [
+              "حديثة"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "languages",
+        "text": "اللغات",
+        "text_en": "Languages",
+        "weight": 5,
+        "mandatory": false,
+        "question": "languages",
+        "rubric": [
+          {
+            "level": 0,
+            "text": "لا شيء"
+          },
+          {
+            "level": 25,
+            "text": "—"
+          },
+          {
+            "level": 50,
+            "text": "العربية فقط",
+            "answers": [
+              "العربية"
+            ]
+          },
+          {
+            "level": 75,
+            "text": "—"
+          },
+          {
+            "level": 100,
+            "text": "العربية والإنجليزية",
+            "answers": [
+              "العربية",
+              "الإنجليزية"
+            ]
+          }
+        ]
+      }
+    ],
+    "rules": [
+      {
+        "fact": "nationality",
+        "operator": "in",
+        "value": [
+          "السعودية"
+        ],
+        "if_missing": "review"
+      },
+      {
+        "fact": "height_cm",
+        "operator": ">=",
+        "value": 180,
+        "if_missing": "review"
+      },
+      {
+        "fact": "weight_kg",
+        "operator": "<=",
+        "value": 80,
+        "if_missing": "review"
+      },
+      {
+        "fact": "age",
+        "operator": ">=",
+        "value": 18,
+        "if_missing": "review"
+      }
+    ],
+    "questions": [
+      {
+        "key": "edu",
+        "label": "أعلى مؤهل دراسي",
+        "label_en": "Highest qualification",
+        "type": "select",
+        "options": [
+          "ثانوي",
+          "دبلوم",
+          "بكالوريوس",
+          "أعلى"
+        ]
+      },
+      {
+        "key": "years_sec",
+        "label": "عدد سنوات الخبرة في المجال الأمني",
+        "label_en": "Years of experience in security",
+        "type": "number",
+        "hint": "اكتب 0 إذا لا توجد خبرة. الفراغ يعني لم يُجب"
+      },
+      {
+        "key": "years_sup",
+        "label": "عدد سنوات الخبرة في الإشراف على أفراد أمن",
+        "label_en": "Years supervising security guards",
+        "type": "number",
+        "hint": "اكتب 0 إذا لا توجد خبرة. الفراغ يعني لم يُجب"
+      },
+      {
+        "key": "max_team",
+        "label": "أكبر عدد من الأفراد أشرفت عليهم",
+        "label_en": "Largest team you supervised",
+        "type": "number"
+      },
+      {
+        "key": "shifts",
+        "label": "هل أعددت جداول مناوبة أو وزّعت ورديات؟",
+        "label_en": "Did you prepare rosters or allocate shifts?",
+        "type": "select",
+        "options": [
+          "لا",
+          "شاركت",
+          "أعددتها بنفسي"
+        ]
+      },
+      {
+        "key": "licence",
+        "label": "هل لديك رخصة حارس أمن؟",
+        "label_en": "Do you hold a security guard licence?",
+        "type": "select",
+        "options": [
+          "لا",
+          "منتهية أو قيد الإصدار",
+          "سارية"
+        ]
+      },
+      {
+        "key": "licence_exp",
+        "label": "تاريخ انتهاء الرخصة",
+        "label_en": "Licence expiry date",
+        "type": "date",
+        "required": false
+      },
+      {
+        "key": "reports",
+        "label": "هل تكتب تقارير أمنية أو تسجّل الحوادث؟",
+        "label_en": "Do you write security reports or log incidents?",
+        "type": "select",
+        "options": [
+          "لا",
+          "أحيانًا",
+          "بانتظام"
+        ]
+      },
+      {
+        "key": "first_aid",
+        "label": "دورة إسعافات أولية أو سلامة",
+        "label_en": "First aid or safety course",
+        "type": "select",
+        "options": [
+          "لا",
+          "أقدم من سنتين",
+          "حديثة"
+        ]
+      },
+      {
+        "key": "languages",
+        "label": "اللغات",
+        "label_en": "Languages",
+        "type": "multiselect",
+        "options": [
+          "العربية",
+          "الإنجليزية",
+          "أخرى"
+        ]
+      },
+      {
+        "key": "last_job",
+        "label": "صف آخر عمل في سطرين",
+        "label_en": "Describe your last job in two lines",
+        "type": "text",
+        "required": false
+      }
+    ],
+    "approved_by": "gold-set"
+  },
+  "applicants": [
+    {
+      "ref": "GOLD-SEC-001",
+      "job": "GOLD-SEC",
+      "archetype": "strong",
+      "name_hint": "محمد المطيري",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 188,
+        "weight_kg": 68,
+        "age": 29
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 14,
+        "years_sup": 9,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-002",
+      "job": "GOLD-SEC",
+      "archetype": "strong",
+      "name_hint": "سلمان الحربي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 183,
+        "weight_kg": 65,
+        "age": 41
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 7,
+        "years_sup": 8,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "سلمان الحربي — مشرف أمن",
+        "الاسم: سلمان الحربي",
+        "الجوال: 0575805171",
+        "الجنسية: السعودية",
+        "العمر: 41",
+        "أعمل في مجال الأمن والحراسة منذ 2019، أي خبرة 7 سنوات.",
+        "أشرف على فريق من 15 فردًا منذ 2018 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية حديثة من الهلال الأحمر (2025).",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-003",
+      "job": "GOLD-SEC",
+      "archetype": "strong",
+      "name_hint": "سعود الزهراني",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 184,
+        "weight_kg": 76,
+        "age": 33
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 14,
+        "years_sup": 6,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "سعود الزهراني — مشرف أمن",
+        "الاسم: سعود الزهراني",
+        "الجوال: 0582217824",
+        "الجنسية: السعودية",
+        "العمر: 33",
+        "أعمل في مجال الأمن والحراسة منذ 2012، أي خبرة 14 سنوات.",
+        "أشرف على فريق من 14 فردًا منذ 2020 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية عام 2021.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-004",
+      "job": "GOLD-SEC",
+      "archetype": "strong",
+      "name_hint": "فهد الحربي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 182,
+        "weight_kg": 74,
+        "age": 22
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 11,
+        "years_sup": 8,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "فهد الحربي — مشرف أمن",
+        "الاسم: فهد الحربي",
+        "الجوال: 0563522449",
+        "الجنسية: السعودية",
+        "العمر: 22",
+        "أعمل في مجال الأمن والحراسة منذ 2015، أي خبرة 11 سنوات.",
+        "أشرف على فريق من 23 فردًا منذ 2018 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية عام 2021.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-005",
+      "job": "GOLD-SEC",
+      "archetype": "strong",
+      "name_hint": "ماجد الحربي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 181,
+        "weight_kg": 78,
+        "age": 38
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 13,
+        "years_sup": 9,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-006",
+      "job": "GOLD-SEC",
+      "archetype": "strong",
+      "name_hint": "سلمان الحربي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 188,
+        "weight_kg": 65,
+        "age": 40
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 8,
+        "years_sup": 6,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "سلمان الحربي — مشرف أمن",
+        "الاسم: سلمان الحربي",
+        "الجوال: 0567634371",
+        "الجنسية: السعودية",
+        "العمر: 40",
+        "أعمل في مجال الأمن والحراسة منذ 2018، أي خبرة 8 سنوات.",
+        "أشرف على فريق من 20 فردًا منذ 2020 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية حديثة من الهلال الأحمر (2025).",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-007",
+      "job": "GOLD-SEC",
+      "archetype": "strong",
+      "name_hint": "خالد الحربي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 183,
+        "weight_kg": 68,
+        "age": 42
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 13,
+        "years_sup": 9,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "خالد الحربي — مشرف أمن",
+        "الاسم: خالد الحربي",
+        "الجوال: 0599892850",
+        "الجنسية: السعودية",
+        "العمر: 42",
+        "أعمل في مجال الأمن والحراسة منذ 2013، أي خبرة 13 سنوات.",
+        "أشرف على فريق من 14 فردًا منذ 2017 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية عام 2021.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-008",
+      "job": "GOLD-SEC",
+      "archetype": "strong",
+      "name_hint": "ماجد العنزي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 188,
+        "weight_kg": 80,
+        "age": 34
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 9,
+        "years_sup": 8,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "ماجد العنزي — مشرف أمن",
+        "الاسم: ماجد العنزي",
+        "الجوال: 0530111687",
+        "الجنسية: السعودية",
+        "العمر: 34",
+        "أعمل في مجال الأمن والحراسة منذ 2017، أي خبرة 9 سنوات.",
+        "أشرف على فريق من 25 فردًا منذ 2018 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية عام 2021.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-009",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "وليد البقمي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 187,
+        "weight_kg": 80,
+        "age": 33
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 5,
+        "years_sup": 4,
+        "shifts": "أعددتها بنفسي",
+        "licence": "منتهية أو قيد الإصدار",
+        "reports": "بانتظام",
+        "first_aid": "لا",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "وليد البقمي — مشرف أمن",
+        "الاسم: وليد البقمي",
+        "الجوال: 0523203533",
+        "الجنسية: السعودية",
+        "العمر: 33",
+        "أعمل في مجال الأمن والحراسة منذ 2021، أي خبرة 5 سنوات.",
+        "أشرف على فريق من 19 فردًا منذ 2022 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "رخصة حارس الأمن منتهية وقيد التجديد.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 75,
+          "shifts": 100,
+          "licence": 50,
+          "reports": 100,
+          "first_aid": 0,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-010",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "عمر الجهني",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 188,
+        "weight_kg": 73,
+        "age": 36
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 6,
+        "years_sup": 4,
+        "shifts": "شاركت",
+        "licence": "منتهية أو قيد الإصدار",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": [
+        "عمر الجهني — مشرف أمن",
+        "الاسم: عمر الجهني",
+        "الجوال: 0565205206",
+        "الجنسية: السعودية",
+        "العمر: 36",
+        "أعمل في مجال الأمن والحراسة منذ 2020، أي خبرة 6 سنوات.",
+        "أشرف على فريق من 9 فردًا منذ 2022 حتى الآن.",
+        "شاركت في إعداد جداول المناوبة مع المشرف.",
+        "رخصة حارس الأمن منتهية وقيد التجديد.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية عام 2021.",
+        "اللغة العربية لغة أم."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 100,
+          "shifts": 50,
+          "licence": 50,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-011",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "بدر الغامدي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 181,
+        "weight_kg": 65,
+        "age": 36
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 3,
+        "years_sup": 5,
+        "shifts": "شاركت",
+        "licence": "سارية",
+        "reports": "أحيانًا",
+        "first_aid": "لا",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "بدر الغامدي — مشرف أمن",
+        "الاسم: بدر الغامدي",
+        "الجوال: 0595283083",
+        "الجنسية: السعودية",
+        "العمر: 36",
+        "أعمل في مجال الأمن والحراسة منذ 2023، أي خبرة 3 سنوات.",
+        "أشرف على فريق من 16 فردًا منذ 2021 حتى الآن.",
+        "شاركت في إعداد جداول المناوبة مع المشرف.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب تقارير الحوادث عند الحاجة.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 75,
+          "shifts": 50,
+          "licence": 100,
+          "reports": 50,
+          "first_aid": 0,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-012",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "خالد الغامدي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 185,
+        "weight_kg": 80,
+        "age": 44
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 4,
+        "years_sup": 5,
+        "shifts": "شاركت",
+        "licence": "منتهية أو قيد الإصدار",
+        "reports": "أحيانًا",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": [
+        "خالد الغامدي — مشرف أمن",
+        "الاسم: خالد الغامدي",
+        "الجوال: 0531491145",
+        "الجنسية: السعودية",
+        "العمر: 44",
+        "أعمل في مجال الأمن والحراسة منذ 2022، أي خبرة 4 سنوات.",
+        "أشرف على فريق من 9 فردًا منذ 2021 حتى الآن.",
+        "شاركت في إعداد جداول المناوبة مع المشرف.",
+        "رخصة حارس الأمن منتهية وقيد التجديد.",
+        "أكتب تقارير الحوادث عند الحاجة.",
+        "حاصل على دورة إسعافات أولية عام 2021.",
+        "اللغة العربية لغة أم."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 75,
+          "shifts": 50,
+          "licence": 50,
+          "reports": 50,
+          "first_aid": 50,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-013",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "راكان البقمي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 184,
+        "weight_kg": 78,
+        "age": 34
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 4,
+        "years_sup": 4,
+        "shifts": "شاركت",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "لا",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 75,
+          "shifts": 50,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 0,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-014",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "ياسر المطيري",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 180,
+        "weight_kg": 65,
+        "age": 38
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 5,
+        "years_sup": 3,
+        "shifts": "أعددتها بنفسي",
+        "licence": "منتهية أو قيد الإصدار",
+        "reports": "أحيانًا",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "ياسر المطيري — مشرف أمن",
+        "الاسم: ياسر المطيري",
+        "الجوال: 0532915476",
+        "الجنسية: السعودية",
+        "العمر: 38",
+        "أعمل في مجال الأمن والحراسة منذ 2021، أي خبرة 5 سنوات.",
+        "أشرف على فريق من 9 فردًا منذ 2023 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "رخصة حارس الأمن منتهية وقيد التجديد.",
+        "أكتب تقارير الحوادث عند الحاجة.",
+        "حاصل على دورة إسعافات أولية عام 2021.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 75,
+          "shifts": 100,
+          "licence": 50,
+          "reports": 50,
+          "first_aid": 50,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-015",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "سلمان السبيعي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 183,
+        "weight_kg": 78,
+        "age": 41
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 6,
+        "years_sup": 5,
+        "shifts": "شاركت",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "لا",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": [
+        "سلمان السبيعي — مشرف أمن",
+        "الاسم: سلمان السبيعي",
+        "الجوال: 0533268510",
+        "الجنسية: السعودية",
+        "العمر: 41",
+        "أعمل في مجال الأمن والحراسة منذ 2020، أي خبرة 6 سنوات.",
+        "أشرف على فريق من 6 فردًا منذ 2021 حتى الآن.",
+        "شاركت في إعداد جداول المناوبة مع المشرف.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "اللغة العربية لغة أم."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 100,
+          "shifts": 50,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 0,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-016",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "ياسر السبيعي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 180,
+        "weight_kg": 79,
+        "age": 42
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 6,
+        "years_sup": 1,
+        "shifts": "شاركت",
+        "licence": "سارية",
+        "reports": "أحيانًا",
+        "first_aid": "لا",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": [
+        "ياسر السبيعي — مشرف أمن",
+        "الاسم: ياسر السبيعي",
+        "الجوال: 0567090084",
+        "الجنسية: السعودية",
+        "العمر: 42",
+        "أعمل في مجال الأمن والحراسة منذ 2020، أي خبرة 6 سنوات.",
+        "أشرف على فريق من 22 فردًا منذ 2025 حتى الآن.",
+        "شاركت في إعداد جداول المناوبة مع المشرف.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب تقارير الحوادث عند الحاجة.",
+        "اللغة العربية لغة أم."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 50,
+          "security_exp": 100,
+          "shifts": 50,
+          "licence": 100,
+          "reports": 50,
+          "first_aid": 0,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-017",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "نواف القحطاني",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 186,
+        "weight_kg": 74,
+        "age": 27
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 4,
+        "years_sup": 3,
+        "shifts": "أعددتها بنفسي",
+        "licence": "منتهية أو قيد الإصدار",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "نواف القحطاني — مشرف أمن",
+        "الاسم: نواف القحطاني",
+        "الجوال: 0579703978",
+        "الجنسية: السعودية",
+        "العمر: 27",
+        "أعمل في مجال الأمن والحراسة منذ 2022، أي خبرة 4 سنوات.",
+        "أشرف على فريق من 20 فردًا منذ 2023 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "رخصة حارس الأمن منتهية وقيد التجديد.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية عام 2021.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 75,
+          "shifts": 100,
+          "licence": 50,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-018",
+      "job": "GOLD-SEC",
+      "archetype": "medium",
+      "name_hint": "بدر القحطاني",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 188,
+        "weight_kg": 73,
+        "age": 25
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 4,
+        "years_sup": 1,
+        "shifts": "شاركت",
+        "licence": "منتهية أو قيد الإصدار",
+        "reports": "بانتظام",
+        "first_aid": "أقدم من سنتين",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 50,
+          "security_exp": 75,
+          "shifts": 50,
+          "licence": 50,
+          "reports": 100,
+          "first_aid": 50,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-019",
+      "job": "GOLD-SEC",
+      "archetype": "low",
+      "name_hint": "تركي العتيبي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 185,
+        "weight_kg": 71,
+        "age": 25
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 1,
+        "years_sup": 0.5,
+        "shifts": "لا",
+        "licence": "لا",
+        "reports": "لا",
+        "first_aid": "لا",
+        "languages": [
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "تركي العتيبي — مشرف أمن",
+        "الاسم: تركي العتيبي",
+        "الجوال: 0545983867",
+        "الجنسية: السعودية",
+        "العمر: 25",
+        "أعمل في مجال الأمن والحراسة منذ 2025، أي خبرة 1 سنوات.",
+        "أشرف على فريق من 22 فردًا منذ 2026 حتى الآن.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 25,
+          "security_exp": 50,
+          "shifts": 0,
+          "licence": 0,
+          "reports": 0,
+          "first_aid": 0,
+          "languages": 0
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-020",
+      "job": "GOLD-SEC",
+      "archetype": "low",
+      "name_hint": "خالد القحطاني",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 184,
+        "weight_kg": 68,
+        "age": 35
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 0,
+        "years_sup": 0.5,
+        "shifts": "لا",
+        "licence": "لا",
+        "reports": "لا",
+        "first_aid": "لا",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "خالد القحطاني — مشرف أمن",
+        "الاسم: خالد القحطاني",
+        "الجوال: 0534896742",
+        "الجنسية: السعودية",
+        "العمر: 35",
+        "أشرف على فريق من 25 فردًا منذ 2026 حتى الآن.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 25,
+          "security_exp": 0,
+          "shifts": 0,
+          "licence": 0,
+          "reports": 0,
+          "first_aid": 0,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-021",
+      "job": "GOLD-SEC",
+      "archetype": "low",
+      "name_hint": "ياسر القحطاني",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 188,
+        "weight_kg": 75,
+        "age": 30
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 0,
+        "years_sup": 0,
+        "shifts": "لا",
+        "licence": "منتهية أو قيد الإصدار",
+        "reports": "لا",
+        "first_aid": "لا",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": [
+        "ياسر القحطاني — حارس أمن",
+        "الاسم: ياسر القحطاني",
+        "الجوال: 0518439487",
+        "الجنسية: السعودية",
+        "العمر: 30",
+        "رخصة حارس الأمن منتهية وقيد التجديد.",
+        "اللغة العربية لغة أم."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 0,
+          "security_exp": 0,
+          "shifts": 0,
+          "licence": 50,
+          "reports": 0,
+          "first_aid": 0,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-022",
+      "job": "GOLD-SEC",
+      "archetype": "low",
+      "name_hint": "عبدالله الزهراني",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 184,
+        "weight_kg": 78,
+        "age": 22
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 0,
+        "years_sup": 0,
+        "shifts": "لا",
+        "licence": "لا",
+        "reports": "لا",
+        "first_aid": "لا",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "عبدالله الزهراني — حارس أمن",
+        "الاسم: عبدالله الزهراني",
+        "الجوال: 0585320070",
+        "الجنسية: السعودية",
+        "العمر: 22",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 0,
+          "security_exp": 0,
+          "shifts": 0,
+          "licence": 0,
+          "reports": 0,
+          "first_aid": 0,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-023",
+      "job": "GOLD-SEC",
+      "archetype": "low",
+      "name_hint": "سلمان المطيري",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 185,
+        "weight_kg": 79,
+        "age": 41
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 0,
+        "years_sup": 0,
+        "shifts": "لا",
+        "licence": "منتهية أو قيد الإصدار",
+        "reports": "لا",
+        "first_aid": "لا",
+        "languages": [
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "سلمان المطيري — حارس أمن",
+        "الاسم: سلمان المطيري",
+        "الجوال: 0572098495",
+        "الجنسية: السعودية",
+        "العمر: 41",
+        "رخصة حارس الأمن منتهية وقيد التجديد.",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 0,
+          "security_exp": 0,
+          "shifts": 0,
+          "licence": 50,
+          "reports": 0,
+          "first_aid": 0,
+          "languages": 0
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-024",
+      "job": "GOLD-SEC",
+      "archetype": "not_eligible",
+      "name_hint": "نواف العنزي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 181,
+        "weight_kg": 95,
+        "age": 38
+      },
+      "answers": {
+        "edu": "بكالوريوس",
+        "years_sec": 6,
+        "years_sup": 5,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "نواف العنزي — مشرف أمن",
+        "الاسم: نواف العنزي",
+        "الجوال: 0568618432",
+        "الجنسية: السعودية",
+        "العمر: 38",
+        "أعمل في مجال الأمن والحراسة منذ 2020، أي خبرة 6 سنوات.",
+        "أشرف على فريق من 5 فردًا منذ 2021 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية حديثة من الهلال الأحمر (2025).",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "not_eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-025",
+      "job": "GOLD-SEC",
+      "archetype": "not_eligible",
+      "name_hint": "فهد الجهني",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 185,
+        "weight_kg": 91,
+        "age": 45
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 6,
+        "years_sup": 5,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "not_eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-026",
+      "job": "GOLD-SEC",
+      "archetype": "not_eligible",
+      "name_hint": "ماجد المطيري",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 166,
+        "weight_kg": 66,
+        "age": 45
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 5,
+        "years_sup": 6,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "ماجد المطيري — مشرف أمن",
+        "الاسم: ماجد المطيري",
+        "الجوال: 0580140022",
+        "الجنسية: السعودية",
+        "العمر: 45",
+        "أعمل في مجال الأمن والحراسة منذ 2021، أي خبرة 5 سنوات.",
+        "أشرف على فريق من 16 فردًا منذ 2020 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية حديثة من الهلال الأحمر (2025).",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "not_eligible",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 75,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-027",
+      "job": "GOLD-SEC",
+      "archetype": "not_eligible",
+      "name_hint": "سلمان العنزي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 190,
+        "weight_kg": 88,
+        "age": 22
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 8,
+        "years_sup": 3,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "سلمان العنزي — مشرف أمن",
+        "الاسم: سلمان العنزي",
+        "الجوال: 0542119104",
+        "الجنسية: السعودية",
+        "العمر: 22",
+        "أعمل في مجال الأمن والحراسة منذ 2018، أي خبرة 8 سنوات.",
+        "أشرف على فريق من 18 فردًا منذ 2023 حتى الآن.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية حديثة من الهلال الأحمر (2025).",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "not_eligible",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-028",
+      "job": "GOLD-SEC",
+      "archetype": "needs_review_fact",
+      "name_hint": "ياسر الشمري",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 182,
+        "weight_kg": null,
+        "age": 39
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 8,
+        "years_sup": 6,
+        "shifts": "شاركت",
+        "licence": "سارية",
+        "reports": "أحيانًا",
+        "first_aid": "لا",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "needs_review",
+        "levels": {
+          "supervision": 100,
+          "security_exp": 100,
+          "shifts": 50,
+          "licence": 100,
+          "reports": 50,
+          "first_aid": 0,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-029",
+      "job": "GOLD-SEC",
+      "archetype": "needs_review_fact",
+      "name_hint": "راكان العتيبي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 183,
+        "weight_kg": null,
+        "age": 22
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 7,
+        "years_sup": 4,
+        "shifts": "شاركت",
+        "licence": "سارية",
+        "reports": "أحيانًا",
+        "first_aid": "لا",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": [
+        "راكان العتيبي — مشرف أمن",
+        "الاسم: راكان العتيبي",
+        "الجوال: 0552244317",
+        "الجنسية: السعودية",
+        "العمر: 22",
+        "أعمل في مجال الأمن والحراسة منذ 2019، أي خبرة 7 سنوات.",
+        "أشرف على فريق من 9 فردًا منذ 2022 حتى الآن.",
+        "شاركت في إعداد جداول المناوبة مع المشرف.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب تقارير الحوادث عند الحاجة.",
+        "اللغة العربية لغة أم."
+      ],
+      "expected": {
+        "eligibility": "needs_review",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 100,
+          "shifts": 50,
+          "licence": 100,
+          "reports": 50,
+          "first_aid": 0,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-030",
+      "job": "GOLD-SEC",
+      "archetype": "needs_review_fact",
+      "name_hint": "ياسر البقمي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 181,
+        "weight_kg": null,
+        "age": 39
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 8,
+        "years_sup": 5,
+        "shifts": "شاركت",
+        "licence": "سارية",
+        "reports": "أحيانًا",
+        "first_aid": "لا",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": [
+        "ياسر البقمي — مشرف أمن",
+        "الاسم: ياسر البقمي",
+        "الجوال: 0579853472",
+        "الجنسية: السعودية",
+        "العمر: 39",
+        "أعمل في مجال الأمن والحراسة منذ 2018، أي خبرة 8 سنوات.",
+        "أشرف على فريق من 15 فردًا منذ 2021 حتى الآن.",
+        "شاركت في إعداد جداول المناوبة مع المشرف.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب تقارير الحوادث عند الحاجة.",
+        "اللغة العربية لغة أم."
+      ],
+      "expected": {
+        "eligibility": "needs_review",
+        "levels": {
+          "supervision": 75,
+          "security_exp": 100,
+          "shifts": 50,
+          "licence": 100,
+          "reports": 50,
+          "first_aid": 0,
+          "languages": 50
+        },
+        "flags": []
+      }
+    },
+    {
+      "ref": "GOLD-SEC-031",
+      "job": "GOLD-SEC",
+      "archetype": "blank_heavy",
+      "name_hint": "عبدالله العنزي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 180,
+        "weight_kg": 72,
+        "age": 37
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 3,
+        "years_sup": "",
+        "shifts": "",
+        "licence": "",
+        "reports": "",
+        "first_aid": "",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": null,
+          "security_exp": 75,
+          "shifts": null,
+          "licence": null,
+          "reports": null,
+          "first_aid": null,
+          "languages": 50
+        },
+        "flags": [
+          "low_coverage",
+          "mandatory_missing",
+          "missing_evidence"
+        ]
+      }
+    },
+    {
+      "ref": "GOLD-SEC-032",
+      "job": "GOLD-SEC",
+      "archetype": "blank_heavy",
+      "name_hint": "ياسر السبيعي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 182,
+        "weight_kg": 77,
+        "age": 44
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 8,
+        "years_sup": "",
+        "shifts": "",
+        "licence": "",
+        "reports": "",
+        "first_aid": "",
+        "languages": [
+          "العربية"
+        ]
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": null,
+          "security_exp": 100,
+          "shifts": null,
+          "licence": null,
+          "reports": null,
+          "first_aid": null,
+          "languages": 50
+        },
+        "flags": [
+          "low_coverage",
+          "mandatory_missing",
+          "missing_evidence"
+        ]
+      }
+    },
+    {
+      "ref": "GOLD-SEC-033",
+      "job": "GOLD-SEC",
+      "archetype": "contradiction",
+      "name_hint": "سعود السبيعي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 184,
+        "weight_kg": 75,
+        "age": 28
+      },
+      "answers": {
+        "edu": "دبلوم",
+        "years_sec": 8,
+        "years_sup": 7,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "سعود السبيعي — مشرف أمن",
+        "الاسم: سعود السبيعي",
+        "الجوال: 0583658086",
+        "الجنسية: السعودية",
+        "العمر: 28",
+        "أعمل في مجال الأمن والحراسة منذ 2018، أي خبرة 8 سنوات.",
+        "عملت مشرف وردية لمدة سنتين فقط (من 2024 حتى الآن) على فريق من 7 أفراد.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية حديثة من الهلال الأحمر (2025).",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 50,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": [
+          "contradiction"
+        ]
+      }
+    },
+    {
+      "ref": "GOLD-SEC-034",
+      "job": "GOLD-SEC",
+      "archetype": "contradiction",
+      "name_hint": "وليد العنزي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 189,
+        "weight_kg": 74,
+        "age": 28
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 9,
+        "years_sup": 6,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "وليد العنزي — مشرف أمن",
+        "الاسم: وليد العنزي",
+        "الجوال: 0510712938",
+        "الجنسية: السعودية",
+        "العمر: 28",
+        "أعمل في مجال الأمن والحراسة منذ 2017، أي خبرة 9 سنوات.",
+        "عملت مشرف وردية لمدة سنتين فقط (من 2024 حتى الآن) على فريق من 6 أفراد.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية حديثة من الهلال الأحمر (2025).",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 50,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": [
+          "contradiction"
+        ]
+      }
+    },
+    {
+      "ref": "GOLD-SEC-035",
+      "job": "GOLD-SEC",
+      "archetype": "contradiction",
+      "name_hint": "مشاري السبيعي",
+      "facts": {
+        "nationality": "السعودية",
+        "height_cm": 186,
+        "weight_kg": 66,
+        "age": 42
+      },
+      "answers": {
+        "edu": "ثانوي",
+        "years_sec": 6,
+        "years_sup": 7,
+        "shifts": "أعددتها بنفسي",
+        "licence": "سارية",
+        "reports": "بانتظام",
+        "first_aid": "حديثة",
+        "languages": [
+          "العربية",
+          "الإنجليزية"
+        ]
+      },
+      "cv_lines": [
+        "مشاري السبيعي — مشرف أمن",
+        "الاسم: مشاري السبيعي",
+        "الجوال: 0545569693",
+        "الجنسية: السعودية",
+        "العمر: 42",
+        "أعمل في مجال الأمن والحراسة منذ 2020، أي خبرة 6 سنوات.",
+        "عملت مشرف وردية لمدة سنتين فقط (من 2024 حتى الآن) على فريق من 5 أفراد.",
+        "أتولى إعداد جداول المناوبة وتوزيع الورديات بنفسي.",
+        "حاصل على رخصة حارس أمن سارية حتى 2028.",
+        "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+        "حاصل على دورة إسعافات أولية حديثة من الهلال الأحمر (2025).",
+        "اللغة العربية لغة أم، وإجادة الإنجليزية بمستوى جيد."
+      ],
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "supervision": 50,
+          "security_exp": 100,
+          "shifts": 100,
+          "licence": 100,
+          "reports": 100,
+          "first_aid": 100,
+          "languages": 100
+        },
+        "flags": [
+          "contradiction"
+        ]
+      }
+    }
+  ]
+}

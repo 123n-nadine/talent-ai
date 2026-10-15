@@ -43,6 +43,7 @@ class Tenant(Base):
     ai_provider: Mapped[str] = mapped_column(String(20), default="fake")
     ai_model: Mapped[str] = mapped_column(String(120), default="")
     ocr_provider: Mapped[str] = mapped_column(String(20), default="none")
+    judge_prompt: Mapped[str] = mapped_column(String(40), default="judge-v1")
     llm_timeout_s: Mapped[int] = mapped_column(Integer, default=120)
     max_retries: Mapped[int] = mapped_column(Integer, default=3)
     retention_days: Mapped[int] = mapped_column(Integer, default=365)

@@ -34,8 +34,10 @@ class OpenAICompatLLM:
         max_retries: int = 2,
         disable_thinking: bool = True,
         http_client: Any = None,  # httpx2.Client (openai>=3) with a mock transport in tests
+        judge_prompt: str = prompts.JUDGE,
     ):
         self.name = name
+        self.prompt_version = judge_prompt
         self.model = model
         self.base_url = base_url
         self.disable_thinking = disable_thinking
@@ -123,6 +125,8 @@ class OpenAICompatLLM:
             q = req.questions.get(c.get("question") or "")
             ans = req.answers.get(c.get("question") or "")
             answer_txt = ans.canonical if (ans and ans.answered) else "not answered"
+            if c["key"] in req.code_levels:
+                answer_txt += f" (level {req.code_levels[c['key']]} already computed by the system from this answer; judge only the CV side)"
             rubric = "\n".join(
                 f"  level {r['level']}: {r['text']}"
                 for r in sorted(c["rubric"], key=lambda r: r["level"])
@@ -143,7 +147,7 @@ class OpenAICompatLLM:
                 else "No CV was provided."
             )
         )
-        out = self._structured(prompts.load(prompts.JUDGE), user, JudgeOutput, "judgement")
+        out = self._structured(prompts.load(self.prompt_version), user, JudgeOutput, "judgement")
         assert isinstance(out, JudgeOutput)
         return out.criteria
 

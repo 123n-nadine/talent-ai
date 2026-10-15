@@ -16,6 +16,9 @@ class JudgeRequest:
     answers: dict[str, NormalisedAnswer]  # question key -> normalised answer
     redacted_text: str | None = None  # redacted CV text (phase 3)
     derived: dict[str, Any] = field(default_factory=dict)  # facts computed in code from the profile
+    code_levels: dict[str, int] = field(
+        default_factory=dict
+    )  # form levels already computed in code
 
 
 @dataclass

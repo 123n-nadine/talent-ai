@@ -15,10 +15,12 @@ from app.core.timeutil import utcnow
 from app.domain.labels import NO_CV_NOTE
 from app.llm.base import JudgeRequest, LLMProvider
 from app.llm.registry import get_provider
-from app.pipeline.stages.answers import normalise_answers
+from app.llm.schemas import CriterionJudgement
+from app.pipeline.stages.answers import NormalisedAnswer, normalise_answers
 from app.pipeline.stages.evidence import resolve
 from app.pipeline.stages.profile import verify_profile
 from app.rules.eligibility import evaluate
+from app.scoring.rubric import is_code_judged, level_from_rubric
 from app.scoring.score import JudgedCriterion, compute, summary_text
 from app.services import audit
 from app.services.callback import send as send_callback
@@ -74,7 +76,9 @@ def run_screening(
     t_start = time.time()
 
     try:
-        prov = provider or get_provider(tenant.ai_provider, settings, tenant.ai_model or None)
+        prov = provider or get_provider(
+            tenant.ai_provider, settings, tenant.ai_model or None, tenant.judge_prompt or None
+        )
         version, cand = s.job_version, s.candidate
         tracker.start("intake")
         tracker.set("intake", "done")
@@ -161,22 +165,41 @@ def run_screening(
 
         tracker.start("judgement")
         questions = {q["key"]: q for q in version.questions}
-        raw_judgements = prov.judge(
-            JudgeRequest(
-                criteria=version.criteria,
-                questions=questions,
-                answers=answers,
-                redacted_text=redacted_text,
-                derived=derived,
-            )
+        # form side: structured answers are judged in code; the model handles free text and the CV
+        code_levels: dict[str, int] = {}
+        for c in version.criteria:
+            q = questions.get(c.get("question") or "")
+            ans = answers.get(c.get("question") or "")
+            if is_code_judged(c, q) and ans is not None and ans.answered:
+                code_levels[c["key"]] = level_from_rubric(c["rubric"], q["type"], ans)  # type: ignore[index]
+        needs_model = bool(redacted_text) or any(
+            c["key"] not in code_levels
+            and (
+                answers.get(c.get("question") or "") or NormalisedAnswer("", None, None, False, "")
+            ).answered
+            for c in version.criteria
         )
-        if prov.name != "fake":
-            llm_calls.append({"task": "judge", **getattr(prov, "last_usage", {})})
+        raw_judgements: list[CriterionJudgement] = []
+        if needs_model:
+            raw_judgements = prov.judge(
+                JudgeRequest(
+                    criteria=version.criteria,
+                    questions=questions,
+                    answers=answers,
+                    redacted_text=redacted_text,
+                    derived=derived,
+                    code_levels=code_levels,
+                )
+            )
+            if prov.name != "fake":
+                llm_calls.append({"task": "judge", **getattr(prov, "last_usage", {})})
         by_key = {j.key: j for j in raw_judgements}
         rows: list[JudgedCriterion] = []
         problems: list[str] = []
         for c in version.criteria:
             raw = by_key.get(c["key"])
+            if raw is None and c["key"] in code_levels:
+                raw = CriterionJudgement(key=c["key"], form_field=c.get("question"))
             if raw is None:
                 rows.append(
                     JudgedCriterion(
@@ -193,7 +216,12 @@ def run_screening(
                 )
                 continue
             j, probs = resolve(
-                raw, answers, redacted_text, settings.quote_match_threshold, c.get("question")
+                raw,
+                answers,
+                redacted_text,
+                settings.quote_match_threshold,
+                c.get("question"),
+                code_level=code_levels.get(c["key"]),
             )
             problems.extend(probs)
             rows.append(
@@ -219,7 +247,10 @@ def run_screening(
         n_cv = sum(1 for r in rows if r.confirmed_by_cv)
         n_contra = sum(1 for r in rows if r.contradiction)
         tracker.set(
-            "judgement", "done", f"{n_ev} معيار بدليل · {n_cv} تؤكده السيرة · {n_contra} تعارض"
+            "judgement",
+            "done",
+            f"{n_ev} معيار بدليل · {len(code_levels)} محسوب بالكود · {n_cv} تؤكده السيرة · {n_contra} تعارض"
+            + ("" if needs_model else " · بدون نموذج لغوي"),
         )
 
         tracker.start("scoring")

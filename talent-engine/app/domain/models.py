@@ -135,6 +135,7 @@ class SettingsIn(BaseModel):
     ai_provider: Literal["fake", "local", "cloud"] | None = None
     ai_model: str | None = None
     ocr_provider: Literal["none", "fake", "paddle_cpu", "paddle_vl", "cloud"] | None = None
+    judge_prompt: str | None = Field(default=None, pattern=r"^judge-v[0-9]+$")
     llm_timeout_s: int | None = Field(default=None, ge=5, le=3600)
     max_retries: int | None = Field(default=None, ge=0, le=10)
     retention_days: int | None = Field(default=None, ge=1)

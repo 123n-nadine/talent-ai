@@ -7,42 +7,9 @@ Optional `cv_levels` (criterion key -> (level, quote)) lets tests exercise the C
 
 from __future__ import annotations
 
-from typing import Any
-
-from app.core.arabic import normalize
 from app.llm.base import DraftCriteria, JudgeRequest
 from app.llm.schemas import CandidateProfile, CriterionJudgement
-from app.pipeline.stages.answers import NormalisedAnswer
-
-
-def level_from_rubric(rubric: list[dict[str, Any]], qtype: str, answer: NormalisedAnswer) -> int:
-    levels = sorted(rubric, key=lambda r: -int(r["level"]))
-    value = answer.value
-    if qtype == "number":
-        try:
-            v = float(value)
-        except (TypeError, ValueError):
-            return 0
-        for r in levels:
-            gte, gt = r.get("gte"), r.get("gt")
-            if (gte is not None and v >= float(gte)) or (gt is not None and v > float(gt)):
-                return int(r["level"])
-        return 0
-    if qtype == "multiselect":
-        selected = {normalize(x) for x in (value if isinstance(value, list) else [value])}
-        for r in levels:
-            opts = r.get("answers") or []
-            if opts and {normalize(o) for o in opts} <= selected:
-                return int(r["level"])
-        return 0
-    if qtype in ("select", "boolean"):
-        word = normalize("نعم" if value is True else "لا" if value is False else str(value))
-        for r in levels:
-            opts = r.get("answers") or []
-            if any(normalize(o) == word for o in opts):
-                return int(r["level"])
-        return 0
-    return 0  # text/date: the fake provider cannot judge free text
+from app.scoring.rubric import level_from_rubric
 
 
 class FakeLLM:

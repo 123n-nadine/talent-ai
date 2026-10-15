@@ -326,6 +326,9 @@ def test_engine_failure_becomes_failed_after_retries_then_retry_works(monkeypatc
         raise RuntimeError("LLM down")
 
     monkeypatch.setattr(fake_mod.FakeLLM, "judge", boom)
+    monkeypatch.setattr(
+        "app.pipeline.runner.is_code_judged", lambda c, q: False
+    )  # force the model path
     client.put(f"/v1/jobs/{SEC}", json=sec_job)
     client.put(
         "/v1/candidates/C-9",

@@ -25,6 +25,7 @@ def settings_out(tenant: Tenant, settings: Settings) -> dict[str, Any]:
         "ai_provider": tenant.ai_provider,
         "ai_model": tenant.ai_model,
         "ocr_provider": tenant.ocr_provider,
+        "judge_prompt": tenant.judge_prompt,
         "llm_timeout_s": tenant.llm_timeout_s,
         "max_retries": tenant.max_retries,
         "retention_days": tenant.retention_days,
@@ -60,6 +61,12 @@ def update_settings(
                 "local": settings.llm_model,
                 "cloud": settings.cloud_llm_model or settings.llm_model,
             }[data.ai_provider]
+    if data.judge_prompt is not None and data.judge_prompt != tenant.judge_prompt:
+        from app.llm.prompts import PROMPTS_DIR
+
+        if not (PROMPTS_DIR / f"{data.judge_prompt}.md").exists():
+            raise SettingsError(f"unknown judge prompt '{data.judge_prompt}'")
+        changes["judge_prompt"] = data.judge_prompt
     for fld in (
         "ai_model",
         "ocr_provider",

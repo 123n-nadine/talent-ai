@@ -32,14 +32,18 @@ def resolve(
     redacted_text: str | None,
     threshold: float = 0.9,
     question_key: str | None = None,
+    code_level: int | None = None,
 ) -> tuple[Judgement, list[str]]:
     """Return the verified judgement and the problems found (evidence_mismatch, quote_not_found).
-    `question_key` is the question that feeds the criterion according to the job (code authority)."""
+    `question_key` is the question that feeds the criterion according to the job (code authority);
+    `code_level` is the form level computed in code for structured answers (overrides the model)."""
     problems: list[str] = []
     form_level: int | None = None
     if question_key:
         raw.form_field = question_key
-    if raw.form_level is not None:
+    if code_level is not None:
+        form_level = int(code_level)
+    elif raw.form_level is not None:
         ans = answers.get(raw.form_field or "")
         if ans is not None and ans.answered and _same_value(raw.form_value, ans.canonical):
             form_level = int(raw.form_level)

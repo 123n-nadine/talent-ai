@@ -27,7 +27,9 @@ def _http_client(name: str) -> Any:
     return HTTP_CLIENT_FACTORY(name) if HTTP_CLIENT_FACTORY else None
 
 
-def get_provider(name: str, settings: Settings, model: str | None = None) -> LLMProvider:
+def get_provider(
+    name: str, settings: Settings, model: str | None = None, judge_prompt: str | None = None
+) -> LLMProvider:
     if name == "fake":
         return FakeLLM()
     if name == "local":
@@ -40,6 +42,7 @@ def get_provider(name: str, settings: Settings, model: str | None = None) -> LLM
             max_retries=settings.llm_max_retries,
             disable_thinking=True,
             http_client=_http_client("local"),
+            judge_prompt=judge_prompt or "judge-v1",
         )
     if name == "cloud":
         if not settings.cloud_llm_api_key:
@@ -55,6 +58,7 @@ def get_provider(name: str, settings: Settings, model: str | None = None) -> LLM
             max_retries=settings.llm_max_retries,
             disable_thinking=False,
             http_client=_http_client("cloud"),
+            judge_prompt=judge_prompt or "judge-v1",
         )
     raise ProviderNotAvailable(f"unknown provider '{name}'")
 

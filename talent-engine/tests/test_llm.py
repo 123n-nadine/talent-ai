@@ -290,17 +290,16 @@ def test_invented_quote_is_dropped_never_guessed(tmp_path, monkeypatch):
     c.__exit__(None, None, None)
 
 
-def test_form_value_mismatch_becomes_missing_evidence(tmp_path, monkeypatch):
-    m = MockLLM(judge=judge_json(years_sup_form="9"))  # the model misquoted the stored answer
+def test_structured_answers_are_judged_in_code_not_by_the_model(tmp_path, monkeypatch):
+    m = MockLLM(judge=judge_json(years_sup_form="9"))  # the model misquotes the stored answer
     monkeypatch.setattr(registry, "HTTP_CLIENT_FACTORY", lambda name: m.client())
     c = _client(tmp_path, ai_provider="local")
     s = _seed(c, with_cv=False)
+    # every criterion of this profile is fed by a structured question: no model call is needed at all
+    assert m.requests == [] and s["status"] == "completed" and s["score"] == 81.5
     sup = next(x for x in s["criteria"] if x["key"] == "supervision")
-    assert (
-        sup["missing_evidence"] is True
-        and sup["effective_level"] == 0
-        and "evidence_mismatch" in s["flags"]
-    )
+    assert sup["effective_level"] == 75 and sup["evidence"] == "4" and sup["source"] == "form_field"
+    assert "بدون نموذج لغوي" in next(st for st in s["stages"] if st["key"] == "judgement")["note"]
     c.__exit__(None, None, None)
 
 
