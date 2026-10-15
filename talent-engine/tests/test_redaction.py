@@ -126,3 +126,28 @@ def test_ocr_style_alef_variants_in_keywords():
 def test_id_keyword_keeps_newline():
     r = redact("رقم الهوية الوطنية 1200220022\nتاريخ الميلاد 14/05/1997", use_nlp=False)
     assert r.text == "رقم الهوية الوطنية [الهوية]\nتاريخ الميلاد [تاريخ الميلاد]"
+
+
+def test_presidio_leaves_arabic_lines_alone():
+    import pytest
+
+    pytest.importorskip("presidio_analyzer")
+    text = "أشرف على فريق من 14 فرد أمن في ثلاث مواقع تجارية\nحاصل على شهادة إسعافات أولية معتمدة\nReference: John Smith"
+    r = redact(text, use_nlp=True)
+    assert "أشرف على فريق من 14 فرد أمن" in r.text and "إسعافات أولية" in r.text
+    assert "John Smith" not in r.text
+
+
+def test_dates_with_spaces_and_year_first():
+    r = redact("تاريخ الميلاد: 1992 / 05 / 14\nمن 01/03/2017 حتى 2024", use_nlp=False)
+    assert "[تاريخ الميلاد]" in r.text and "1992" not in r.text and "01/03/2017" in r.text
+
+
+def test_split_dob_line_is_fully_scrubbed():
+    r = redact("05/1992 :تاريخ الميلاد14/\nرخصة سارية حتى 2027", use_nlp=False)
+    assert (
+        "1992" not in r.text
+        and "14" not in r.text
+        and "[تاريخ الميلاد]" in r.text
+        and "2027" in r.text
+    )

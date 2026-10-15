@@ -160,3 +160,21 @@ def test_settings_show_ocr_readiness(client):
         and s["ocr_ready"] is True
         and "paddle_cpu" in s["ocr_providers"]
     )
+
+
+def test_reprocessed_cv_is_new_input(seeded, client):
+    pdf = text_pdf_bytes(
+        [
+            "Shift supervisor since 2019 at a large residential compound in Riyadh",
+            "Valid security guard licence and recent first aid training",
+        ]
+    )
+    h1 = client.put(
+        "/v1/candidates/HR-APP-2026-2004/cv", files={"file": ("cv.pdf", pdf, "application/pdf")}
+    ).json()["data_hash"]
+    h2 = client.put(
+        "/v1/candidates/HR-APP-2026-2004/cv",
+        files={"file": ("cv.pdf", pdf, "application/pdf")},
+        data={"name_hint": "Shift"},
+    ).json()["data_hash"]
+    assert h1 != h2  # same file, different redaction outcome -> different input

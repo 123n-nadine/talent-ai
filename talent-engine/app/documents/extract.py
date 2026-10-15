@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from app.core.config import Settings
+from app.documents.pdftext import reconstruct
 from app.ocr.base import OCRProvider, OCRUnavailable
 
 LETTERS = re.compile(r"[\w؀-ۿ]", re.UNICODE)
@@ -72,7 +73,13 @@ def extract_pdf(
         if doc.page_count == 0:
             return Extraction("unreadable", error="PDF has no pages")
         try:
-            page_texts = [doc.load_page(i).get_text("text") for i in range(doc.page_count)]
+            page_texts = []
+            for i in range(doc.page_count):
+                page = doc.load_page(i)
+                try:
+                    page_texts.append(reconstruct(page))
+                except Exception:  # noqa: BLE001 - fall back to plain extraction
+                    page_texts.append(page.get_text("text"))
         except Exception as e:  # noqa: BLE001
             return Extraction("unreadable", error=f"corrupt PDF content: {type(e).__name__}: {e}")
         text = _clean("\n\n".join(page_texts))
@@ -100,6 +107,15 @@ def extract_pdf(
                 return Extraction(
                     "unreadable", error=f"OCR failed: {type(e).__name__}: {e}", pages=doc.page_count
                 )
+        ocr_text = _clean(ocr_text)
+        if not _chars(ocr_text):
+            return Extraction(
+                "unreadable",
+                error="OCR produced no text",
+                pages=doc.page_count,
+                method=f"ocr:{provider_name}",
+                ocr_confidence=conf,
+            )
         ocr_text = _clean(ocr_text)
         return Extraction(
             "ready",
@@ -154,11 +170,26 @@ def convert_with_libreoffice(path: Path, settings: Settings, outdir: Path) -> Pa
 
 def extract_image(path: Path, ocr: OCRProvider | None, provider_name: str) -> Extraction:
     try:
-        text, conf, _ = _ocr_images([path], ocr, provider_name)
+        with tempfile.TemporaryDirectory(prefix="talentai-img-") as tmp:
+            # stored files have no extension; OCR engines want a real image suffix
+            head = path.read_bytes()[:8]
+            suffix = ".png" if head.startswith(b"\x89PNG") else ".jpg"
+            img = Path(tmp) / f"scan{suffix}"
+            shutil.copyfile(path, img)
+            text, conf, _ = _ocr_images([img], ocr, provider_name)
     except OCRUnavailable as e:
         return Extraction("unreadable", error=f"image CV but OCR is unavailable: {e}", pages=1)
     except Exception as e:  # noqa: BLE001
         return Extraction("unreadable", error=f"OCR failed: {type(e).__name__}: {e}", pages=1)
+    text = _clean(text)
+    if not _chars(text):
+        return Extraction(
+            "unreadable",
+            error="OCR produced no text",
+            pages=1,
+            method=f"ocr:{provider_name}",
+            ocr_confidence=conf,
+        )
     text = _clean(text)
     return Extraction(
         "ready",

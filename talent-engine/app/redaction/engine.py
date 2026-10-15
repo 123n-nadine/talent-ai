@@ -10,6 +10,8 @@ from app.redaction import patterns as P
 from app.redaction.names import name_regex
 from app.redaction.nlp import english_person_spans
 
+ARABIC_LETTER = re.compile(r"[\u0600-\u06FF]")
+
 
 @dataclass
 class RedactionResult:
@@ -40,6 +42,17 @@ def _sub(
     return regex.sub(repl, text)
 
 
+def _scrub_dob_lines(text: str, report: dict[str, int]) -> str:
+    """Any digits left on a line that names the date of birth are part of it (split by PDF layout)."""
+    out = []
+    for line in text.split("\n"):
+        if P.DOB_KEYWORD.search(line) and re.search(r"\d", line):
+            line, n = P.DOB_DIGITS.subn(P.TOKENS["DOB"], line)
+            report["dob"] = report.get("dob", 0) + n
+        out.append(line)
+    return "\n".join(out)
+
+
 def redact(
     text: str, name_hint: str | None = None, use_nlp: bool = True, now: datetime | None = None
 ) -> RedactionResult:
@@ -55,10 +68,12 @@ def redact(
     t = _sub(P.NATIONAL_ID, P.TOKENS["NATIONAL_ID"], t, report, "national_id")
     t = _sub(P.PHONE, P.TOKENS["PHONE"], t, report, "phone")
     t = _sub(P.DOB_KEYWORD_LINE, P.TOKENS["DOB"], t, report, "dob", "val")
+    t = _scrub_dob_lines(t, report)
     cutoff = (now or datetime.now(UTC)).year - 15
 
     def birth_like(m: re.Match[str]) -> str:
-        if int(m.group(3)) <= cutoff:
+        year = int(m.group(3) or m.group(4))
+        if year <= cutoff:
             report["dob"] = report.get("dob", 0) + 1
             return P.TOKENS["DOB"]
         return m.group(0)
@@ -71,19 +86,28 @@ def redact(
     if rx is not None:
         t = _sub(rx, P.TOKENS["NAME"], t, report, "name")
     if use_nlp:
-        spans = english_person_spans(t)
-        if spans:
-            engine = "regex+presidio"
-            out, last = [], 0
-            for s, e in spans:
-                if s < last:
-                    continue
-                out.append(t[last:s])
-                out.append(P.TOKENS["NAME"])
-                report["name"] = report.get("name", 0) + 1
-                last = e
-            out.append(t[last:])
-            t = "".join(out)
+        # spaCy's English model mislabels Arabic words as PERSON: only lines without Arabic go through it
+        lines = t.split("\n")
+        latin_idx = [
+            i for i, line in enumerate(lines) if line.strip() and not ARABIC_LETTER.search(line)
+        ]
+        if latin_idx:
+            chunk = "\n".join(lines[i] for i in latin_idx)
+            spans = english_person_spans(chunk)
+            if spans:
+                engine = "regex+presidio"
+                out, last = [], 0
+                for s, e in spans:
+                    if s < last:
+                        continue
+                    out.append(chunk[last:s])
+                    out.append(P.TOKENS["NAME"])
+                    report["name"] = report.get("name", 0) + 1
+                    last = e
+                out.append(chunk[last:])
+                for i, new_line in zip(latin_idx, "".join(out).split("\n"), strict=False):
+                    lines[i] = new_line
+                t = "\n".join(lines)
     t = _sub(P.NATIONALITY_LINE, P.TOKENS["NATIONALITY"], t, report, "nationality", "val")
     t = _sub(P.NATIONALITY, P.TOKENS["NATIONALITY"], t, report, "nationality")
     t = _sub(P.GENDER_LINE, P.TOKENS["GENDER"], t, report, "gender", "val")

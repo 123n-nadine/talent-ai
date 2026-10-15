@@ -19,7 +19,7 @@ from app.ocr.base import OCRProvider, OCRUnavailable
 from app.ocr.registry import get_ocr
 from app.redaction.engine import RedactionResult, redact
 from app.services import audit
-from app.services.candidates import data_hash
+from app.services.candidates import data_hash, doc_fingerprint
 from app.storage.models import Candidate, Document, Tenant
 
 
@@ -128,7 +128,7 @@ def attach_cv(
     db.flush()
     db.refresh(cand)
     cand.data_hash = data_hash(
-        cand.id_token, cand.facts, cand.answers, [d.sha256 for d in cand.documents]
+        cand.id_token, cand.facts, cand.answers, [doc_fingerprint(d) for d in cand.documents]
     )
     audit.log(
         db,
@@ -166,7 +166,7 @@ def remove_cv(
     db.flush()
     db.refresh(cand)
     cand.data_hash = data_hash(
-        cand.id_token, cand.facts, cand.answers, [d.sha256 for d in cand.documents]
+        cand.id_token, cand.facts, cand.answers, [doc_fingerprint(d) for d in cand.documents]
     )
     audit.log(
         db,

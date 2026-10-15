@@ -48,6 +48,11 @@ def normalise_facts(facts: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
+def doc_fingerprint(doc: Document) -> str:
+    """sha256 of the file plus the extraction outcome: re-processing a CV changes the input."""
+    return f"{doc.sha256}:{doc.status}:{hash_obj(doc.redacted_text or '')}"
+
+
 def data_hash(
     id_token: str | None, facts: dict[str, Any], answers: dict[str, Any], docs: list[str]
 ) -> str:
@@ -85,7 +90,7 @@ def upsert_candidate(
     cand.consent = data.consent
     days = data.retention_days or tenant.retention_days
     cand.retention_until = utcnow() + timedelta(days=days)
-    docs = [d.sha256 for d in cand.documents] if not created else []
+    docs = [doc_fingerprint(d) for d in cand.documents] if not created else []
     new_hash = data_hash(cand.id_token, cand.facts, cand.answers, docs)
     changed = new_hash != cand.data_hash
     cand.data_hash = new_hash

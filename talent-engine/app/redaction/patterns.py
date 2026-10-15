@@ -55,8 +55,15 @@ DOB_KEYWORD_LINE = re.compile(
     rf"{SEP}(?P<val>[^\n]{{0,25}}?(?:{DATE}|(?:19|20)\d{{2}}))",
     re.I,
 )
+DOB_KEYWORD = re.compile(
+    rf"(تاريخ\s+{kw('الميلاد', 'الولادة')}|{kw('المواليد', 'مواليد')}|date\s+of\s+birth|birth\s*date|\bd\.?o\.?b\b)",
+    re.I,
+)
+DOB_DIGITS = re.compile(r"\d[\d/\-. ]*\d|\d")
 # full day-month-year dates with a birth-like year (<= current year - 15): employment years stay
-FULL_DATE = re.compile(r"(?<!\d)(\d{1,2})[/\-.](\d{1,2})[/\-.]((?:19|20)\d{2})(?!\d)")
+FULL_DATE = re.compile(
+    r"(?<!\d)(?:(\d{1,2})\s?[/\-.]\s?(\d{1,2})\s?[/\-.]\s?((?:19|20)\d{2})|((?:19|20)\d{2})\s?[/\-.]\s?(\d{1,2})\s?[/\-.]\s?(\d{1,2}))(?!\d)"
+)
 AGE_LINE = re.compile(
     rf"({kw('العمر', 'السن')}|age){SEP}(?P<val>\d{{1,2}})(?:\s*(?:سنة|عامًا|عاما|years?))?", re.I
 )
