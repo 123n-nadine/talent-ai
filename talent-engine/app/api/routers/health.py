@@ -42,7 +42,7 @@ def ready(request: Request, settings: Settings = Depends(get_settings_dep)):
     else:
         checks["redis"] = {"ok": True, "note": "inline queue"}
     for t in tenants:
-        p_ok, note = provider_available(t.ai_provider, settings)
+        p_ok, note = provider_available(t.ai_provider, settings, t.ai_model or None, probe=True)
         checks[f"llm:{t.name}"] = {"ok": p_ok, "provider": t.ai_provider, "note": note}
         ok = ok and p_ok
     checks["ocr"] = {"ok": True, "provider": settings.ocr_provider, "note": "phase 2"}

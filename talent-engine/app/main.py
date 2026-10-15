@@ -46,7 +46,10 @@ def ensure_default_tenant(sessionmaker, settings: Settings) -> None:
                 callback_url=settings.callback_url or None,
                 callback_secret=settings.callback_secret or None,
                 ai_provider=settings.ai_provider,
-                ai_model=settings.llm_model if settings.ai_provider != "fake" else "fake-rubric-v1",
+                ai_model={
+                    "fake": "fake-rubric-v1",
+                    "cloud": settings.cloud_llm_model or settings.llm_model,
+                }.get(settings.ai_provider, settings.llm_model),
                 ocr_provider=settings.ocr_provider,
                 llm_timeout_s=settings.llm_timeout_s,
                 max_retries=settings.max_attempts,

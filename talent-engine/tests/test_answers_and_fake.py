@@ -2,7 +2,7 @@ from app.llm.base import JudgeRequest
 from app.llm.fake import FakeLLM, level_from_rubric
 from app.llm.templates import LANG_RUBRIC, SEC_QUESTIONS, SEC_SUPERVISOR_CRITERIA, YEARS_RUBRIC
 from app.pipeline.stages.answers import normalise_answers, normalise_one
-from app.pipeline.stages.evidence import verify_form_evidence
+from app.pipeline.stages.evidence import resolve, verify_form_evidence
 
 Q = {q["key"]: q for q in SEC_QUESTIONS}
 
@@ -59,8 +59,8 @@ def test_fake_judge_is_deterministic_and_cites_the_stored_answer():
     }
     norm = normalise_answers(SEC_QUESTIONS, answers)
     req = JudgeRequest(criteria=SEC_SUPERVISOR_CRITERIA, questions=Q, answers=norm)
-    j1 = FakeLLM().judge(req)
-    j2 = FakeLLM().judge(req)
+    j1 = [resolve(r, norm, None)[0] for r in FakeLLM().judge(req)]
+    j2 = [resolve(r, norm, None)[0] for r in FakeLLM().judge(req)]
     assert [(j.key, j.level) for j in j1] == [(j.key, j.level) for j in j2]
     levels = {j.key: j.level for j in j1}
     assert levels == {
@@ -79,7 +79,10 @@ def test_fake_judge_is_deterministic_and_cites_the_stored_answer():
 
 def test_missing_answer_is_missing_evidence_never_a_guess():
     norm = normalise_answers(SEC_QUESTIONS, {"years_sec": 6})
-    j = {x.key: x for x in FakeLLM().judge(JudgeRequest(SEC_SUPERVISOR_CRITERIA, Q, norm))}
+    j = {
+        x.key: resolve(x, norm, None)[0]
+        for x in FakeLLM().judge(JudgeRequest(SEC_SUPERVISOR_CRITERIA, Q, norm))
+    }
     assert j["supervision"].missing_evidence and j["supervision"].level == 0
     assert not j["security_exp"].missing_evidence and j["security_exp"].level == 100
 

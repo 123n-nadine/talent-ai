@@ -44,7 +44,7 @@ def create_screening(
     if cand is None:
         raise HTTPException(status_code=404, detail="candidate not found")
     try:
-        prov = get_provider(tenant.ai_provider, settings)
+        prov = get_provider(tenant.ai_provider, settings, tenant.ai_model or None)
     except ProviderNotAvailable as e:
         raise HTTPException(status_code=503, detail=str(e)) from e
     s, created = scr_svc.create_screening(

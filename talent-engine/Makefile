@@ -32,6 +32,12 @@ down:
 logs:
 > $(COMPOSE) logs -f --tail=100
 
+llm-logs:
+> $(COMPOSE) logs -f --tail=100 vllm
+
+gpu:
+> nvidia-smi --query-gpu=name,memory.total,memory.used,memory.free --format=csv
+
 ps:
 > $(COMPOSE) ps
 

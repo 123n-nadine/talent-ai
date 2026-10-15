@@ -6,7 +6,7 @@ Host systems plug in through a small adapter over HTTP; the first adapter is the
 
 ## Status
 
-Phase 1 (engine core, fake LLM, form answers only) and phase 2 (documents: text extraction, PaddleOCR on CPU for scans, redaction before any LLM step) are implemented. Next phases: local LLM and structured CV profile (3), evaluation (4), console (5).
+Phases 1–3 are implemented: engine core, documents (extraction, PaddleOCR on CPU, redaction) and the local LLM (vLLM with Qwen3-8B-AWQ on the shared GPU) producing a verified CV profile and evidence-backed judgements; the cloud path is the same client behind a setting. Next: evaluation (4), console (5).
 
 ## Run (Docker Compose project `talentai`, host ports 18000–18099)
 
@@ -33,6 +33,13 @@ curl -X PUT http://127.0.0.1:18000/v1/settings -H "Authorization: Bearer $(grep 
 - The API is published on **127.0.0.1:18000 and on the Tailscale address only** (`API_BIND_TAILSCALE` in `.env`), never on `0.0.0.0` or the LAN.
 - `make env` generates `TENANT_API_KEY`, `POSTGRES_PASSWORD`, `REDIS_PASSWORD` and `CALLBACK_SECRET`. To rotate the API key: change `TENANT_API_KEY` in `.env` and restart the api; the old key stops working immediately (audit event `tenant.key_rotated`).
 - Postgres password changes need a fresh volume (`docker compose -p talentai down -v` removes only our volumes) or an `ALTER USER` inside the container.
+
+## LLM (phase 3)
+
+- `vllm` compose service: `Qwen/Qwen3-8B-AWQ` served as `qwen3-8b-awq`, fp16, max 8192 tokens, `--gpu-memory-utilization 0.40`; reachable only as `http://vllm:8000/v1` inside the compose network. Weights download once into the `talentai_models` volume (`make llm-logs` to watch).
+- Providers: `local` (vLLM), `cloud` (any OpenAI-compatible endpoint: set `CLOUD_LLM_BASE_URL`, `CLOUD_LLM_MODEL`, `CLOUD_LLM_API_KEY`, then `PUT /v1/settings {"ai_provider":"cloud"}`), `fake` (tests). Switching probes the endpoint first.
+- Prompts in `prompts/` (`profile-v1`, `judge-v1`, `draft-criteria-v1`); the version is stored on every screening together with token usage and timings (`versions.llm_calls`, `versions.total_ms`).
+- With a readable CV the pipeline runs: profile (LLM) → evidence check (code: quotes must exist, years from dates) → judgement (LLM: form level + CV level with quote) → verification (code) → score. Contradictions take the lower level and go to Needs Review.
 
 ## Documents and OCR
 

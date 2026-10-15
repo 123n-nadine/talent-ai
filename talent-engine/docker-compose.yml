@@ -75,6 +75,52 @@ services:
       api:
         condition: service_healthy
 
+  # Local LLM (phase 3). GPU is shared: the memory cap is agreed with the colleagues (SERVER_REPORT).
+  # The port is reachable only inside the compose network (no host port).
+  vllm:
+    image: vllm/vllm-openai:${VLLM_IMAGE_TAG:-v0.31.0}
+    command:
+      - "--model"
+      - "${VLLM_MODEL:-Qwen/Qwen3-8B-AWQ}"
+      - "--served-model-name"
+      - "${LLM_MODEL:-qwen3-8b-awq}"
+      - "--quantization"
+      - "awq"
+      - "--dtype"
+      - "float16"
+      - "--max-model-len"
+      - "${VLLM_MAX_MODEL_LEN:-8192}"
+      - "--max-num-seqs"
+      - "${VLLM_MAX_NUM_SEQS:-8}"
+      - "--gpu-memory-utilization"
+      - "${VLLM_GPU_MEMORY_UTILIZATION:-0.40}"
+      - "--port"
+      - "8000"
+      - "--host"
+      - "0.0.0.0"
+    environment:
+      HF_HOME: /data/models/hf          # model weights live in the talentai models volume, never in git
+      HF_HUB_ENABLE_HF_TRANSFER: "0"
+      VLLM_LOGGING_LEVEL: INFO
+    volumes:
+      - models:/data/models
+    expose:
+      - "8000"
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 80
+      start_period: 300s
+
 volumes:
   pgdata:
   redisdata:

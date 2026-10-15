@@ -1,8 +1,9 @@
-"""Runs the 10-stage pipeline for one screening (ARCHITECTURE §4). Phase 1: form answers only."""
+"""Runs the 10-stage pipeline for one screening (ARCHITECTURE §4)."""
 
 from __future__ import annotations
 
 import logging
+import time
 import traceback
 from typing import Any
 
@@ -15,14 +16,15 @@ from app.domain.labels import NO_CV_NOTE
 from app.llm.base import JudgeRequest, LLMProvider
 from app.llm.registry import get_provider
 from app.pipeline.stages.answers import normalise_answers
-from app.pipeline.stages.evidence import verify_form_evidence
+from app.pipeline.stages.evidence import resolve
+from app.pipeline.stages.profile import verify_profile
 from app.rules.eligibility import evaluate
 from app.scoring.score import JudgedCriterion, compute, summary_text
 from app.services import audit
 from app.services.callback import send as send_callback
 from app.services.ranking import rank_of
 from app.services.screenings import REVIEW_FLAGS, SCORE_FLAGS, to_out
-from app.storage.models import CriterionResult, Screening, Tenant
+from app.storage.models import CriterionResult, Profile, Screening, Tenant
 
 log = logging.getLogger(__name__)
 
@@ -30,12 +32,19 @@ log = logging.getLogger(__name__)
 class StageTracker:
     def __init__(self, stages: list[dict[str, Any]]):
         self.stages = [dict(s) for s in stages]
+        self._t0: dict[str, float] = {}
+
+    def start(self, key: str) -> None:
+        self._t0[key] = time.time()
+        self.set(key, "running")
 
     def set(self, key: str, status: str, note: str | None = None) -> None:
         for s in self.stages:
             if s["key"] == key:
                 s["status"] = status
                 s["note"] = note
+                if key in self._t0 and status in ("done", "failed", "skipped"):
+                    s["ms"] = int((time.time() - self._t0.pop(key)) * 1000)
                 return
 
 
@@ -62,18 +71,24 @@ def run_screening(
     s.attempts = (s.attempts or 0) + 1
     tracker = StageTracker(s.stages or [])
     db.commit()
+    t_start = time.time()
 
     try:
-        prov = provider or get_provider(tenant.ai_provider, settings)
+        prov = provider or get_provider(tenant.ai_provider, settings, tenant.ai_model or None)
         version, cand = s.job_version, s.candidate
+        tracker.start("intake")
         tracker.set("intake", "done")
 
+        tracker.start("answers")
         answers = normalise_answers(version.questions, cand.answers)
         answered = sum(1 for a in answers.values() if a.answered)
         tracker.set("answers", "done", f"{answered} من {len(version.questions)} إجابات")
 
         extra_flags = {f for f in (s.flags or []) if f not in SCORE_FLAGS}
         cv = next((d for d in cand.documents if d.kind == "cv"), None)
+        redacted_text: str | None = None
+        derived: dict[str, Any] = {}
+        llm_calls: list[dict[str, Any]] = []
         if cv is None:
             for key in ("cv_text", "redaction", "profile", "evidence_check"):
                 tracker.set(key, "skipped", NO_CV_NOTE)
@@ -92,8 +107,38 @@ def run_screening(
                 if counts
                 else "لم يُعثر على بيانات شخصية",
             )
-            tracker.set("profile", "skipped", "يُفعَّل في المرحلة 3")
-            tracker.set("evidence_check", "skipped", "يُفعَّل في المرحلة 3")
+            redacted_text = cv.redacted_text or ""
+            if prov.name == "fake":
+                tracker.set("profile", "skipped", "المزوّد الوهمي لا يقرأ السيرة")
+                tracker.set("evidence_check", "skipped", "لا ملف منظّم")
+            else:
+                tracker.start("profile")
+                raw_profile = prov.profile(redacted_text)
+                llm_calls.append({"task": "profile", **getattr(prov, "last_usage", {})})
+                tracker.start("evidence_check")
+                vp = verify_profile(raw_profile, redacted_text, settings.quote_match_threshold)
+                derived = vp.derived
+                n_items = sum(
+                    len(vp.data[k])
+                    for k in ("experience", "certifications", "skills", "languages", "education")
+                )
+                tracker.set("profile", "done", f"{n_items + vp.dropped} عنصر مستخرج")
+                tracker.set(
+                    "evidence_check",
+                    "done",
+                    f"{n_items} عنصر بدليل حرفي، {vp.dropped} حُذف لعدم وجود الاقتباس · "
+                    f"خبرة {derived['total_experience_years']} سنة · إشراف {derived['supervision_years']} سنة",
+                )
+                for old_profile in db.query(Profile).filter(Profile.candidate_id == cand.id).all():
+                    db.delete(old_profile)
+                db.add(
+                    Profile(
+                        id=new_id("prof"),
+                        candidate_id=cand.id,
+                        schema_version=settings.profile_schema_version,
+                        data=vp.data,
+                    )
+                )
         else:
             extra_flags.add("cv_unreadable")
             tracker.set(
@@ -102,6 +147,7 @@ def run_screening(
             for key in ("redaction", "profile", "evidence_check"):
                 tracker.set(key, "skipped", "لا نص للسيرة")
 
+        tracker.start("eligibility")
         elig = evaluate(cand.facts, version.rules)
         tracker.set(
             "eligibility",
@@ -113,15 +159,25 @@ def run_screening(
             }[elig.status],
         )
 
+        tracker.start("judgement")
         questions = {q["key"]: q for q in version.questions}
-        judgements = prov.judge(
-            JudgeRequest(criteria=version.criteria, questions=questions, answers=answers)
+        raw_judgements = prov.judge(
+            JudgeRequest(
+                criteria=version.criteria,
+                questions=questions,
+                answers=answers,
+                redacted_text=redacted_text,
+                derived=derived,
+            )
         )
+        if prov.name != "fake":
+            llm_calls.append({"task": "judge", **getattr(prov, "last_usage", {})})
+        by_key = {j.key: j for j in raw_judgements}
         rows: list[JudgedCriterion] = []
-        by_key = {j.key: j for j in judgements}
+        problems: list[str] = []
         for c in version.criteria:
-            j = by_key.get(c["key"])
-            if j is None:
+            raw = by_key.get(c["key"])
+            if raw is None:
                 rows.append(
                     JudgedCriterion(
                         c["key"],
@@ -136,9 +192,8 @@ def run_screening(
                     )
                 )
                 continue
-            j, mismatch = verify_form_evidence(j, answers)
-            if mismatch:
-                extra_flags.add("evidence_mismatch")
+            j, probs = resolve(raw, answers, redacted_text, settings.quote_match_threshold)
+            problems.extend(probs)
             rows.append(
                 JudgedCriterion(
                     c["key"],
@@ -150,12 +205,22 @@ def run_screening(
                     j.field,
                     j.evidence,
                     j.missing_evidence,
+                    contradiction=j.contradiction,
+                    confirmed_by_cv=j.confirmed_by_cv,
                 )
             )
+        if "evidence_mismatch" in problems:
+            extra_flags.add("evidence_mismatch")
+        if "quote_not_found" in problems:
+            extra_flags.add("quote_not_found")
+        n_ev = sum(1 for r in rows if not r.missing_evidence)
+        n_cv = sum(1 for r in rows if r.confirmed_by_cv)
+        n_contra = sum(1 for r in rows if r.contradiction)
         tracker.set(
-            "judgement", "done", f"{sum(1 for r in rows if not r.missing_evidence)} معيار بدليل"
+            "judgement", "done", f"{n_ev} معيار بدليل · {n_cv} تؤكده السيرة · {n_contra} تعارض"
         )
 
+        tracker.start("scoring")
         result = compute(rows)
         tracker.set(
             "scoring", "done", f"الدرجة {result.score:g} · التغطية {round(result.coverage * 100)}%"
@@ -200,6 +265,8 @@ def run_screening(
             "model": prov.model,
             "prompt": prov.prompt_version,
             "profile_schema": settings.profile_schema_version,
+            "llm_calls": llm_calls,
+            "total_ms": int((time.time() - t_start) * 1000),
         }
         review = (
             result.needs_review or elig.status == "needs_review" or bool(extra_flags & REVIEW_FLAGS)
@@ -223,6 +290,7 @@ def run_screening(
                 "eligibility": s.eligibility,
                 "flags": s.flags,
                 "job_version": version.version,
+                "total_ms": s.versions["total_ms"],
             },
         )
         db.commit()
@@ -272,9 +340,8 @@ def execute_with_retries(
     sessionmaker: Any, settings: Settings, screening_id: str, provider: LLMProvider | None = None
 ) -> str:
     """Run a screening; on engine errors retry with backoff until the tenant's max_retries."""
-    import time
-
     backoff = settings.retry_backoff or [0.0]
+    status = "queued"
     for i in range(max(1, settings.max_attempts) + 10):
         with sessionmaker() as db:
             s = run_screening(db, settings, screening_id, provider=provider)

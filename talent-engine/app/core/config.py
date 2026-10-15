@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     llm_model: str = "qwen3-8b-awq"
     llm_timeout_s: int = 120
     llm_max_retries: int = 2
+    cloud_llm_base_url: str = "https://api.openai.com/v1"
     cloud_llm_model: str = ""
     cloud_llm_api_key: str = ""
     ocr_provider: str = "none"  # none | paddle_cpu | paddle_vl | cloud
@@ -46,6 +47,7 @@ class Settings(BaseSettings):
     callback_max_age_s: int = 300
 
     profile_schema_version: str = "1.0"
+    quote_match_threshold: float = 0.9  # fuzzy ratio for CV quotes after Arabic normalisation
 
     # documents (phase 2)
     max_upload_mb: int = 10

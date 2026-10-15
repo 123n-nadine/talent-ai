@@ -25,7 +25,7 @@ def draft_criteria(
     settings: Settings = Depends(get_settings_dep),
 ):
     try:
-        prov = get_provider(tenant.ai_provider, settings)
+        prov = get_provider(tenant.ai_provider, settings, tenant.ai_model or None)
     except ProviderNotAvailable as e:
         raise HTTPException(status_code=503, detail=str(e)) from e
     d = prov.draft_criteria(data.title, data.description)
@@ -98,7 +98,7 @@ def rescreen(
     if version is None:
         raise HTTPException(status_code=409, detail="job has no approved version")
     try:
-        prov = get_provider(tenant.ai_provider, settings)
+        prov = get_provider(tenant.ai_provider, settings, tenant.ai_model or None)
     except ProviderNotAvailable as e:
         raise HTTPException(status_code=503, detail=str(e)) from e
     queued: list[str] = []

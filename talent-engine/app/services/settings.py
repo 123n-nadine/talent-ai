@@ -19,7 +19,7 @@ class SettingsError(ValueError):
 
 
 def settings_out(tenant: Tenant, settings: Settings) -> dict[str, Any]:
-    ok, why = provider_available(tenant.ai_provider, settings)
+    ok, why = provider_available(tenant.ai_provider, settings, tenant.ai_model or None, probe=True)
     return {
         "tenant": tenant.name,
         "ai_provider": tenant.ai_provider,
@@ -50,10 +50,16 @@ def update_settings(
 ) -> Tenant:
     changes: dict[str, Any] = {}
     if data.ai_provider is not None and data.ai_provider != tenant.ai_provider:
-        ok, why = provider_available(data.ai_provider, settings)
+        ok, why = provider_available(data.ai_provider, settings, data.ai_model, probe=True)
         if not ok:
             raise SettingsError(why)
         changes["ai_provider"] = data.ai_provider
+        if data.ai_model is None:  # the model follows the provider unless given explicitly
+            changes["ai_model"] = {
+                "fake": "fake-rubric-v1",
+                "local": settings.llm_model,
+                "cloud": settings.cloud_llm_model or settings.llm_model,
+            }[data.ai_provider]
     for fld in (
         "ai_model",
         "ocr_provider",

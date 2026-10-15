@@ -1,10 +1,11 @@
-"""LLM provider contract. The provider judges; the engine computes."""
+"""LLM provider contract. The provider judges and extracts; the engine verifies and computes."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
+from app.llm.schemas import CandidateProfile, CriterionJudgement
 from app.pipeline.stages.answers import NormalisedAnswer
 
 
@@ -13,12 +14,14 @@ class JudgeRequest:
     criteria: list[dict[str, Any]]  # job version criteria (dicts, as stored)
     questions: dict[str, dict[str, Any]]  # question key -> question dict
     answers: dict[str, NormalisedAnswer]  # question key -> normalised answer
-    profile: dict[str, Any] | None = None  # verified CV profile (phase 3), redacted
-    redacted_text: str | None = None
+    redacted_text: str | None = None  # redacted CV text (phase 3)
+    derived: dict[str, Any] = field(default_factory=dict)  # facts computed in code from the profile
 
 
 @dataclass
 class Judgement:
+    """A judgement after the engine verified its evidence (what scoring consumes)."""
+
     key: str
     level: int
     source: str | None  # form_field | cv_quote
@@ -26,6 +29,10 @@ class Judgement:
     evidence: str | None
     missing_evidence: bool = False
     rationale: str = ""
+    contradiction: bool = False
+    confirmed_by_cv: bool = False
+    form_level: int | None = None
+    cv_level: int | None = None
 
 
 @dataclass
@@ -41,7 +48,9 @@ class LLMProvider(Protocol):
     model: str
     prompt_version: str
 
-    def judge(self, req: JudgeRequest) -> list[Judgement]: ...
+    def judge(self, req: JudgeRequest) -> list[CriterionJudgement]: ...
+
+    def profile(self, redacted_text: str) -> CandidateProfile: ...
 
     def draft_criteria(self, title: str, description: str) -> DraftCriteria: ...
 
@@ -50,3 +59,7 @@ class LLMProvider(Protocol):
 
 class ProviderNotAvailable(RuntimeError):
     pass
+
+
+class LLMOutputError(RuntimeError):
+    """The model did not return valid JSON for the schema, even after one repair attempt."""
