@@ -8,7 +8,15 @@ import secrets
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SECRET_KEYS = ("POSTGRES_PASSWORD", "REDIS_PASSWORD", "TENANT_API_KEY", "CALLBACK_SECRET")
+SECRET_KEYS = (
+    "POSTGRES_PASSWORD",
+    "REDIS_PASSWORD",
+    "TENANT_API_KEY",
+    "CALLBACK_SECRET",
+    "CONSOLE_PASSWORD",
+    "CONSOLE_SESSION_SECRET",
+    "CONSOLE_ID_TOKEN_SECRET",
+)
 
 
 def main() -> int:

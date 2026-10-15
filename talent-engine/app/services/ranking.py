@@ -7,6 +7,7 @@ from typing import Any
 
 from sqlalchemy.orm import Session
 
+from app.core.timeutil import iso
 from app.domain.labels import GROUP_REASONS, SCORE_DISCLAIMER
 from app.services.screenings import is_current, latest_per_candidate
 from app.storage.models import Job, Screening, Tenant
@@ -53,6 +54,10 @@ def _item(s: Screening, rank: int | None, reason_ar: str, reason_en: str) -> dic
         "job_version": s.job_version.version,
         "reason_ar": reason_ar or None,
         "reason_en": reason_en or None,
+        "created_at": iso(s.created_at),
+        "completed_at": iso(s.completed_at),
+        "duplicate_of": s.duplicate_of,
+        "needs_review": s.needs_review,
     }
 
 

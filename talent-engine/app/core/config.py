@@ -41,6 +41,13 @@ class Settings(BaseSettings):
     tenant_api_key: str = "dev-talentai-key-change-me"
     allowed_facts: str = "nationality,height_cm,weight_kg,age"
 
+    # Talent Console (served under /console on the API port; API key never reaches the browser)
+    console_user: str = "nadine"
+    console_password: str = ""  # empty = console login disabled
+    console_session_secret: str = ""  # empty = derived from the tenant API key
+    console_id_token_secret: str = "console-dev-id-token-secret"  # the host's HMAC secret stand-in
+    console_session_hours: int = 12
+
     callback_url: str = ""
     callback_secret: str = ""
     callback_timeout_s: float = 10.0

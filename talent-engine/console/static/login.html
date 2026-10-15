@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talent Console — تسجيل الدخول</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/console/static/app.css">
+<style>
+.login{min-height:100vh;display:grid;place-items:center;background:var(--bg)}
+.login .card{width:min(420px,92vw);padding:28px}
+.login h1{font-size:20px;margin:0 0 4px;color:var(--blue)}
+.login .field{margin-top:12px}
+.login .btn{width:100%;margin-top:16px;justify-content:center}
+.login .err{color:var(--red);font-size:13px;min-height:18px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="login"><form class="card" method="post" action="/console/login" autocomplete="off">
+  <h1>✦ Talent Console</h1>
+  <p class="hint" style="margin:0">واجهة اختبار محرّك الفرز الذكي · للاستخدام الداخلي</p>
+  <div class="field"><label>اسم المستخدم</label><input name="username" required autofocus></div>
+  <div class="field"><label>كلمة المرور</label><input name="password" type="password" required></div>
+  <div class="err">{{error}}</div>
+  <button class="btn primary" type="submit">دخول</button>
+  <p class="hint" style="margin-top:14px">مفتاح الـ API لا يُستخدم من المتصفح؛ الجلسة كوكي موقّع ينتهي بعد 12 ساعة.</p>
+</form></div>
+</body>
+</html>

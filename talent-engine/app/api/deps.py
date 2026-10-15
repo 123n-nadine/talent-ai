@@ -25,18 +25,37 @@ def get_db(request: Request) -> Iterator[Session]:
         db.close()
 
 
+def console_user(request: Request) -> str | None:
+    from app.console.auth import COOKIE, verify
+
+    return verify(request.app.state.settings, request.cookies.get(COOKIE))
+
+
 def get_tenant(
+    request: Request,
     db: Session = Depends(get_db),
     authorization: str | None = Header(default=None),
 ) -> Tenant:
-    if not authorization or not authorization.lower().startswith("bearer "):
-        raise HTTPException(status_code=401, detail="missing API key (Authorization: Bearer <key>)")
-    key = authorization.split(" ", 1)[1].strip()
-    tenant = db.scalar(select(Tenant).where(Tenant.api_key_hash == hash_api_key(key)))
-    if tenant is None:
-        raise HTTPException(status_code=401, detail="invalid API key")
-    return tenant
+    """API key (adapters) or a console session cookie (the console acts on the default tenant)."""
+    if authorization and authorization.lower().startswith("bearer "):
+        key = authorization.split(" ", 1)[1].strip()
+        tenant = db.scalar(select(Tenant).where(Tenant.api_key_hash == hash_api_key(key)))
+        if tenant is None:
+            raise HTTPException(status_code=401, detail="invalid API key")
+        return tenant
+    user = console_user(request)
+    if user:
+        settings: Settings = request.app.state.settings
+        tenant = db.scalar(select(Tenant).where(Tenant.name == settings.tenant_name))
+        if tenant is not None:
+            return tenant
+    raise HTTPException(
+        status_code=401, detail="missing API key (Authorization: Bearer <key>) or console session"
+    )
 
 
-def actor_from(x_talent_actor: str | None = Header(default=None)) -> str:
-    return (x_talent_actor or "adapter").strip()[:140]
+def actor_from(request: Request, x_talent_actor: str | None = Header(default=None)) -> str:
+    if x_talent_actor:
+        return x_talent_actor.strip()[:140]
+    user = console_user(request)
+    return f"console:{user}" if user else "adapter"
