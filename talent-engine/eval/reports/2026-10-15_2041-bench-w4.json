@@ -1,0 +1,16 @@
+{
+  "label": "w4",
+  "date": "2026-10-15T20:41:10.477752+00:00",
+  "n": 100,
+  "workers": 4,
+  "with_cv": 54,
+  "submit_s": 74.8,
+  "processing_wall_s": 467.5,
+  "total_wall_s": 542.3,
+  "failed": [],
+  "per_applicant_pipeline_mean_s": 18.13,
+  "throughput_applicants_per_min": 12.8,
+  "projected_1000_min": 77.9,
+  "gpu_used_mib_max": 9484,
+  "gpu_used_mib_mean": 9294
+}

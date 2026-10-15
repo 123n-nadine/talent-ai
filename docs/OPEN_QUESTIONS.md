@@ -13,9 +13,9 @@ Questions we still need answered to finish or deploy. The discovery's own lists 
 | 7 | Consent text (Arabic) for the application form, and the retention period for applicants' data | Client (PDPL) | Phase 6 | open |
 | 8 | Dedicated API user / key on the client site for the engine callback, with minimum permissions | Frappe team | deploy | open |
 | 9 | Production time zone (demo runs Africa/Cairo; our dev site uses Asia/Riyadh) | Frappe team | deploy | open |
-| 12 | Judge quality of Qwen3-8B-AWQ on Turing: generation ~45 tokens/s, one applicant with a CV takes ~15–20 s (profile + judgement). The gold set (phase 4) decides whether the 8B model is good enough or a 14B/Arabic model is needed; vLLM on this GPU runs with the Triton attention backend (no FlashAttention) | us | phase 4 | open |
+| 12 | (answered 2026-10-15, see EVALUATION_REPORT) Judge quality of Qwen3-8B-AWQ on Turing: generation ~45 tokens/s, one applicant with a CV takes ~15–20 s (profile + judgement). The gold set (phase 4) decides whether the 8B model is good enough or a 14B/Arabic model is needed; vLLM on this GPU runs with the Triton attention backend (no FlashAttention) | us | phase 4 | open |
 | 11 | OCR confidence threshold: PaddleOCR on the synthetic scanned Arabic CV scores ~0.74 (length-weighted). The 0.80 default sends every scan to Needs Review. Calibrate on the gold set (phase 4) against real-looking scans before deciding | us | phase 4 | open |
-| 10 | RQ worker overhead: the pipeline takes ~0.5 s per application with the fake provider, but each RQ job adds ~1.5 s (fork + new DB engine per job). Options: keep a warm engine/session factory in the worker process, batch several screenings per job, or more workers. Decide with the real numbers of the phase 4 report (time per 1000) | us | phase 4 | deferred (Nadine, 2026-10-15) |
+| 10 | RQ worker overhead: the pipeline takes ~0.5 s per application with the fake provider, but each RQ job adds ~1.5 s (fork + new DB engine per job). Options: keep a warm engine/session factory in the worker process, batch several screenings per job, or more workers. Decide with the real numbers of the phase 4 report (time per 1000) | us | phase 4 | measured in phase 4: minor next to LLM time (EVALUATION_REPORT §2) |
 
 ## Answered
 

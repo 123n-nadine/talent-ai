@@ -23,8 +23,10 @@ fmt:
 typecheck:
 > uv run mypy app
 
+WORKERS ?= 4
+
 up:
-> $(COMPOSE) up -d --build
+> $(COMPOSE) up -d --build --scale worker=$(WORKERS)
 
 down:
 > $(COMPOSE) down
