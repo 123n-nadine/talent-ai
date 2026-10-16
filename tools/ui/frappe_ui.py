@@ -11,7 +11,7 @@ CHROME = "/opt/google/chrome/chrome"
 class Browser:
     def __init__(self, base, shots, port=18091, width=1440, height=1000, lang="ar"):
         self.base, self.shots, self.port, self.w, self.h = base.rstrip("/"), shots, port, width, height
-        self.errors, self.mid = [], 0
+        self.errors, self.mid, self.lang = [], 0, lang
         os.makedirs(shots, exist_ok=True)
 
     async def __aenter__(self):
@@ -33,6 +33,8 @@ class Browser:
         for d in ("Page.enable", "Runtime.enable", "Log.enable", "Network.enable"):
             await self.call(d)
         await self.call("Emulation.setDeviceMetricsOverride", {"width": self.w, "height": self.h, "deviceScaleFactor": 1, "mobile": False})
+        if self.lang == "ar":  # like a browser in Saudi Arabia (Frappe picks the guest language from it)
+            await self.call("Network.setExtraHTTPHeaders", {"headers": {"Accept-Language": "ar-SA,ar;q=0.9,en;q=0.5"}})
         return self
 
     async def __aexit__(self, *a):
@@ -89,6 +91,8 @@ class Browser:
             params["captureBeyondViewport"] = True
         if selector:
             box = await self.ev(f"(() => {{ const r = document.querySelector({json.dumps(selector)}).getBoundingClientRect(); return {{x: r.x + window.scrollX, y: r.y + window.scrollY, w: r.width, h: Math.min(r.height, 6000)}}; }})()")
+            if not box or "x" not in box:
+                raise RuntimeError(f"{name}: element {selector} not found")
             params["clip"] = {"x": box["x"], "y": box["y"], "width": box["w"], "height": box["h"], "scale": 1}
             params["captureBeyondViewport"] = True
         res = await self.call("Page.captureScreenshot", params)

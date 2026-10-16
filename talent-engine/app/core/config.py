@@ -32,6 +32,15 @@ class Settings(BaseSettings):
     ocr_provider: str = "none"  # none | paddle_cpu | paddle_vl | cloud
     ocr_min_confidence: float = 0.80
     embedding_model: str = "Qwen/Qwen3-Embedding-0.6B"
+    # talent pool (feature 13): none | fake | local (internal embed service) | cloud
+    embedding_provider: str = "fake"
+    embedding_base_url: str = "http://embed:8001/v1"
+    embedding_dim: int = 1024
+    embedding_timeout_s: float = 60
+    cloud_embedding_base_url: str = "https://api.openai.com/v1"
+    cloud_embedding_model: str = ""
+    cloud_embedding_api_key: str = ""
+    pool_cv_chars: int = 1500  # redacted CV text included in a profile embedding
     file_store: str = "./data/files"
     retention_days_default: int = 365
     max_attempts: int = 3

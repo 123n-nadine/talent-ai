@@ -121,6 +121,25 @@ services:
       retries: 80
       start_period: 300s
 
+  embed:
+    # talent pool embeddings: Qwen3-Embedding-0.6B on CPU, internal network only (no host port)
+    build: ./embed
+    image: talentai/embed:dev
+    environment:
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-Qwen/Qwen3-Embedding-0.6B}
+      EMBED_THREADS: "4"
+      HF_HOME: /data/models/hf
+    volumes:
+      - models:/data/models
+    expose:
+      - "8001"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8001/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 40
+      start_period: 180s
+
 volumes:
   pgdata:
   redisdata:

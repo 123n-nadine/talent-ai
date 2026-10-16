@@ -61,3 +61,21 @@ Problems found and fixed:
 Decisions taken alone:
 - The acceptance run changes the demo (a decision, profile v2, an engine outage, test applications); the demo is rebuilt with `dev-frappe/reset_demo.sh` afterwards so Nadine starts from the clean state.
 - The engine outage in A6 was produced by stopping our own `talentai-api` container for ~3 minutes and starting it again; nothing else on the server was touched.
+
+## Phase 8 — talent pool (feature 13); comparison (feature 10)
+
+Done (branch `phase-8-pool`):
+- **Comparison** (feature 10) was built in phase 6 on the ranking page and checked in phase 7: 2–3 applicants of the same opening, criterion by criterion with their evidence.
+- **Engine**: an embeddings gateway like the LLM one (`fake` | `local` | `cloud`), a new internal service `embed` (Qwen3-Embedding-0.6B on CPU, OpenAI-compatible, ~2.8 GB RAM, ~0.5–1 s per profile, no GPU), stage 10 «الفهرسة» indexes the verified profile after each screening (only with consent and inside the retention period), and `POST /v1/talent-pool/search`: hard rules first (code), then cosine similarity between the opening and the profile; excluded with the reason: consent withdrawn, retention ended, already applied, not eligible (with the failed rule), older duplicate. Withdrawn consent deletes the stored profile. 405 existing profiles re-indexed in ~6.5 minutes.
+- **Frappe**: page «بنك المتقدمين» (`/desk/ai-talent-pool`) from an opening, the button «سحب موافقة المعالجة» on the applicant (reason required, audited; no new processing afterwards), second demo opening «مشرف أمن — جدة», and two demo cases (consent withdrawn: 2014; old application with ended retention: 2019). Result on the demo: 16 suggestions, 8 excluded with the reason.
+- **Walkthrough** `docs/WALKTHROUGH.md` (Egyptian Arabic, guide order 0–15) with screenshots in `docs/screenshots/`, taken by `tools/ui/walkthrough_shots.py` on the clean demo; no JS errors.
+- Tests: engine 109, Frappe app 13.
+
+Decisions taken alone:
+- **Embeddings on CPU in a separate service** rather than in the API/worker processes: the RQ workers fork per job (the model would load every time), the GPU cap of 0.40 is already used by vLLM, and an OpenAI-compatible endpoint keeps the provider switchable to cloud like the LLM. Model download ~1.2 GB and image 1.9 GB (both under the 5 GB rule), stored in our volume.
+- **What is embedded**: the verified profile, not the raw CV: criteria with level and evidence, structured answers (no free text), and the first 1500 characters of the redacted CV. Identity never enters the vector.
+- **One suggestion per person**: when the same ID token applied several times, the newest application is suggested and the older ones are listed as «طلب أحدث لنفس الشخص موجود».
+- **Suggestions are filtered to the host's own applicants** in the app, because the engine tenant is shared with the console's test data on this server.
+- **Old-application demo case**: the creation date of one synthetic application is set to 2024-09-15 in the dev site so its retention period has ended; marked as a simulation in `seed_demo.pool_cases`.
+- The public HRMS pages follow the browser language for guests (standard Frappe); the walkthrough explains `?_lang=ar`. Our own form is Arabic first in any case.
+- Form helper objects are exposed on `window` (Frappe evaluates form scripts inside a function), so they can be reached by tests.

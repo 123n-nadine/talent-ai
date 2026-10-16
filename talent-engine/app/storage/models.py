@@ -238,6 +238,10 @@ class Embedding(Base):
     )
     model: Mapped[str] = mapped_column(String(120))
     vector: Mapped[Any] = mapped_column(VectorType)
+    screening_id: Mapped[str | None] = mapped_column(
+        String(40)
+    )  # the screening the profile came from
+    text_hash: Mapped[str | None] = mapped_column(String(64))  # sha256 of the embedded profile text
     created_at: Mapped[datetime] = mapped_column(TS, default=utcnow)
 
 

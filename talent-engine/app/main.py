@@ -10,6 +10,7 @@ from sqlalchemy import select
 
 from app.api.routers import audit, candidates, console, documents, health, jobs, screenings
 from app.api.routers import settings as settings_router
+from app.api.routers import talent_pool as talent_pool_router
 from app.core.config import Settings, get_settings
 from app.core.ids import new_id
 from app.core.logging import setup_logging
@@ -95,6 +96,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(screenings.router)
     app.include_router(settings_router.router)
     app.include_router(audit.router)
+    app.include_router(talent_pool_router.router)
     app.include_router(console.router)
 
     @app.get("/", include_in_schema=False)

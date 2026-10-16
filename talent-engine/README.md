@@ -6,7 +6,7 @@ Host systems plug in through a small adapter over HTTP; the first adapter is the
 
 ## Status
 
-Phases 1–3 are implemented: engine core, documents (extraction, PaddleOCR on CPU, redaction) and the local LLM (vLLM with Qwen3-8B-AWQ on the shared GPU) producing a verified CV profile and evidence-backed judgements; the cloud path is the same client behind a setting. Next: evaluation (4), console (5).
+Phases 1–8 are implemented: engine core, documents (extraction, PaddleOCR on CPU, redaction), the local LLM (vLLM with Qwen3-8B-AWQ on the shared GPU; cloud is the same client behind a setting), evaluation, the Talent Console, the Frappe adapter's needs (impact preview, job deletion, application time) and the talent pool (CPU embeddings). Status and decisions: `../docs/PROGRESS.md`.
 
 ## Run (Docker Compose project `talentai`, host ports 18000–18099)
 
@@ -49,6 +49,13 @@ Open `http://127.0.0.1:18000/console` on the server or `http://100.85.37.127:180
 - Providers: `local` (vLLM), `cloud` (any OpenAI-compatible endpoint: set `CLOUD_LLM_BASE_URL`, `CLOUD_LLM_MODEL`, `CLOUD_LLM_API_KEY`, then `PUT /v1/settings {"ai_provider":"cloud"}`), `fake` (tests). Switching probes the endpoint first.
 - Prompts in `prompts/` (`profile-v1`, `judge-v1`, `draft-criteria-v1`); the version is stored on every screening together with token usage and timings (`versions.llm_calls`, `versions.total_ms`).
 - With a readable CV the pipeline runs: profile (LLM) → evidence check (code: quotes must exist, years from dates) → judgement (LLM: form level + CV level with quote) → verification (code) → score. Contradictions take the lower level and go to Needs Review.
+
+## Talent pool (feature 13)
+
+- Service `embed` (internal network only): Qwen3-Embedding-0.6B on **CPU** (~2.8 GB RAM, ~0.5 s per profile), OpenAI-compatible `POST /v1/embeddings`; weights in the `talentai_models` volume. The GPU stays with vLLM under its cap.
+- `EMBEDDING_PROVIDER` = `local` (the embed service) | `cloud` (needs `CLOUD_EMBEDDING_API_KEY`) | `fake` (tests) | `none`.
+- Stage 10 of every screening indexes the verified profile (levelled criteria with evidence, structured answers, start of the redacted CV), only with consent and inside the retention period.
+- `POST /v1/talent-pool/search {job_ref}`: hard rules first, then similarity; excluded with the reason (consent withdrawn, retention ended, already applied, not eligible, older duplicate). Suggestions only. `GET /v1/talent-pool/status`, `POST /v1/talent-pool/reindex`.
 
 ## Documents and OCR
 
