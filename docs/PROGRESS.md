@@ -80,7 +80,7 @@ Decisions taken alone:
 - The public HRMS pages follow the browser language for guests (standard Frappe); the walkthrough explains `?_lang=ar`. Our own form is Arabic first in any case.
 - Form helper objects are exposed on `window` (Frappe evaluates form scripts inside a function), so they can be reached by tests.
 
-## Round 2 — completion, design pass, full browser test, guide (autonomous, 2026-10-16/17)
+## Round 2 — completion, design pass, full browser test, guide (autonomous, 2026-10-16)
 
 ### Part 1 — what was missing (merged as `p9-completion`)
 - Frappe home page «التوظيف الذكي» (`/desk/ai-recruitment`): nine cards in the order Nadine gave, one line under each, live counts; HR Manager and HR User land on it after login (login hook), Arabic set for new HR users; a card the role cannot open shows «غير متاح لدورك».
@@ -111,3 +111,16 @@ Decisions taken alone:
 - **Synthetic Employee records for the demo users** that need the Employee or Employee Self Service role (ERPNext removes those roles from a user without one).
 - **A CV problem never fails a screening**, including a file the platform cannot read or the engine refuses: a note for HR and the assessment from the answers (decision 14 applied to the upload step too); only an engine outage is retried.
 - **«إعادة تقييم الكل» skips applicants without consent** and reports how many; how to show them afterwards is OPEN_QUESTIONS #21.
+
+### Part 3 — the guide (branch `p12-guide`)
+`tools/guide/build.py` builds `docs/guide/talent-ai-full-guide.pdf` (Chrome `page.pdf`, A4, right to left, IBM Plex Sans Arabic) and `docs/guide/talent-ai-full-guide.docx` (python-docx) from the same content (`tools/guide/ch_*.py`), the real numbers of the clean demo (`facts.py` → `docs/guide/facts.json`) and 83 screenshot pages (`shots.py`, read-only on the demo; `docshots.py` for the terminal views). Sixteen chapters in Egyptian Arabic for HR readers; a box «للفريق التقني» on each page names the inventory items the page explains, and the appendix lists the rest.
+- **Writing rules checked by code** (`lint_ar.py`): no «يتم», «حيث», «وذلك»; every line starts with an Arabic word; English only at the end of a line or on its own line; no two sentences in a row start with the same word.
+- **Page checks by code** on the PDF and on the Word file converted to PDF by LibreOffice: no picture outside the page, no two text lines drawn over each other, nothing in the footer but the page number, no text at the paper edge, every chapter page starts with its own title (so a page that only holds the tail of the previous one is caught). Every page of both files was also looked at as an image.
+- **Inventory from the code** (`inventory.py` → `docs/guide/inventory.json`) and `docs/guide/COVERAGE.md` (guide page, screenshot and test of every item); `coverage_check.py` reads the routes, DocTypes, endpoints and commands from the code again and compares.
+- Bug found while taking the screenshots: the Talent AI section of the Job Opening sat in the «تفاصيل الراتب» (Pay Details) tab (G1, fixed with a test).
+- Found by the final test run: the real `make install` of the commands check is a plain `uv sync`, which keeps only the `dev` group, so it removed PaddleOCR, Presidio and spaCy from the local `.venv` and the two English-name redaction tests were skipped (110 passed, 3 skipped). Restored from the uv cache with `uv sync --group documents --offline` (112 passed, 1 skipped, as before); the engine README now names that command.
+
+Decisions taken alone:
+- **Screenshots cut to the part the page explains**: a screen taller than the room left on its page keeps its top part, cut on an empty pixel row, so it prints at the full text width and stays readable; the full screenshots stay in `docs/guide/images/steps/`.
+- **Page numbers read from the printed PDF**: the contents and the index take their numbers from the PDF's named destinations after a first print, and the PDF is printed again; the Word file uses PAGEREF fields.
+- **The Word file is checked through LibreOffice**: there is no Microsoft Word on the server, so the Word file is converted to PDF by LibreOffice for the page checks; Word may break a few pages differently, and the page fields keep the numbers right.

@@ -1,0 +1,72 @@
+{
+ "pdf": {
+  "pages": 123,
+  "problems": []
+ },
+ "claims": {
+  "duplicates": [],
+  "unknown": [],
+  "claimed": 370
+ },
+ "pages_stable": true,
+ "docx_fields": {
+  "fields": 312,
+  "without_number": 0,
+  "moved_after_pass_2": []
+ },
+ "docx_as_pdf": {
+  "pages": 123,
+  "problems": []
+ },
+ "sheets_docx": [
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_01.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_02.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_03.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_04.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_05.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_06.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_07.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_08.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_09.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_10.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_11.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_12.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_13.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_14.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_15.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_16.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_17.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_18.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_19.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_20.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_21.png"
+ ],
+ "sheets_pdf": [
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_01.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_02.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_03.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_04.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_05.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_06.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_07.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_08.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_09.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_10.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_11.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_12.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_13.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_14.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_15.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_16.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_17.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_18.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_19.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_20.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_21.png"
+ ],
+ "coverage": {
+  "items": 558,
+  "complete": 558,
+  "incomplete": []
+ }
+}

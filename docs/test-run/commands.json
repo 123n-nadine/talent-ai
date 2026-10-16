@@ -1,0 +1,440 @@
+{
+ "make:builder-check": {
+  "cmd": "make builder-check",
+  "result": "ok",
+  "tail": [
+   "builder: default"
+  ],
+  "mode": "run"
+ },
+ "make:install": {
+  "cmd": "make install",
+  "result": "ok",
+  "tail": [
+   " - urllib3==2.8.0",
+   " - wasabi==1.1.3",
+   " - wcwidth==0.9.2",
+   " - weasel==1.0.0",
+   " - wrapt==2.5.1",
+   " - yarl==1.25.1"
+  ],
+  "mode": "run"
+ },
+ "make:test": {
+  "cmd": "make test",
+  "result": "ok",
+  "tail": [
+   "tests/test_api.py::test_delete_job_removes_versions_and_screenings_but_keeps_candidates",
+   "  /home/nadine/my-projects/talent-ai/talent-engine/app/services/jobs.py:141: SAWarning: DELETE statement on table 'job_versions' expected to delete 1 row(s); 0 were matched.  Please set confirm_deleted_rows=False within the mapper configuration to prevent this warning.",
+   "    db.flush()",
+   "",
+   "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+   "110 passed, 3 skipped, 2 warnings in 27.82s"
+  ],
+  "mode": "run"
+ },
+ "make:lint": {
+  "cmd": "make lint",
+  "result": "ok",
+  "tail": [
+   "uv run ruff check . && uv run ruff format --check .",
+   "All checks passed!",
+   "127 files already formatted"
+  ],
+  "mode": "run"
+ },
+ "make:fmt": {
+  "cmd": "make fmt",
+  "result": "ok",
+  "tail": [
+   "uv run ruff check --fix . && uv run ruff format .",
+   "All checks passed!",
+   "127 files left unchanged"
+  ],
+  "mode": "run"
+ },
+ "make:typecheck": {
+  "cmd": "make typecheck",
+  "result": "ok",
+  "tail": [
+   "uv run mypy app",
+   "Success: no issues found in 88 source files"
+  ],
+  "mode": "run"
+ },
+ "make:gpu": {
+  "cmd": "make gpu",
+  "result": "ok",
+  "tail": [
+   "nvidia-smi --query-gpu=name,memory.total,memory.used,memory.free --format=csv",
+   "name, memory.total [MiB], memory.used [MiB], memory.free [MiB]",
+   "Quadro RTX 6000, 24576 MiB, 9400 MiB, 14616 MiB"
+  ],
+  "mode": "run"
+ },
+ "make:ps": {
+  "cmd": "make ps",
+  "result": "ok",
+  "tail": [
+   "talentai-redis-1    redis:7-alpine                                                            \"docker-entrypoint.s…\"   redis     19 hours ago    Up 19 hours (healthy)    127.0.0.1:18031->6379/tcp",
+   "talentai-vllm-1     vllm/vllm-openai:v0.31.0                                                  \"vllm serve --model …\"   vllm      13 hours ago    Up 13 hours (healthy)    8000/tcp",
+   "talentai-worker-1   talentai/engine:dev                                                       \"python -m app.worker\"   worker    4 minutes ago   Up 2 minutes             8000/tcp",
+   "talentai-worker-2   talentai/engine:dev                                                       \"python -m app.worker\"   worker    4 minutes ago   Up 2 minutes             8000/tcp",
+   "talentai-worker-3   talentai/engine:dev                                                       \"python -m app.worker\"   worker    4 minutes ago   Up 2 minutes             8000/tcp",
+   "talentai-worker-4   talentai/engine:dev                                                       \"python -m app.worker\"   worker    4 minutes ago   Up 2 minutes             8000/tcp"
+  ],
+  "mode": "run"
+ },
+ "make:migrate": {
+  "cmd": "make migrate",
+  "result": "ok",
+  "tail": [
+   "uv run alembic upgrade head",
+   "INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.",
+   "INFO  [alembic.runtime.migration] Will assume transactional DDL."
+  ],
+  "mode": "run"
+ },
+ "make:build": {
+  "cmd": "make -n build",
+  "result": "dry run ok; built for real this round (default builder)",
+  "tail": [
+   "test \"$BUILDX_BUILDER\" = \"default\" || { echo \"refusing to build: BUILDX_BUILDER=$BUILDX_BUILDER (only the default builder is allowed)\"; exit 1; }",
+   "docker buildx inspect default >/dev/null && echo \"builder: default\"",
+   "docker compose -p talentai build api embed"
+  ],
+  "mode": "dry run"
+ },
+ "make:env": {
+  "cmd": "make -n env",
+  "result": "dry run ok",
+  "tail": [
+   "uv run python -m scripts.init_env"
+  ],
+  "mode": "dry run"
+ },
+ "make:up": {
+  "cmd": "make -n up",
+  "result": "dry run ok",
+  "tail": [
+   "test \"$BUILDX_BUILDER\" = \"default\" || { echo \"refusing to build: BUILDX_BUILDER=$BUILDX_BUILDER (only the default builder is allowed)\"; exit 1; }",
+   "docker buildx inspect default >/dev/null && echo \"builder: default\"",
+   "docker compose -p talentai up -d --build --scale worker=4"
+  ],
+  "mode": "dry run"
+ },
+ "make:down": {
+  "cmd": "make -n down",
+  "result": "dry run ok",
+  "tail": [
+   "docker compose -p talentai down"
+  ],
+  "mode": "dry run"
+ },
+ "make:logs": {
+  "cmd": "make -n logs",
+  "result": "dry run ok",
+  "tail": [
+   "docker compose -p talentai logs -f --tail=100"
+  ],
+  "mode": "dry run"
+ },
+ "make:llm-logs": {
+  "cmd": "make -n llm-logs",
+  "result": "dry run ok",
+  "tail": [
+   "docker compose -p talentai logs -f --tail=100 vllm"
+  ],
+  "mode": "dry run"
+ },
+ "make:revision": {
+  "cmd": "make -n revision",
+  "result": "dry run ok",
+  "tail": [
+   "uv run alembic revision --autogenerate -m \"\""
+  ],
+  "mode": "dry run"
+ },
+ "make:seed": {
+  "cmd": "make -n seed",
+  "result": "dry run ok",
+  "tail": [
+   "uv run python -m scripts.seed"
+  ],
+  "mode": "dry run"
+ },
+ "make:cvs": {
+  "cmd": "make -n cvs",
+  "result": "dry run ok",
+  "tail": [
+   "uv run python -m scripts.make_cvs"
+  ],
+  "mode": "dry run"
+ },
+ "make:receiver": {
+  "cmd": "make -n receiver",
+  "result": "dry run ok",
+  "tail": [
+   "uv run python -m scripts.callback_receiver"
+  ],
+  "mode": "dry run"
+ },
+ "script:talent-engine/scripts/compose.sh": {
+  "cmd": "talent-engine/scripts/compose.sh",
+  "result": "run in round 2: restart of api and workers",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:dev-frappe/reset_demo.sh": {
+  "cmd": "dev-frappe/reset_demo.sh",
+  "result": "run in round 2: demo rebuilt (25 applicants)",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:dev-frappe/init_env.sh": {
+  "cmd": "dev-frappe/init_env.sh",
+  "result": "run in round 2: extra test-user passwords added",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:dev-frappe/start.sh": {
+  "cmd": "dev-frappe/start.sh",
+  "result": "run in round 2: bench restarted twice",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:dev-frappe/setup.sh": {
+  "cmd": "dev-frappe/setup.sh",
+  "result": "run in round 2: run inside reset_demo (site setup)",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/ui/full_test.py": {
+  "cmd": "tools/ui/full_test.py",
+  "result": "run in round 2: full browser test",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/ui/design_audit.py": {
+  "cmd": "tools/ui/design_audit.py",
+  "result": "run in round 2: 3 design audits",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/ui/design_pairs.py": {
+  "cmd": "tools/ui/design_pairs.py",
+  "result": "run in round 2: before/after pairs",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/ui/pw.py": {
+  "cmd": "tools/ui/pw.py",
+  "result": "run in round 2: used by every browser tool",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/ui/test_report.py": {
+  "cmd": "tools/ui/test_report.py",
+  "result": "run in round 2: docs/TEST_REPORT.md",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/ui/apply_via_form.py": {
+  "cmd": "tools/ui/apply_via_form.py",
+  "result": "run in round 2: applicant 2017 through the real form",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:ido_talent_ai/ido_talent_ai/scripts/seed_demo.py": {
+  "cmd": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py",
+  "result": "run in round 2: demo setup and test users",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:ido_talent_ai/ido_talent_ai/scripts/submit_demo_applications.py": {
+  "cmd": "ido_talent_ai/ido_talent_ai/scripts/submit_demo_applications.py",
+  "result": "run in round 2: 24 applications",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/facts.py": {
+  "cmd": "tools/guide/facts.py",
+  "result": "run in round 2: guide numbers",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/shots.py": {
+  "cmd": "tools/guide/shots.py",
+  "result": "run in round 2: guide screenshots",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/build.py": {
+  "cmd": "tools/guide/build.py",
+  "result": "run in round 2: guide build",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/inventory.py": {
+  "cmd": "tools/guide/inventory.py",
+  "result": "run in round 2: inventory",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/lint_ar.py": {
+  "cmd": "tools/guide/lint_ar.py",
+  "result": "run in round 2: writing rules",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/inv.py": {
+  "cmd": "tools/guide/inv.py",
+  "result": "run in round 2: item codes",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/model.py": {
+  "cmd": "tools/guide/model.py",
+  "result": "run in round 2: guide content model",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/render_html.py": {
+  "cmd": "tools/guide/render_html.py",
+  "result": "run in round 2: PDF",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/render_docx.py": {
+  "cmd": "tools/guide/render_docx.py",
+  "result": "run in round 2: Word",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/docshots.py": {
+  "cmd": "tools/guide/docshots.py",
+  "result": "run in round 2: this file",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/guide/coverage_check.py": {
+  "cmd": "tools/guide/coverage_check.py",
+  "result": "run in round 2: coverage check",
+  "tail": [],
+  "mode": "run"
+ },
+ "script:tools/ui/acceptance.py": {
+  "cmd": "tools/ui/acceptance.py",
+  "result": "run in phase 7 (docs/ACCEPTANCE_REPORT.md)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:tools/ui/walkthrough_shots.py": {
+  "cmd": "tools/ui/walkthrough_shots.py",
+  "result": "run in phase 8 (docs/WALKTHROUGH.md)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:tools/ui/desk_shots.py": {
+  "cmd": "tools/ui/desk_shots.py",
+  "result": "run in phase 6",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:tools/ui/frappe_ui.py": {
+  "cmd": "tools/ui/frappe_ui.py",
+  "result": "run in phases 6–8 (CDP driver of the older tools)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/scripts/callback_receiver.py": {
+  "cmd": "talent-engine/scripts/callback_receiver.py",
+  "result": "run in phase 1 (HMAC callback verified)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/scripts/make_cvs.py": {
+  "cmd": "talent-engine/scripts/make_cvs.py",
+  "result": "run in phase 2 (`make cvs`)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/scripts/cv_texts.py": {
+  "cmd": "talent-engine/scripts/cv_texts.py",
+  "result": "run in phase 2",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/scripts/seed.py": {
+  "cmd": "talent-engine/scripts/seed.py",
+  "result": "run in phase 1 (`make seed`)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/scripts/seed_data.py": {
+  "cmd": "talent-engine/scripts/seed_data.py",
+  "result": "run in phase 1",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/scripts/init_env.py": {
+  "cmd": "talent-engine/scripts/init_env.py",
+  "result": "run in phase 1 (`make env`)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/eval/run.py": {
+  "cmd": "talent-engine/eval/run.py",
+  "result": "run in phase 4 (docs/EVALUATION_REPORT.md)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/eval/bench.py": {
+  "cmd": "talent-engine/eval/bench.py",
+  "result": "run in phase 4",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:talent-engine/eval/make_gold.py": {
+  "cmd": "talent-engine/eval/make_gold.py",
+  "result": "run in phase 4",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "script:dev-frappe/clean_install.sh": {
+  "cmd": "dev-frappe/clean_install.sh",
+  "result": "run in phase 7 (clean install rehearsal)",
+  "tail": [],
+  "mode": "earlier"
+ },
+ "bench:bench --site <site> migrate": {
+  "cmd": "bench --site <site> migrate",
+  "result": "run in round 2 on talent.localhost and test.localhost",
+  "tail": [],
+  "mode": "run"
+ },
+ "bench:bench --site <site> run-tests --app ido_talent_ai": {
+  "cmd": "bench --site <site> run-tests --app ido_talent_ai",
+  "result": "run in round 2 on talent.localhost and test.localhost",
+  "tail": [],
+  "mode": "run"
+ },
+ "bench:bench get-app": {
+  "cmd": "bench get-app",
+  "result": "run in phase 7 clean install rehearsal; install-app also by reset_demo.sh in round 2",
+  "tail": [],
+  "mode": "run"
+ },
+ "bench:bench --site <site> install-app ido_talent_ai": {
+  "cmd": "bench --site <site> install-app ido_talent_ai",
+  "result": "run in phase 7 clean install rehearsal; install-app also by reset_demo.sh in round 2",
+  "tail": [],
+  "mode": "run"
+ },
+ "bench:bench --site <site> uninstall-app ido_talent_ai": {
+  "cmd": "bench --site <site> uninstall-app ido_talent_ai",
+  "result": "run in phase 7 clean install rehearsal; install-app also by reset_demo.sh in round 2",
+  "tail": [],
+  "mode": "run"
+ }
+}
