@@ -141,38 +141,3 @@ def test_ocr_without_text_is_unreadable(tmp_path: Path):
     p.write_bytes(png_bytes())
     ex = extract(p, "image", FakeOCR(" ", 0.0), make_settings(), "fake")
     assert ex.status == "unreadable" and "no text" in (ex.error or "")
-
-
-def test_row_reconstruction_bidi():
-    from app.documents.pdftext import row_text
-
-    def sp(t, x0, x1, yc=10.0):
-        return {"t": t, "x0": x0, "x1": x1, "yc": yc, "h": 10.0, "size": 10.0}
-
-    # visual order (left->right) of an RTL line "البريد: demo.2001@example.com" rendered by LibreOffice
-    row = [
-        sp("demo", 10, 40),
-        sp(".2001", 40, 60),
-        sp("@example", 60, 110),
-        sp(".com", 110.5, 130),
-        sp(":البريد", 200, 260),
-    ]
-    assert row_text(row) == ":البريد demo.2001@example.com"
-    row = [
-        sp("1992", 10, 40),
-        sp("/", 42, 46),
-        sp("05", 48, 60),
-        sp("/", 62, 66),
-        sp("14", 68, 80),
-        sp("تاريخ الميلاد:", 120, 200),
-    ]
-    assert row_text(row) == "تاريخ الميلاد: 1992/05/14"
-    assert row_text([sp("Hello", 0, 30), sp("world", 35, 70)]) == "Hello world"
-
-
-def test_generated_arabic_pdf_if_present():
-    p = Path("data/cvs/HR-APP-2026-2001.pdf")
-    if not p.exists():
-        pytest.skip("run `make cvs` first")
-    ex = extract(p, "pdf", NoneOCR(), make_settings(), "none")
-    assert "حراسات خاصة بالرياض" in ex.text and "0520011002" in ex.text and "1200120012" in ex.text

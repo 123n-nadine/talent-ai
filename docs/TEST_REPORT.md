@@ -1,11 +1,11 @@
 # Talent AI — full test report (rounds 2 and 3)
 
-Run on the local bench, last update 2026-10-16 15:56:34 (Asia/Riyadh). Synthetic data only.
+Run on the local bench, last update 2026-10-16 17:38:50 (Asia/Riyadh). Synthetic data only.
 
 | | |
 |---|---|
-| Workspace commit | `5c454db` (`p13-consent`) |
-| Frappe app commit | `36cbd62` |
+| Workspace commit | `2c3939f` (`p14-review`) |
+| Frappe app commit | `66b40ec` |
 | Platform | Frappe v16.31.0, ERPNext v16.32.0, HRMS develop 640af1592a01 (`dev-frappe/VERSIONS.md`) |
 | Engine | FastAPI + 4 RQ workers, Qwen3-8B-AWQ (vLLM, GPU cap 0.40), prompt `judge-v1`, PaddleOCR on CPU, Qwen3-Embedding-0.6B on CPU |
 | Browser | Chrome 153 headless driven by Playwright 1.64 for Python (`tools/ui/full_test.py`). The Playwright MCP server was not available in this session, so the same Playwright engine was driven from Python. |
@@ -31,6 +31,11 @@ Screenshots are 8-bit PNG under `docs/guide/images/` (they are reused by the gui
 | E1 | Engine erasure (found while building #21) | Deleting a candidate in the engine removed its rows but left the CV file and its preview on the file volume. | Erasure removes the stored files too, after the commit, when no other document uses them. | engine `test_deleting_a_candidate_also_removes_the_cv_file` |
 | E2 | Engine files | Replacing or removing a CV deleted the stored file even when another candidate's document held the same file (the same CV uploaded twice), so that candidate's CV pages broke. | Files are content-addressed and now reference-checked: a file goes only with its last document. | engine `test_a_file_shared_by_two_candidates_stays_until_the_last_one_goes` |
 | E3 | Developer setup | `make install` was a plain `uv sync`, which removes PaddleOCR, Presidio and spaCy; the two English-name redaction tests then skipped without a word. | `make install` runs `uv sync --group documents`. | `make test` after `make install`: 120 passed, 1 skipped (OCR only) |
+| V1 | Redaction (Nadine's review of the guide, page 62) | The e-mail of an Arabic text PDF reached the language model unredacted: Word and LibreOffice write Arabic pages in visual order and PyMuPDF put the dot of the address at the end of the line ("demo.2001@example com."), which the e-mail pattern did not match. 12 of 220 stored CVs were affected, all Arabic text PDFs; the model is the local one on the same server. | Character-level reconstruction of PDF rows (the inverse of the bidi display, checked against python-bidi on every synthetic and gold line); e-mail, phone and ID patterns tolerant to spaces and moved dots; a fail-safe sweep in the redaction and a last guard before any model call; `scripts/reprocess_cvs.py` re-extracted and re-redacted every stored CV (0 leaks after) and the affected applicants were re-scored. | engine `test_no_email_phone_or_id_of_any_synthetic_cv_reaches_the_model`, `test_email_broken_by_a_pdf_writer_is_still_redacted`, `test_leak_check_catches_what_a_model_must_never_see` |
+| V2 | Extraction (review, same page) | Numbers of Arabic PDFs came out scrambled ("من14. فرد", "والحراسة9. سنوات"), so the years read from a CV line could be wrong. | Same reconstruction: every number, date and full stop in its place; the duration read in code from the line is checked. | engine `test_visual_order_pdf_comes_back_logical`, `test_years_read_from_reconstructed_lines`, `test_generated_arabic_pdf_if_present` |
+| V3 | Evidence from OCR (review, pages 42 and 81) | A line read at 69% confidence was highlighted as evidence of a criterion. | A line under OCR_MIN_CONFIDENCE is taken out of the text before the model and before any quote check (a marker keeps its place); the analysis shows it struck through as «ضعيف — لا يُقبل كدليل». | engine `test_weak_ocr_lines_are_never_evidence` |
+| V4 | Assessment card (review, page 95) | A corrupt CV only showed a note in the CV panel at the bottom of the applicant's AI section. | A red banner at the top of the assessment card: «السيرة الذاتية لم تُقرأ — التقييم من إجابات النموذج فقط», for a file the platform refused and for one the engine could not read. | browser C08 (screenshot) |
+| V5 | Guide picture (review, page 103) | «فهد العتيبي» appeared twice in the ranking picture of the design chapter. | Not a missed duplicate: the picture was taken during the test run, when test applications reused demo names with different national IDs (K-cases); the duplicate detector works on the hashed ID (K06). The picture now shows the first three ranked rows only. | browser K06; engine duplicate tests |
 | E5 | Safety nets (found while rebuilding the demo) | The 2-minute safety net compared `creation` (stored in the site's time zone, Asia/Riyadh) with SQL `now()` (the database clock, UTC): an application left «Processing» was picked up only three hours later; the batch page's «finished in the last 10 minutes» counted three hours. | Both limits are computed in Python with the site's clock and passed to the query. | Frappe `test_the_safety_nets_read_the_site_clock` (fails with the old query) |
 | E4 | Local bench (found while rebuilding the demo) | The app tests left real background jobs, and the test site's scheduler kept queueing screenings of test applicants against an engine address nobody serves: 588 of them filled the shared `long` queue and the demo's screenings waited behind them. | The test class blocks every real enqueue (and drops pending commit callbacks at the end); the test site keeps its scheduler disabled (dev-frappe/README.md). | Frappe suite run with the queue counted before and after: 0 test jobs left |
 | D1 | Design | Grey text at 4.13:1 (below WCAG AA 4.5:1) on every screen. | Darker greys (#56627c) and darker chip text. | Design audit (low-contrast count) |
@@ -441,8 +446,8 @@ All screenshots: [R09_portal_other_application.png](guide/images/test/R09_portal
 | File | `HR-APP-2026-2002.jpg` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 81.5 (high); method ocr:paddle_cpu, OCR confidence 0.91; flags quote_not_found |
-| Time | 53.3 s |
-| Timing | form 0.86 s · submit 0.28 s · result 53.3 s after submit · engine pipeline 19.4 s |
+| Time | 51.7 s |
+| Timing | form 0.68 s · submit 0.69 s · result 51.7 s after submit · engine pipeline 21.4 s |
 
 <img src="guide/images/test/C01_cv_analysis.png" width="520" alt="">
 
@@ -457,7 +462,7 @@ All screenshots: [C01_form.png](guide/images/test/C01_form.png) · [C01_thanks.p
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method pdf_text |
 | Time | 33.0 s |
-| Timing | form 0.51 s · submit 0.18 s · result 33.0 s after submit · engine pipeline 22.0 s |
+| Timing | form 0.52 s · submit 0.16 s · result 33.0 s after submit · engine pipeline 20.2 s |
 
 <img src="guide/images/test/C02_cv_analysis.png" width="520" alt="">
 
@@ -471,8 +476,8 @@ All screenshots: [C02_assessment.png](guide/images/test/C02_assessment.png) · [
 | File | `HR-APP-2026-2022.pdf` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method pdf_text |
-| Time | 27.1 s |
-| Timing | form 0.29 s · submit 0.16 s · result 27.1 s after submit · engine pipeline 16.4 s |
+| Time | 27.6 s |
+| Timing | form 0.31 s · submit 0.16 s · result 27.6 s after submit · engine pipeline 17.1 s |
 
 <img src="guide/images/test/C03_cv_analysis.png" width="520" alt="">
 
@@ -486,8 +491,8 @@ All screenshots: [C03_assessment.png](guide/images/test/C03_assessment.png) · [
 | File | `HR-APP-2026-2018.docx` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method docx |
-| Time | 35.2 s |
-| Timing | form 0.31 s · submit 0.15 s · result 35.2 s after submit · engine pipeline 19.3 s |
+| Time | 36.9 s |
+| Timing | form 0.37 s · submit 0.16 s · result 36.9 s after submit · engine pipeline 20.2 s |
 
 <img src="guide/images/test/C04_cv_analysis.png" width="520" alt="">
 
@@ -501,9 +506,8 @@ All screenshots: [C04_assessment.png](guide/images/test/C04_assessment.png) · [
 | File | `HR-APP-2026-2018.rtf` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method libreoffice+pdf_text |
-| History | first run: Failed — «TypeError: Strings must be encoded before hashing» (bug F1); after the fix and a worker restart: Completed |
-| Time | 30.5 s |
-| Timing | form 0.67 s · submit 0.16 s · result 30.5 s after submit · engine pipeline 19.2 s |
+| Time | 33.7 s |
+| Timing | form 0.3 s · submit 1.33 s · result 33.7 s after submit · engine pipeline 19.6 s |
 
 <img src="guide/images/test/C05_cv_analysis.png" width="520" alt="">
 
@@ -517,8 +521,8 @@ All screenshots: [C05_assessment.png](guide/images/test/C05_assessment.png) · [
 | File | `HR-APP-2026-2018.doc` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method libreoffice+pdf_text |
-| Time | 31.6 s |
-| Timing | form 0.48 s · submit 0.89 s · result 31.6 s after submit · engine pipeline 19.9 s |
+| Time | 33.5 s |
+| Timing | form 0.41 s · submit 0.89 s · result 33.5 s after submit · engine pipeline 19.7 s |
 
 <img src="guide/images/test/C06_cv_analysis.png" width="520" alt="">
 
@@ -531,8 +535,8 @@ All screenshots: [C06_assessment.png](guide/images/test/C06_assessment.png) · [
 | User | Guest → HR Manager |
 | Expected | Completed from the answers; no CV |
 | Actual | Completed; score 89 (high); method - |
-| Time | 10.0 s |
-| Timing | form 0.29 s · submit 0.16 s · result 10.0 s after submit · engine pipeline 1.0 s |
+| Time | 11.4 s |
+| Timing | form 0.34 s · submit 0.15 s · result 11.4 s after submit · engine pipeline 1.1 s |
 
 <img src="guide/images/test/C07_assessment.png" width="520" alt="">
 
@@ -546,8 +550,8 @@ All screenshots: [C07_form.png](guide/images/test/C07_form.png) · [C07_assessme
 | File | `HR-APP-2026-2013.pdf` |
 | Expected | the platform refuses the file, the application is saved and assessed from the answers (decision 14) |
 | Actual | Completed; score 65 (medium); method -; note: ملف السيرة «HR-APP-2026-2013.pdf» تالف أو غير آمن ولم يُحفظ (PdfStreamError). التقييم من الإجابات فقط. |
-| Time | 9.9 s |
-| Timing | form 0.58 s · submit 0.15 s · result 9.9 s after submit · engine pipeline 1.0 s |
+| Time | 12.2 s |
+| Timing | form 0.29 s · submit 0.16 s · result 12.2 s after submit · engine pipeline 1.0 s |
 
 <img src="guide/images/test/C08_assessment.png" width="520" alt="">
 
@@ -558,9 +562,9 @@ All screenshots: [C07_form.png](guide/images/test/C07_form.png) · [C07_assessme
 | User | Guest → HR Manager |
 | File | `HR-APP-2026-2025-bad.jpg` |
 | Expected | read with OCR; low confidence flagged if under the threshold |
-| Actual | Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence, quote_not_found |
-| Time | 45.1 s |
-| Timing | form 0.29 s · submit 0.87 s · result 45.1 s after submit · engine pipeline 17.0 s |
+| Actual | Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence |
+| Time | 40.9 s |
+| Timing | form 0.72 s · submit 0.89 s · result 40.9 s after submit · engine pipeline 14.1 s |
 
 <img src="guide/images/test/C09_cv_analysis.png" width="520" alt="">
 
@@ -587,7 +591,7 @@ All screenshots: [K01_strong_2001.png](guide/images/test/K01_strong_2001.png) ·
 | User | Guest → HR Manager |
 | Expected | not eligible with both reasons, kept out of the ranking, score shown in grey |
 | Actual | Completed; eligibility not_eligible; failed rules: الجنسية: المصرّح به مصر — المطلوب ضمن: السعودية \| الطول (سم): المصرّح به 172 سم — المطلوب 180 سم أو أكثر; ranked: False |
-| Time | 18.9 s |
+| Time | 18.0 s |
 
 <img src="guide/images/test/K02_not_eligible.png" width="520" alt="">
 
@@ -620,7 +624,6 @@ All screenshots: [K03b_console_form.png](guide/images/test/K03b_console_form.png
 | User | HR Manager |
 | Expected | blank → level 0 + «دليل ناقص» flag (needs review on a mandatory criterion); 0 → level 0 with the evidence «0», no flag |
 | Actual | 2021 (no CV) years_sup='': level 0, missing_evidence True, eligibility eligible; 2006 years_sup='0': level 0, evidence '0', missing_evidence False |
-| History | first run failed because the test used applicant 2009, whose CV supplies the supervision evidence (correct behaviour); the test now uses 2021 (blank answer, no CV) |
 
 <img src="guide/images/test/K04_blank_2021.png" width="520" alt="">
 
@@ -632,7 +635,7 @@ All screenshots: [K04_blank_2021.png](guide/images/test/K04_blank_2021.png) · [
 |---|---|
 | User | HR Manager |
 | Expected | contradiction flag, the lower level is used, needs review before any decision |
-| Actual | flags ['contradiction', 'quote_not_found']; supervision: form level 100, CV level 50 → used 50; quote «أشرفت على فريق صغير من الحراس لمدة سنتين» |
+| Actual | flags ['contradiction', 'quote_not_found']; supervision: form level 100, CV level 50 → used 50; quote «أشرفت على فريق صغير من الحراس لمدة سنتين.» |
 
 <img src="guide/images/test/K05_contradiction_head.png" width="520" alt="">
 
@@ -644,8 +647,7 @@ All screenshots: [K05_contradiction_head.png](guide/images/test/K05_contradictio
 |---|---|
 | User | HR Manager |
 | Expected | linked to the original, grey, only the original is ranked, nothing deleted |
-| Actual | 2016 → applicant.2015@example.com; 2024 → applicant.2003@example.com; in the duplicate group: ['hassan.q.second@example.com', 'khaled.d.second@example.com', 't.enginedown@example.com'] |
-| History | first run failed because the test built the duplicate's e-mail from its number; it now reads the e-mails from the demo data |
+| Actual | 2016 → applicant.2015@example.com; 2024 → applicant.2003@example.com; in the duplicate group: ['hassan.q.second@example.com', 'khaled.d.second@example.com'] |
 
 <img src="guide/images/test/K06_duplicate.png" width="520" alt="">
 
@@ -837,15 +839,15 @@ All screenshots: [N01_console_home.png](guide/images/test/N01_console_home.png) 
 
 | Test | File | Submit (s) | Result after submit (s) | Engine pipeline (s) |
 |---|---|---|---|---|
-| C01 Arabic scanned image (JPG, OCR) | `HR-APP-2026-2002.jpg` | 0.28 | 53.3 | 19.4 |
-| C02 Arabic text PDF | `HR-APP-2026-2001.pdf` | 0.18 | 33.0 | 22.0 |
-| C03 English PDF | `HR-APP-2026-2022.pdf` | 0.16 | 27.1 | 16.4 |
-| C04 Word (DOCX) | `HR-APP-2026-2018.docx` | 0.15 | 35.2 | 19.3 |
-| C05 RTF (converted from the Word CV) | `HR-APP-2026-2018.rtf` | 0.16 | 30.5 | 19.2 |
-| C06 DOC, Word 97 (converted from the Word CV) | `HR-APP-2026-2018.doc` | 0.89 | 31.6 | 19.9 |
-| C07 No CV | `—` | 0.16 | 10.0 | 1.0 |
-| C08 Corrupt PDF | `HR-APP-2026-2013.pdf` | 0.15 | 9.9 | 1.0 |
-| C09 Bad-quality image (blurred, noisy, JPEG quality 18) | `HR-APP-2026-2025-bad.jpg` | 0.87 | 45.1 | 17.0 |
+| C01 Arabic scanned image (JPG, OCR) | `HR-APP-2026-2002.jpg` | 0.69 | 51.7 | 21.4 |
+| C02 Arabic text PDF | `HR-APP-2026-2001.pdf` | 0.16 | 33.0 | 20.2 |
+| C03 English PDF | `HR-APP-2026-2022.pdf` | 0.16 | 27.6 | 17.1 |
+| C04 Word (DOCX) | `HR-APP-2026-2018.docx` | 0.16 | 36.9 | 20.2 |
+| C05 RTF (converted from the Word CV) | `HR-APP-2026-2018.rtf` | 1.33 | 33.7 | 19.6 |
+| C06 DOC, Word 97 (converted from the Word CV) | `HR-APP-2026-2018.doc` | 0.89 | 33.5 | 19.7 |
+| C07 No CV | `—` | 0.15 | 11.4 | 1.1 |
+| C08 Corrupt PDF | `HR-APP-2026-2013.pdf` | 0.16 | 12.2 | 1.0 |
+| C09 Bad-quality image (blurred, noisy, JPEG quality 18) | `HR-APP-2026-2025-bad.jpg` | 0.89 | 40.9 | 14.1 |
 
 ## 8. Design pass (before → after)
 
@@ -896,7 +898,7 @@ Round 3 (2026-10-16): the audit ran again on 99 screens (desk and console at 136
 
 ## 10. Automated tests
 
-Engine: `make test` in `talent-engine/` — 120 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1). Frappe app: `bench --site test.localhost run-tests --app ido_talent_ai` — 22 passed.
+Engine: `make test` in `talent-engine/` — 129 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1). Frappe app: `bench --site test.localhost run-tests --app ido_talent_ai` — 22 passed.
 
 | Suite | File | Test | What it checks |
 |---|---|---|---|
@@ -956,6 +958,7 @@ Engine: `make test` in `talent-engine/` — 120 passed, 1 skipped (the PaddleOCR
 | engine | `talent-engine/tests/test_cv_api.py` | `test_upload_size_limit` |  |
 | engine | `talent-engine/tests/test_cv_api.py` | `test_settings_show_ocr_readiness` |  |
 | engine | `talent-engine/tests/test_cv_api.py` | `test_reprocessed_cv_is_new_input` |  |
+| engine | `talent-engine/tests/test_cv_api.py` | `test_weak_ocr_lines_are_never_evidence` | Round 3 review: a line read at 69% confidence had been highlighted as evidence. A line |
 | engine | `talent-engine/tests/test_documents.py` | `test_sniff_by_magic_bytes` |  |
 | engine | `talent-engine/tests/test_documents.py` | `test_text_pdf` |  |
 | engine | `talent-engine/tests/test_documents.py` | `test_scanned_pdf_needs_ocr` |  |
@@ -964,8 +967,6 @@ Engine: `make test` in `talent-engine/` — 120 passed, 1 skipped (the PaddleOCR
 | engine | `talent-engine/tests/test_documents.py` | `test_corrupt_and_encrypted` |  |
 | engine | `talent-engine/tests/test_documents.py` | `test_rtf_through_libreoffice` |  |
 | engine | `talent-engine/tests/test_documents.py` | `test_ocr_without_text_is_unreadable` |  |
-| engine | `talent-engine/tests/test_documents.py` | `test_row_reconstruction_bidi` |  |
-| engine | `talent-engine/tests/test_documents.py` | `test_generated_arabic_pdf_if_present` |  |
 | engine | `talent-engine/tests/test_layout.py` | `test_text_pdf_layout_lines_match_text` |  |
 | engine | `talent-engine/tests/test_layout.py` | `test_ocr_layout_scaled_to_display_pixels` |  |
 | engine | `talent-engine/tests/test_layout.py` | `test_image_layout_native_pixels` |  |
@@ -985,6 +986,12 @@ Engine: `make test` in `talent-engine/` — 120 passed, 1 skipped (the PaddleOCR
 | engine | `talent-engine/tests/test_llm.py` | `test_llm_draft_is_normalised_into_an_approvable_job` |  |
 | engine | `talent-engine/tests/test_llm.py` | `test_cv_duration_is_levelled_in_code_not_by_the_model` | Demo 2012: the model gave «لمدة سنتين» level 100; code reads 2 years -> 50 -> contradiction. |
 | engine | `talent-engine/tests/test_ocr_paddle.py` | `test_paddle_cpu_reads_arabic_scan` |  |
+| engine | `talent-engine/tests/test_pdftext.py` | `test_inverse_of_the_bidi_display_on_every_synthetic_line` | python-bidi turns logical text into what is printed; our reconstruction must give the |
+| engine | `talent-engine/tests/test_pdftext.py` | `test_mirrored_brackets_and_mixed_lines` |  |
+| engine | `talent-engine/tests/test_pdftext.py` | `test_visual_order_pdf_comes_back_logical` |  |
+| engine | `talent-engine/tests/test_pdftext.py` | `test_row_reconstruction_from_character_boxes` | Characters placed as on paper (left to right), one of them a lam-alef ligature with no box |
+| engine | `talent-engine/tests/test_pdftext.py` | `test_generated_arabic_pdf_if_present` |  |
+| engine | `talent-engine/tests/test_pdftext.py` | `test_years_read_from_reconstructed_lines` | The durations the code reads from a CV line are right once the line is in order. |
 | engine | `talent-engine/tests/test_redaction.py` | `test_arabic_cv_is_fully_redacted` |  |
 | engine | `talent-engine/tests/test_redaction.py` | `test_idempotent_and_digits_normalised` |  |
 | engine | `talent-engine/tests/test_redaction.py` | `test_name_variants_and_prefix` |  |
@@ -997,6 +1004,10 @@ Engine: `make test` in `talent-engine/` — 120 passed, 1 skipped (the PaddleOCR
 | engine | `talent-engine/tests/test_redaction.py` | `test_presidio_leaves_arabic_lines_alone` |  |
 | engine | `talent-engine/tests/test_redaction.py` | `test_dates_with_spaces_and_year_first` |  |
 | engine | `talent-engine/tests/test_redaction.py` | `test_split_dob_line_is_fully_scrubbed` |  |
+| engine | `talent-engine/tests/test_redaction.py` | `test_email_broken_by_a_pdf_writer_is_still_redacted` |  |
+| engine | `talent-engine/tests/test_redaction.py` | `test_no_email_phone_or_id_of_any_synthetic_cv_reaches_the_model` | Every line of the 20 synthetic CVs and the gold set, as written and as a PDF writer |
+| engine | `talent-engine/tests/test_redaction.py` | `test_leak_check_catches_what_a_model_must_never_see` |  |
+| engine | `talent-engine/tests/test_redaction.py` | `test_reprocess_recovers_the_name_hint_from_the_earlier_redaction` | The engine keeps no name: when a stored CV is re-extracted, the name the host gave at |
 | engine | `talent-engine/tests/test_rules.py` | `test_eligible` |  |
 | engine | `talent-engine/tests/test_rules.py` | `test_not_eligible_as_declared_height` |  |
 | engine | `talent-engine/tests/test_rules.py` | `test_not_eligible_nationality_beats_missing` |  |
@@ -1152,7 +1163,7 @@ Gold set of 50 synthetic applicants: Qwen3-8B-AWQ with `judge-v1` — 98% exact 
 | Page problems | 0 | 0 |
 | Page numbers of the contents and the index | stable after the second print | 331 of 331 page fields show their page; 0 moved |
 
-Inventory read from the code: **576 items, 576 with a guide page, a screenshot and a test** (`docs/guide/COVERAGE.md`); the independent check reports **MISSING: 0**.
+Inventory read from the code: **576 items, 576 with a guide page, a screenshot and a test** (`docs/guide/COVERAGE.md`); the independent check reports **MISSING: 1**.
 
 ## 15. Not done, and why
 

@@ -64,13 +64,20 @@ def get_cv(
     include_raw: bool = False,
     db: Session = Depends(get_db),
     tenant: Tenant = Depends(get_tenant),
+    settings: Settings = Depends(get_settings_dep),
 ):
     """Redacted text, layout (lines with boxes and confidence) and page image paths. `include_raw`
-    adds the text before redaction (for the HR system and the console; never sent to an LLM)."""
+    adds the text before redaction (for the HR system and the console; never sent to an LLM).
+    `weak_lines` are the OCR lines under `min_confidence`: never used as evidence."""
     _, doc = _cv_doc(db, tenant, ref)
     return {
         "candidate_ref": ref,
-        "document": doc_svc.document_out(doc, include_text=True, include_raw=include_raw),
+        "document": doc_svc.document_out(
+            doc,
+            include_text=True,
+            include_raw=include_raw,
+            min_confidence=settings.ocr_min_confidence,
+        ),
     }
 
 

@@ -116,9 +116,47 @@ def redact(
     t = _sub(P.ADDRESS_LINE, P.TOKENS["ADDRESS"], t, report, "address", "val")
     t = _sub(P.ADDRESS_PARTS, P.TOKENS["ADDRESS"], t, report, "address")
 
+    t = sweep(t, report)
+
     # tidy: collapse repeated tokens and spaces
     for tok in P.TOKENS.values():
         t = re.sub(rf"(?:{re.escape(tok)}[ \t،,]*){{2,}}", tok + " ", t)
     t = re.sub(r"[ \t]{2,}", " ", t)
     t = "\n".join(line.strip() for line in t.split("\n"))
     return RedactionResult(t.strip(), report, engine)
+
+
+def _digits(s: str) -> int:
+    return sum(ch.isdigit() for ch in s)
+
+
+def leak_check(text: str | None) -> list[str]:
+    """What still looks like personal data in a text meant for a language model: an address
+    (anything with "@") or a long number (nine digits or more, however they are split). Empty
+    when the text is clean; used by the tests, the pipeline guard and the reprocess script."""
+    if not text:
+        return []
+    t = text.translate(P.ARABIC_INDIC)
+    found = [m.group(0) for m in P.LEAK_EMAIL.finditer(t)]
+    found += [m.group(0) for m in P.LEAK_DIGITS.finditer(t) if _digits(m.group(0)) >= 9]
+    return found
+
+
+def sweep(text: str, report: dict[str, int]) -> str:
+    """Replace whatever `leak_check` still finds (the patterns above missed it, for example an
+    address broken by a PDF writer). Counted under "guard" in the report."""
+    t = P.LEAK_EMAIL.sub(lambda m: _count(report, "guard", P.TOKENS["EMAIL"]), text)
+
+    def number(m: re.Match[str]) -> str:
+        return (
+            _count(report, "guard", P.TOKENS["NATIONAL_ID"])
+            if _digits(m.group(0)) >= 9
+            else m.group(0)
+        )
+
+    return P.LEAK_DIGITS.sub(number, t)
+
+
+def _count(report: dict[str, int], key: str, token: str) -> str:
+    report[key] = report.get(key, 0) + 1
+    return token

@@ -122,9 +122,9 @@
     "mandatory": true,
     "source": "form_field",
     "evidence": "4",
-    "cv_quote": "أتابع عمل 8 جراس أمن وأوزع المهام عليهم يوميا",
+    "cv_quote": "أعمل مشرف وردية في مجمع سكني كبير بالرياض منذ 2019",
     "form_level": 75,
-    "cv_level": 75
+    "cv_level": 100
    },
    {
     "key": "security_exp",
@@ -170,7 +170,7 @@
     "mandatory": false,
     "source": "form_field",
     "evidence": "أحيانًا",
-    "cv_quote": "أرفع لات لوة شفم الاث ي ف الوردية",
+    "cv_quote": "أتولى تنظيم جدول المناوبات الأسبوغي للحزاس",
     "form_level": 50,
     "cv_level": 50
    },
@@ -218,7 +218,7 @@
     "key": "cv_text",
     "label": "استخراج نص السيرة",
     "status": "done",
-    "note": "قراءة ضوئية (OCR) · صفحة واحدة · 442 حرف · ثقة القراءة 91%",
+    "note": "قراءة ضوئية (OCR) · صفحة واحدة · 442 حرف · ثقة القراءة 91% · سطر واحد ضعيفة القراءة مستبعدة من الأدلة",
     "ms": null
    },
    {
@@ -232,15 +232,15 @@
     "key": "profile",
     "label": "الملف المنظّم",
     "status": "done",
-    "note": "استُخرج 7 عناصر",
-    "ms": 5981
+    "note": "استُخرج 10 عناصر",
+    "ms": 9720
    },
    {
     "key": "evidence_check",
     "label": "التحقق من الأدلة",
     "status": "done",
-    "note": "7 عناصر باقتباس حرفي · لا عنصر محذوف · الخبرة 7.8 سنة · الإشراف 7.8 سنة",
-    "ms": 1
+    "note": "10 عناصر باقتباس حرفي · لا عنصر محذوف · الخبرة 31.2 سنة · الإشراف 31.2 سنة",
+    "ms": 5
    },
    {
     "key": "eligibility",
@@ -254,7 +254,7 @@
     "label": "الحكم على المعايير",
     "status": "done",
     "note": "7 معايير بدليل · 7 محسوبة بالكود · السيرة تؤكد 6 · لا تعارض",
-    "ms": 15272
+    "ms": 14102
    },
    {
     "key": "scoring",
@@ -268,7 +268,7 @@
     "label": "الفهرسة",
     "status": "done",
     "note": "أُضيف لبنك المتقدمين",
-    "ms": 1575
+    "ms": 1679
    }
   ],
   "cv": {
@@ -292,20 +292,23 @@
    "model": "qwen3-8b-awq",
    "prompt": "judge-v1",
    "provider": "local",
-   "total_ms": 22950,
+   "total_ms": 25667,
    "llm_calls": [
     {
      "task": "profile",
-     "seconds": 5.98,
-     "prompt_tokens": 524,
-     "completion_tokens": 448
+     "seconds": 9.71,
+     "prompt_tokens": 525,
+     "completion_tokens": 675
     },
     {
      "task": "judge",
-     "seconds": 15.27,
-     "prompt_tokens": 1480,
-     "completion_tokens": 699
+     "seconds": 14.1,
+     "prompt_tokens": 1483,
+     "completion_tokens": 621
     }
+   ],
+   "weak_lines": [
+    14
    ],
    "profile_schema": "1.0"
   },
@@ -794,8 +797,9 @@
    "pages": 1,
    "chars": 550,
    "redaction": {
-    "dob": 2,
+    "dob": 1,
     "name": 3,
+    "email": 1,
     "phone": 1,
     "gender": 1,
     "address": 1,
@@ -879,11 +883,11 @@
      "text": "خبرة الإشراف على أفراد الأمن",
      "level": 50,
      "missing": false,
-     "evidence": "أشرفت على فريق صغير من الحراس لمدة سنتين | إجابة النموذج: 6",
+     "evidence": "أشرفت على فريق صغير من الحراس لمدة سنتين. | إجابة النموذج: 6",
      "contradiction": true,
      "form_level": 100,
      "cv_level": 50,
-     "cv_quote": "أشرفت على فريق صغير من الحراس لمدة سنتين"
+     "cv_quote": "أشرفت على فريق صغير من الحراس لمدة سنتين."
     },
     {
      "key": "security_exp",
@@ -894,7 +898,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "خبرة أمنية7. سنوات"
+     "cv_quote": "خبرة أمنية 7 سنوات."
     },
     {
      "key": "shifts",
@@ -905,7 +909,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "أعددت جدول المناوبة [الاسم] للوردية"
+     "cv_quote": "أعددت جدول المناوبة [الاسم] للوردية."
     },
     {
      "key": "licence",
@@ -916,7 +920,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "رخصة حارس أمن سارية"
+     "cv_quote": "رخصة حارس أمن سارية."
     },
     {
      "key": "reports",
@@ -927,7 +931,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "أكتب تقارير الوردية اليومية"
+     "cv_quote": "أكتب تقارير الوردية اليومية."
     },
     {
      "key": "first_aid",
@@ -948,8 +952,8 @@
      "evidence": "العربية",
      "contradiction": false,
      "form_level": 50,
-     "cv_level": null,
-     "cv_quote": ""
+     "cv_level": 50,
+     "cv_quote": "العربية."
     }
    ]
   },
@@ -992,7 +996,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "إدارة فريق من9. أفراد أمن على مدار الساعة"
+     "cv_quote": "إدارة فريق من 9 أفراد أمن على مدار الساعة."
     },
     {
      "key": "security_exp",
@@ -1003,7 +1007,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "خبرة في الأمن والحراسة8. سنوات"
+     "cv_quote": "خبرة في الأمن والحراسة 8 سنوات."
     },
     {
      "key": "shifts",
@@ -1014,7 +1018,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "توزيع الورديات وإعداد جدول المناوبة الأسبوعي"
+     "cv_quote": "توزيع الورديات وإعداد جدول المناوبة الأسبوعي."
     },
     {
      "key": "licence",
@@ -1025,7 +1029,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "رخصة حارس أمن سارية"
+     "cv_quote": "رخصة حارس أمن سارية."
     },
     {
      "key": "reports",
@@ -1036,7 +1040,7 @@
      "contradiction": false,
      "form_level": 50,
      "cv_level": 50,
-     "cv_quote": "تسجيل الحوادث في سجل الوردية"
+     "cv_quote": "تسجيل الحوادث في سجل الوردية."
     },
     {
      "key": "first_aid",
@@ -1047,7 +1051,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "دورة إسعافات أولية معتمدة"
+     "cv_quote": "دورة إسعافات أولية معتمدة."
     },
     {
      "key": "languages",
@@ -1058,7 +1062,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "العربية لغة أم والإنجليزية جيدة"
+     "cv_quote": "العربية لغة أم والإنجليزية جيدة."
     }
    ]
   },
@@ -1876,7 +1880,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "أشرف على فريق من14. فرد أمن في ثلاث مواقع تجارية"
+     "cv_quote": "مشرف أمن في شركة حراسات خاصة بالرياض من 2017 حتى الآن."
     },
     {
      "key": "security_exp",
@@ -1887,7 +1891,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "إجمالي الخبرة في مجال الأمن والحراسة9. سنوات"
+     "cv_quote": "إجمالي الخبرة في مجال الأمن والحراسة 9 سنوات."
     },
     {
      "key": "shifts",
@@ -1898,7 +1902,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "مسؤول عن إعداد جداول المناوبة وتوزيع الورديات الصباحية والمسائية"
+     "cv_quote": "مسؤول عن إعداد جداول المناوبة وتوزيع الورديات الصباحية والمسائية."
     },
     {
      "key": "licence",
@@ -1909,7 +1913,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "حاصل على رخصة حارس أمن سارية من الهيئة العليا للأمن الصناعي"
+     "cv_quote": "حاصل على رخصة حارس أمن سارية من الهيئة العليا للأمن الصناعي."
     },
     {
      "key": "reports",
@@ -1920,7 +1924,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "أقوم بكتابة التقارير الأمنية اليومية ورفع تقارير الحوادث للإدارة"
+     "cv_quote": "أقوم بكتابة التقارير الأمنية اليومية ورفع تقارير الحوادث للإدارة."
     },
     {
      "key": "first_aid",
@@ -1931,7 +1935,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "حاصل على شهادة إسعافات أولية معتمدة من الهلال الأحمر"
+     "cv_quote": "حاصل على شهادة إسعافات أولية معتمدة من الهلال الأحمر."
     },
     {
      "key": "languages",
@@ -1942,7 +1946,7 @@
      "contradiction": false,
      "form_level": 100,
      "cv_level": 100,
-     "cv_quote": "اللغة العربية لغة أم، وإجادة اللغة الإنجليزية بمستوى جيد"
+     "cv_quote": "اللغة العربية لغة أم، وإجادة اللغة الإنجليزية بمستوى جيد."
     }
    ]
   },
@@ -2062,9 +2066,7 @@
    "band": "low",
    "eligibility": "eligible",
    "flags": [
-    "evidence_mismatch",
-    "missing_evidence",
-    "quote_not_found"
+    "missing_evidence"
    ],
    "rank": 14,
    "cv_note": null,
@@ -2175,14 +2177,14 @@
     {
      "name": "صالح المطيري",
      "applicant": "paper.2026@example.com",
-     "at": "2026-10-16 16:03:19.215036"
+     "at": "2026-10-16 17:19:23.743713"
     }
    ],
    "consent_withdrawn": [
     {
      "name": "طلال الحارثي",
      "applicant": "applicant.2014@example.com",
-     "at": "2026-10-16 16:03:13.813593"
+     "at": "2026-10-16 17:19:18.668581"
     }
    ]
   },
@@ -2210,7 +2212,7 @@
    "ai_status": "Completed",
    "consent": {
     "given": 1,
-    "on": "2026-10-16 16:03:19.439824",
+    "on": "2026-10-16 17:19:23.965624",
     "source": "ورقة موقّعة",
     "recorded_by": "hr.manager@example.com",
     "withdrawn_on": null,
@@ -2227,11 +2229,11 @@
    "ai_status": "Consent Withdrawn",
    "consent": {
     "given": 0,
-    "on": "2026-10-16 16:00:19.127862",
+    "on": "2026-10-16 17:16:23.964165",
     "source": null,
     "recorded_by": null,
-    "withdrawn_on": "2026-10-16 16:03:13.813593",
-    "erased_on": "2026-10-16 16:03:14.624303"
+    "withdrawn_on": "2026-10-16 17:19:18.668581",
+    "erased_on": "2026-10-16 17:19:19.122223"
    },
    "score": null,
    "band": null,
@@ -2273,12 +2275,12 @@
   ],
   "top": [
    {
-    "name": "فهد العتيبي",
-    "similarity": 0.7957
+    "name": "بندر السبيعي",
+    "similarity": 0.7937
    },
    {
-    "name": "بندر السبيعي",
-    "similarity": 0.7915
+    "name": "فهد العتيبي",
+    "similarity": 0.7935
    },
    {
     "name": "Abdulaziz Al-Otaibi",
@@ -2297,7 +2299,7 @@
    "Needs Review": 2
   },
   "finished_last_10_min": 0,
-  "avg_duration_s": 35.56923,
+  "avg_duration_s": 45.18846,
   "recent_jobs": [
    {
     "name": "AI-JOB-00054",
@@ -2307,140 +2309,140 @@
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 5.0,
-    "creation": "2026-10-16 16:03:21.855240",
+    "duration_s": 5.7,
+    "creation": "2026-10-16 17:19:27.019355",
     "applicant_name": "بدر الرشيدي"
    },
    {
-    "name": "AI-JOB-00033",
+    "name": "AI-JOB-00040",
     "reference_name": "applicant.2025@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 50.7,
-    "creation": "2026-10-16 16:00:57.683085",
+    "duration_s": 67.3,
+    "creation": "2026-10-16 17:17:06.672888",
     "applicant_name": "عبدالمجيد الرويلي"
    },
    {
-    "name": "AI-JOB-00030",
+    "name": "AI-JOB-00038",
     "reference_name": "khaled.d.second@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 25.2,
-    "creation": "2026-10-16 16:00:55.102706",
+    "duration_s": 49.4,
+    "creation": "2026-10-16 17:17:04.333403",
     "applicant_name": "خالد الدوسري"
    },
    {
-    "name": "AI-JOB-00029",
+    "name": "AI-JOB-00036",
     "reference_name": "applicant.2023@example.com",
     "job_type": "Screening",
     "status": "Completed",
-    "attempts": 1,
+    "attempts": 2,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 23.8,
-    "creation": "2026-10-16 16:00:52.593792",
+    "duration_s": 50.8,
+    "creation": "2026-10-16 17:17:01.981122",
     "applicant_name": "وليد العنزي"
    },
    {
-    "name": "AI-JOB-00027",
+    "name": "AI-JOB-00035",
     "reference_name": "applicant.2022@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 44.3,
-    "creation": "2026-10-16 16:00:50.099000",
+    "duration_s": 70.5,
+    "creation": "2026-10-16 17:16:59.627640",
     "applicant_name": "Abdulaziz Al-Otaibi"
    },
    {
-    "name": "AI-JOB-00026",
+    "name": "AI-JOB-00032",
     "reference_name": "applicant.2021@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 21.3,
-    "creation": "2026-10-16 16:00:47.578252",
+    "duration_s": 48.5,
+    "creation": "2026-10-16 17:16:56.782114",
     "applicant_name": "إبراهيم الأحمدي"
    },
    {
-    "name": "AI-JOB-00025",
+    "name": "AI-JOB-00030",
     "reference_name": "applicant.2020@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 16.5,
-    "creation": "2026-10-16 16:00:45.057111",
+    "duration_s": 45.6,
+    "creation": "2026-10-16 17:16:54.381601",
     "applicant_name": "مازن الشهراني"
    },
    {
-    "name": "AI-JOB-00024",
+    "name": "AI-JOB-00029",
     "reference_name": "applicant.2019@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 61.4,
-    "creation": "2026-10-16 16:00:42.477259",
+    "duration_s": 77.4,
+    "creation": "2026-10-16 17:16:51.971113",
     "applicant_name": "زياد البلوي"
    },
    {
-    "name": "AI-JOB-00022",
+    "name": "AI-JOB-00027",
     "reference_name": "applicant.2018@example.com",
-    "job_type": "Screening",
-    "status": "Completed",
-    "attempts": 1,
-    "max_attempts": 3,
-    "error_message": null,
-    "duration_s": 65.9,
-    "creation": "2026-10-16 16:00:39.747003",
-    "applicant_name": "راكان الغامدي"
-   },
-   {
-    "name": "AI-JOB-00021",
-    "reference_name": "hassan.q.second@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 2,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 66.0,
-    "creation": "2026-10-16 16:00:37.208023",
+    "duration_s": 75.2,
+    "creation": "2026-10-16 17:16:49.474732",
+    "applicant_name": "راكان الغامدي"
+   },
+   {
+    "name": "AI-JOB-00026",
+    "reference_name": "hassan.q.second@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 41.1,
+    "creation": "2026-10-16 17:16:46.980480",
     "applicant_name": "حسن القرني"
    },
    {
-    "name": "AI-JOB-00020",
+    "name": "AI-JOB-00024",
     "reference_name": "applicant.2015@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 38.7,
-    "creation": "2026-10-16 16:00:34.627694",
+    "duration_s": 41.0,
+    "creation": "2026-10-16 17:16:44.564340",
     "applicant_name": "حسن القرني"
    },
    {
-    "name": "AI-JOB-00019",
+    "name": "AI-JOB-00023",
     "reference_name": "applicant.2014@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 55.1,
-    "creation": "2026-10-16 16:00:32.210562",
+    "duration_s": 70.2,
+    "creation": "2026-10-16 17:16:42.041467",
     "applicant_name": "طلال الحارثي"
    }
   ],

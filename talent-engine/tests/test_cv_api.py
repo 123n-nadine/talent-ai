@@ -178,3 +178,75 @@ def test_reprocessed_cv_is_new_input(seeded, client):
         data={"name_hint": "Shift"},
     ).json()["data_hash"]
     assert h1 != h2  # same file, different redaction outcome -> different input
+
+
+def test_weak_ocr_lines_are_never_evidence(tmp_path, sec_job):
+    """Round 3 review: a line read at 69% confidence had been highlighted as evidence. A line
+    under OCR_MIN_CONFIDENCE is taken out of the text before the model and before any quote
+    check; the same line read well is accepted."""
+    from app.llm.fake import FakeLLM
+    from app.pipeline import runner
+    from app.pipeline.stages.cv_text import WEAK_MARK
+
+    quote = "أشرف على فريق من 8 حراس في الوردية"
+
+    def screen(text: str) -> dict:
+        c = _client(tmp_path, fake_ocr_text=text, fake_ocr_confidence=0.95)
+        c.put(f"/v1/jobs/{SEC}", json=sec_job)
+        c.put(
+            "/v1/candidates/C-W",
+            json={
+                "facts": {"nationality": "السعودية", "height_cm": 181, "weight_kg": 79, "age": 29},
+                "answers": {"years_sec": 6, "licence": "سارية", "languages": ["العربية"]},
+            },
+        )
+        r = c.put(
+            "/v1/candidates/C-W/cv",
+            files={"file": ("scan.pdf", scanned_pdf_bytes(), "application/pdf")},
+        )
+        assert r.status_code == 200, r.text
+        sid = c.post("/v1/screenings", json={"job_ref": SEC, "candidate_ref": "C-W"}).json()[
+            "screening_id"
+        ]
+        with c.app.state.sessionmaker() as db:  # run again with a provider that quotes the CV
+            from app.storage.models import Screening
+
+            row = db.get(Screening, sid)
+            row.status = "queued"
+            for cr in list(row.criteria):
+                db.delete(cr)
+            db.commit()
+            s = runner.run_screening(
+                db,
+                c.app.state.settings,
+                sid,
+                provider=FakeLLM({"supervision": (100, quote)}),
+                deliver=False,
+            )
+            assert s is not None and s.status in ("completed", "needs_review")
+        out = c.get(f"/v1/screenings/{sid}").json()
+        c.__exit__(None, None, None)
+        return out
+
+    weak = screen(f"حارس أمن في مجمع تجاري منذ 2019\n~{quote}\nرخصة حارس أمن سارية")
+    sup = next(x for x in weak["criteria"] if x["key"] == "supervision")
+    assert (
+        sup["cv_level"] is None and sup["cv_quote"] is None and "quote_not_found" in weak["flags"]
+    )
+    assert weak["versions"]["weak_lines"] == [1]
+    assert weak["cv"]["redacted_text"].split("\n")[1] == WEAK_MARK and weak["cv"]["weak_lines"] == [
+        1
+    ]
+    assert (
+        quote not in weak["cv"]["redacted_text"] and "supervision" not in weak["cv"]["quote_boxes"]
+    )
+    stage = next(st for st in weak["stages"] if st["key"] == "cv_text")
+    assert "مستبعد" in stage["note"] and "weak line" in stage["note_en"]
+    assert "low_ocr_confidence" not in weak["flags"]  # the page average is still above 0.80
+
+    good = screen(f"حارس أمن في مجمع تجاري منذ 2019\n{quote}\nرخصة حارس أمن سارية")
+    sup = next(x for x in good["criteria"] if x["key"] == "supervision")
+    assert (
+        sup["cv_level"] == 100 and sup["cv_quote"] == quote and good["versions"]["weak_lines"] == []
+    )
+    assert "supervision" in good["cv"]["quote_boxes"]

@@ -15,7 +15,7 @@ from playwright.async_api import Browser, Page, async_playwright
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 BASE = os.environ.get("TAI_BASE", "http://127.0.0.1:18050")
 CONSOLE = os.environ.get("TAI_CONSOLE", "http://127.0.0.1:18000")
-VIEWPORTS = {"1366": (1366, 768), "1440": (1440, 900), "1920": (1920, 1080), "m375": (375, 812), "m390": (390, 844)}
+VIEWPORTS = {"1100": (1100, 800), "1366": (1366, 768), "1440": (1440, 900), "1920": (1920, 1080), "m375": (375, 812), "m390": (390, 844)}
 
 
 def env(path: str) -> dict[str, str]:

@@ -317,7 +317,9 @@ def mark_for_retry(db: Session, tenant: Tenant, s: Screening, actor: str) -> Scr
     return s
 
 
-def cv_out(cand: Candidate, with_text: bool = False) -> dict[str, Any] | None:
+def cv_out(
+    cand: Candidate, with_text: bool = False, weak_lines: list[int] | None = None
+) -> dict[str, Any] | None:
     doc = next((d for d in cand.documents if d.kind == "cv"), None)
     if doc is None:
         return None
@@ -332,7 +334,17 @@ def cv_out(cand: Candidate, with_text: bool = False) -> dict[str, Any] | None:
         "sha256": doc.sha256,
     }
     if with_text:
-        out["redacted_text"] = doc.redacted_text
+        from app.pipeline.stages.cv_text import WEAK_MARK
+
+        text = doc.redacted_text or ""
+        if weak_lines:  # what the model saw: the weak lines were replaced by the marker
+            lines = text.split("\n")
+            for i in weak_lines:
+                if i < len(lines):
+                    lines[i] = WEAK_MARK
+            text = "\n".join(lines)
+        out["redacted_text"] = text
+        out["weak_lines"] = list(weak_lines or [])
         out["layout"] = doc.layout
         out["page_count"] = doc.page_count
         out["quote_boxes"] = {}
@@ -340,9 +352,12 @@ def cv_out(cand: Candidate, with_text: bool = False) -> dict[str, Any] | None:
 
 
 def _cv_with_quotes(
-    cand: Candidate, criteria: list[dict[str, Any]], with_text: bool
+    cand: Candidate,
+    criteria: list[dict[str, Any]],
+    with_text: bool,
+    weak_lines: list[int] | None = None,
 ) -> dict[str, Any] | None:
-    out = cv_out(cand, with_text=with_text)
+    out = cv_out(cand, with_text=with_text, weak_lines=weak_lines)
     if out is None or not with_text:
         return out
     from app.documents.layout import boxes_for_quote
@@ -415,7 +430,7 @@ def to_out(
         "needs_review": s.needs_review,
         "flags": sorted(set(flags)),
         "criteria": criteria,
-        "cv": _cv_with_quotes(cand, criteria, with_cv),
+        "cv": _cv_with_quotes(cand, criteria, with_cv, (s.versions or {}).get("weak_lines")),
         "summary": s.summary,
         "strengths": s.strengths or [],
         "gaps": s.gaps or [],

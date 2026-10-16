@@ -101,3 +101,14 @@ Last update: 2026-10-16, end of phase 8 — everything done (details in `docs/PR
 | C3 | Both written in `OPEN_QUESTIONS.md` as defaults until the client confirms | #20, #21 | ✅ |
 | C4 | `make install` runs `uv sync --group documents` | `talent-engine/Makefile`, README | ✅ |
 | C5 | The guide pages of both cases updated in the PDF and the Word file | chapter 9 (cases 9 أ–هـ and 10 أ–ب, seven pages with their screenshots), privacy, FAQ, open questions, glossary, fixed bugs; PDF and Word 130 pages each, 0 page problems; inventory 576 items, MISSING 0 | ✅ |
+
+## 7. Round 4: Nadine's review of the guide (2026-10-16)
+
+| # | Item | Where | Status |
+|---|---|---|---|
+| V1 | Data leak: an e-mail of an Arabic text PDF reached the model. Redaction catches e-mails, phones and IDs with spaces, moved dots or scrambled order; every stored CV re-redacted; a permanent test that zero e-mail, phone or ID reaches the model; affected applicants re-scored | `app/documents/pdftext.py`, `app/redaction/`, `scripts/reprocess_cvs.py`, `tests/test_pdftext.py`, `tests/test_redaction.py` | ✅ |
+| V2 | Numbers scrambled in Arabic PDFs; years from the CV computed right, with a test | `app/documents/pdftext.py`, `tests/test_pdftext.py` | ✅ |
+| V3 | An OCR line under `OCR_MIN_CONFIDENCE` is never evidence and shows as weak in the analysis, with a test | `app/pipeline/stages/cv_text.py`, `talent_ai.js`, `tests/test_cv_api.py::test_weak_ocr_lines_are_never_evidence` | ✅ |
+| V4 | A clear banner on the assessment card when the CV was not read | `talent_ai.js` | ✅ |
+| V5 | The same name twice in the ranking picture: verified as two test applications with different IDs, not a missed duplicate; the picture shows three rows | `tools/guide/build.py` | ✅ |
+| G6–G13 | Guide: the full form in two pictures, one distinctive picture per role, bigger home page and map, grid headers, the console CV of the worked example, the number 10487, the PDPL answer, test codes in the technical boxes only, one application versus a thousand | `tools/guide/` | ✅ |

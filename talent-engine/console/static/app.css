@@ -403,3 +403,4 @@ table.edit td.rub input[dir=auto]{font-family:var(--font)}
 table.edit td{vertical-align:top}
 .stack{display:block}
 table.edit td input[dir=auto]{font-family:var(--font)}
+.ocrline.weak .ln{color:#56627c;text-decoration:line-through}

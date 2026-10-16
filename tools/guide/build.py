@@ -445,8 +445,9 @@ def design_pair() -> None:
 
     d = os.path.join(GUIDE, "images", "design")
     a, b = Image.open(os.path.join(d, "desk_ranking_before.png")).convert("RGB"), Image.open(os.path.join(d, "desk_ranking_after.png")).convert("RGB")
-    # the first ranked rows show every change; the pair then prints at the full width
-    a, b = (im.crop((0, 0, im.width, quiet_row(im.convert("L"), int(im.height * 0.55)))) for im in (a, b))
+    # the first three ranked rows show every change (three different applicants); the pair then
+    # prints at the full width
+    a, b = (im.crop((0, 0, im.width, quiet_row(im.convert("L"), int(im.height * 0.42)))) for im in (a, b))
     out = Image.new("RGB", (max(a.width, b.width), a.height + b.height + 24), "white")
     out.paste(a, (0, 0))
     out.paste(b, (0, a.height + 24))

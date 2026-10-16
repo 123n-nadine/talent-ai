@@ -151,3 +151,99 @@ def test_split_dob_line_is_fully_scrubbed():
         and "[تاريخ الميلاد]" in r.text
         and "2027" in r.text
     )
+
+
+# ----------------------------------------------------------------------------- round 3: no leak
+def _every_synthetic_line() -> list[str]:
+    from tests.test_pdftext import all_cv_lines
+
+    return all_cv_lines()
+
+
+def _known_secrets() -> list[str]:
+    """The fictional e-mails, phones and IDs that the synthetic CVs carry."""
+    import os
+    import sys
+
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from scripts.cv_texts import CV_TEXTS
+    from scripts.make_cvs import contact_block
+
+    out = []
+    for ref, cv in CV_TEXTS.items():
+        for ln in contact_block(ref, cv["lines"][0])[1]:
+            v = ln.split(":", 1)[-1].strip()
+            if "@" in v or sum(ch.isdigit() for ch in v) >= 9:
+                out.append(v)
+    assert len(out) >= 40
+    return out
+
+
+def test_email_broken_by_a_pdf_writer_is_still_redacted():
+    from app.redaction.engine import leak_check
+
+    for broken in (
+        "البريد الإلكتروني: demo.2001@example com.",
+        "البريد الإلكتروني demo.2001@example com",
+        "demo .2001 @ example . com",
+        "Email: demo.2022@example.com",
+        "رقم الهوية 1200 1200 12",
+        "الجوال 052 001 1002",
+    ):
+        r = redact(broken, use_nlp=False)
+        assert leak_check(r.text) == [], (broken, r.text)
+        assert "demo" not in r.text and "example" not in r.text and "2001" not in r.text
+    # years, dates of work and short numbers stay
+    r = redact("من 2017 حتى 2026، رخصة تنتهي 30/06/2027، فريق من 14 فردًا", use_nlp=False)
+    assert (
+        "2017" in r.text and "30/06/2027" in r.text and "14" in r.text and not r.report.get("guard")
+    )
+
+
+def test_no_email_phone_or_id_of_any_synthetic_cv_reaches_the_model():
+    """Every line of the 20 synthetic CVs and the gold set, as written and as a PDF writer
+    prints it (visual order, then reconstructed): after redaction nothing that looks like an
+    address or a long number is left, and none of the fictional secrets survives."""
+    from bidi.algorithm import get_display
+
+    from app.documents.pdftext import logical_text
+    from app.redaction.engine import leak_check
+
+    secrets = _known_secrets()
+    lines = _every_synthetic_line()
+    texts = ["\n".join(lines), "\n".join(logical_text(get_display(ln)) for ln in lines)]
+    for text in texts:
+        r = redact(text, use_nlp=False)
+        assert leak_check(r.text) == []
+        squeezed = r.text.replace(" ", "")
+        for s in secrets:
+            assert s not in r.text and s.replace(" ", "") not in squeezed, s
+    # the sweep is a safety net, not the normal path: the patterns catch them first
+    assert redact(texts[0], use_nlp=False).report.get("guard", 0) == 0
+
+
+def test_leak_check_catches_what_a_model_must_never_see():
+    from app.redaction.engine import leak_check
+
+    assert leak_check("مرحبا demo@example com") == ["demo@example"]
+    assert leak_check("الهوية 1 2 0 0 1 2 0 0 1 2") and leak_check("tel 05-2001-1002")
+    assert leak_check("خبرة 9 سنوات من 2017 حتى 2026") == []
+    assert leak_check(None) == [] and leak_check("") == []
+
+
+def test_reprocess_recovers_the_name_hint_from_the_earlier_redaction():
+    """The engine keeps no name: when a stored CV is re-extracted, the name the host gave at
+    upload time is read back from what the earlier redaction replaced (round 4 review)."""
+    import os
+    import sys
+
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from scripts.reprocess_cvs import recover_name_hints
+
+    raw = "السيرة الذاتية — فهد العتيبي\nالاسم: فهد سعد العتيبي\nمشرف أمن منذ 2017"
+    first = redact(raw, name_hint="فهد سعد العتيبي", use_nlp=False).text
+    hints = recover_name_hints(raw, first)
+    assert any("العتيبي" in h for h in hints), hints
+    again = redact(raw, name_hint=" ".join(hints), use_nlp=False).text
+    assert "فهد" not in again and "العتيبي" not in again and "2017" in again
+    assert recover_name_hints(raw, "x") == []  # line counts differ: nothing guessed

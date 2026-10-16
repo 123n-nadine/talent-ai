@@ -207,7 +207,10 @@ def raw_lines_vs_redacted(raw: str | None, redacted: str | None) -> list[list[st
 
 
 def document_out(
-    doc: Document, include_text: bool = False, include_raw: bool = False
+    doc: Document,
+    include_text: bool = False,
+    include_raw: bool = False,
+    min_confidence: float | None = None,
 ) -> dict[str, Any]:
     out: dict[str, Any] = {
         "id": doc.id,
@@ -229,6 +232,11 @@ def document_out(
     if include_text:
         out["redacted_text"] = doc.redacted_text
         out["layout"] = doc.layout
+        if min_confidence is not None:
+            from app.pipeline.stages.cv_text import weak_line_indices
+
+            out["min_confidence"] = min_confidence
+            out["weak_lines"] = weak_line_indices(doc.layout, min_confidence)
         out["page_images"] = (
             [f"pages/{i}" for i in range(doc.page_count or 0)]
             if doc.status == "ready" or doc.layout

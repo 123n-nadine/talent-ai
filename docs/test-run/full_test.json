@@ -115,7 +115,7 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 81.5 (high); method ocr:paddle_cpu, OCR confidence 0.91; flags quote_not_found",
    "ok": true,
-   "seconds": 53.3,
+   "seconds": 51.7,
    "shots": [
     "guide/images/test/C01_form.png",
     "guide/images/test/C01_thanks.png",
@@ -123,21 +123,21 @@
     "guide/images/test/C01_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.86,
-    "submit_s": 0.28,
-    "until_result_s": 53.3,
-    "pipeline_s": 19.4,
+    "form_load_s": 0.68,
+    "submit_s": 0.69,
+    "until_result_s": 51.7,
+    "pipeline_s": 21.4,
     "stages": {
      "intake": 0,
      "answers": 0,
      "cv_text": null,
      "redaction": null,
-     "profile": 6004,
-     "evidence_check": 1,
+     "profile": 9111,
+     "evidence_check": 2,
      "eligibility": 0,
-     "judgement": 11563,
+     "judgement": 10277,
      "scoring": 0,
-     "index": 1628
+     "index": 1904
     }
    },
    "applicant": "t.cv.scan@example.com"
@@ -155,21 +155,21 @@
     "guide/images/test/C02_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.51,
-    "submit_s": 0.18,
+    "form_load_s": 0.52,
+    "submit_s": 0.16,
     "until_result_s": 33.0,
-    "pipeline_s": 22.0,
+    "pipeline_s": 20.2,
     "stages": {
      "intake": 0,
      "answers": 0,
      "cv_text": null,
      "redaction": null,
-     "profile": 6832,
-     "evidence_check": 1,
+     "profile": 6797,
+     "evidence_check": 2,
      "eligibility": 0,
-     "judgement": 12850,
+     "judgement": 11467,
      "scoring": 0,
-     "index": 2221
+     "index": 1822
     }
    },
    "applicant": "t.cv.arpdf@example.com"
@@ -181,27 +181,27 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method pdf_text",
    "ok": true,
-   "seconds": 27.1,
+   "seconds": 27.6,
    "shots": [
     "guide/images/test/C03_assessment.png",
     "guide/images/test/C03_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.29,
+    "form_load_s": 0.31,
     "submit_s": 0.16,
-    "until_result_s": 27.1,
-    "pipeline_s": 16.4,
+    "until_result_s": 27.6,
+    "pipeline_s": 17.1,
     "stages": {
      "intake": 0,
      "answers": 0,
      "cv_text": null,
      "redaction": null,
-     "profile": 4375,
+     "profile": 4435,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 10423,
+     "judgement": 11057,
      "scoring": 0,
-     "index": 1506
+     "index": 1469
     }
    },
    "applicant": "t.cv.enpdf@example.com"
@@ -213,27 +213,27 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method docx",
    "ok": true,
-   "seconds": 35.2,
+   "seconds": 36.9,
    "shots": [
     "guide/images/test/C04_assessment.png",
     "guide/images/test/C04_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.31,
-    "submit_s": 0.15,
-    "until_result_s": 35.2,
-    "pipeline_s": 19.3,
+    "form_load_s": 0.37,
+    "submit_s": 0.16,
+    "until_result_s": 36.9,
+    "pipeline_s": 20.2,
     "stages": {
      "intake": 0,
      "answers": 0,
      "cv_text": null,
      "redaction": null,
-     "profile": 5889,
+     "profile": 6075,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 11519,
+     "judgement": 12223,
      "scoring": 0,
-     "index": 1750
+     "index": 1788
     }
    },
    "applicant": "t.cv.docx@example.com"
@@ -245,31 +245,30 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method libreoffice+pdf_text",
    "ok": true,
-   "seconds": 30.5,
+   "seconds": 33.7,
    "shots": [
     "guide/images/test/C05_assessment.png",
     "guide/images/test/C05_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.67,
-    "submit_s": 0.16,
-    "until_result_s": 30.5,
-    "pipeline_s": 19.2,
+    "form_load_s": 0.3,
+    "submit_s": 1.33,
+    "until_result_s": 33.7,
+    "pipeline_s": 19.6,
     "stages": {
      "intake": 0,
      "answers": 0,
      "cv_text": null,
      "redaction": null,
-     "profile": 5647,
+     "profile": 5945,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 11814,
+     "judgement": 11514,
      "scoring": 0,
-     "index": 1615
+     "index": 2045
     }
    },
-   "applicant": "t.cv.rtf.r2@example.com",
-   "history": "first run: Failed — «TypeError: Strings must be encoded before hashing» (bug F1); after the fix and a worker restart: Completed"
+   "applicant": "t.cv.rtf@example.com"
   },
   "C06": {
    "title": "DOC, Word 97 (converted from the Word CV)",
@@ -278,27 +277,27 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method libreoffice+pdf_text",
    "ok": true,
-   "seconds": 31.6,
+   "seconds": 33.5,
    "shots": [
     "guide/images/test/C06_assessment.png",
     "guide/images/test/C06_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.48,
+    "form_load_s": 0.41,
     "submit_s": 0.89,
-    "until_result_s": 31.6,
-    "pipeline_s": 19.9,
+    "until_result_s": 33.5,
+    "pipeline_s": 19.7,
     "stages": {
      "intake": 0,
      "answers": 0,
      "cv_text": null,
      "redaction": null,
-     "profile": 6315,
+     "profile": 5939,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 11915,
+     "judgement": 11508,
      "scoring": 0,
-     "index": 1543
+     "index": 2152
     }
    },
    "applicant": "t.cv.doc@example.com"
@@ -310,16 +309,16 @@
    "expected": "Completed from the answers; no CV",
    "actual": "Completed; score 89 (high); method -",
    "ok": true,
-   "seconds": 10.0,
+   "seconds": 11.4,
    "shots": [
     "guide/images/test/C07_form.png",
     "guide/images/test/C07_assessment.png"
    ],
    "timing": {
-    "form_load_s": 0.29,
-    "submit_s": 0.16,
-    "until_result_s": 10.0,
-    "pipeline_s": 1.0,
+    "form_load_s": 0.34,
+    "submit_s": 0.15,
+    "until_result_s": 11.4,
+    "pipeline_s": 1.1,
     "stages": {
      "intake": 0,
      "answers": 0,
@@ -330,7 +329,7 @@
      "eligibility": 0,
      "judgement": 0,
      "scoring": 0,
-     "index": 868
+     "index": 1028
     }
    },
    "applicant": "t.cv.none@example.com"
@@ -342,14 +341,14 @@
    "expected": "the platform refuses the file, the application is saved and assessed from the answers (decision 14)",
    "actual": "Completed; score 65 (medium); method -; note: ملف السيرة «HR-APP-2026-2013.pdf» تالف أو غير آمن ولم يُحفظ (PdfStreamError). التقييم من الإجابات فقط.",
    "ok": true,
-   "seconds": 9.9,
+   "seconds": 12.2,
    "shots": [
     "guide/images/test/C08_assessment.png"
    ],
    "timing": {
-    "form_load_s": 0.58,
-    "submit_s": 0.15,
-    "until_result_s": 9.9,
+    "form_load_s": 0.29,
+    "submit_s": 0.16,
+    "until_result_s": 12.2,
     "pipeline_s": 1.0,
     "stages": {
      "intake": 0,
@@ -361,7 +360,7 @@
      "eligibility": 0,
      "judgement": 0,
      "scoring": 0,
-     "index": 851
+     "index": 919
     }
    },
    "applicant": "t.cv.corrupt@example.com"
@@ -371,29 +370,29 @@
    "user": "Guest → HR Manager",
    "file": "HR-APP-2026-2025-bad.jpg",
    "expected": "read with OCR; low confidence flagged if under the threshold",
-   "actual": "Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence, quote_not_found",
+   "actual": "Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence",
    "ok": true,
-   "seconds": 45.1,
+   "seconds": 40.9,
    "shots": [
     "guide/images/test/C09_assessment.png",
     "guide/images/test/C09_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.29,
-    "submit_s": 0.87,
-    "until_result_s": 45.1,
-    "pipeline_s": 17.0,
+    "form_load_s": 0.72,
+    "submit_s": 0.89,
+    "until_result_s": 40.9,
+    "pipeline_s": 14.1,
     "stages": {
      "intake": 0,
      "answers": 0,
      "cv_text": null,
      "redaction": null,
-     "profile": 5499,
+     "profile": 3545,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 10170,
+     "judgement": 8973,
      "scoring": 0,
-     "index": 1188
+     "index": 1489
     }
    },
    "applicant": "t.cv.badimg@example.com"
@@ -419,7 +418,7 @@
    "expected": "not eligible with both reasons, kept out of the ranking, score shown in grey",
    "actual": "Completed; eligibility not_eligible; failed rules: الجنسية: المصرّح به مصر — المطلوب ضمن: السعودية | الطول (سم): المصرّح به 172 سم — المطلوب 180 سم أو أكثر; ranked: False",
    "ok": true,
-   "seconds": 18.9,
+   "seconds": 18.0,
    "shots": [
     "guide/images/test/K02_not_eligible.png"
    ],
@@ -448,15 +447,14 @@
    "shots": [
     "guide/images/test/K04_blank_2021.png",
     "guide/images/test/K04_zero_2006.png"
-   ],
-   "history": "first run failed because the test used applicant 2009, whose CV supplies the supervision evidence (correct behaviour); the test now uses 2021 (blank answer, no CV)"
+   ]
   },
   "K05": {
    "title": "The answer says one thing, the CV another",
    "user": "HR Manager",
    "file": null,
    "expected": "contradiction flag, the lower level is used, needs review before any decision",
-   "actual": "flags ['contradiction', 'quote_not_found']; supervision: form level 100, CV level 50 → used 50; quote «أشرفت على فريق صغير من الحراس لمدة سنتين»",
+   "actual": "flags ['contradiction', 'quote_not_found']; supervision: form level 100, CV level 50 → used 50; quote «أشرفت على فريق صغير من الحراس لمدة سنتين.»",
    "ok": true,
    "seconds": null,
    "shots": [
@@ -469,13 +467,12 @@
    "user": "HR Manager",
    "file": null,
    "expected": "linked to the original, grey, only the original is ranked, nothing deleted",
-   "actual": "2016 → applicant.2015@example.com; 2024 → applicant.2003@example.com; in the duplicate group: ['hassan.q.second@example.com', 'khaled.d.second@example.com', 't.enginedown@example.com']",
+   "actual": "2016 → applicant.2015@example.com; 2024 → applicant.2003@example.com; in the duplicate group: ['hassan.q.second@example.com', 'khaled.d.second@example.com']",
    "ok": true,
    "seconds": null,
    "shots": [
     "guide/images/test/K06_duplicate.png"
-   ],
-   "history": "first run failed because the test built the duplicate's e-mail from its number; it now reads the e-mails from the demo data"
+   ]
   },
   "K07": {
    "title": "Editing an answer after the evaluation",
@@ -2326,8 +2323,8 @@
   }
  },
  "run_started": "2026-10-16 08:22:42",
- "updated_at": "2026-10-16 12:56:34",
- "engine_suite": "120 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1)",
+ "updated_at": "2026-10-16 14:38:50",
+ "engine_suite": "129 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1)",
  "frappe_suite": "22 passed",
  "not_done": [
   "The Playwright MCP server was not available in this session; the same Playwright engine (1.64) and the server's Chrome were driven from Python instead.",
