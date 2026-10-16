@@ -10,6 +10,7 @@ from app.llm.base import Judgement
 from app.llm.schemas import CriterionJudgement
 from app.pipeline.stages.answers import NormalisedAnswer
 from app.pipeline.stages.profile import quote_in_text
+from app.scoring.rubric import level_from_rubric, years_in_quote
 
 
 def _same_value(model_value: str | None, canonical: str) -> bool:
@@ -33,10 +34,12 @@ def resolve(
     threshold: float = 0.9,
     question_key: str | None = None,
     code_level: int | None = None,
+    numeric_rubric: list[dict] | None = None,
 ) -> tuple[Judgement, list[str]]:
     """Return the verified judgement and the problems found (evidence_mismatch, quote_not_found).
     `question_key` is the question that feeds the criterion according to the job (code authority);
-    `code_level` is the form level computed in code for structured answers (overrides the model)."""
+    `code_level` is the form level computed in code for structured answers (overrides the model);
+    `numeric_rubric` (number criteria): a duration stated in the CV quote is levelled in code too."""
     problems: list[str] = []
     form_level: int | None = None
     if question_key:
@@ -53,6 +56,13 @@ def resolve(
     if raw.cv_level is not None:
         if quote_in_text(raw.cv_quote, redacted_text, threshold):
             cv_level = int(raw.cv_level)
+            years = years_in_quote(raw.cv_quote) if numeric_rubric else None
+            if years is not None and numeric_rubric:
+                cv_level = level_from_rubric(
+                    numeric_rubric,
+                    "number",
+                    NormalisedAnswer("cv", years, years, True, f"{years:g}"),
+                )
         else:
             problems.append("quote_not_found")
 

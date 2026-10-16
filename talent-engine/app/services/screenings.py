@@ -53,8 +53,7 @@ def find_duplicate_of(db: Session, tenant: Tenant, job: Job, candidate: Candidat
     if not candidate.id_token:
         return None
     peers = db.scalars(
-        select(Candidate)
-        .where(
+        select(Candidate).where(
             Candidate.tenant_id == tenant.id,
             Candidate.id_token == candidate.id_token,
             Candidate.id != candidate.id,

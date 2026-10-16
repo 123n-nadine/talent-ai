@@ -223,6 +223,9 @@ def run_screening(
                 settings.quote_match_threshold,
                 c.get("question"),
                 code_level=code_levels.get(c["key"]),
+                numeric_rubric=c.get("rubric")
+                if (questions.get(c.get("question") or "") or {}).get("type") == "number"
+                else None,
             )
             problems.extend(probs)
             verified[c["key"]] = j
