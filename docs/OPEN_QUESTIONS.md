@@ -8,23 +8,20 @@ Questions we still need answered to finish or deploy. The discovery's own lists 
 | 2 | Background **workers** on the production site: `frappe.enqueue` (queue `long`) needs RQ workers, not the scheduler. The **scheduler** is only needed for the hourly retry of Failed jobs. The demo has the scheduler disabled (last job 2025-08-21); the gap analysis in `reference/discovery/08_gap_analysis.md` wrongly says `enqueue` depends on the scheduler | Frappe team | Phase 6 (dev) / deploy | open |
 | 3 | How much GPU memory does the Luna stack (`remote-sdk`, `video-agent`, user awais) need when healthy? Our cap is 0.40 (~9.8 GB) and can be raised to 0.50 if Luna needs < 6 GB | Nadine asks awais | Phase 3 | open |
 | 4 | Where is this GPU server physically (inside KSA or not)? Decides whether real CVs may ever be processed here under PDPL. Until answered: synthetic data only | Abdullah + client | before any real data | open |
-| 5 | CV upload limit and allowed types for Guest on the web form (`allow_guests_to_upload_files` = 0 and `max_file_size` = 0 on the demo); does Frappe v16 allow a child table with Attach fields on a web form for Guest (needed for certificates)? | Frappe team | Phase 6 | open |
 | 6 | Exact hard-rule values per role (nationality, height, weight, age range) and whether they are per Designation or per opening. `age >= 18` is a placeholder | Abdullah + client | Phase 1 seed is a placeholder; real values before acceptance | open |
 | 7 | Consent text (Arabic) for the application form, and the retention period for applicants' data | Client (PDPL) | Phase 6 | open |
 | 8 | Dedicated API user / key on the client site for the engine callback, with minimum permissions | Frappe team | deploy | open |
 | 9 | Production time zone (demo runs Africa/Cairo; our dev site uses Asia/Riyadh) | Frappe team | deploy | open |
-| 12 | (answered 2026-10-15, see EVALUATION_REPORT) Judge quality of Qwen3-8B-AWQ on Turing: generation ~45 tokens/s, one applicant with a CV takes ~15–20 s (profile + judgement). The gold set (phase 4) decides whether the 8B model is good enough or a 14B/Arabic model is needed; vLLM on this GPU runs with the Triton attention backend (no FlashAttention) | us | phase 4 | open |
 | 13 | The phase-4 accuracy (98% exact levels) is measured on **synthetic** applicants. Real accuracy needs the client's HR to label 30–40 real applications (after redaction, inside the client's environment) with the expected level per criterion; then rerun `eval/run.py` on that set | Abdullah + client HR | before acceptance | open (Nadine, 2026-10-15) |
-| 11 | OCR confidence threshold: PaddleOCR on the synthetic scanned Arabic CV scores ~0.74 (length-weighted). The 0.80 default sends every scan to Needs Review. Calibrate on the gold set (phase 4) against real-looking scans before deciding | us | phase 4 | open |
-| 10 | RQ worker overhead: the pipeline takes ~0.5 s per application with the fake provider, but each RQ job adds ~1.5 s (fork + new DB engine per job). Options: keep a warm engine/session factory in the worker process, batch several screenings per job, or more workers. Decide with the real numbers of the phase 4 report (time per 1000) | us | phase 4 | measured in phase 4: minor next to LLM time (EVALUATION_REPORT §2) |
-| 14 | Commit the dev bench scripts? `dev-frappe/` is git-ignored by rule, so `docker-compose.yml`, `setup.sh`, `start.sh`, `reset_demo.sh` and `VERSIONS.md` (no secrets; `.env` stays out) exist only on this server. Proposal: commit them (without `.env`) under `docs/dev-bench/` so the bench can be rebuilt elsewhere | Nadine | phase 7 | open (2026-10-16) |
 | 15 | MariaDB 11.8 runs with `innodb_snapshot_isolation=ON`: concurrent writers get error 1020 instead of waiting. The app now keeps transactions short and retries conflicts; which MariaDB version and isolation settings does the client platform use? | Frappe team | deploy | open (2026-10-16) |
 | 16 | Public form rate limit: 20 applications per IP per 10 minutes (site config `talent_ai_apply_limit`). Applicants applying from one office or kiosk share an IP; what limit does the client want? | Abdullah + client | deploy | open (2026-10-16) |
 | 17 | Arabic for HRMS's own labels: HRMS develop ships `ar.po` with many empty strings (e.g. «Applicant Rating», «Schedule Interview» stay English on our bench). The client's `ido_design` app may already translate them; to check on the real platform | Frappe team | deploy | open (2026-10-16) |
 | 18 | The demo's form also has «الصورة الشخصية» and «الشهادات». Not built: the requirement list asks for an optional CV only, and a photo must never reach the AI. Add certificates as plain attachments (not read by the AI)? | Abdullah + client | phase 2 | open (2026-10-16) |
-| 19 | Status changes made outside the Talent AI buttons (HRMS Kanban, the status field) are audited as «no reason recorded» but not blocked. Should the reason be enforced everywhere (server-side validation on Job Applicant), which would also change the HRMS Kanban behaviour? | Abdullah + client | before acceptance | open (2026-10-16) |
+| 20 | Applications entered by HR in the desk (paper forms) have no consent record, so the AI does not process them (consent is required). Should HR be able to record a paper consent (with the form version and a reason) so these applications are screened too? | Abdullah + client | before go-live | open (2026-10-17) |
 
 ## Answered
+
+Rows `Qn` answer open question n above; rows `An` are other decisions.
 
 | # | Question | Answer | Date |
 |---|---|---|---|
@@ -35,3 +32,11 @@ Questions we still need answered to finish or deploy. The discovery's own lists 
 | A5 | Is the national ID sent to the engine? | Never raw. Only `id_token = HMAC-SHA256(national_id, id_token_secret)` for duplicate detection | 2026-10-15 |
 | A6 | Time zones | Engine stores UTC; dev Frappe site Asia/Riyadh | 2026-10-15 |
 | A7 | GPU cap and ports | Option A (0.40) and the port table in `SERVER_REPORT.md` §5 approved | 2026-10-15 |
+| Q5 | CV upload for Guests on the application form | We do not use a Web Form: our public page posts to `ido_talent_ai.api.apply`, which accepts PDF, DOCX, DOC, RTF, JPG and PNG up to 10 MB and stores the CV as a private file attached to the Job Applicant. Certificates: see #18 | 2026-10-16 |
+| Q10 | RQ worker overhead | Measured in phase 4: minor next to LLM time (EVALUATION_REPORT §2); no change needed | 2026-10-15 |
+| Q11 | OCR confidence threshold | Stays 0.80: the synthetic scans read at 0.91. Recalibrate with real scans together with #13 | 2026-10-15 |
+| Q12 | Judge quality of Qwen3-8B-AWQ | Good enough: 98% exact levels, 100% within one step, 100% evidence on the gold set (EVALUATION_REPORT) | 2026-10-15 |
+| Q14 | Commit the dev bench scripts? | Yes, without `.env` (Nadine). Done: `dev-frappe/` is in git with `.env.example` and `init_env.sh` | 2026-10-16 |
+| Q19 | Enforce a reason for every status change? | No: status changes outside the Talent AI buttons stay audited only (Nadine). The Talent AI buttons always require a reason | 2026-10-16 |
+| A8 | Which Docker builder may we use? | Only the daemon's default builder (Nadine). `make build`/`make up` force it (`override BUILDX_BUILDER := default` + `builder-check`); `talent-engine/scripts/compose.sh` for direct compose calls | 2026-10-16 |
+| A9 | Frappe MariaDB in memory? | Only on the local test bench, for speed on this server's slow disk (backups every 2 hours, restored on start). Production uses the platform's normal disk-based MariaDB (DEPLOY.md) | 2026-10-16 |

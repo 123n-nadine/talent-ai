@@ -1,9 +1,18 @@
 .RECIPEPREFIX = >
-# The host's selected buildx builder (sdf-builder, a docker-container builder) has no DNS;
-# build with the daemon's default builder instead.
-export BUILDX_BUILDER = default
+# Images are built ONLY with the Docker daemon's default builder (Nadine, 2026-10-16). The shell's
+# selected buildx builder on this server (sdf-builder) is someone else's: never use it or any other.
+# `override` wins over the environment and the command line; `builder-check` refuses anything else.
+override BUILDX_BUILDER := default
+export BUILDX_BUILDER
 COMPOSE = docker compose -p talentai
-.PHONY: env install test lint typecheck up down logs ps migrate revision seed receiver cvs
+.PHONY: env install test lint typecheck up down logs ps migrate revision seed receiver cvs build builder-check
+
+builder-check:
+> @test "$$BUILDX_BUILDER" = "default" || { echo "refusing to build: BUILDX_BUILDER=$$BUILDX_BUILDER (only the default builder is allowed)"; exit 1; }
+> @docker buildx inspect default >/dev/null && echo "builder: default"
+
+build: builder-check
+> $(COMPOSE) build api embed
 
 env:
 > uv run python -m scripts.init_env
@@ -25,7 +34,7 @@ typecheck:
 
 WORKERS ?= 4
 
-up:
+up: builder-check
 > $(COMPOSE) up -d --build --scale worker=$(WORKERS)
 
 down:

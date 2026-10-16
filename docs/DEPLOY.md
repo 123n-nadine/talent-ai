@@ -2,6 +2,8 @@
 
 Written for: the Frappe team and whoever runs the engine server. It turns `DEPLOY_CHECKLIST.md` into concrete steps. Everything was rehearsed on the local bench (`dev-frappe/`, Frappe v16.31.0, ERPNext v16.32.0, HRMS develop 640af1592a01) and on a fresh site; open points are marked **to confirm** and tracked in `OPEN_QUESTIONS.md`.
 
+> **The local bench's database runs in memory (tmpfs) for testing only.** The server we tested on has a slow disk, so `dev-frappe/` keeps MariaDB in RAM with a backup every 2 hours. Production uses the platform's normal disk-based MariaDB and its normal backups; nothing in the app depends on the in-memory setup.
+
 Nothing in the platform code changes: the app adds DocTypes, custom fields, hooks, pages and one public page. Uninstalling it leaves the platform as it was.
 
 ## 1. What gets installed

@@ -1,6 +1,7 @@
 # Workspace: separate repo / local-only folders
 ido_talent_ai/
-dev-frappe/
+# dev-frappe/: the scripts are committed (Nadine, 2026-10-16); its .env never is
+dev-frappe/.env
 _laptop/
 talent-ai-archive/
 
