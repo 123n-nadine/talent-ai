@@ -136,6 +136,9 @@ DECISION_AR = {
     "progress:The earliest later copy becomes the original": "لو الطلب الأصلي اتسحبت موافقته، أقدم طلب بعده لنفس الشخص بيبقى الأصلي",
     "progress:A paper consent carries the current consent text version": "الموافقة الورقية بتتسجّل على نسخة نص الموافقة الحالية",
     "progress:Score 0 means no score in the list": "الدرجة صفر في القائمة معناها مفيش درجة",
+    "progress:PDF text is rebuilt from characters, not spans": "نص الملف النصي بيتبني من الحروف ومكانها، عشان البريد والأرقام والنقط تيجي في مكانها",
+    "progress:A weak OCR line is removed, not down-weighted": "السطر ضعيف القراءة بيتشال قبل النموذج، مش بيتوزن أقل",
+    "progress:The leak guard is a second gate": "بوابة تانية قبل النموذج بتمسك أي بيانات شخصية فلتت من الإخفاء",
 }
 
 

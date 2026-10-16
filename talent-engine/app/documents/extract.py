@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from app.core.config import Settings
-from app.documents.pdftext import group_rows, page_spans, row_text
+from app.documents.pdftext import group_rows, page_chars, page_is_arabic, row_box, row_text
 from app.ocr.base import OCRPage, OCRProvider, OCRUnavailable
 
 LETTERS = re.compile(r"[\w؀-ۿ]", re.UNICODE)
@@ -71,14 +71,13 @@ def _pdf_text_layout(doc: Any, source: str) -> tuple[list[str], dict[str, Any]]:
         layout["pages"].append(
             {"w": round(page.rect.width * k, 1), "h": round(page.rect.height * k, 1)}
         )
-        for row in group_rows(page_spans(page)):
-            t = _norm_line(row_text(row))
+        rows = group_rows(page_chars(page))
+        arabic = page_is_arabic(rows)
+        for row in rows:
+            t = _norm_line(row_text(row, arabic))
             if not t:
                 continue
-            x0 = min(s["x0"] for s in row) * k
-            x1 = max(s["x1"] for s in row) * k
-            y0 = min(s["yc"] - s["h"] / 2 for s in row) * k
-            y1 = max(s["yc"] + s["h"] / 2 for s in row) * k
+            x0, y0, x1, y1 = (v * k for v in row_box(row))
             box = [round(x0, 1), round(y0, 1), round(x1, 1), round(y1, 1)]
             layout["lines"].append(
                 {"p": pno, "t": t, "c": 1.0, "b": box, "boxes": [box + [1.0, t]]}

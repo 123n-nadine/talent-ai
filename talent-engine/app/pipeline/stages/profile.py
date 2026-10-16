@@ -31,7 +31,7 @@ def parse_date(value: str | None, now: datetime) -> datetime | None:
     if not value:
         return None
     v = normalize(value)
-    if v in ("present", "now", "current", "حتى الان", "الان", "مستمر"):
+    if re.search(r"present|now|current|to date|till|الان|حالي|مستمر", v):
         return now
     m = re.search(r"(19|20)\d{2}", v)
     if not m:

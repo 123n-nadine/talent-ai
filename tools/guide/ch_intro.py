@@ -40,7 +40,8 @@ def manager(F: dict) -> Chapter:
     k15 = tt.get("K15", {})
     perm_users = len(F["tests"]["perm"].get("users", []))
     pts = [
-        f"الوقت: ألف متقدم بياخدوا حوالي {thr['8']['per1000_min']} دقيقة بثمانية عمّال، و{thr['4']['per1000_min']} دقيقة بأربعة.",
+        f"الوقت: ألف متقدم بياخدوا حوالي {thr['8']['per1000_min']} دقيقة بثمانية عمّال، و{thr['4']['per1000_min']} دقيقة بأربعة.\n"
+        f"الطلب الواحد بياخد من {c_pdf.get('timing', {}).get('until_result_s', '—')} لـ {c_scan.get('timing', {}).get('until_result_s', '—')} ثانية حسب نوع السيرة، والألف أسرع من مجموعهم لإن الطلبات بتتعالج مع بعض.",
         f"الدقة: على {ev['gold']} متقدم اختبار، النظام جاب نفس مستوى الخبير في {pct(r8['exact'])} من المعايير.",
         f"القرب: الباقي كله كان على بُعد درجة واحدة بس، يعني {pct(r8['within_one'])} في حدود خطوة.",
         f"الأدلة: {pct(r8['evidence'])} من الأحكام اللي فوق الصفر ليها دليل اتراجع بالكود.",
@@ -127,20 +128,28 @@ def roles(F: dict) -> list[Chapter]:
     ], terms=["الدور", "مستوى الصلاحية"], ids=[f"role:{r}" for r in ("HR Manager", "HR User", "System Manager", "Administrator", "Interviewer", "Employee", "Employee Self Service", "Guest", "Website User")]
        + ["security:permlevel", "security:require-hr"])])
     # «النظام من عين كل واحد»: one page per role + the comparison table
+    DISTINCT = {
+        "administrator": ("audit", "سجل التدقيق كامل: كل إجراء باسم صاحبه، وده اللي بيميّز الإدارة."),
+        "system_manager": ("settings", "شاشة الإعدادات: مدير النظام بيعدّل ربط المحرك وإعداداته."),
+        "hr_manager": ("assessment", "طلب متقدم بأزرار القرار وإلغاء الحكم: ده اللي بيقرر."),
+        "hr_user": ("settings", "الرسالة اللي بتظهر له لما يحاول يفتح الإعدادات: مرفوض، وباقي شاشات التوظيف مفتوحة له."),
+    }
     pages = []
     for u in users:
         key = u["key"]
         row = m.get(key, {})
         sees = [s["label"] for s in perm["screens"] if row.get(s["key"], {}).get("state") in ("see", "edit")]
         denied = [s["label"] for s in perm["screens"] if row.get(s["key"], {}).get("state") == "deny"]
-        shot = row.get("assessment", {}).get("shot") if row.get("assessment", {}).get("state") in ("see", "edit") else (row.get("applicant", {}).get("shot") or row.get("home", {}).get("shot"))
+        # one picture per role that shows what sets it apart (the HR roles would otherwise share one)
+        pick = DISTINCT.get(key)
+        shot = (row.get(pick[0], {}).get("shot") if pick else None) or (row.get("assessment", {}).get("shot") if row.get("assessment", {}).get("state") in ("see", "edit") else (row.get("applicant", {}).get("shot") or row.get("home", {}).get("shot")))
         roles_txt = "، ".join(r.split(" (")[0] for r in u["roles"])
         blocks = [Field("الدور", ROLE_TEXT[key][1]), Field("بيدخل بـ", roles_txt if key != "guest" else "من غير تسجيل دخول")]
         blocks.append(Field("بيشوف", "، ".join(x.replace("Talent Console", "الكونسول") for x in sees) or "ولا شاشة من شاشات التوظيف"))
         if denied:
             blocks.append(Field("ممنوع عليه", "، ".join(x.replace("Talent Console", "الكونسول") for x in denied)))
         if shot:
-            cap = "اللي بيظهر له لما يفتح طلب متقدم." if row.get("assessment", {}).get("state") in ("see", "edit") else "الرسالة اللي بتظهر له لما يحاول يفتح شاشة توظيف."
+            cap = pick[1] if pick else ("اللي بيظهر له لما يفتح طلب متقدم." if row.get("assessment", {}).get("state") in ("see", "edit") else "الرسالة اللي بتظهر له لما يحاول يفتح شاشة توظيف.")
             blocks.append(Img(shot.replace("guide/", ""), cap, 0.9, 11.5))
         pages.append(Page(f"role-{key}", f"من عين {ROLE_TEXT[key][0]}", blocks, terms=[ROLE_TEXT[key][0]], ids=[f"role:user:{u['login']}"] if u.get("login") and "@" in u.get("login", "") else []))
     head = ["الشاشة"] + [ROLE_TEXT[u["key"]][0] for u in users]

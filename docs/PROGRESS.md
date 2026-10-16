@@ -142,3 +142,19 @@ Decisions taken alone:
 - **The earliest later copy becomes the original**: when the original of a duplicate pair withdraws, the person's next application is ranked in its place.
 - **A paper consent carries the current consent text version**: the paper form is assumed to show the same text; the client confirms (#20).
 - **Score 0 means no score in the list**: Frappe Float columns cannot be empty, so the list shows a score only for a finished screening.
+
+## Round 4 — Nadine's review of the guide, 2026-10-16
+
+System fixes first (branch `p14-review`), then the guide.
+- **V1 Redaction leak (priority 1)**: the e-mail of an Arabic text PDF reached the local model. Cause: Word/LibreOffice write Arabic pages in visual order and PyMuPDF's per-span reversal moved the dot of the address to the end of the line (`demo.2001@example com.`), which the e-mail pattern missed. The PDF text is now rebuilt from the characters and their positions (`app/documents/pdftext.py`: rows by baseline, visual order, the inverse of the bidi reordering with the W4 rule for numbers, lam-alef ligatures kept, page-level direction). The redaction patterns tolerate spaces and moved dots, a fail-safe sweep runs at the end of every redaction, and the pipeline runs a last `leak_check` before any model call (flag `redaction_guard`, audit event). `scripts/reprocess_cvs.py` re-extracted and re-redacted every stored CV in place: 220 documents, 12 with a leak before (all Arabic text PDFs: 4 demo applicants and 8 console seed candidates), 0 after; their screenings became stale and were re-scored. The 12 leaks had gone to the local model on this server only (no outside service).
+- **V2 Numbers scrambled** in Arabic PDFs (`من14. فرد`): same fix; the years read from a line are tested.
+- **V3 Weak OCR lines as evidence**: a line under `OCR_MIN_CONFIDENCE` is replaced by a marker before the model and before any quote check (`app/pipeline/stages/cv_text.py`), stored in `versions.weak_lines`, shown struck through in the CV panel and the analysis («ضعيف — لا يُقبل كدليل»).
+- **V4** red banner on the assessment card when the CV was not read; **V5** the design picture had two test applications with the same name (different IDs, not a missed duplicate): the picture shows three rows.
+- Guide: the whole public form in two pictures, one distinctive picture per HR role, bigger home page and cycle map, the criteria grid with wider columns, the console CV picture of the worked example, the number `10487`, the PDPL answer, test codes moved to the technical boxes, one application versus a thousand explained.
+- Tests: engine 129 + 1 skipped (`tests/test_pdftext.py` new); Frappe 22; browser 40/40 (V1–V5 added to the report); design audit 33 screens, 0 issues. Guide: PDF and Word 134 pages each, inventory 581 items, MISSING 0.
+
+Decisions taken alone:
+- **PDF text is rebuilt from characters, not spans**: the only way to get an address, a number or a full stop back where it belongs in an Arabic page; checked against python-bidi on every synthetic line.
+- **A weak OCR line is removed, not down-weighted**: the model never sees it, so it cannot quote it; HR sees it in the analysis for a manual check.
+- **The leak guard is a second gate**: the redaction already sweeps; the guard before the model call exists so a future extraction bug can never reach a model silently (it flags and audits).
+

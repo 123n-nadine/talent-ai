@@ -31,6 +31,28 @@ async def snap(page, name: str, selector: str | None = None, full: bool = False,
     print("shot", name, flush=True)
 
 
+async def snap_parts(page, name: str, selector: str, parts: int = 2, cut_at: str | None = None) -> None:
+    """The element in `parts` pictures of equal height, each cut where a child (`cut_at` selector)
+    starts, so no field or card is split in two."""
+    box = await page.locator(selector).first.bounding_box()
+    assert box, selector
+    tops = []
+    if cut_at:
+        tops = await page.evaluate("(sel) => Array.from(document.querySelectorAll(sel)).map(e => e.getBoundingClientRect().top + window.scrollY)", f"{selector} {cut_at}")
+    y0 = box["y"]
+    edges = [y0]
+    for i in range(1, parts):
+        target = y0 + box["height"] * i / parts
+        edges.append(min(tops, key=lambda t: abs(t - target)) if tops else target)
+    edges.append(y0 + box["height"])
+    for i in range(parts):
+        path = os.path.join(OUT, f"{name}_{i + 1}.png")
+        await page.screenshot(path=path, full_page=True, clip={"x": box["x"], "y": edges[i], "width": box["width"], "height": edges[i + 1] - edges[i]})
+        compact_png(path)
+        DONE.append(f"{name}_{i + 1}")
+        print("shot", f"{name}_{i + 1}", flush=True)
+
+
 async def mark(page, js_find: str, attr: str = "data-g") -> str:
     """Tag the element found by `js_find` (a JS expression) so it can be captured."""
     await page.evaluate(f"""() => {{ document.querySelectorAll('[{attr}]').forEach(e => e.removeAttribute('{attr}'));
@@ -64,6 +86,7 @@ async def public(b) -> None:
     sel = await mark(g, "document.querySelector('#tai-form')")
     await g.evaluate("window.scrollTo(0, 0)")
     await snap(g, "S05_form", sel)
+    await snap_parts(g, "S05_form", sel, parts=2, cut_at=".field, .chk, button[type=submit]")
     await g.context.close()
     m = await new_page(b, "m390", scale=2)
     await go(m, f"/ai-apply/new?job_title={OP1}", "!!document.querySelector('#tai-form')")
@@ -71,7 +94,7 @@ async def public(b) -> None:
     await m.context.close()
 
 
-async def desk(b) -> None:
+async def desk(b) -> str:
     hr = await new_page(b, "1366", scale=1.5)
     await hr.goto(BASE + "/login")
     await hr.evaluate("""([u, p]) => fetch('/api/method/login', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({usr: u, pwd: p})})""",
@@ -81,6 +104,17 @@ async def desk(b) -> None:
     await snap(hr, "S00_home", await visible(hr))
     await go(hr, "/desk/talent-ai", "!!document.querySelector('.tai .mnode, .tai .mapcard')")
     await snap(hr, "S00_cycle_map", await visible(hr))
+    # the same two pages in a narrower window: bigger text, two pictures each
+    nw = await new_page(b, "1100", scale=1.5)
+    await nw.goto(BASE + "/login")
+    await nw.evaluate("""([u, p]) => fetch('/api/method/login', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({usr: u, pwd: p})})""",
+                      ["hr.manager@example.com", DEV["HR_MANAGER_PASSWORD"]])
+    await go(nw, "/desk/ai-recruitment", "!!document.querySelector('.tai-home-grid')")
+    await snap_parts(nw, "S00_home", await visible(nw), parts=2, cut_at=".tai-home-grid > *, .tai-home-grid, .card, h1")
+    await nw.context.close()
+    # the cycle map needs the full width (its side branches overflow a narrow window): two parts
+    await go(hr, "/desk/talent-ai", "!!document.querySelector('.tai .mnode, .tai .mapcard')")
+    await snap_parts(hr, "S00_cycle_map", await visible(hr), parts=2, cut_at=".mapcard, .mnode, .card, h1")
     await go(hr, f"/desk/ai-job-profile/{prof}", "window.cur_frm && cur_frm.doc && cur_frm.doc.name")
     await snap(hr, "S01_profile", await visible(hr))
     sel = await mark(hr, "document.querySelector('.frappe-control[data-fieldname=criteria]')")
@@ -223,7 +257,10 @@ async def desk(b) -> None:
       <style>table{{border-collapse:collapse;font-size:13px}}td,th{{border:1px solid #c9d1e0;padding:4px 8px}}th{{background:#e9effc}}</style>{html}</body></html>""")
     await snap(p, "S10c_csv", "table")
     await p.context.close()
+    # the worked example's engine reference, for the console pictures
+    ref = (await xcall(await _desk(hr), "frappe.client.get_value", {"doctype": "Job Applicant", "filters": "applicant.2002@example.com", "fieldname": "ai_candidate_ref"}))["ai_candidate_ref"]
     await hr.context.close()
+    return ref
 
 
 async def _desk(page):
@@ -232,7 +269,7 @@ async def _desk(page):
     return page
 
 
-async def console(b) -> None:
+async def console(b, ref: str | None = None) -> None:
     c = await new_page(b, "1440", scale=1.5)
     await c.goto(CONSOLE + "/console/login")
     await settle(c, 1)
@@ -247,7 +284,7 @@ async def console(b) -> None:
     # one applicant, its processing page and its CV analysis
     await c.evaluate("go('list')")
     await settle(c, 2)
-    ref = await c.evaluate("(() => { const r = Array.from(document.querySelectorAll('[data-action=openApp]')).find(x => /2002/.test(x.dataset.id)) || document.querySelector('[data-action=openApp]'); r.click(); return r.dataset.id; })()")
+    ref = await c.evaluate("(want) => { const r = Array.from(document.querySelectorAll('[data-action=openApp]')).find(x => want && x.dataset.id === want) || document.querySelector('[data-action=openApp]'); r.click(); return r.dataset.id; }", ref)
     await settle(c, 3)
     await snap(c, "C_applicant", "#screen")
     await c.evaluate("go('processing', {scr: S.scr, sel: S.sel})")
@@ -307,8 +344,8 @@ async def main() -> None:
     os.makedirs(OUT, exist_ok=True)
     async with browser() as b:
         await public(b)
-        await desk(b)
-        await console(b)
+        ref = await desk(b)
+        await console(b, ref)
         await acceptance(b)
     json.dump(sorted(DONE), open(os.path.join(OUT, "_shots.json"), "w"), indent=0)
     print(len(DONE), "shots")

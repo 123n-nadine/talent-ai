@@ -26,6 +26,12 @@ class FakeOCR:
         step = height / (len(rows) + 1)
         for i, row in enumerate(rows):
             y0 = step * (i + 0.5)
-            box = OCRBox(width * 0.1, y0, width * 0.9, y0 + step * 0.8, row, self.confidence)
-            lines.append(OCRLine(row, self.confidence, [box]))
-        return [OCRPage(self.text, self.confidence, width, height, lines)]
+            # a line that starts with "~" is a badly read one (confidence 0.6): tests of the
+            # weak-line rule
+            conf = 0.6 if row.startswith("~") else self.confidence
+            row = row.lstrip("~").strip()
+            box = OCRBox(width * 0.1, y0, width * 0.9, y0 + step * 0.8, row, conf)
+            lines.append(OCRLine(row, conf, [box]))
+        text = "\n".join(ln.text for ln in lines)
+        confs = [ln.confidence for ln in lines] or [self.confidence]
+        return [OCRPage(text, round(sum(confs) / len(confs), 4), width, height, lines)]

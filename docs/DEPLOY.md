@@ -88,7 +88,7 @@ bench --site <site> uninstall-app ido_talent_ai --yes
 
 ## 7. Upgrading an installed version
 
-Engine: `make build` then `make up WORKERS=4` (or `make migrate` and a restart of `api` and `worker`); the Alembic revisions add columns only (the latest, `b9f7e8a1c2d3`, adds `candidates.consent_withdrawn_at` and `withdrawn_from`). Frappe: `bench --site <site> migrate` (new custom fields «مصدر الموافقة», «سجّل الموافقة», «تاريخ حذف بيانات الذكاء الاصطناعي», the AI statuses «بانتظار الموافقة» and «سحب الموافقة», the AI job status «أُلغيت») and `bench restart`. Applications saved earlier without consent keep an empty AI status; their «تسجيل الموافقة» button works the same.
+Engine: `make build` then `make up WORKERS=4` (or `make migrate` and a restart of `api` and `worker`); the Alembic revisions add columns only (the latest, `b9f7e8a1c2d3`, adds `candidates.consent_withdrawn_at` and `withdrawn_from`). Frappe: `bench --site <site> migrate` (new custom fields «مصدر الموافقة», «سجّل الموافقة», «تاريخ حذف بيانات الذكاء الاصطناعي», the AI statuses «بانتظار الموافقة» and «سحب الموافقة», the AI job status «أُلغيت») and `bench restart`. Applications saved earlier without consent keep an empty AI status; their «تسجيل الموافقة» button works the same. After an upgrade of the extraction or the redaction, run `docker exec talentai-api-1 python -m scripts.reprocess_cvs` (report) and then `--apply`: every stored CV is re-extracted and re-redacted in place, the report counts what still looked like personal data before and after, and the host's «إعادة تقييم القديم والفاشل» re-scores the applicants whose text changed.
 
 ## 8. Rehearsal on a fresh site (local bench)
 

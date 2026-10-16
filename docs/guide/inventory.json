@@ -589,56 +589,56 @@
   "cat": "button",
   "name": "Talent Console action cvSel",
   "label_ar": "",
-  "source": "talent-engine/console/static/app.js:263"
+  "source": "talent-engine/console/static/app.js:264"
  },
  {
   "id": "button:console:tryRun",
   "cat": "button",
   "name": "Talent Console action tryRun",
   "label_ar": "",
-  "source": "talent-engine/console/static/app.js:284"
+  "source": "talent-engine/console/static/app.js:285"
  },
  {
   "id": "button:console:rescreenOne",
   "cat": "button",
   "name": "Talent Console action rescreenOne",
   "label_ar": "↻",
-  "source": "talent-engine/console/static/app.js:339"
+  "source": "talent-engine/console/static/app.js:340"
  },
  {
   "id": "button:console:hilite",
   "cat": "button",
   "name": "Talent Console action hilite",
   "label_ar": "",
-  "source": "talent-engine/console/static/app.js:344"
+  "source": "talent-engine/console/static/app.js:345"
  },
  {
   "id": "button:console:override",
   "cat": "button",
   "name": "Talent Console action override",
   "label_ar": "",
-  "source": "talent-engine/console/static/app.js:346"
+  "source": "talent-engine/console/static/app.js:347"
  },
  {
   "id": "button:console:rescreenAll",
   "cat": "button",
   "name": "Talent Console action rescreenAll",
   "label_ar": "↻",
-  "source": "talent-engine/console/static/app.js:405"
+  "source": "talent-engine/console/static/app.js:406"
  },
  {
   "id": "button:console:exportCsv",
   "cat": "button",
   "name": "Talent Console action exportCsv",
   "label_ar": "⤓",
-  "source": "talent-engine/console/static/app.js:405"
+  "source": "talent-engine/console/static/app.js:406"
  },
  {
   "id": "button:console:saveSettings",
   "cat": "button",
   "name": "Talent Console action saveSettings",
   "label_ar": "",
-  "source": "talent-engine/console/static/app.js:439"
+  "source": "talent-engine/console/static/app.js:440"
  },
  {
   "id": "button:frappe:إعادة التقييم",
@@ -736,70 +736,70 @@
   "cat": "button",
   "name": "Frappe in-page action data-tai=consent",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:129"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:130"
  },
  {
   "id": "button:frappe-action:rescreen",
   "cat": "button",
   "name": "Frappe in-page action data-tai=rescreen",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:135"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:136"
  },
  {
   "id": "button:frappe-action:retry",
   "cat": "button",
   "name": "Frappe in-page action data-tai=retry",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:139"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:140"
  },
  {
   "id": "button:frappe-action:hilite",
   "cat": "button",
   "name": "Frappe in-page action data-tai=hilite",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:150"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:151"
  },
  {
   "id": "button:frappe-action:override",
   "cat": "button",
   "name": "Frappe in-page action data-tai=override",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:156"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:157"
  },
  {
   "id": "button:frappe-action:cv",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cv",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:178"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:180"
  },
  {
   "id": "button:frappe-action:decide",
   "cat": "button",
   "name": "Frappe in-page action data-tai=decide",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:204"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:207"
  },
  {
   "id": "button:frappe-action:cvline",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvline",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:223"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:226"
  },
  {
   "id": "button:frappe-action:cvpage",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvpage",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:227"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:230"
  },
  {
   "id": "button:frappe-action:cvsel",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvsel",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:235"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:240"
  },
  {
   "id": "button:frappe:فتح المتقدم",
@@ -1641,28 +1641,28 @@
   "cat": "endpoint",
   "name": "GET /v1/candidates/{ref}/cv/file",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:77"
+  "source": "talent-engine/app/api/routers/documents.py:84"
  },
  {
   "id": "endpoint:engine:GET /v1/candidates/{ref}/cv/pages/{page}",
   "cat": "endpoint",
   "name": "GET /v1/candidates/{ref}/cv/pages/{page}",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:99"
+  "source": "talent-engine/app/api/routers/documents.py:106"
  },
  {
   "id": "endpoint:engine:DELETE /v1/candidates/{ref}/cv",
   "cat": "endpoint",
   "name": "DELETE /v1/candidates/{ref}/cv",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:125"
+  "source": "talent-engine/app/api/routers/documents.py:132"
  },
  {
   "id": "endpoint:engine:POST /v1/documents/inspect",
   "cat": "endpoint",
   "name": "POST /v1/documents/inspect",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:141"
+  "source": "talent-engine/app/api/routers/documents.py:148"
  },
  {
   "id": "endpoint:engine:GET /health",
@@ -1928,6 +1928,13 @@
   "cat": "flag",
   "name": "flag low_ocr_confidence — Low OCR confidence",
   "label_ar": "ثقة OCR منخفضة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:redaction_guard",
+  "cat": "flag",
+  "name": "flag redaction_guard — Redaction guard removed leftover data",
+  "label_ar": "حارس الإخفاء أزال بيانات متبقية",
   "source": "talent-engine/app/domain/labels.py"
  },
  {
@@ -3002,6 +3009,13 @@
   "source": "talent-engine/scripts/make_cvs.py"
  },
  {
+  "id": "command:script:talent-engine/scripts/reprocess_cvs.py",
+  "cat": "command",
+  "name": "talent-engine/scripts/reprocess_cvs.py",
+  "label_ar": "",
+  "source": "talent-engine/scripts/reprocess_cvs.py"
+ },
+ {
   "id": "command:script:talent-engine/scripts/seed.py",
   "cat": "command",
   "name": "talent-engine/scripts/seed.py",
@@ -3609,6 +3623,27 @@
   "name": "PROGRESS.md (Round 3 — consent defaults…): Score 0 means no score in the list",
   "label_ar": "",
   "source": "docs/PROGRESS.md:144"
+ },
+ {
+  "id": "decision:progress:PDF text is rebuilt from characters, not spans",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 4 — Nadine's review of the guide…): PDF text is rebuilt from characters, not spans",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:157"
+ },
+ {
+  "id": "decision:progress:A weak OCR line is removed, not down-weighted",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 4 — Nadine's review of the guide…): A weak OCR line is removed, not down-weighted",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:158"
+ },
+ {
+  "id": "decision:progress:The leak guard is a second gate",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 4 — Nadine's review of the guide…): The leak guard is a second gate",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:159"
  },
  {
   "id": "decision:open:1",

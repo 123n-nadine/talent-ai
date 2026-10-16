@@ -265,6 +265,9 @@ The UX target is `reference/demo/talent-ai-demo.html`.
 - Used only when the PDF has no text layer or the file is an image.
 - Confidence = text-length-weighted mean of recogniser scores (punctuation-only boxes ignored). Low confidence (< `OCR_MIN_CONFIDENCE`, 0.80 until phase 4 calibrates it) → flag `low_ocr_confidence`, needs review.
 - Extraction and redaction run **at upload time** (`PUT /v1/candidates/{ref}/cv`), so the applicant's name hint is used once for redaction and never stored anywhere (not even in a queue). The pipeline's stages 3–4 then report what was stored. A new CV changes the candidate's data hash → earlier results become stale.
+- Text of a PDF page is rebuilt from the characters and their positions (`app/documents/pdftext.py`): Word and LibreOffice write Arabic pages in visual order, so rows are grouped by baseline, read in visual order and turned back into logical order (the inverse of the bidi reordering: Latin letters and digits stay left-to-right units, a single separator joins two numbers, lam-alef ligatures stay whole, the page's main script sets the base direction). Round 4 review: the span-level text had put the dot of an e-mail at the end of the line, which let the address through the redaction.
+- Two gates stand before any model call: the redaction ends with a fail-safe sweep (anything with «@», any run of nine digits or more, however split) and the pipeline runs `leak_check` on the text once more (flag `redaction_guard` and an audit event if it had to remove something). `scripts/reprocess_cvs.py` re-extracts and re-redacts every stored CV after an upgrade.
+- An OCR line read under `OCR_MIN_CONFIDENCE` is never evidence: it is replaced by a marker before the model sees the text and before any quote is checked (`app/pipeline/stages/cv_text.py`, `versions.weak_lines`); the CV analysis shows it struck through for a human check.
 - No training. Off-the-shelf models only.
 
 ## 12. Privacy, security, compliance

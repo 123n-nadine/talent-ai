@@ -27,8 +27,10 @@ from app.llm.base import JudgeRequest, LLMProvider
 from app.llm.registry import get_provider
 from app.llm.schemas import CriterionJudgement
 from app.pipeline.stages.answers import NormalisedAnswer, normalise_answers
+from app.pipeline.stages.cv_text import evidence_text
 from app.pipeline.stages.evidence import resolve
 from app.pipeline.stages.profile import verify_profile
+from app.redaction.engine import leak_check, sweep
 from app.rules.eligibility import evaluate
 from app.scoring.rubric import is_code_judged, level_from_rubric
 from app.scoring.score import JudgedCriterion, compute, summary_text
@@ -120,6 +122,7 @@ def run_screening(
         extra_flags = {f for f in (s.flags or []) if f not in SCORE_FLAGS}
         cv = next((d for d in cand.documents if d.kind == "cv"), None)
         redacted_text: str | None = None
+        weak_idx: list[int] = []
         derived: dict[str, Any] = {}
         llm_calls: list[dict[str, Any]] = []
         if cv is None:
@@ -139,15 +142,32 @@ def run_screening(
                 note_en += f" · read confidence {round(cv.ocr_confidence * 100)}%"
                 if cv.ocr_confidence < settings.ocr_min_confidence:
                     extra_flags.add("low_ocr_confidence")
+            # a badly read line is never evidence: out of the text before any model sees it
+            redacted_text, weak_idx = evidence_text(
+                cv.redacted_text, cv.layout, settings.ocr_min_confidence
+            )
+            if weak_idx:
+                note += f" · {count(len(weak_idx), 'سطر', 'سطران', 'أسطر')} ضعيفة القراءة مستبعدة من الأدلة"
+                note_en += f" · {count_en(len(weak_idx), 'weak line', 'weak lines')} excluded from evidence"
             tracker.set("cv_text", "done", note, note_en)
             counts = (cv.redaction_report or {}).get("counts", {})
-            tracker.set(
-                "redaction",
-                "done",
-                redaction_note(counts),
-                redaction_note_en(counts),
-            )
-            redacted_text = cv.redacted_text or ""
+            r_note, r_note_en = redaction_note(counts), redaction_note_en(counts)
+            leaks = leak_check(redacted_text)
+            if leaks:  # the upload-time sweep already ran: this is the last gate before a model
+                guard: dict[str, int] = {}
+                redacted_text = sweep(redacted_text, guard)
+                extra_flags.add("redaction_guard")
+                r_note += f" · حارس الإخفاء أزال {count(len(leaks), 'عنصرًا', 'عنصرين', 'عناصر')}"
+                r_note_en += f" · guard removed {count_en(len(leaks), 'item', 'items')}"
+                audit.log(
+                    db,
+                    tenant.id,
+                    cand.external_ref,
+                    "redaction.guard",
+                    "system",
+                    {"screening_id": s.id, "removed": len(leaks)},
+                )
+            tracker.set("redaction", "done", r_note, r_note_en)
             if prov.name == "fake":
                 tracker.set(
                     "profile",
@@ -394,6 +414,7 @@ def run_screening(
             "prompt": prov.prompt_version,
             "profile_schema": settings.profile_schema_version,
             "llm_calls": llm_calls,
+            "weak_lines": weak_idx,
             "total_ms": int((time.time() - t_start) * 1000),
         }
         review = (

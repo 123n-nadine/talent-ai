@@ -32,7 +32,17 @@ def kw(*words: str) -> str:
     return "(?:" + "|".join(outs) + ")"
 
 
-EMAIL = re.compile(r"[\w.+\-]+@[\w\-]+(?:\.[\w\-]+)+", re.UNICODE)
+# the dot of a domain may come out as a space, and the "@" with spaces around it, when a PDF
+# writer split the address into visual pieces: the address is caught all the same
+EMAIL = re.compile(
+    r"[\w.+\-]+(?:[ \t]?\.[ \t]?[\w+\-]+)*[ \t]?@[ \t]?[\w\-]+(?:[ \t]?[. ][ \t]?[\w\-]{2,})+",
+    re.UNICODE,
+)
+# fail-safe sweep after every pattern: anything that still looks like an address or a long
+# number (phone, ID: nine digits or more, spaces, dots or dashes between them) can never reach
+# a language model
+LEAK_EMAIL = re.compile(r"[^\s@]*@[^\s@]*")
+LEAK_DIGITS = re.compile(r"(?<![\d])(?:\d[ .\-]?){9,}\d?(?![\d])")
 URL = re.compile(
     r"(?:https?://|www\.)\S+|(?:linkedin\.com|twitter\.com|x\.com|facebook\.com|instagram\.com)/\S+",
     re.I,

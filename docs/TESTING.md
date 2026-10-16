@@ -35,6 +35,9 @@ Run this list in order. Each line has an expected result. Note anything differen
 | 25 | Enter a paper application in the desk (Job Applicant, no consent box) on an AI opening (OPEN_QUESTIONS #20, default) | Saved; AI status «بانتظار الموافقة»; nothing sent to the engine; listed in the ranking group «بانتظار الموافقة» |
 | 26 | «تسجيل الموافقة» on it: first with an empty source, then «ورقة موقّعة» | Empty source refused; then «سجّل الموافقة» = you, «مصدر الموافقة», the time and an audit row; the screening starts by itself |
 | 27 | «سحب موافقة المعالجة» on a ranked applicant, with a reason (OPEN_QUESTIONS #21, default) | Out of the ranking at once, in «مستبعد: سحب الموافقة» with no score; no AI section left; in the engine `GET /v1/candidates/{ref}` shows no facts, documents or screenings and the CV file is gone; the application itself stays |
+| 28 | Open «تحليل السيرة» of an Arabic text PDF (applicant 2001) and read the «بعد» column | The e-mail, phone and ID are tokens; numbers and full stops in their places («من 14 فرد»، «9 سنوات.»); nothing with «@» or a long number in the text the model sees |
+| 29 | Open «تحليل السيرة» of the scanned CV (applicant 2002) | Lines under 80% confidence are struck through and marked «ضعيف — لا يُقبل كدليل»; no evidence quote points to one of them |
+| 30 | Open the applicant with the corrupt CV (2013) | A red banner at the top of the assessment card: «السيرة الذاتية لم تُقرأ — التقييم من إجابات النموذج فقط» |
 
 ## 2. Client acceptance criteria (definition of done, phase 1)
 
