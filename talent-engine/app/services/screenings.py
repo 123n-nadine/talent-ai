@@ -48,6 +48,52 @@ def input_hash(
     )
 
 
+def _when(c: Candidate) -> tuple[datetime, str]:
+    at = c.applied_at or c.created_at
+    return (at if at.tzinfo else at.replace(tzinfo=UTC), c.external_ref)
+
+
+def mark_later_duplicates(db: Session, tenant: Tenant, s: Screening) -> list[Screening]:
+    """The original was screened after its copies (e.g. its job was delayed): mark the latest
+    screening of every later application with the same id_token for this job as a duplicate."""
+    cand = s.candidate
+    if not cand.id_token or s.duplicate_of:
+        return []
+    peers = db.scalars(
+        select(Candidate).where(
+            Candidate.tenant_id == tenant.id,
+            Candidate.id_token == cand.id_token,
+            Candidate.id != cand.id,
+        )
+    ).all()
+    me = _when(cand)
+    updated: list[Screening] = []
+    for p in peers:
+        if _when(p) <= me:
+            continue
+        latest = db.scalar(
+            select(Screening)
+            .where(Screening.job_id == s.job_id, Screening.candidate_id == p.id)
+            .order_by(Screening.created_at.desc())
+            .limit(1)
+        )
+        if latest is None or latest.duplicate_of:
+            continue
+        latest.duplicate_of = cand.external_ref
+        latest.flags = sorted(set(latest.flags or []) | {"duplicate"})
+        audit.log(
+            db,
+            tenant.id,
+            p.external_ref,
+            "screening.marked_duplicate",
+            "system",
+            {"screening_id": latest.id, "duplicate_of": cand.external_ref},
+        )
+        updated.append(latest)
+    db.flush()
+    return updated
+
+
 def find_duplicate_of(db: Session, tenant: Tenant, job: Job, candidate: Candidate) -> str | None:
     """Earliest other candidate of this tenant with the same id_token that applied to the same job."""
     if not candidate.id_token:
@@ -60,13 +106,9 @@ def find_duplicate_of(db: Session, tenant: Tenant, job: Job, candidate: Candidat
         )
     ).all()
 
-    def when(c: Candidate) -> tuple[datetime, str]:
-        at = c.applied_at or c.created_at
-        return (at if at.tzinfo else at.replace(tzinfo=UTC), c.external_ref)
-
-    me = when(candidate)
-    for p in sorted(peers, key=when):
-        if when(p) >= me:
+    me = _when(candidate)
+    for p in sorted(peers, key=_when):
+        if _when(p) >= me:
             continue  # only an EARLIER application can be the original
         has = db.scalar(
             select(Screening.id)

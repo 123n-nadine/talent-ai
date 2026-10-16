@@ -441,3 +441,27 @@ def test_applied_at_orders_duplicates_and_starts_retention(client, sec_job):
     first = client.get(f"/v1/screenings/{s1['screening_id']}").json()
     assert late["duplicate_of"] == "EARLY"
     assert first["duplicate_of"] is None
+
+
+def test_copy_screened_before_its_original_is_marked_duplicate_afterwards(client, sec_job):
+    client.put("/v1/jobs/HR-OPN-2026-0011", json=sec_job)
+    base = {
+        "id_token": "tok-late-original",
+        "facts": {"nationality": "السعودية", "height_cm": 181, "weight_kg": 78, "age": 30},
+        "answers": {"years_sup": 3},
+    }
+    client.put("/v1/candidates/ORIG", json={**base, "applied_at": "2026-10-01T08:00:00Z"})
+    client.put("/v1/candidates/COPY", json={**base, "applied_at": "2026-10-02T08:00:00Z"})
+    copy = client.post(
+        "/v1/screenings", json={"job_ref": "HR-OPN-2026-0011", "candidate_ref": "COPY"}
+    ).json()
+    assert client.get(f"/v1/screenings/{copy['screening_id']}").json()["duplicate_of"] is None
+    orig = client.post(
+        "/v1/screenings", json={"job_ref": "HR-OPN-2026-0011", "candidate_ref": "ORIG"}
+    ).json()
+    assert client.get(f"/v1/screenings/{orig['screening_id']}").json()["duplicate_of"] is None
+    later = client.get(f"/v1/screenings/{copy['screening_id']}").json()
+    assert later["duplicate_of"] == "ORIG" and "duplicate" in later["flags"]
+    groups = client.get("/v1/jobs/HR-OPN-2026-0011/ranking").json()["groups"]
+    dups = {x["candidate_ref"] for x in groups["duplicate"]}
+    assert "COPY" in dups and "ORIG" not in dups
