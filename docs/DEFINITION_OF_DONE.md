@@ -87,7 +87,7 @@ Last update: 2026-10-16, end of phase 8 — everything done (details in `docs/PR
 | H2 | Decisions: dev-frappe scripts in git without `.env`; status reason stays audit-only; only the default Docker builder; the in-memory Frappe DB is for testing only | `.gitignore`, `dev-frappe/`, `Makefile` (`builder-check`), `scripts/compose.sh`, `DEPLOY.md`, `CLAUDE.md`, `OPEN_QUESTIONS.md` | ✅ |
 | H3 | Permanent test that an application is always saved (queue down, hook crash, audit down, DB conflict, AI off, damaged CV) | `test_application_is_always_saved` + retried save in `api.apply` | ✅ |
 | D1 | Design pass on every screen (1366/1440/1920, mobile for the public pages), RTL, font, colours with a fixed meaning | Frappe, console, public site, form; `tools/ui/design_audit.py`: 10,487 layout/contrast issues → 2 (the HRMS sticky mobile button), 0 JS errors on 110 screens | ✅ |
-| T1 | Full browser test of the whole system (users, CV types, cases, timings), bugs fixed with tests, `docs/TEST_REPORT.md` | `tools/ui/full_test.py` | ⬜ |
-| T2 | Roles and permissions test (every recruitment role, every screen, screenshots of the refusals) | `TEST_REPORT.md` | ⬜ |
+| T1 | Full browser test of the whole system (users, CV types, cases, timings), bugs fixed with tests, `docs/TEST_REPORT.md` | `tools/ui/full_test.py` → `docs/TEST_REPORT.md`: 38 of 38 checks after the fixes (F1 RTF CV, F2 re-score all), demo restored with `reset_demo.sh` | ✅ |
+| T2 | Roles and permissions test (every recruitment role, every screen, screenshots of the refusals) | `TEST_REPORT.md` §2: 9 kinds of user × 16 screens + 14 server calls; Employee, Interviewer, self-service, website user and guest never see a score, an assessment or a CV | ✅ |
 | G1 | Inventory from the code (`docs/guide/COVERAGE.md`) and a check script with zero missing | `tools/guide/coverage_check.py` | ⬜ |
 | G2 | Full guide in Egyptian Arabic, PDF (Chromium) and Word | `docs/guide/` | ⬜ |

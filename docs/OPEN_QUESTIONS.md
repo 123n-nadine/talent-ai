@@ -18,6 +18,7 @@ Questions we still need answered to finish or deploy. The discovery's own lists 
 | 17 | Arabic for HRMS's own labels: HRMS develop ships `ar.po` with many empty strings. Round 2 fills the 87 recruitment strings our screens show (Job Opening, Job Applicant, Interview buttons, the public job pages) in the app's `translations/ar.csv`, and fixes «No.» → «م» and «Apply Now». The client's `ido_design` app may translate them differently; on the real platform, check which translation wins (the app installed last) | Frappe team | deploy | open (updated 2026-10-17) |
 | 18 | The demo's form also has «الصورة الشخصية» and «الشهادات». Not built: the requirement list asks for an optional CV only, and a photo must never reach the AI. Add certificates as plain attachments (not read by the AI)? | Abdullah + client | phase 2 | open (2026-10-16) |
 | 20 | Applications entered by HR in the desk (paper forms) have no consent record, so the AI does not process them (consent is required). Should HR be able to record a paper consent (with the form version and a reason) so these applications are screened too? | Abdullah + client | before go-live | open (2026-10-17) |
+| 21 | After a new profile version, an applicant who withdrew consent keeps the old result, now «قديم», in the stale group of the ranking (no new processing is allowed, so it never leaves it). Show these applicants in their own group «سحب الموافقة» instead, or hide their old result? | Abdullah + client | before go-live | open (2026-10-17) |
 
 ## Answered
 

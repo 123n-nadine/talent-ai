@@ -139,7 +139,13 @@ async def shot(page: Page, path: str, selector: str | None = None, full: bool = 
             else:
                 await loc.screenshot(path=path)
         else:
-            await page.screenshot(path=path, full_page=False)
+            try:
+                await page.screenshot(path=path, full_page=False)
+            except Exception as e:  # Chrome sometimes refuses one capture ("Unable to capture screenshot"); try once more
+                if "Unable to capture" not in str(e):
+                    raise
+                await asyncio.sleep(1.5)
+                await page.screenshot(path=path, full_page=False)
     finally:
         if grow:
             await page.set_viewport_size(vp)
@@ -183,6 +189,10 @@ AUDIT_JS = r"""
       const rects = [];
       texts.forEach(t => { const rg = document.createRange(); rg.selectNodeContents(t); Array.from(rg.getClientRects()).forEach(b => { if (b.width > 1 && b.height > 1) rects.push(b); }); });
       if (rects.length) leaves.push({el, rects});
+      // text squeezed into a column too narrow for it (one or two letters per line)
+      const lines = new Set(rects.map(b => Math.round(b.top))).size;
+      const chars = texts.reduce((n, t) => n + t.textContent.trim().length, 0);
+      if (lines >= 3 && chars / lines < 3) issues.push({type: 'squeezed-text', where: path(el), detail: lines + ' lines', text: el.textContent.trim().slice(0, 40)});
       // text sticking out of a box that does not scroll
       const pr = el.parentElement && el.parentElement.getBoundingClientRect();
       rects.forEach(b => { if (b.right > W + 2 || b.left < -2) issues.push({type: 'off-screen-text', where: path(el), text: el.textContent.trim().slice(0, 40)}); });
