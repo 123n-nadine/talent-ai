@@ -63,6 +63,7 @@
 "S14_audit",
 "S14b_audit_row",
 "S15_acceptance",
+"X_awaiting_group",
 "X_blank",
 "X_contradiction",
 "X_contradiction_evidence",
@@ -70,5 +71,11 @@
 "X_duplicate",
 "X_needs_review",
 "X_not_eligible",
+"X_paper_awaiting",
+"X_paper_dialog",
+"X_paper_fields",
+"X_paper_recorded",
+"X_withdrawn_applicant",
+"X_withdrawn_group",
 "X_zero"
 ]

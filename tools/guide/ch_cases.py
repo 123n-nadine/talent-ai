@@ -10,6 +10,104 @@ def _crit(case: dict, key: str) -> dict:
     return next((c for c in case.get("criteria", []) if c["key"] == key), {})
 
 
+MONTHS = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
+BAND_AR = {"high": "مرتفعة", "medium": "متوسطة", "low": "منخفضة"}
+
+
+def _count(n, one: str, two: str, few: str, many: str | None = None) -> str:
+    """«طلب واحد»، «طلبين»، «3 طلبات»، «11 طلب» (Egyptian Arabic counting)."""
+    n = int(n or 0)
+    if n == 1:
+        return f"{one} واحد"
+    if n == 2:
+        return two
+    return f"{n} {few if 3 <= n <= 10 else (many or one)}"
+
+
+def _day(value) -> str:
+    """«16 أكتوبر 2026» from a Frappe date-time."""
+    try:
+        y, m, d = str(value)[:10].split("-")
+        return f"{int(d)} {MONTHS[int(m) - 1]} {y}"
+    except (ValueError, IndexError):
+        return "—"
+
+
+def consent_pages(F: dict) -> list[Page]:
+    """OPEN_QUESTIONS #20 and #21: the defaults decided by Nadine until the client confirms."""
+    con = F.get("consent") or {}
+    tt = F["tests"]["items"]
+    pw, pr, wd = con.get("paper_waiting", {}), con.get("paper_recorded", {}), con.get("withdrawn", {})
+    groups = con.get("groups", {})
+    k16, k17 = tt.get("K16", {}), tt.get("K17", {})
+    rc = pr.get("consent") or {}
+    wc = wd.get("consent") or {}
+    eng = wd.get("engine") or {}
+    gone = (wd.get("engine_audit") or {}).get("erasure") or {}
+    n_wait = len(groups.get("awaiting_consent", []))
+    return [
+        Page("case-paper", "حالة 9 أ — طلب ورقي من غير موافقة", [
+            Img("images/steps/X_paper_awaiting.png", f"طلب {pw.get('name', '—')} الورقي: «بانتظار الموافقة» وزرار «تسجيل الموافقة».", 1.0, 10),
+            Field("إيه اللي حصل", "موظف الموارد البشرية دخّل طلب ورقي بإيده من شاشة المتقدم، والطلب ده مفيهوش خانة الموافقة اللي في نموذج الموقع."),
+            Field("النتيجة", "الطلب اتحفظ عادي بكل إجاباته، وحالة الذكاء بتاعته «بانتظار الموافقة»، ومفيش أي حاجة منه راحت للمحرك."),
+            Field("في الاختبار", "الطلب الورقي فضل «بانتظار الموافقة»، ومن غير أي مهمة ذكاء، في الاختبار K16" if k16.get("ok") else "—"),
+            Field("القرار", "ده الافتراضي اللي نادين قررته لحد ما العميل يأكد، ومكتوب في السؤال 20."),
+            Tech([line("status:ai_status:Awaiting Consent"), line("button:frappe:تسجيل الموافقة"), line("button:frappe-action:consent")]),
+        ], terms=["الطلب الورقي", "بانتظار الموافقة"], ids=["status:ai_status:Awaiting Consent", "button:frappe:تسجيل الموافقة", "button:frappe-action:consent"]),
+        Page("case-paper-group", "حالة 9 ب — الطلبات الورقية في الترتيب", [
+            Img("images/steps/X_awaiting_group.png", "مجموعة «بانتظار الموافقة» في ترتيب الشاغر.", 1.0, 10),
+            Field("بيظهر فين", f"في مجموعة «بانتظار الموافقة» تحت الترتيب، وفيها دلوقتي {_count(n_wait, 'طلب', 'طلبين', 'طلبات')}، من غير درجة."),
+            Field("التنبيه", "فوق الترتيب سطر برتقالي بيقول عدد الطلبات المستنية موافقة، عشان محدش ينساها."),
+            Field("ليه مش في «جاري المعالجة»", "لإنه مش بيتعالج أصلًا؛ هو مستني خطوة من الموارد البشرية."),
+            Tech([line("status:group:awaiting_consent")]),
+        ], terms=["مجموعة بانتظار الموافقة"], ids=["status:group:awaiting_consent"]),
+        Page("case-paper-dialog", "حالة 9 ج — تسجيل الموافقة ومصدرها", [
+            Img("images/steps/X_paper_dialog.png", "نافذة «تسجيل الموافقة»: المصدر إلزامي.", 0.8, 9),
+            Field("إمتى", "لما المتقدم يكون وقّع موافقة برّه النظام، زي نموذج ورقي."),
+            Field("المصدر", "خانة المصدر إلزامية، زي «ورقة موقّعة»، ومن غيرها الطلب بيترفض."),
+            Field("بيتسجّل إيه", "اسم اللي سجّل الموافقة، ووقتها، ومصدرها، ونسخة نص الموافقة، وسطر في سجل التدقيق."),
+            Field("بعدها", "التقييم بيبدأ لوحده، زي أي طلب جه من الموقع."),
+            Field("في الاختبار", f"المصدر الفاضي اترفض، وبعد «ورقة موقّعة» النتيجة طلعت بعد {k16.get('seconds', '—')} ثانية، في الاختبار K16" if k16.get("ok") else "—"),
+            Tech([line("endpoint:frappe:record_consent"), line("field:Job Applicant.ai_consent_source"), line("field:Job Applicant.ai_consent_recorded_by")]),
+        ], terms=["تسجيل الموافقة", "مصدر الموافقة"], ids=["endpoint:frappe:record_consent", "field:Job Applicant.ai_consent_source", "field:Job Applicant.ai_consent_recorded_by"]),
+        Page("case-paper-recorded", "حالة 9 د — بعد تسجيل الموافقة", [
+            Img("images/steps/X_paper_recorded.png", f"طلب {pr.get('name', '—')}: سطر «سجّل الموافقة» فوق التقييم.", 1.0, 10),
+            Field("إيه اللي حصل", f"الموارد البشرية سجّلت موافقة {pr.get('name', '—')} من ورقة موقّعة، والتقييم اشتغل لوحده."),
+            Field("النتيجة", f"درجته {pr['score']:g} وفئته {BAND_AR.get(pr.get('band'), '—')}، وترتيبه {pr.get('rank') or '—'} من {pr.get('ranked_total') or '—'}."
+                  if pr.get("score") is not None else "—"),
+            Field("مين وإمتى", f"اتسجّلت يوم {_day(rc.get('on'))}، والمصدر «{rc.get('source') or '—'}»، واللي سجّلها: {rc.get('recorded_by') or '—'}"),
+        ], terms=["الموافقة المسجّلة"]),
+        Page("case-paper-fields", "حالة 9 هـ — خانات الموافقة في الطلب", [
+            Img("images/steps/X_paper_fields.png", f"خانات الموافقة في طلب {pr.get('name', '—')}.", 1.0, 10),
+            Field("الخانات", "الموافقة على المعالجة، ونسخة الموافقة، وتاريخ الموافقة، ومصدر الموافقة، واللي سجّلها."),
+            Field("للقراءة بس", "محدش بيكتب في الخانات دي بإيده: الزرار هو اللي بيملاها، وبيسجّل في سجل التدقيق."),
+            Field("لطلب من الموقع", "خانة المصدر واللي سجّل بيفضلوا فاضيين، لإن المتقدم نفسه وافق في النموذج."),
+        ], terms=["خانات الموافقة"]),
+        Page("case-withdrawn", "حالة 10 أ — سحب الموافقة: برّه الترتيب", [
+            Img("images/steps/X_withdrawn_group.png", f"مجموعة «مستبعد: سحب الموافقة»: {wd.get('name', '—')} من غير درجة.", 1.0, 10),
+            Field("إيه اللي حصل", f"{wd.get('name', '—')} طلب يسحب موافقته، والموارد البشرية سجّلت ده بزرار «سحب موافقة المعالجة» وكتبت السبب."),
+            Field("في الترتيب", "خرج من الترتيب فورًا، وبيظهر في مجموعة مقفولة، من غير درجة ولا تفاصيل."),
+            Field("بنك المتقدمين", "بيظهر في المستبعدين بسبب «سحب موافقته على المعالجة» بس."),
+            Field("في الاختبار", f"المتقدم خرج من الترتيب في {k17.get('seconds', '—')} ثانية، وملف سيرته اتمسح من المحرك، في الاختبار K17" if k17.get("ok") else "—"),
+            Field("القرار", "ده الافتراضي اللي نادين قررته لحد ما العميل يأكد، ومكتوب في السؤال 21."),
+            Tech([line("status:group:consent_withdrawn"), line("status:ai_status:Consent Withdrawn")]),
+        ], terms=["سحب الموافقة", "مستبعد: سحب الموافقة"], ids=["status:group:consent_withdrawn", "status:ai_status:Consent Withdrawn"]),
+        Page("case-withdrawn-applicant", "حالة 10 ب — سحب الموافقة: صفحة الطلب", [
+            Img("images/steps/X_withdrawn_applicant.png", f"صفحة طلب {wd.get('name', '—')} بعد سحب الموافقة.", 1.0, 9),
+            Field("اللي اتمسح من المحرك", "ملف السيرة ونصّه، والملف المنظّم، والفهرسة، وكل النتايج"
+                  + (f"، يعني {_count(gone.get('documents'), 'ملف سيرة', 'ملفين سيرة', 'ملفات سيرة')} و{_count(gone.get('screenings'), 'تقييم', 'تقييمين', 'تقييمات')}."
+                     if gone.get("documents") else f"، يعني {_count(gone.get('screenings'), 'تقييم', 'تقييمين', 'تقييمات')}، ومكانش عنده سيرة.")),
+            Field("اللي فاضل في المحرك", "رقم الطلب بس، من غير مستندات ولا تقييمات ولا بيانات."
+                  if not (eng.get("documents") or eng.get("screenings") or eng.get("facts")) else "—"),
+            Field("اللي اتمسح من المنصة", "قسم تقييم الذكاء والأدلة وخانات الدرجة، والنتايج المكتوبة في سجل التدقيق؛ الأفعال نفسها فضلت في السجل."),
+            Field("اللي فضل", f"الطلب الأصلي بإجاباته وملف سيرته في المنصة، وتاريخ السحب {_day(wc.get('withdrawn_on'))}."),
+            Field("لو المحرك واقف", "الحذف بيتعاد لوحده كل دقيقتين لحد ما يتم، والطلب برّه الترتيب من أول لحظة."),
+            Field("نهائي", "السحب نهائي للطلب ده؛ لو المتقدم رجع وافق، يقدّم طلب جديد."),
+            Tech([line("field:Job Applicant.ai_erased_on"), line("hook:ido_talent_ai.screening.erase_pending"), line("status:ai_job:Cancelled")]),
+        ], terms=["حذف بيانات الذكاء"], ids=["field:Job Applicant.ai_erased_on", "hook:ido_talent_ai.screening.erase_pending", "status:ai_job:Cancelled"]),
+    ]
+
+
 def cases(F: dict) -> Chapter:
     C = F["cases"]
     tt = F["tests"]["items"]
@@ -83,5 +181,5 @@ def cases(F: dict) -> Chapter:
             Field("بعد ما المحرك رجع", f"زرار «إعادة المحاولة» خلّص التقييم في {k15.get('retry_s', '—')} ثانية."),
             Tech([line("setting:frappe:max_retries"), line("setting:engine-env:MAX_ATTEMPTS"), line("setting:frappe:timeout"), line("setting:frappe:request_timeout")]),
         ], terms=["المحرك واقف"], ids=["setting:frappe:max_retries", "setting:engine-env:MAX_ATTEMPTS", "setting:frappe:timeout", "setting:frappe:request_timeout"]),
-    ]
+    ] + consent_pages(F)
     return Chapter("cases", "9 — الحالات الخاصة", pages, intro="كل حالة صعبة في صفحة: إيه اللي حصل، والنظام عمل إيه، وليه.")

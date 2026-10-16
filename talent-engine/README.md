@@ -67,8 +67,8 @@ Open `http://127.0.0.1:18000/console` on the server or `http://100.85.37.127:180
 ## Develop
 
 ```bash
-uv sync                       # Python 3.12 venv in .venv (no system packages)
-uv sync --group documents     # + PaddleOCR, Presidio and spaCy (without them the two English-name redaction tests skip)
+make install                  # uv sync --group documents: Python 3.12 venv in .venv with PaddleOCR,
+                              # Presidio and spaCy (no system packages; a plain `uv sync` drops them)
 make test                     # pytest, SQLite in memory, inline queue, fake LLM
 make lint typecheck           # ruff + mypy
 make revision m="message"     # alembic autogenerate (needs the db container)
@@ -103,8 +103,8 @@ All `/v1/*` routes need `Authorization: Bearer <tenant key>`; optional `X-Talent
 | `POST /v1/jobs/draft-criteria` | draft criteria/rubric/questions (fake template in phase 1) |
 | `GET /v1/jobs/{ref}/ranking` | ranked list + grouped others (not eligible, needs review, processing, failed, stale, duplicate) |
 | `POST /v1/jobs/{ref}/rescreen` | rescreen every candidate against the active version |
-| `PUT /v1/candidates/{ref}` | facts (allowed list only), answers, consent, `id_token` (HMAC of the national ID, computed by the host) |
-| `DELETE /v1/candidates/{ref}` | full erasure |
+| `PUT /v1/candidates/{ref}` | facts (allowed list only), answers, consent, `id_token` (HMAC of the national ID, computed by the host). `consent: false` on a candidate that had consent erases what the AI made of it (documents and files, profile, index, screenings, findings in the audit trail) and keeps only the reference, listed in the ranking group `consent_withdrawn`; a candidate sent without consent is kept bare and no screening or CV upload is accepted (409) |
+| `DELETE /v1/candidates/{ref}` | full erasure, the reference and the stored CV files included (a file another document uses stays) |
 | `PUT /v1/candidates/{ref}/cv` | multipart `file` (+ optional `name_hint`): store, extract (PDF/DOCX/DOC/RTF/JPG/PNG, OCR for scans), redact; the hint is used once and never stored. Changes the data hash, so earlier results become stale |
 | `GET /v1/candidates/{ref}/cv`, `DELETE …/cv` | redacted text, method, OCR confidence, redaction counts / remove |
 | `POST /v1/documents/inspect` | same processing without storing anything (`include_raw=true` also returns the raw text; synthetic data only) |

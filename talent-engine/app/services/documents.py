@@ -14,7 +14,7 @@ from app.core.ids import new_id
 from app.core.timeutil import iso, utcnow
 from app.documents.detect import ALLOWED_KINDS, sniff
 from app.documents.extract import Extraction, extract
-from app.documents.store import FileStore
+from app.documents.store import FileStore, release_files
 from app.ocr.base import OCRProvider, OCRUnavailable
 from app.ocr.registry import get_ocr
 from app.redaction.engine import RedactionResult, redact
@@ -102,12 +102,10 @@ def attach_cv(
     preview_sha = None
     if pr.extraction.preview_pdf:
         preview_sha, _ = store.save(pr.extraction.preview_pdf)
+    released: set[str | None] = set()
     for old in [d for d in cand.documents if d.kind == "cv"]:
         db.delete(old)
-        if old.sha256 != sha:
-            store.delete(old.sha256)
-        if old.preview_sha256 and old.preview_sha256 != preview_sha:
-            store.delete(old.preview_sha256)
+        released |= {old.sha256, old.preview_sha256}
     doc = Document(
         id=new_id("doc"),
         candidate_id=cand.id,
@@ -133,6 +131,7 @@ def attach_cv(
     )
     db.add(doc)
     db.flush()
+    release_files(db, settings.file_store, released)  # the new file may be the same one: kept
     db.refresh(cand)
     cand.data_hash = data_hash(
         cand.id_token, cand.facts, cand.answers, [doc_fingerprint(d) for d in cand.documents]
@@ -164,15 +163,14 @@ def attach_cv(
 def remove_cv(
     db: Session, settings: Settings, tenant: Tenant, cand: Candidate, actor: str = "adapter"
 ) -> int:
-    store = FileStore(settings.file_store)
     n = 0
+    released: set[str | None] = set()
     for old in [d for d in cand.documents if d.kind == "cv"]:
         db.delete(old)
-        store.delete(old.sha256)
-        if old.preview_sha256:
-            store.delete(old.preview_sha256)
+        released |= {old.sha256, old.preview_sha256}
         n += 1
     db.flush()
+    release_files(db, settings.file_store, released)
     db.refresh(cand)
     cand.data_hash = data_hash(
         cand.id_token, cand.facts, cand.answers, [doc_fingerprint(d) for d in cand.documents]

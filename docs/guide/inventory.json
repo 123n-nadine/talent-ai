@@ -603,42 +603,42 @@
   "cat": "button",
   "name": "Talent Console action rescreenOne",
   "label_ar": "↻",
-  "source": "talent-engine/console/static/app.js:335"
+  "source": "talent-engine/console/static/app.js:339"
  },
  {
   "id": "button:console:hilite",
   "cat": "button",
   "name": "Talent Console action hilite",
   "label_ar": "",
-  "source": "talent-engine/console/static/app.js:340"
+  "source": "talent-engine/console/static/app.js:344"
  },
  {
   "id": "button:console:override",
   "cat": "button",
   "name": "Talent Console action override",
   "label_ar": "",
-  "source": "talent-engine/console/static/app.js:342"
+  "source": "talent-engine/console/static/app.js:346"
  },
  {
   "id": "button:console:rescreenAll",
   "cat": "button",
   "name": "Talent Console action rescreenAll",
   "label_ar": "↻",
-  "source": "talent-engine/console/static/app.js:400"
+  "source": "talent-engine/console/static/app.js:405"
  },
  {
   "id": "button:console:exportCsv",
   "cat": "button",
   "name": "Talent Console action exportCsv",
   "label_ar": "⤓",
-  "source": "talent-engine/console/static/app.js:400"
+  "source": "talent-engine/console/static/app.js:405"
  },
  {
   "id": "button:console:saveSettings",
   "cat": "button",
   "name": "Talent Console action saveSettings",
   "label_ar": "",
-  "source": "talent-engine/console/static/app.js:434"
+  "source": "talent-engine/console/static/app.js:439"
  },
  {
   "id": "button:frappe:إعادة التقييم",
@@ -662,11 +662,18 @@
   "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:47"
  },
  {
+  "id": "button:frappe:تسجيل الموافقة",
+  "cat": "button",
+  "name": "Frappe button \"تسجيل الموافقة\"",
+  "label_ar": "تسجيل الموافقة",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:57"
+ },
+ {
   "id": "button:frappe:ترتيب الشاغر",
   "cat": "button",
   "name": "Frappe button \"ترتيب الشاغر\"",
   "label_ar": "ترتيب الشاغر",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:56"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:60"
  },
  {
   "id": "button:frappe:ترشيح للمقابلة",
@@ -725,67 +732,74 @@
   "source": "ido_talent_ai/ido_talent_ai/public/js/job_opening.js:17"
  },
  {
+  "id": "button:frappe-action:consent",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=consent",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:129"
+ },
+ {
   "id": "button:frappe-action:rescreen",
   "cat": "button",
   "name": "Frappe in-page action data-tai=rescreen",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:123"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:135"
  },
  {
   "id": "button:frappe-action:retry",
   "cat": "button",
   "name": "Frappe in-page action data-tai=retry",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:127"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:139"
  },
  {
   "id": "button:frappe-action:hilite",
   "cat": "button",
   "name": "Frappe in-page action data-tai=hilite",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:138"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:150"
  },
  {
   "id": "button:frappe-action:override",
   "cat": "button",
   "name": "Frappe in-page action data-tai=override",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:144"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:156"
  },
  {
   "id": "button:frappe-action:cv",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cv",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:166"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:178"
  },
  {
   "id": "button:frappe-action:decide",
   "cat": "button",
   "name": "Frappe in-page action data-tai=decide",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:192"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:204"
  },
  {
   "id": "button:frappe-action:cvline",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvline",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:211"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:223"
  },
  {
   "id": "button:frappe-action:cvpage",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvpage",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:215"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:227"
  },
  {
   "id": "button:frappe-action:cvsel",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvsel",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:223"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:235"
  },
  {
   "id": "button:frappe:فتح المتقدم",
@@ -1032,11 +1046,35 @@
   "doctype": "Job Applicant"
  },
  {
+  "id": "field:Job Applicant.ai_consent_source",
+  "cat": "field",
+  "name": "Job Applicant.ai_consent_source (Small Text)",
+  "label_ar": "Consent source",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:52",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_consent_recorded_by",
+  "cat": "field",
+  "name": "Job Applicant.ai_consent_recorded_by (Link)",
+  "label_ar": "Consent recorded by",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:54",
+  "doctype": "Job Applicant"
+ },
+ {
   "id": "field:Job Applicant.ai_consent_withdrawn_on",
   "cat": "field",
   "name": "Job Applicant.ai_consent_withdrawn_on (Datetime)",
   "label_ar": "Consent withdrawn on",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:51",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:56",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_erased_on",
+  "cat": "field",
+  "name": "Job Applicant.ai_erased_on (Datetime)",
+  "label_ar": "AI data erased on",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:58",
   "doctype": "Job Applicant"
  },
  {
@@ -1044,7 +1082,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_answers (Table)",
   "label_ar": "Screening answers",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:54",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:61",
   "doctype": "Job Applicant"
  },
  {
@@ -1052,7 +1090,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_html (HTML)",
   "label_ar": "AI assessment",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:57",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:64",
   "doctype": "Job Applicant"
  },
  {
@@ -1060,7 +1098,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_status (Select)",
   "label_ar": "AI status",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:59",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:66",
   "doctype": "Job Applicant"
  },
  {
@@ -1068,7 +1106,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_score (Float)",
   "label_ar": "AI score",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:61",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:68",
   "doctype": "Job Applicant"
  },
  {
@@ -1076,7 +1114,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_band (Select)",
   "label_ar": "AI band",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:62",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:69",
   "doctype": "Job Applicant"
  },
  {
@@ -1084,7 +1122,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_eligibility (Select)",
   "label_ar": "AI eligibility",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:63",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:70",
   "doctype": "Job Applicant"
  },
  {
@@ -1092,7 +1130,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_coverage (Percent)",
   "label_ar": "AI coverage",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:65",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:72",
   "doctype": "Job Applicant"
  },
  {
@@ -1100,7 +1138,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_rank (Int)",
   "label_ar": "AI rank",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:66",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:73",
   "doctype": "Job Applicant"
  },
  {
@@ -1108,7 +1146,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_assessment (Link)",
   "label_ar": "AI assessment",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:68",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:75",
   "doctype": "Job Applicant"
  },
  {
@@ -1116,7 +1154,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_evaluated_on (Datetime)",
   "label_ar": "AI evaluated on",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:69",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:76",
   "doctype": "Job Applicant"
  },
  {
@@ -1124,7 +1162,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_stale (Check)",
   "label_ar": "AI result is stale",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:70",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:77",
   "doctype": "Job Applicant"
  },
  {
@@ -1132,7 +1170,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_duplicate_of (Link)",
   "label_ar": "Duplicate of",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:71",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:78",
   "doctype": "Job Applicant"
  },
  {
@@ -1140,7 +1178,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_cv_note (Small Text)",
   "label_ar": "CV note",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:72",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:79",
   "doctype": "Job Applicant"
  },
  {
@@ -1148,7 +1186,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_flags (Small Text)",
   "label_ar": "AI flags",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:73",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:80",
   "doctype": "Job Applicant"
  },
  {
@@ -1156,7 +1194,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_candidate_ref (Data)",
   "label_ar": "AI candidate reference",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:74",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:81",
   "doctype": "Job Applicant"
  },
  {
@@ -1164,7 +1202,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_data_hash (Data)",
   "label_ar": "AI data hash",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:75",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:82",
   "doctype": "Job Applicant"
  },
  {
@@ -1172,7 +1210,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_cv_sha (Data)",
   "label_ar": "AI CV hash",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:76",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:83",
   "doctype": "Job Applicant"
  },
  {
@@ -1180,7 +1218,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_decision_reason (Small Text)",
   "label_ar": "Decision reason",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:78",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:85",
   "doctype": "Job Applicant"
  },
  {
@@ -1188,7 +1226,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_decided_by (Link)",
   "label_ar": "Decided by",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:79",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:86",
   "doctype": "Job Applicant"
  },
  {
@@ -1196,7 +1234,7 @@
   "cat": "field",
   "name": "Job Applicant.ai_decided_on (Datetime)",
   "label_ar": "Decided on",
-  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:80",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:87",
   "doctype": "Job Applicant"
  },
  {
@@ -1236,7 +1274,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.decide",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:277",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:282",
   "guest": false
  },
  {
@@ -1244,7 +1282,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.override",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:299",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:304",
   "guest": false
  },
  {
@@ -1252,7 +1290,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.rescreen",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:316",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:321",
   "guest": false
  },
  {
@@ -1260,7 +1298,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.retry_job",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:323",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:328",
   "guest": false
  },
  {
@@ -1268,7 +1306,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.rescreen_all",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:332",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:337",
   "guest": false
  },
  {
@@ -1276,7 +1314,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.ranking",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:370",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:378",
   "guest": false
  },
  {
@@ -1284,7 +1322,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.export_ranking_csv",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:408",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:435",
   "guest": false
  },
  {
@@ -1292,7 +1330,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.compare",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:430",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:457",
   "guest": false
  },
  {
@@ -1300,7 +1338,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.batch_status",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:462",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:489",
   "guest": false
  },
  {
@@ -1308,7 +1346,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.home_counts",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:486",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:513",
   "guest": false
  },
  {
@@ -1316,7 +1354,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.openings",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:503",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:530",
   "guest": false
  },
  {
@@ -1324,7 +1362,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.talent_pool",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:513",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:540",
   "guest": false
  },
  {
@@ -1332,7 +1370,15 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.withdraw_consent",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:549",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:576",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:record_consent",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.record_consent",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:606",
   "guest": false
  },
  {
@@ -1340,7 +1386,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.cv_analysis",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:567",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:643",
   "guest": false
  },
  {
@@ -1348,7 +1394,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.cv_page",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:591",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:667",
   "guest": false
  },
  {
@@ -1356,7 +1402,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.engine_settings",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:603",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:679",
   "guest": false
  },
  {
@@ -1364,7 +1410,7 @@
   "cat": "endpoint",
   "name": "/api/method/ido_talent_ai.api.i_am_hr",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:609",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:685",
   "guest": false
  },
  {
@@ -1465,11 +1511,18 @@
   "source": "ido_talent_ai/ido_talent_ai/hooks.py:44"
  },
  {
+  "id": "hook:ido_talent_ai.screening.erase_pending",
+  "cat": "hook",
+  "name": "scheduled job ido_talent_ai.screening.erase_pending",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:45"
+ },
+ {
   "id": "hook:ido_talent_ai.screening.retry_failed_jobs",
   "cat": "hook",
   "name": "scheduled job ido_talent_ai.screening.retry_failed_jobs",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/hooks.py:45"
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:46"
  },
  {
   "id": "hook:on_session_creation",
@@ -1490,28 +1543,28 @@
   "cat": "endpoint",
   "name": "GET /v1/candidates",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/candidates.py:16"
+  "source": "talent-engine/app/api/routers/candidates.py:17"
  },
  {
   "id": "endpoint:engine:PUT /v1/candidates/{ref}",
   "cat": "endpoint",
   "name": "PUT /v1/candidates/{ref}",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/candidates.py:21"
+  "source": "talent-engine/app/api/routers/candidates.py:22"
  },
  {
   "id": "endpoint:engine:GET /v1/candidates/{ref}",
   "cat": "endpoint",
   "name": "GET /v1/candidates/{ref}",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/candidates.py:46"
+  "source": "talent-engine/app/api/routers/candidates.py:53"
  },
  {
   "id": "endpoint:engine:DELETE /v1/candidates/{ref}",
   "cat": "endpoint",
   "name": "DELETE /v1/candidates/{ref}",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/candidates.py:72"
+  "source": "talent-engine/app/api/routers/candidates.py:79"
  },
  {
   "id": "endpoint:engine:GET /console",
@@ -1581,35 +1634,35 @@
   "cat": "endpoint",
   "name": "GET /v1/candidates/{ref}/cv",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:59"
+  "source": "talent-engine/app/api/routers/documents.py:61"
  },
  {
   "id": "endpoint:engine:GET /v1/candidates/{ref}/cv/file",
   "cat": "endpoint",
   "name": "GET /v1/candidates/{ref}/cv/file",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:75"
+  "source": "talent-engine/app/api/routers/documents.py:77"
  },
  {
   "id": "endpoint:engine:GET /v1/candidates/{ref}/cv/pages/{page}",
   "cat": "endpoint",
   "name": "GET /v1/candidates/{ref}/cv/pages/{page}",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:97"
+  "source": "talent-engine/app/api/routers/documents.py:99"
  },
  {
   "id": "endpoint:engine:DELETE /v1/candidates/{ref}/cv",
   "cat": "endpoint",
   "name": "DELETE /v1/candidates/{ref}/cv",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:123"
+  "source": "talent-engine/app/api/routers/documents.py:125"
  },
  {
   "id": "endpoint:engine:POST /v1/documents/inspect",
   "cat": "endpoint",
   "name": "POST /v1/documents/inspect",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/documents.py:139"
+  "source": "talent-engine/app/api/routers/documents.py:141"
  },
  {
   "id": "endpoint:engine:GET /health",
@@ -1693,28 +1746,28 @@
   "cat": "endpoint",
   "name": "GET /v1/screenings",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/screenings.py:75"
+  "source": "talent-engine/app/api/routers/screenings.py:77"
  },
  {
   "id": "endpoint:engine:GET /v1/screenings/{screening_id}",
   "cat": "endpoint",
   "name": "GET /v1/screenings/{screening_id}",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/screenings.py:97"
+  "source": "talent-engine/app/api/routers/screenings.py:99"
  },
  {
   "id": "endpoint:engine:POST /v1/screenings/{screening_id}/override",
   "cat": "endpoint",
   "name": "POST /v1/screenings/{screening_id}/override",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/screenings.py:107"
+  "source": "talent-engine/app/api/routers/screenings.py:109"
  },
  {
   "id": "endpoint:engine:POST /v1/screenings/{screening_id}/retry",
   "cat": "endpoint",
   "name": "POST /v1/screenings/{screening_id}/retry",
   "label_ar": "",
-  "source": "talent-engine/app/api/routers/screenings.py:126"
+  "source": "talent-engine/app/api/routers/screenings.py:128"
  },
  {
   "id": "endpoint:engine:GET /v1/settings",
@@ -2032,6 +2085,13 @@
   "source": "talent-engine/app/domain/labels.py"
  },
  {
+  "id": "status:group:consent_withdrawn",
+  "cat": "status",
+  "name": "ranking group consent_withdrawn — Excluded: consent withdrawn — the AI data was erased",
+  "label_ar": "مستبعد: سحب الموافقة — حُذفت بيانات الذكاء الاصطناعي الخاصة به",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
   "id": "status:decision:Shortlisted",
   "cat": "status",
   "name": "HR decision Shortlisted (Job Applicant.status)",
@@ -2074,6 +2134,27 @@
   "source": "ido_talent_ai/ido_talent_ai/api.py"
  },
  {
+  "id": "status:ai_status:Awaiting Consent",
+  "cat": "status",
+  "name": "Job Applicant ai_status Awaiting Consent (set by Frappe)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py"
+ },
+ {
+  "id": "status:ai_status:Consent Withdrawn",
+  "cat": "status",
+  "name": "Job Applicant ai_status Consent Withdrawn (set by Frappe)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py"
+ },
+ {
+  "id": "status:group:awaiting_consent",
+  "cat": "status",
+  "name": "ranking group awaiting_consent (built by Frappe)",
+  "label_ar": "بانتظار الموافقة",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_ranking/ai_ranking.js"
+ },
+ {
   "id": "status:ai_job:Queued",
   "cat": "status",
   "name": "AI Recruitment Job status Queued",
@@ -2098,6 +2179,13 @@
   "id": "status:ai_job:Failed",
   "cat": "status",
   "name": "AI Recruitment Job status Failed",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.json"
+ },
+ {
+  "id": "status:ai_job:Cancelled",
+  "cat": "status",
+  "name": "AI Recruitment Job status Cancelled",
   "label_ar": "",
   "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.json"
  },
@@ -2778,112 +2866,112 @@
   "cat": "command",
   "name": "make install",
   "label_ar": "",
-  "source": "talent-engine/Makefile:20"
+  "source": "talent-engine/Makefile:21"
  },
  {
   "id": "command:make:test",
   "cat": "command",
   "name": "make test",
   "label_ar": "",
-  "source": "talent-engine/Makefile:23"
+  "source": "talent-engine/Makefile:24"
  },
  {
   "id": "command:make:lint",
   "cat": "command",
   "name": "make lint",
   "label_ar": "",
-  "source": "talent-engine/Makefile:26"
+  "source": "talent-engine/Makefile:27"
  },
  {
   "id": "command:make:fmt",
   "cat": "command",
   "name": "make fmt",
   "label_ar": "",
-  "source": "talent-engine/Makefile:29"
+  "source": "talent-engine/Makefile:30"
  },
  {
   "id": "command:make:typecheck",
   "cat": "command",
   "name": "make typecheck",
   "label_ar": "",
-  "source": "talent-engine/Makefile:32"
+  "source": "talent-engine/Makefile:33"
  },
  {
   "id": "command:make:up",
   "cat": "command",
   "name": "make up",
   "label_ar": "",
-  "source": "talent-engine/Makefile:37"
+  "source": "talent-engine/Makefile:38"
  },
  {
   "id": "command:make:down",
   "cat": "command",
   "name": "make down",
   "label_ar": "",
-  "source": "talent-engine/Makefile:40"
+  "source": "talent-engine/Makefile:41"
  },
  {
   "id": "command:make:logs",
   "cat": "command",
   "name": "make logs",
   "label_ar": "",
-  "source": "talent-engine/Makefile:43"
+  "source": "talent-engine/Makefile:44"
  },
  {
   "id": "command:make:llm-logs",
   "cat": "command",
   "name": "make llm-logs",
   "label_ar": "",
-  "source": "talent-engine/Makefile:46"
+  "source": "talent-engine/Makefile:47"
  },
  {
   "id": "command:make:gpu",
   "cat": "command",
   "name": "make gpu",
   "label_ar": "",
-  "source": "talent-engine/Makefile:49"
+  "source": "talent-engine/Makefile:50"
  },
  {
   "id": "command:make:ps",
   "cat": "command",
   "name": "make ps",
   "label_ar": "",
-  "source": "talent-engine/Makefile:52"
+  "source": "talent-engine/Makefile:53"
  },
  {
   "id": "command:make:migrate",
   "cat": "command",
   "name": "make migrate",
   "label_ar": "",
-  "source": "talent-engine/Makefile:55"
+  "source": "talent-engine/Makefile:56"
  },
  {
   "id": "command:make:revision",
   "cat": "command",
   "name": "make revision",
   "label_ar": "",
-  "source": "talent-engine/Makefile:58"
+  "source": "talent-engine/Makefile:59"
  },
  {
   "id": "command:make:seed",
   "cat": "command",
   "name": "make seed",
   "label_ar": "",
-  "source": "talent-engine/Makefile:61"
+  "source": "talent-engine/Makefile:62"
  },
  {
   "id": "command:make:cvs",
   "cat": "command",
   "name": "make cvs",
   "label_ar": "",
-  "source": "talent-engine/Makefile:64"
+  "source": "talent-engine/Makefile:65"
  },
  {
   "id": "command:make:receiver",
   "cat": "command",
   "name": "make receiver",
   "label_ar": "",
-  "source": "talent-engine/Makefile:67"
+  "source": "talent-engine/Makefile:68"
  },
  {
   "id": "command:script:talent-engine/scripts/callback_receiver.py",
@@ -3481,6 +3569,48 @@
   "source": "docs/PROGRESS.md:126"
  },
  {
+  "id": "decision:progress:Frappe's copy of the AI result goes too",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 3 — consent defaults…): Frappe's copy of the AI result goes too",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:139"
+ },
+ {
+  "id": "decision:progress:A withdrawal is final for that application",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 3 — consent defaults…): A withdrawal is final for that application",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:140"
+ },
+ {
+  "id": "decision:progress:The engine keeps the reference only",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 3 — consent defaults…): The engine keeps the reference only",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:141"
+ },
+ {
+  "id": "decision:progress:The earliest later copy becomes the original",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 3 — consent defaults…): The earliest later copy becomes the original",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:142"
+ },
+ {
+  "id": "decision:progress:A paper consent carries the current consent text version",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 3 — consent defaults…): A paper consent carries the current consent text version",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:143"
+ },
+ {
+  "id": "decision:progress:Score 0 means no score in the list",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 3 — consent defaults…): Score 0 means no score in the list",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:144"
+ },
+ {
   "id": "decision:open:1",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #1: Production HRMS commit on the `develop` branch (the demo runs 17.0.0-dev). Our dev bench p",
@@ -3574,14 +3704,14 @@
  {
   "id": "decision:open:20",
   "cat": "decision",
-  "name": "OPEN_QUESTIONS #20: Applications entered by HR in the desk (paper forms) have no consent record, so the AI doe",
+  "name": "OPEN_QUESTIONS #20: Applications entered by HR in the desk (paper forms) have no consent record. **Default in ",
   "label_ar": "",
   "source": "docs/OPEN_QUESTIONS.md:20"
  },
  {
   "id": "decision:open:21",
   "cat": "decision",
-  "name": "OPEN_QUESTIONS #21: After a new profile version, an applicant who withdrew consent keeps the old result, now \"",
+  "name": "OPEN_QUESTIONS #21: What happens to an applicant who withdraws consent? **Default in force until the client co",
   "label_ar": "",
   "source": "docs/OPEN_QUESTIONS.md:21"
  },
@@ -3835,7 +3965,7 @@
   "cat": "security",
   "name": "consent recorded with its version; withdrawal stops processing and deletes the pool profile",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/api.py:550"
+  "source": "ido_talent_ai/ido_talent_ai/api.py:577"
  },
  {
   "id": "security:retention",
@@ -3891,7 +4021,7 @@
   "cat": "security",
   "name": "deleting an applicant de-identifies the audit rows",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/screening.py:618"
+  "source": "ido_talent_ai/ido_talent_ai/screening.py:646"
  },
  {
   "id": "architecture:service:db",

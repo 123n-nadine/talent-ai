@@ -91,3 +91,13 @@ Last update: 2026-10-16, end of phase 8 — everything done (details in `docs/PR
 | T2 | Roles and permissions test (every recruitment role, every screen, screenshots of the refusals) | `TEST_REPORT.md` §2: 9 kinds of user × 16 screens + 14 server calls; Employee, Interviewer, self-service, website user and guest never see a score, an assessment or a CV | ✅ |
 | G1 | Inventory from the code (`docs/guide/COVERAGE.md`) and a check script with zero missing | `tools/guide/inventory.py` → 558 items (screens, buttons, DocTypes, fields, endpoints, hooks, stages, flags, statuses, settings, roles, commands, decisions, evaluation, security, architecture), each with its guide page, screenshot and test; `tools/guide/coverage_check.py` → MISSING 0 | ✅ |
 | G2 | Full guide in Egyptian Arabic, PDF (Chromium) and Word | `docs/guide/talent-ai-full-guide.pdf` (123 pages) and `.docx` (123 pages through LibreOffice); writing rules and page layout checked by code, every page looked at as an image, index of terms and screens at the end | ✅ |
+
+## 6. Round 3: consent defaults (Nadine, 2026-10-16; until the client confirms)
+
+| # | Item | Where | Status |
+|---|---|---|---|
+| C1 | #20: a paper application without consent is saved but never screened («بانتظار الموافقة»); HR records the consent with a mandatory source; who and when are kept; the screening starts by itself | `api.record_consent`, `screening.on_applicant_insert`, ranking group `awaiting_consent`, Frappe `test_paper_application_waits_until_hr_records_the_consent`, browser K16 | ✅ |
+| C2 | #21: a withdrawal takes the applicant out of the ranking at once into «مستبعد: سحب الموافقة» with no score and no details; the engine erases documents and files, profile, index and results; Frappe keeps the application only | engine `candidates.erase_ai_data`, ranking group `consent_withdrawn`, `tests/test_consent.py`, Frappe withdrawal tests, browser K17 | ✅ |
+| C3 | Both written in `OPEN_QUESTIONS.md` as defaults until the client confirms | #20, #21 | ✅ |
+| C4 | `make install` runs `uv sync --group documents` | `talent-engine/Makefile`, README | ✅ |
+| C5 | The guide pages of both cases updated in the PDF and the Word file | chapter 9 (cases 9 أ–هـ and 10 أ–ب, seven pages with their screenshots), privacy, FAQ, open questions, glossary, fixed bugs; PDF and Word 130 pages each, 0 page problems; inventory 576 items, MISSING 0 | ✅ |

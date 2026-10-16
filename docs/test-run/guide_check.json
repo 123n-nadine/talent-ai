@@ -1,21 +1,21 @@
 {
  "pdf": {
-  "pages": 123,
+  "pages": 130,
   "problems": []
  },
  "claims": {
   "duplicates": [],
   "unknown": [],
-  "claimed": 370
+  "claimed": 382
  },
  "pages_stable": true,
  "docx_fields": {
-  "fields": 312,
+  "fields": 331,
   "without_number": 0,
   "moved_after_pass_2": []
  },
  "docx_as_pdf": {
-  "pages": 123,
+  "pages": 130,
   "problems": []
  },
  "sheets_docx": [
@@ -39,7 +39,8 @@
   "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_18.png",
   "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_19.png",
   "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_20.png",
-  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_21.png"
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_21.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_docx/sheet_22.png"
  ],
  "sheets_pdf": [
   "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_01.png",
@@ -62,11 +63,12 @@
   "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_18.png",
   "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_19.png",
   "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_20.png",
-  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_21.png"
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_21.png",
+  "/tmp/claude-1002/-home-nadine-my-projects-talent-ai/f6538061-cd0b-4994-8036-922b288087f0/scratchpad/guide/sheets_pdf/sheet_22.png"
  ],
  "coverage": {
-  "items": 558,
-  "complete": 558,
+  "items": 576,
+  "complete": 576,
   "incomplete": []
  }
 }

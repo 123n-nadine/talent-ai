@@ -161,7 +161,11 @@ def search(
     excluded: list[dict[str, Any]] = []
 
     def exclude(
-        c: Candidate, code: str, detail: list[str] | None = None, prev: Screening | None = None
+        c: Candidate,
+        code: str,
+        detail: list[str] | None = None,
+        prev: Screening | None = None,
+        prev_job: str | None = None,
     ) -> None:
         ar, en = EXCLUDED_LABELS[code]
         excluded.append(
@@ -171,11 +175,15 @@ def search(
                 "reason_ar": ar,
                 "reason_en": en,
                 "details": detail or [],
-                "previous_job_ref": prev.job.external_ref if prev else None,
+                "previous_job_ref": prev.job.external_ref if prev else prev_job,
             }
         )
 
     for c in cands:
+        if not c.consent and c.consent_withdrawn_at is not None:
+            # the AI data was erased at the withdrawal: listed with the reason, nothing else
+            exclude(c, "consent_withdrawn", prev_job=next(iter(c.withdrawn_from or []), None))
+            continue
         prev = _latest_completed(db, c)
         if prev is None:
             continue  # never screened: nothing verified to compare

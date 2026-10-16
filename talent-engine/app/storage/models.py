@@ -103,6 +103,10 @@ class Candidate(Base):
     consent: Mapped[bool] = mapped_column(Boolean, default=True)
     retention_until: Mapped[datetime | None] = mapped_column(TS)
     applied_at: Mapped[datetime | None] = mapped_column(TS)  # application time on the host system
+    # consent withdrawn: the AI data is erased and only this row stays, so the ranking of these
+    # jobs can list the reference in «مستبعد: سحب الموافقة» (OPEN_QUESTIONS #21)
+    consent_withdrawn_at: Mapped[datetime | None] = mapped_column(TS)
+    withdrawn_from: Mapped[list[str] | None] = mapped_column(JSONType)
     data_hash: Mapped[str] = mapped_column(String(80))
     created_at: Mapped[datetime] = mapped_column(TS, default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(TS, default=utcnow, onupdate=utcnow)

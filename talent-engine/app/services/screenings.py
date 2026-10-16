@@ -269,6 +269,8 @@ def recompute(s: Screening) -> None:
 
 
 def apply_override(db: Session, tenant: Tenant, s: Screening, data: OverrideIn) -> Screening:
+    if not s.candidate.consent:
+        raise ScreeningError("candidate has no consent to AI processing")
     if s.status not in ("completed", "needs_review"):
         raise ScreeningError("only completed screenings can be overridden")
     row = next((r for r in s.criteria if r.criterion_key == data.criterion_key), None)
@@ -300,6 +302,8 @@ def apply_override(db: Session, tenant: Tenant, s: Screening, data: OverrideIn) 
 
 
 def mark_for_retry(db: Session, tenant: Tenant, s: Screening, actor: str) -> Screening:
+    if not s.candidate.consent:
+        raise ScreeningError("candidate has no consent to AI processing")
     if s.status not in ("failed",):
         raise ScreeningError("only failed screenings can be retried")
     s.status = "queued"

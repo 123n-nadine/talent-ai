@@ -7,6 +7,7 @@ import time
 import traceback
 from typing import Any
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
@@ -36,7 +37,7 @@ from app.services.callback import send as send_callback
 from app.services.ranking import rank_of
 from app.services.screenings import REVIEW_FLAGS, SCORE_FLAGS, mark_later_duplicates, to_out
 from app.services.talent_pool import index_screening
-from app.storage.models import CriterionResult, Profile, Screening, Tenant
+from app.storage.models import Candidate, CriterionResult, Profile, Screening, Tenant
 
 log = logging.getLogger(__name__)
 
@@ -63,11 +64,15 @@ class StageTracker:
                 return
 
 
-def _load(db: Session, screening_id: str) -> Screening:
-    s = db.get(Screening, screening_id)
-    if s is None:
-        raise RuntimeError(f"screening {screening_id} not found")
-    return s
+def _still_consented(db: Session, candidate_id: str) -> bool:
+    """Lock the candidate row until the results are committed: a consent withdrawal that arrives
+    meanwhile waits for this commit and then erases the results, one that came first wins and
+    nothing of this run is kept."""
+    return bool(
+        db.execute(
+            select(Candidate.consent).where(Candidate.id == candidate_id).with_for_update()
+        ).scalar_one_or_none()
+    )
 
 
 def run_screening(
@@ -76,8 +81,13 @@ def run_screening(
     screening_id: str,
     provider: LLMProvider | None = None,
     deliver: bool = True,
-) -> Screening:
-    s = _load(db, screening_id)
+) -> Screening | None:
+    """Run one screening. Returns None when the screening no longer exists or its candidate
+    withdrew consent: the AI data was erased, so there is nothing to run and nothing to keep."""
+    s = db.get(Screening, screening_id)
+    if s is None or not s.candidate.consent:
+        log.info("screening %s: erased or without consent, not run", screening_id)
+        return None
     if s.status in ("completed", "needs_review"):
         return s
     tenant: Tenant = db.get(Tenant, s.tenant_id)  # type: ignore[assignment]
@@ -318,6 +328,10 @@ def run_screening(
             f"الدرجة {result.score:g} · التغطية {round(result.coverage * 100)}%",
             f"score {result.score:g} · coverage {round(result.coverage * 100)}%",
         )
+        if not _still_consented(db, cand.id):
+            db.rollback()
+            log.info("screening %s: consent withdrawn while running, nothing kept", screening_id)
+            return None
         tracker.start("index")
         try:  # the talent pool never fails a screening
             index_note = index_screening(
@@ -411,7 +425,11 @@ def run_screening(
         db.refresh(s)
     except Exception as e:  # noqa: BLE001 - every failure must be recorded on the screening
         db.rollback()
-        s = _load(db, screening_id)
+        gone = db.get(Screening, screening_id)
+        if gone is None:  # erased while running (consent withdrawn or application deleted)
+            log.info("screening %s erased while running: %s", screening_id, type(e).__name__)
+            return None
+        s = gone
         msg = f"{type(e).__name__}: {e}"
         log.error("screening %s attempt %s failed: %s", screening_id, s.attempts, msg)
         log.debug(traceback.format_exc())
@@ -463,6 +481,8 @@ def execute_with_retries(
     for i in range(max(1, settings.max_attempts) + 10):
         with sessionmaker() as db:
             s = run_screening(db, settings, screening_id, provider=provider)
+            if s is None:
+                return "erased"
             status = s.status
         if status != "queued":
             return status

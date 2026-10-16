@@ -1,19 +1,19 @@
-# Talent AI — full test report (round 2)
+# Talent AI — full test report (rounds 2 and 3)
 
-Run on the local bench, last update 2026-10-16 09:29:00 (Asia/Riyadh). Synthetic data only.
+Run on the local bench, last update 2026-10-16 15:56:34 (Asia/Riyadh). Synthetic data only.
 
 | | |
 |---|---|
-| Workspace commit | `1734c4d` (`p12-guide`) |
-| Frappe app commit | `9d59a3b` |
+| Workspace commit | `5c454db` (`p13-consent`) |
+| Frappe app commit | `36cbd62` |
 | Platform | Frappe v16.31.0, ERPNext v16.32.0, HRMS develop 640af1592a01 (`dev-frappe/VERSIONS.md`) |
 | Engine | FastAPI + 4 RQ workers, Qwen3-8B-AWQ (vLLM, GPU cap 0.40), prompt `judge-v1`, PaddleOCR on CPU, Qwen3-Embedding-0.6B on CPU |
 | Browser | Chrome 153 headless driven by Playwright 1.64 for Python (`tools/ui/full_test.py`). The Playwright MCP server was not available in this session, so the same Playwright engine was driven from Python. |
-| Result | **38 of 38 checks passed** |
+| Result | **40 of 40 checks passed** |
 
 Screenshots are 8-bit PNG under `docs/guide/images/` (they are reused by the guide). Passwords and keys appear nowhere in this report or in the images.
 
-## 1. Bugs found and fixed in round 2
+## 1. Bugs found and fixed in rounds 2 and 3
 
 | # | Area | Problem | Fix | Covered by |
 |---|---|---|---|---|
@@ -28,6 +28,11 @@ Screenshots are 8-bit PNG under `docs/guide/images/` (they are reused by the gui
 | F1 | CV files (found by the full test, C05) | An RTF CV ended the screening in «فشل»: Frappe's File.get_content() returns text (str) for text-like files, hashing it failed, and any CV read problem failed the whole job. | The CV is read as raw bytes from disk; a CV the platform cannot read or the engine refuses gives a «ملاحظة عن السيرة الذاتية» and the screening continues from the answers (decision 14); only an engine outage is retried. | Frappe `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail` (fails without the fix); browser C05 |
 | F2 | Re-score all (found by the full test, K14) | «إعادة تقييم الكل» stopped at the first applicant who had withdrawn consent: queue_screening raised and every applicant after him stayed «قديم» (19 of 36 after the new profile version). | Applicants without consent are skipped and counted; one applicant's error never stops the others; the ranking page says how many were skipped. | Frappe `test_withdrawn_consent_stops_processing` (extended; fails without the fix); browser K14 |
 | G1 | Job Opening (found while taking the guide screenshots) | The Talent AI section of the opening sat inside the «تفاصيل الراتب» (Pay Details) tab: the custom fields were inserted after «description», which HRMS v16 follows with that tab. | The section is inserted after the application web form route, in the main tab next to the publishing settings. | Frappe `test_ai_section_is_on_the_main_tab_of_the_opening` |
+| E1 | Engine erasure (found while building #21) | Deleting a candidate in the engine removed its rows but left the CV file and its preview on the file volume. | Erasure removes the stored files too, after the commit, when no other document uses them. | engine `test_deleting_a_candidate_also_removes_the_cv_file` |
+| E2 | Engine files | Replacing or removing a CV deleted the stored file even when another candidate's document held the same file (the same CV uploaded twice), so that candidate's CV pages broke. | Files are content-addressed and now reference-checked: a file goes only with its last document. | engine `test_a_file_shared_by_two_candidates_stays_until_the_last_one_goes` |
+| E3 | Developer setup | `make install` was a plain `uv sync`, which removes PaddleOCR, Presidio and spaCy; the two English-name redaction tests then skipped without a word. | `make install` runs `uv sync --group documents`. | `make test` after `make install`: 120 passed, 1 skipped (OCR only) |
+| E5 | Safety nets (found while rebuilding the demo) | The 2-minute safety net compared `creation` (stored in the site's time zone, Asia/Riyadh) with SQL `now()` (the database clock, UTC): an application left «Processing» was picked up only three hours later; the batch page's «finished in the last 10 minutes» counted three hours. | Both limits are computed in Python with the site's clock and passed to the query. | Frappe `test_the_safety_nets_read_the_site_clock` (fails with the old query) |
+| E4 | Local bench (found while rebuilding the demo) | The app tests left real background jobs, and the test site's scheduler kept queueing screenings of test applicants against an engine address nobody serves: 588 of them filled the shared `long` queue and the demo's screenings waited behind them. | The test class blocks every real enqueue (and drops pending commit callbacks at the end); the test site keeps its scheduler disabled (dev-frappe/README.md). | Frappe suite run with the queue counted before and after: 0 test jobs left |
 | D1 | Design | Grey text at 4.13:1 (below WCAG AA 4.5:1) on every screen. | Darker greys (#56627c) and darker chip text. | Design audit (low-contrast count) |
 | D2 | Design | Text at 10–11 px (cycle map, sidebar, help texts, KPI labels, code). | Nothing under 12 px. | Design audit (small-font count) |
 | D3 | Design | Console ranking: the reference «HR-APP-…» was cut and ran under the score at 1366 px. | The name column wraps; narrower bar under 1440 px. | Design audit 1366/1440 |
@@ -752,6 +757,32 @@ All screenshots: [K14_weights_105.png](guide/images/test/K14_weights_105.png) ·
 
 All screenshots: [K15_saved_engine_down.png](guide/images/test/K15_saved_engine_down.png) · [K15_failed.png](guide/images/test/K15_failed.png) · [K15_after_retry.png](guide/images/test/K15_after_retry.png)
 
+### K16 — Paper application without consent, then HR records the consent ✅
+
+| | |
+|---|---|
+| User | HR Manager |
+| Expected | saved, «بانتظار الموافقة», nothing sent to the AI; empty source refused; consent recorded with its source, who and when; screening starts by itself |
+| Actual | status before Awaiting Consent, engine ref none, AI jobs 0, ranking group awaiting_consent: True; empty source refused: True; recorded by hr.manager@example.com at 2026-10-16 15:55:00.509486 (source «ورقة موقّعة»); result Completed 11.1s after the consent; audit rows 1 |
+| Time | 11.1 s |
+
+<img src="guide/images/test/K16_awaiting.png" width="520" alt="">
+
+All screenshots: [K16_awaiting.png](guide/images/test/K16_awaiting.png) · [K16_source_required.png](guide/images/test/K16_source_required.png) · [K16_dialog.png](guide/images/test/K16_dialog.png) · [K16_after.png](guide/images/test/K16_after.png)
+
+### K17 — Consent withdrawn: out of the ranking, AI data erased, application kept ✅
+
+| | |
+|---|---|
+| User | HR Manager |
+| Expected | out of the ranking at once into «مستبعد: سحب الموافقة» with no score; engine documents, CV file, profile, index and results erased; Frappe assessment gone; application kept |
+| Actual | before: Completed, ranked True, CV file present; after 4.0s: status Consent Withdrawn, score 0, assessments 0, answers kept 11; engine: consent False, facts {}, documents 0, screenings 0, CV file removed, audit findings scrubbed True; ranking group: True, score None; talent pool: consent_withdrawn |
+| Time | 4.0 s |
+
+<img src="guide/images/test/K17_reason.png" width="520" alt="">
+
+All screenshots: [K17_reason.png](guide/images/test/K17_reason.png) · [K17_after.png](guide/images/test/K17_after.png) · [K17_group.png](guide/images/test/K17_group.png)
+
 ## 6. Talent Console (Nadine)
 
 ### N01 — Talent Console: login and the main screens ✅
@@ -831,6 +862,8 @@ Every screen at 1366, 1440 and 1920 px, and the public pages at 375 and 390 px: 
 
 The two overlaps left are the HRMS «قدّم الآن» button on the phone job page: it stays fixed at the bottom of the screen and the page scrolls under it (standard HRMS behaviour, not changed). No JavaScript error on any of the screens.
 
+Round 3 (2026-10-16): the audit ran again on 99 screens (desk and console at 1366, 1440 and 1920 px, with the three consent screens (paper application awaiting consent, consent recorded, consent withdrawn)): 0 issues, 0 JavaScript errors.
+
 **Desk ranking at 1366 px: strengths on their own line, neutral «إلزامي», bands as chips**
 
 | Before | After |
@@ -863,7 +896,7 @@ The two overlaps left are the HRMS «قدّم الآن» button on the phone job
 
 ## 10. Automated tests
 
-Engine: `make test` in `talent-engine/` — 112 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1). Frappe app: `bench --site test.localhost run-tests --app ido_talent_ai` — 18 passed.
+Engine: `make test` in `talent-engine/` — 120 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1). Frappe app: `bench --site test.localhost run-tests --app ido_talent_ai` — 22 passed.
 
 | Suite | File | Test | What it checks |
 |---|---|---|---|
@@ -901,6 +934,14 @@ Engine: `make test` in `talent-engine/` — 112 passed, 1 skipped (the PaddleOCR
 | engine | `talent-engine/tests/test_api.py` | `test_talent_pool_rules_first_then_similarity_with_exclusions` | Feature 13 on the demo candidates (fake embeddings): a new opening of the same kind. |
 | engine | `talent-engine/tests/test_config.py` | `test_every_env_key_is_used` |  |
 | engine | `talent-engine/tests/test_config.py` | `test_settings_load_with_defaults_only` |  |
+| engine | `talent-engine/tests/test_consent.py` | `test_withdrawn_consent_erases_the_ai_data_and_leaves_the_ranking` |  |
+| engine | `talent-engine/tests/test_consent.py` | `test_withdrawing_the_original_promotes_the_later_copy` |  |
+| engine | `talent-engine/tests/test_consent.py` | `test_a_file_shared_by_two_candidates_stays_until_the_last_one_goes` |  |
+| engine | `talent-engine/tests/test_consent.py` | `test_deleting_a_candidate_also_removes_the_cv_file` |  |
+| engine | `talent-engine/tests/test_consent.py` | `test_a_run_that_meets_a_withdrawal_keeps_nothing` | The worker locks the candidate before it writes; a withdrawal that came first wins. |
+| engine | `talent-engine/tests/test_consent.py` | `test_consent_given_again_starts_afresh` |  |
+| engine | `talent-engine/tests/test_consent.py` | `test_a_candidate_sent_without_consent_is_kept_bare` |  |
+| engine | `talent-engine/tests/test_consent.py` | `test_withdrawal_is_idempotent` |  |
 | engine | `talent-engine/tests/test_console.py` | `test_console_requires_login_and_hides_the_api_key` |  |
 | engine | `talent-engine/tests/test_console.py` | `test_console_actions_are_audited_with_the_user` |  |
 | engine | `talent-engine/tests/test_console.py` | `test_id_token_helper_matches_hmac_and_needs_login` |  |
@@ -994,6 +1035,10 @@ Engine: `make test` in `talent-engine/` — 112 passed, 1 skipped (the PaddleOCR
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_opening_points_the_apply_button_to_the_ai_form` |  |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_talent_pool_names_suggestions_and_exclusions` |  |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_withdrawn_consent_stops_processing` |  |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_paper_application_waits_until_hr_records_the_consent` | #20: saved as usual, never screened without consent; HR records the consent with a |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_withdrawn_consent_leaves_the_ranking_and_erases_the_ai_data` | #21: out of the ranking at once, in «مستبعد: سحب الموافقة» with no score and no details; |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_withdrawal_while_the_engine_is_down_is_erased_later` |  |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_the_safety_nets_read_the_site_clock` | `creation` and `finished_on` are in the site's time zone while the database clock may be |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_application_is_always_saved` | Acceptance criterion 6 as a permanent test: nothing on the AI side can lose an application. |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail` | RTF is a text format, so Frappe's File.get_content() returns str for it (the full browser test |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_every_hr_method_refuses_other_users_first` | Every whitelisted method except the public form, the job requirements, the signed engine |
@@ -1089,9 +1134,9 @@ Every make target and script of the inventory, with what was run in round 2. Tar
 | 15 UTC in the engine | Frappe `test_engine_payload_has_no_identity` (applied_at) |
 | 16 our own web form | C01–C09 |
 
-Decisions taken alone (docs/PROGRESS.md) are checked by the screen or test they describe: embeddings and the talent pool by K12; one suggestion per person and the host filter by K12; redaction keeps line breaks and layout in display pixels by C01–C04; fonts bundled by the engine test `test_fonts_are_served_locally`; no change to HRMS templates by the design audit of the public pages; English stage notes by the console screens N01; the old-application demo case by K12 (retention ended); synthetic Employee records by R01–R09 (the Employee and self-service users hold their roles, `_employee_user` asserts it); a CV problem never fails a screening by C05 and the Frappe test `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail`; «إعادة تقييم الكل» skipping withdrawn consent by `test_withdrawn_consent_stops_processing`; the three guide decisions (screenshots cut to the part explained, page numbers from the printed PDF, the Word file checked through LibreOffice) by the page checks of §14.
+Decisions taken alone (docs/PROGRESS.md) are checked by the screen or test they describe: embeddings and the talent pool by K12; one suggestion per person and the host filter by K12; redaction keeps line breaks and layout in display pixels by C01–C04; fonts bundled by the engine test `test_fonts_are_served_locally`; no change to HRMS templates by the design audit of the public pages; English stage notes by the console screens N01; the old-application demo case by K12 (retention ended); synthetic Employee records by R01–R09 (the Employee and self-service users hold their roles, `_employee_user` asserts it); a CV problem never fails a screening by C05 and the Frappe test `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail`; «إعادة تقييم الكل» skipping withdrawn consent by `test_withdrawn_consent_stops_processing`; the three guide decisions (screenshots cut to the part explained, page numbers from the printed PDF, the Word file checked through LibreOffice) by the page checks of §14; the round 3 decisions (Frappe's copy of the AI result goes too, a withdrawal is final, the engine keeps the reference only, the later copy becomes the original, the paper consent carries the current text version, score 0 means no score) by the Frappe consent tests, `tests/test_consent.py` and K16/K17.
 
-Open questions (docs/OPEN_QUESTIONS.md) wait for an answer from the client or the Frappe team; until then the current behaviour is what is tested: #6 placeholder rules → K02; #7 consent and retention → K12, Frappe consent tests; #15 database conflicts → Frappe `test_application_is_always_saved`; #16 rate limit → `talent_ai_apply_limit` used by every application of this run; #17 translations → design audit; #18 photo not built → C01–C09; #20 HR-entered applications → not processed without consent (Frappe consent tests); #21 consent-withdrawn stale results → F2 and K14. #1–#4, #8, #9 and #13 are deployment or data questions with nothing to test on the local bench.
+Open questions (docs/OPEN_QUESTIONS.md) wait for an answer from the client or the Frappe team; until then the current behaviour is what is tested: #6 placeholder rules → K02; #7 consent and retention → K12, Frappe consent tests; #15 database conflicts → Frappe `test_application_is_always_saved`; #16 rate limit → `talent_ai_apply_limit` used by every application of this run; #17 translations → design audit; #18 photo not built → C01–C09; #20 (default in force: a paper application waits for the consent HR records with its source) → Frappe `test_paper_application_waits_until_hr_records_the_consent` and browser K16; #21 (default in force: a withdrawal leaves the ranking and erases the AI data) → engine `tests/test_consent.py`, Frappe `test_withdrawn_consent_leaves_the_ranking_and_erases_the_ai_data` and `test_withdrawal_while_the_engine_is_down_is_erased_later`, browser K17. #1–#4, #8, #9 and #13 are deployment or data questions with nothing to test on the local bench.
 
 ## 13. Evaluation results (phase 4, docs/EVALUATION_REPORT.md)
 
@@ -1103,11 +1148,11 @@ Gold set of 50 synthetic applicants: Qwen3-8B-AWQ with `judge-v1` — 98% exact 
 
 | Check | PDF | Word |
 |---|---|---|
-| Pages | 123 | 123 |
+| Pages | 130 | 130 |
 | Page problems | 0 | 0 |
-| Page numbers of the contents and the index | stable after the second print | 312 of 312 page fields show their page; 0 moved |
+| Page numbers of the contents and the index | stable after the second print | 331 of 331 page fields show their page; 0 moved |
 
-Inventory read from the code: **558 items, 558 with a guide page, a screenshot and a test** (`docs/guide/COVERAGE.md`); the independent check reports **MISSING: 0**.
+Inventory read from the code: **576 items, 576 with a guide page, a screenshot and a test** (`docs/guide/COVERAGE.md`); the independent check reports **MISSING: 0**.
 
 ## 15. Not done, and why
 

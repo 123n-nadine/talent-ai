@@ -16,7 +16,7 @@ RUN = json.load(open(os.path.join(DOCS, "test-run", "full_test.json"), encoding=
 DESIGN_PATH = os.path.join(DOCS, "test-run", "design_audit.json")
 DESIGN = json.load(open(DESIGN_PATH, encoding="utf-8")) if os.path.exists(DESIGN_PATH) else {}
 
-# Bugs found and fixed in round 2, with the permanent test that now covers each one.
+# Bugs found and fixed in rounds 2 and 3, with the permanent test that now covers each one.
 BUGS = [
     # id, area, what was wrong, the fix, the test that covers it
     ("B1", "Application save", "A database conflict (MariaDB snapshot isolation, error 1020) during the public form could lose the application.",
@@ -42,6 +42,16 @@ BUGS = [
      "Frappe `test_withdrawn_consent_stops_processing` (extended; fails without the fix); browser K14"),
     ("G1", "Job Opening (found while taking the guide screenshots)", "The Talent AI section of the opening sat inside the «تفاصيل الراتب» (Pay Details) tab: the custom fields were inserted after «description», which HRMS v16 follows with that tab.",
      "The section is inserted after the application web form route, in the main tab next to the publishing settings.", "Frappe `test_ai_section_is_on_the_main_tab_of_the_opening`"),
+    ("E1", "Engine erasure (found while building #21)", "Deleting a candidate in the engine removed its rows but left the CV file and its preview on the file volume.",
+     "Erasure removes the stored files too, after the commit, when no other document uses them.", "engine `test_deleting_a_candidate_also_removes_the_cv_file`"),
+    ("E2", "Engine files", "Replacing or removing a CV deleted the stored file even when another candidate's document held the same file (the same CV uploaded twice), so that candidate's CV pages broke.",
+     "Files are content-addressed and now reference-checked: a file goes only with its last document.", "engine `test_a_file_shared_by_two_candidates_stays_until_the_last_one_goes`"),
+    ("E3", "Developer setup", "`make install` was a plain `uv sync`, which removes PaddleOCR, Presidio and spaCy; the two English-name redaction tests then skipped without a word.",
+     "`make install` runs `uv sync --group documents`.", "`make test` after `make install`: 120 passed, 1 skipped (OCR only)"),
+    ("E5", "Safety nets (found while rebuilding the demo)", "The 2-minute safety net compared `creation` (stored in the site's time zone, Asia/Riyadh) with SQL `now()` (the database clock, UTC): an application left «Processing» was picked up only three hours later; the batch page's «finished in the last 10 minutes» counted three hours.",
+     "Both limits are computed in Python with the site's clock and passed to the query.", "Frappe `test_the_safety_nets_read_the_site_clock` (fails with the old query)"),
+    ("E4", "Local bench (found while rebuilding the demo)", "The app tests left real background jobs, and the test site's scheduler kept queueing screenings of test applicants against an engine address nobody serves: 588 of them filled the shared `long` queue and the demo's screenings waited behind them.",
+     "The test class blocks every real enqueue (and drops pending commit callbacks at the end); the test site keeps its scheduler disabled (dev-frappe/README.md).", "Frappe suite run with the queue counted before and after: 0 test jobs left"),
     ("D1", "Design", "Grey text at 4.13:1 (below WCAG AA 4.5:1) on every screen.", "Darker greys (#56627c) and darker chip text.", "Design audit (low-contrast count)"),
     ("D2", "Design", "Text at 10–11 px (cycle map, sidebar, help texts, KPI labels, code).", "Nothing under 12 px.", "Design audit (small-font count)"),
     ("D3", "Design", "Console ranking: the reference «HR-APP-…» was cut and ran under the score at 1366 px.", "The name column wraps; narrower bar under 1440 px.", "Design audit 1366/1440"),
@@ -68,6 +78,17 @@ BUGS = [
 ]
 
 
+def riyadh(stamp: str | None) -> str:
+    """full_test.py records the server's clock (UTC); the report shows the site's time zone."""
+    if not stamp:
+        return "?"
+    from datetime import datetime, timezone
+    from zoneinfo import ZoneInfo
+
+    t = datetime.strptime(stamp, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+    return t.astimezone(ZoneInfo("Asia/Riyadh")).strftime("%Y-%m-%d %H:%M:%S")
+
+
 def git(path: str, *args: str) -> str:
     try:
         return subprocess.run(["git", "-C", path, *args], capture_output=True, text=True, check=True).stdout.strip()
@@ -90,8 +111,8 @@ def main() -> None:
     extra = [b for b in RUN.get("bugs_found", [])]
     L: list[str] = []
     w = L.append
-    w("# Talent AI — full test report (round 2)\n")
-    w(f"Run on the local bench, last update {RUN.get('updated_at', '?')} (Asia/Riyadh). Synthetic data only.\n")
+    w("# Talent AI — full test report (rounds 2 and 3)\n")
+    w(f"Run on the local bench, last update {riyadh(RUN.get('updated_at'))} (Asia/Riyadh). Synthetic data only.\n")
     w("| | |\n|---|---|")
     w(f"| Workspace commit | `{git(ROOT, 'rev-parse', '--short', 'HEAD')}` (`{git(ROOT, 'branch', '--show-current')}`) |")
     w(f"| Frappe app commit | `{git(os.path.join(ROOT, 'ido_talent_ai'), 'rev-parse', '--short', 'HEAD')}` |")
@@ -101,7 +122,7 @@ def main() -> None:
     w(f"| Result | **{passed} of {len(tests)} checks passed** |\n")
     w("Screenshots are 8-bit PNG under `docs/guide/images/` (they are reused by the guide). Passwords and keys appear nowhere in this report or in the images.\n")
 
-    w("## 1. Bugs found and fixed in round 2\n")
+    w("## 1. Bugs found and fixed in rounds 2 and 3\n")
     w("| # | Area | Problem | Fix | Covered by |\n|---|---|---|---|---|")
     for b in BUGS + [tuple(x) for x in extra]:
         w("| " + " | ".join(cell(x) for x in b) + " |")
@@ -213,6 +234,10 @@ def main() -> None:
             w(f"| {k} | {DESIGN.get('before', {}).get(k, 0)} | {DESIGN.get('after', {}).get(k, 0)} |")
         if DESIGN.get("notes"):
             w("\n" + DESIGN["notes"] + "\n")
+        r3 = DESIGN.get("round3")
+        if r3:
+            w(f"Round 3 ({r3['date']}): the audit ran again on {r3['screens']} screens ({r3['parts']}): "
+              f"{sum(r3['issues'].values()) if r3['issues'] else 0} issues, {r3['js_errors']} JavaScript errors.\n")
         for p in DESIGN.get("pairs", []):
             w(f"**{p['title']}**\n")
             w(f"| Before | After |\n|---|---|\n| {img(p['before'], 420)} | {img(p['after'], 420)} |\n")
@@ -260,8 +285,8 @@ def main() -> None:
     w("| Decision (CLAUDE.md) | Checked by |\n|---|---|")
     for k, v in dec.items():
         w(f"| {k} | {v} |")
-    w("\nDecisions taken alone (docs/PROGRESS.md) are checked by the screen or test they describe: embeddings and the talent pool by K12; one suggestion per person and the host filter by K12; redaction keeps line breaks and layout in display pixels by C01–C04; fonts bundled by the engine test `test_fonts_are_served_locally`; no change to HRMS templates by the design audit of the public pages; English stage notes by the console screens N01; the old-application demo case by K12 (retention ended); synthetic Employee records by R01–R09 (the Employee and self-service users hold their roles, `_employee_user` asserts it); a CV problem never fails a screening by C05 and the Frappe test `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail`; «إعادة تقييم الكل» skipping withdrawn consent by `test_withdrawn_consent_stops_processing`; the three guide decisions (screenshots cut to the part explained, page numbers from the printed PDF, the Word file checked through LibreOffice) by the page checks of §14.\n")
-    w("Open questions (docs/OPEN_QUESTIONS.md) wait for an answer from the client or the Frappe team; until then the current behaviour is what is tested: #6 placeholder rules → K02; #7 consent and retention → K12, Frappe consent tests; #15 database conflicts → Frappe `test_application_is_always_saved`; #16 rate limit → `talent_ai_apply_limit` used by every application of this run; #17 translations → design audit; #18 photo not built → C01–C09; #20 HR-entered applications → not processed without consent (Frappe consent tests); #21 consent-withdrawn stale results → F2 and K14. #1–#4, #8, #9 and #13 are deployment or data questions with nothing to test on the local bench.\n")
+    w("\nDecisions taken alone (docs/PROGRESS.md) are checked by the screen or test they describe: embeddings and the talent pool by K12; one suggestion per person and the host filter by K12; redaction keeps line breaks and layout in display pixels by C01–C04; fonts bundled by the engine test `test_fonts_are_served_locally`; no change to HRMS templates by the design audit of the public pages; English stage notes by the console screens N01; the old-application demo case by K12 (retention ended); synthetic Employee records by R01–R09 (the Employee and self-service users hold their roles, `_employee_user` asserts it); a CV problem never fails a screening by C05 and the Frappe test `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail`; «إعادة تقييم الكل» skipping withdrawn consent by `test_withdrawn_consent_stops_processing`; the three guide decisions (screenshots cut to the part explained, page numbers from the printed PDF, the Word file checked through LibreOffice) by the page checks of §14; the round 3 decisions (Frappe's copy of the AI result goes too, a withdrawal is final, the engine keeps the reference only, the later copy becomes the original, the paper consent carries the current text version, score 0 means no score) by the Frappe consent tests, `tests/test_consent.py` and K16/K17.\n")
+    w("Open questions (docs/OPEN_QUESTIONS.md) wait for an answer from the client or the Frappe team; until then the current behaviour is what is tested: #6 placeholder rules → K02; #7 consent and retention → K12, Frappe consent tests; #15 database conflicts → Frappe `test_application_is_always_saved`; #16 rate limit → `talent_ai_apply_limit` used by every application of this run; #17 translations → design audit; #18 photo not built → C01–C09; #20 (default in force: a paper application waits for the consent HR records with its source) → Frappe `test_paper_application_waits_until_hr_records_the_consent` and browser K16; #21 (default in force: a withdrawal leaves the ranking and erases the AI data) → engine `tests/test_consent.py`, Frappe `test_withdrawn_consent_leaves_the_ranking_and_erases_the_ai_data` and `test_withdrawal_while_the_engine_is_down_is_erased_later`, browser K17. #1–#4, #8, #9 and #13 are deployment or data questions with nothing to test on the local bench.\n")
     w("## 13. Evaluation results (phase 4, docs/EVALUATION_REPORT.md)\n")
     w("Gold set of 50 synthetic applicants: Qwen3-8B-AWQ with `judge-v1` — 98% exact levels, 100% within one step, 100% evidence for levels above 0, 100% eligibility, 100% expected flags; rerun and name-swap identical for 100%. "
       "`judge-v2` (Arabic) and Qwen3-4B-AWQ were weaker. Throughput: 100 applicants in 13.4 / 7.8 / 5.4 minutes with 2 / 4 / 8 workers, GPU memory never above 9.5 GB. "

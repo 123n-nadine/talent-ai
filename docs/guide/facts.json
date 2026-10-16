@@ -1,7 +1,8 @@
 {
  "ranking": {
   "title": "مشرف أمن — الرياض",
-  "total": 25,
+  "total": 26,
+  "applicants_total": 27,
   "ranked_total": 17,
   "version": 1,
   "groups": {
@@ -10,7 +11,9 @@
    "processing": 0,
    "failed": 0,
    "stale": 0,
-   "duplicate": 2
+   "duplicate": 2,
+   "consent_withdrawn": 1,
+   "awaiting_consent": 1
   },
   "top": [
    {
@@ -38,25 +41,25 @@
     "coverage": 1.0
    },
    {
+    "name": "بدر الرشيدي",
+    "applicant": "paper.2027@example.com",
+    "score": 100.0,
+    "band": "high",
+    "rank": 4,
+    "coverage": 1.0
+   },
+   {
     "name": "عبدالمجيد الرويلي",
     "applicant": "applicant.2025@example.com",
     "score": 93.0,
     "band": "high",
-    "rank": 4,
+    "rank": 5,
     "coverage": 1.0
    },
    {
     "name": "بندر السبيعي",
     "applicant": "applicant.2008@example.com",
     "score": 92.5,
-    "band": "high",
-    "rank": 5,
-    "coverage": 1.0
-   },
-   {
-    "name": "خالد الدوسري",
-    "applicant": "applicant.2003@example.com",
-    "score": 89.0,
     "band": "high",
     "rank": 6,
     "coverage": 1.0
@@ -107,7 +110,7 @@
   "score": 81.5,
   "band": "high",
   "coverage": 1.0,
-  "rank": 7,
+  "rank": 8,
   "ranked_total": 17,
   "eligibility": "eligible",
   "criteria": [
@@ -230,7 +233,7 @@
     "label": "الملف المنظّم",
     "status": "done",
     "note": "استُخرج 7 عناصر",
-    "ms": 5886
+    "ms": 5981
    },
    {
     "key": "evidence_check",
@@ -251,7 +254,7 @@
     "label": "الحكم على المعايير",
     "status": "done",
     "note": "7 معايير بدليل · 7 محسوبة بالكود · السيرة تؤكد 6 · لا تعارض",
-    "ms": 13343
+    "ms": 15272
    },
    {
     "key": "scoring",
@@ -265,7 +268,7 @@
     "label": "الفهرسة",
     "status": "done",
     "note": "أُضيف لبنك المتقدمين",
-    "ms": 1412
+    "ms": 1575
    }
   ],
   "cv": {
@@ -289,19 +292,19 @@
    "model": "qwen3-8b-awq",
    "prompt": "judge-v1",
    "provider": "local",
-   "total_ms": 20771,
+   "total_ms": 22950,
    "llm_calls": [
     {
      "task": "profile",
-     "seconds": 5.88,
+     "seconds": 5.98,
      "prompt_tokens": 524,
-     "completion_tokens": 431
+     "completion_tokens": 448
     },
     {
      "task": "judge",
-     "seconds": 13.34,
+     "seconds": 15.27,
      "prompt_tokens": 1480,
-     "completion_tokens": 692
+     "completion_tokens": 699
     }
    ],
    "profile_schema": "1.0"
@@ -2166,8 +2169,101 @@
    ]
   }
  },
+ "consent": {
+  "groups": {
+   "awaiting_consent": [
+    {
+     "name": "صالح المطيري",
+     "applicant": "paper.2026@example.com",
+     "at": "2026-10-16 16:03:19.215036"
+    }
+   ],
+   "consent_withdrawn": [
+    {
+     "name": "طلال الحارثي",
+     "applicant": "applicant.2014@example.com",
+     "at": "2026-10-16 16:03:13.813593"
+    }
+   ]
+  },
+  "paper_count": 2,
+  "paper_waiting": {
+   "name": "صالح المطيري",
+   "applicant": "paper.2026@example.com",
+   "ai_status": "Awaiting Consent",
+   "consent": {
+    "given": 0,
+    "on": null,
+    "source": null,
+    "recorded_by": null,
+    "withdrawn_on": null,
+    "erased_on": null
+   },
+   "score": null,
+   "band": null,
+   "rank": null,
+   "ranked_total": null
+  },
+  "paper_recorded": {
+   "name": "بدر الرشيدي",
+   "applicant": "paper.2027@example.com",
+   "ai_status": "Completed",
+   "consent": {
+    "given": 1,
+    "on": "2026-10-16 16:03:19.439824",
+    "source": "ورقة موقّعة",
+    "recorded_by": "hr.manager@example.com",
+    "withdrawn_on": null,
+    "erased_on": null
+   },
+   "score": 100.0,
+   "band": "high",
+   "rank": 4,
+   "ranked_total": 17
+  },
+  "withdrawn": {
+   "name": "طلال الحارثي",
+   "applicant": "applicant.2014@example.com",
+   "ai_status": "Consent Withdrawn",
+   "consent": {
+    "given": 0,
+    "on": "2026-10-16 16:00:19.127862",
+    "source": null,
+    "recorded_by": null,
+    "withdrawn_on": "2026-10-16 16:03:13.813593",
+    "erased_on": "2026-10-16 16:03:14.624303"
+   },
+   "score": null,
+   "band": null,
+   "rank": null,
+   "ranked_total": null,
+   "engine": {
+    "consent": false,
+    "facts": 0,
+    "answers": 0,
+    "documents": 0,
+    "screenings": 0,
+    "withdrawn_from": [
+     "HR-OPN-2026-0001"
+    ]
+   },
+   "engine_audit": {
+    "events": 6,
+    "erased": 5,
+    "erasure": {
+     "files": 1,
+     "profiles": 1,
+     "promoted": [],
+     "documents": 1,
+     "embeddings": 1,
+     "screenings": 1,
+     "audit_scrubbed": 5
+    }
+   }
+  }
+ },
  "pool": {
-  "suggestions": 16,
+  "suggestions": 17,
   "excluded": 8,
   "reasons": [
    "consent_withdrawn",
@@ -2192,165 +2288,167 @@
  },
  "batch": {
   "jobs": {
-   "Completed": 25
+   "Completed": 26
   },
   "applicants": {
+   "Awaiting Consent": 1,
    "Completed": 23,
+   "Consent Withdrawn": 1,
    "Needs Review": 2
   },
-  "finished_last_10_min": 25,
-  "avg_duration_s": 39.796,
+  "finished_last_10_min": 0,
+  "avg_duration_s": 35.56923,
   "recent_jobs": [
    {
-    "name": "AI-JOB-00038",
+    "name": "AI-JOB-00054",
+    "reference_name": "paper.2027@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 5.0,
+    "creation": "2026-10-16 16:03:21.855240",
+    "applicant_name": "بدر الرشيدي"
+   },
+   {
+    "name": "AI-JOB-00033",
     "reference_name": "applicant.2025@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 54.3,
-    "creation": "2026-10-16 12:55:15.065711",
+    "duration_s": 50.7,
+    "creation": "2026-10-16 16:00:57.683085",
     "applicant_name": "عبدالمجيد الرويلي"
    },
    {
-    "name": "AI-JOB-00036",
+    "name": "AI-JOB-00030",
     "reference_name": "khaled.d.second@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 24.4,
-    "creation": "2026-10-16 12:55:12.495057",
+    "duration_s": 25.2,
+    "creation": "2026-10-16 16:00:55.102706",
     "applicant_name": "خالد الدوسري"
    },
    {
-    "name": "AI-JOB-00035",
+    "name": "AI-JOB-00029",
     "reference_name": "applicant.2023@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 21.1,
-    "creation": "2026-10-16 12:55:10.034709",
+    "duration_s": 23.8,
+    "creation": "2026-10-16 16:00:52.593792",
     "applicant_name": "وليد العنزي"
    },
    {
-    "name": "AI-JOB-00033",
+    "name": "AI-JOB-00027",
     "reference_name": "applicant.2022@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 47.5,
-    "creation": "2026-10-16 12:55:07.587885",
+    "duration_s": 44.3,
+    "creation": "2026-10-16 16:00:50.099000",
     "applicant_name": "Abdulaziz Al-Otaibi"
    },
    {
-    "name": "AI-JOB-00031",
+    "name": "AI-JOB-00026",
     "reference_name": "applicant.2021@example.com",
     "job_type": "Screening",
     "status": "Completed",
-    "attempts": 2,
+    "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 49.5,
-    "creation": "2026-10-16 12:55:05.201686",
+    "duration_s": 21.3,
+    "creation": "2026-10-16 16:00:47.578252",
     "applicant_name": "إبراهيم الأحمدي"
    },
    {
-    "name": "AI-JOB-00030",
+    "name": "AI-JOB-00025",
     "reference_name": "applicant.2020@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 21.5,
-    "creation": "2026-10-16 12:55:02.784637",
+    "duration_s": 16.5,
+    "creation": "2026-10-16 16:00:45.057111",
     "applicant_name": "مازن الشهراني"
    },
    {
-    "name": "AI-JOB-00029",
+    "name": "AI-JOB-00024",
     "reference_name": "applicant.2019@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 66.2,
-    "creation": "2026-10-16 12:55:00.355006",
+    "duration_s": 61.4,
+    "creation": "2026-10-16 16:00:42.477259",
     "applicant_name": "زياد البلوي"
    },
    {
-    "name": "AI-JOB-00027",
+    "name": "AI-JOB-00022",
     "reference_name": "applicant.2018@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 68.8,
-    "creation": "2026-10-16 12:54:57.979856",
+    "duration_s": 65.9,
+    "creation": "2026-10-16 16:00:39.747003",
     "applicant_name": "راكان الغامدي"
    },
    {
-    "name": "AI-JOB-00025",
+    "name": "AI-JOB-00021",
     "reference_name": "hassan.q.second@example.com",
     "job_type": "Screening",
     "status": "Completed",
-    "attempts": 1,
+    "attempts": 2,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 34.6,
-    "creation": "2026-10-16 12:54:55.612335",
+    "duration_s": 66.0,
+    "creation": "2026-10-16 16:00:37.208023",
     "applicant_name": "حسن القرني"
    },
    {
-    "name": "AI-JOB-00024",
+    "name": "AI-JOB-00020",
     "reference_name": "applicant.2015@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 32.3,
-    "creation": "2026-10-16 12:54:53.070067",
+    "duration_s": 38.7,
+    "creation": "2026-10-16 16:00:34.627694",
     "applicant_name": "حسن القرني"
    },
    {
-    "name": "AI-JOB-00021",
+    "name": "AI-JOB-00019",
     "reference_name": "applicant.2014@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 50.3,
-    "creation": "2026-10-16 12:54:50.351103",
+    "duration_s": 55.1,
+    "creation": "2026-10-16 16:00:32.210562",
     "applicant_name": "طلال الحارثي"
-   },
-   {
-    "name": "AI-JOB-00020",
-    "reference_name": "applicant.2013@example.com",
-    "job_type": "Screening",
-    "status": "Completed",
-    "attempts": 1,
-    "max_attempts": 3,
-    "error_message": null,
-    "duration_s": 24.9,
-    "creation": "2026-10-16 12:54:47.945874",
-    "applicant_name": "فيصل العمري"
    }
   ],
   "title": "مشرف أمن — الرياض"
  },
  "home": {
   "openings": 2,
-  "applicants": 25,
+  "applicants": 27,
   "processing": 0,
   "needs_review": 2,
   "failed": 0
@@ -2555,23 +2653,23 @@
    },
    {
     "n": "20",
-    "q": "Applications entered by HR in the desk (paper forms) have no consent record, so the AI does not process them (consent is required). Should HR be able to record a paper consent (with the form version and a reason) so these applications are screened too?",
+    "q": "Applications entered by HR in the desk (paper forms) have no consent record. **Default in force until the client confirms (Nadine, 2026-10-16):** the application is saved as usual but never sent to the AI; its AI status is «بانتظار الموافقة» (Awaiting Consent) and the ranking lists it in that group. When the applicant's consent exists outside the system, HR records it on the application with its source, which is mandatory (for example «ورقة موقّعة»); who recorded it and when are kept (fields «سجّل الموافقة», «تاريخ الموافقة» and the audit log), and the screening then starts by itself. The consent is recorded against the current consent text version. Client to confirm: is a signed paper consent enough, and does the paper form carry the same consent text?",
     "who": "Abdullah + client",
     "when": "before go-live",
-    "state": "open (2026-10-16)"
+    "state": "default in force; client to confirm"
    },
    {
     "n": "21",
-    "q": "After a new profile version, an applicant who withdrew consent keeps the old result, now «قديم», in the stale group of the ranking (no new processing is allowed, so it never leaves it). Show these applicants in their own group «سحب الموافقة» instead, or hide their old result?",
+    "q": "What happens to an applicant who withdraws consent? **Default in force until the client confirms (Nadine, 2026-10-16):** the application leaves the ranking at once and shows in the closed group «مستبعد: سحب الموافقة» with no score and no details. The AI data is erased from the engine: the CV documents and their files, the structured profile, the talent-pool index, every result, and the findings written in the engine's audit trail (the actions stay). Frappe's copy goes too (the assessment with its evidence, the AI fields and the findings in the audit details); the original application stays in Frappe. If the engine is down, the erasure is retried every two minutes. A later application of the same person that was grouped as its duplicate becomes the original. The withdrawal is final for that application (a new consent means a new application). Client to confirm.",
     "who": "Abdullah + client",
     "when": "before go-live",
-    "state": "open (2026-10-16)"
+    "state": "default in force; client to confirm"
    }
   ]
  },
  "tests": {
-  "total": 38,
-  "passed": 38,
+  "total": 40,
+  "passed": 40,
   "items": {
    "R01": {
     "title": "Employee, Interviewer, self-service, website user and guest never see a score, an assessment or a CV",
@@ -3259,6 +3357,37 @@
     "ok": true,
     "seconds": null,
     "shots": []
+   },
+   "K16": {
+    "title": "Paper application without consent, then HR records the consent",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "saved, «بانتظار الموافقة», nothing sent to the AI; empty source refused; consent recorded with its source, who and when; screening starts by itself",
+    "actual": "status before Awaiting Consent, engine ref none, AI jobs 0, ranking group awaiting_consent: True; empty source refused: True; recorded by hr.manager@example.com at 2026-10-16 15:55:00.509486 (source «ورقة موقّعة»); result Completed 11.1s after the consent; audit rows 1",
+    "ok": true,
+    "seconds": 11.1,
+    "shots": [
+     "guide/images/test/K16_awaiting.png",
+     "guide/images/test/K16_source_required.png",
+     "guide/images/test/K16_dialog.png",
+     "guide/images/test/K16_after.png"
+    ],
+    "applicant": "t.paper@example.com"
+   },
+   "K17": {
+    "title": "Consent withdrawn: out of the ranking, AI data erased, application kept",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "out of the ranking at once into «مستبعد: سحب الموافقة» with no score; engine documents, CV file, profile, index and results erased; Frappe assessment gone; application kept",
+    "actual": "before: Completed, ranked True, CV file present; after 4.0s: status Consent Withdrawn, score 0, assessments 0, answers kept 11; engine: consent False, facts {}, documents 0, screenings 0, CV file removed, audit findings scrubbed True; ranking group: True, score None; talent pool: consent_withdrawn",
+    "ok": true,
+    "seconds": 4.0,
+    "shots": [
+     "guide/images/test/K17_reason.png",
+     "guide/images/test/K17_after.png",
+     "guide/images/test/K17_group.png"
+    ],
+    "applicant": "t.withdraw@example.com"
    }
   },
   "pages": {

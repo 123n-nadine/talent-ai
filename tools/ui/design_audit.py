@@ -36,6 +36,10 @@ async def desk_screens(page):
         ("applicant_duplicate", "/desk/job-applicant/hassan.q.second@example.com", AI),
         ("applicant_2013_cv_rejected", "/desk/job-applicant/applicant.2013@example.com", AI),
         ("applicant_2010_not_eligible", "/desk/job-applicant/applicant.2010@example.com", AI),
+        # consent defaults (OPEN_QUESTIONS #20, #21)
+        ("applicant_paper_awaiting", "/desk/job-applicant/paper.2026@example.com", AI),
+        ("applicant_paper_consent_recorded", "/desk/job-applicant/paper.2027@example.com", AI),
+        ("applicant_2014_consent_withdrawn", "/desk/job-applicant/applicant.2014@example.com", AI),
         ("ranking", f"/desk/ai-ranking?opening={OP1}", None),
         ("batch_monitor", f"/desk/ai-batch?opening={OP1}", None),
         ("talent_pool", f"/desk/ai-talent-pool?opening={OP2}", None),

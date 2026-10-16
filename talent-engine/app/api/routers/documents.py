@@ -32,6 +32,8 @@ def attach_cv(
     cand = cand_svc.get_candidate(db, tenant, ref)
     if cand is None:
         raise HTTPException(status_code=404, detail="candidate not found")
+    if not cand.consent:
+        raise HTTPException(status_code=409, detail="candidate has no consent to AI processing")
     try:
         doc = doc_svc.attach_cv(
             db, settings, tenant, cand, file.filename, _read(file), name_hint, actor
