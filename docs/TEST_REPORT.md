@@ -4,8 +4,8 @@ Run on the local bench, last update 2026-10-16 09:29:00 (Asia/Riyadh). Synthetic
 
 | | |
 |---|---|
-| Workspace commit | `de71045` (`p11-full-test`) |
-| Frappe app commit | `bf12fcc` |
+| Workspace commit | `1734c4d` (`p12-guide`) |
+| Frappe app commit | `9d59a3b` |
 | Platform | Frappe v16.31.0, ERPNext v16.32.0, HRMS develop 640af1592a01 (`dev-frappe/VERSIONS.md`) |
 | Engine | FastAPI + 4 RQ workers, Qwen3-8B-AWQ (vLLM, GPU cap 0.40), prompt `judge-v1`, PaddleOCR on CPU, Qwen3-Embedding-0.6B on CPU |
 | Browser | Chrome 153 headless driven by Playwright 1.64 for Python (`tools/ui/full_test.py`). The Playwright MCP server was not available in this session, so the same Playwright engine was driven from Python. |
@@ -27,6 +27,7 @@ Screenshots are 8-bit PNG under `docs/guide/images/` (they are reused by the gui
 | S3 | Console | Fonts were served as `application/octet-stream`. | Media types for the static files. | Engine `test_fonts_are_served_locally` |
 | F1 | CV files (found by the full test, C05) | An RTF CV ended the screening in «فشل»: Frappe's File.get_content() returns text (str) for text-like files, hashing it failed, and any CV read problem failed the whole job. | The CV is read as raw bytes from disk; a CV the platform cannot read or the engine refuses gives a «ملاحظة عن السيرة الذاتية» and the screening continues from the answers (decision 14); only an engine outage is retried. | Frappe `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail` (fails without the fix); browser C05 |
 | F2 | Re-score all (found by the full test, K14) | «إعادة تقييم الكل» stopped at the first applicant who had withdrawn consent: queue_screening raised and every applicant after him stayed «قديم» (19 of 36 after the new profile version). | Applicants without consent are skipped and counted; one applicant's error never stops the others; the ranking page says how many were skipped. | Frappe `test_withdrawn_consent_stops_processing` (extended; fails without the fix); browser K14 |
+| G1 | Job Opening (found while taking the guide screenshots) | The Talent AI section of the opening sat inside the «تفاصيل الراتب» (Pay Details) tab: the custom fields were inserted after «description», which HRMS v16 follows with that tab. | The section is inserted after the application web form route, in the main tab next to the publishing settings. | Frappe `test_ai_section_is_on_the_main_tab_of_the_opening` |
 | D1 | Design | Grey text at 4.13:1 (below WCAG AA 4.5:1) on every screen. | Darker greys (#56627c) and darker chip text. | Design audit (low-contrast count) |
 | D2 | Design | Text at 10–11 px (cycle map, sidebar, help texts, KPI labels, code). | Nothing under 12 px. | Design audit (small-font count) |
 | D3 | Design | Console ranking: the reference «HR-APP-…» was cut and ran under the score at 1366 px. | The name column wraps; narrower bar under 1440 px. | Design audit 1366/1440 |
@@ -862,7 +863,7 @@ The two overlaps left are the HRMS «قدّم الآن» button on the phone job
 
 ## 10. Automated tests
 
-Engine: `make test` in `talent-engine/` — 112 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1). Frappe app: `bench --site test.localhost run-tests --app ido_talent_ai` — 17 passed.
+Engine: `make test` in `talent-engine/` — 112 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1). Frappe app: `bench --site test.localhost run-tests --app ido_talent_ai` — 18 passed.
 
 | Suite | File | Test | What it checks |
 |---|---|---|---|
@@ -989,6 +990,7 @@ Engine: `make test` in `talent-engine/` — 112 passed, 1 skipped (the PaddleOCR
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_edit_after_evaluation_makes_the_result_stale` |  |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_callback_signature` |  |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_weights_must_total_100_to_approve` |  |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_ai_section_is_on_the_main_tab_of_the_opening` | The guide screenshots found the Talent AI section of Job Opening inside the «Pay Details» tab. |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_opening_points_the_apply_button_to_the_ai_form` |  |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_talent_pool_names_suggestions_and_exclusions` |  |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_withdrawn_consent_stops_processing` |  |
@@ -996,6 +998,75 @@ Engine: `make test` in `talent-engine/` — 112 passed, 1 skipped (the PaddleOCR
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail` | RTF is a text format, so Frappe's File.get_content() returns str for it (the full browser test |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_every_hr_method_refuses_other_users_first` | Every whitelisted method except the public form, the job requirements, the signed engine |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_hr_users_land_on_the_home_page_in_arabic` |  |
+
+## 11. Commands
+
+Every make target and script of the inventory, with what was run in round 2. Targets that would stop or change the shared stack (`down`, `up`, `revision`, `seed`, `cvs`, `receiver`, `logs`) were checked with `make -n` only; `build` and the compose restarts were run for real (default builder).
+
+| Command | Mode | Result |
+|---|---|---|
+| `make builder-check` | run | ok |
+| `make install` | run | ok |
+| `make test` | run | ok |
+| `make lint` | run | ok |
+| `make fmt` | run | ok |
+| `make typecheck` | run | ok |
+| `make gpu` | run | ok |
+| `make ps` | run | ok |
+| `make migrate` | run | ok |
+| `make -n build` | dry run | dry run ok; built for real this round (default builder) |
+| `make -n env` | dry run | dry run ok |
+| `make -n up` | dry run | dry run ok |
+| `make -n down` | dry run | dry run ok |
+| `make -n logs` | dry run | dry run ok |
+| `make -n llm-logs` | dry run | dry run ok |
+| `make -n revision` | dry run | dry run ok |
+| `make -n seed` | dry run | dry run ok |
+| `make -n cvs` | dry run | dry run ok |
+| `make -n receiver` | dry run | dry run ok |
+| `talent-engine/scripts/compose.sh` | run | run in round 2: restart of api and workers |
+| `dev-frappe/reset_demo.sh` | run | run in round 2: demo rebuilt (25 applicants) |
+| `dev-frappe/init_env.sh` | run | run in round 2: extra test-user passwords added |
+| `dev-frappe/start.sh` | run | run in round 2: bench restarted twice |
+| `dev-frappe/setup.sh` | run | run in round 2: run inside reset_demo (site setup) |
+| `tools/ui/full_test.py` | run | run in round 2: full browser test |
+| `tools/ui/design_audit.py` | run | run in round 2: 3 design audits |
+| `tools/ui/design_pairs.py` | run | run in round 2: before/after pairs |
+| `tools/ui/pw.py` | run | run in round 2: used by every browser tool |
+| `tools/ui/test_report.py` | run | run in round 2: docs/TEST_REPORT.md |
+| `tools/ui/apply_via_form.py` | run | run in round 2: applicant 2017 through the real form |
+| `ido_talent_ai/ido_talent_ai/scripts/seed_demo.py` | run | run in round 2: demo setup and test users |
+| `ido_talent_ai/ido_talent_ai/scripts/submit_demo_applications.py` | run | run in round 2: 24 applications |
+| `tools/guide/facts.py` | run | run in round 2: guide numbers |
+| `tools/guide/shots.py` | run | run in round 2: guide screenshots |
+| `tools/guide/build.py` | run | run in round 2: guide build |
+| `tools/guide/inventory.py` | run | run in round 2: inventory |
+| `tools/guide/lint_ar.py` | run | run in round 2: writing rules |
+| `tools/guide/inv.py` | run | run in round 2: item codes |
+| `tools/guide/model.py` | run | run in round 2: guide content model |
+| `tools/guide/render_html.py` | run | run in round 2: PDF |
+| `tools/guide/render_docx.py` | run | run in round 2: Word |
+| `tools/guide/docshots.py` | run | run in round 2: this file |
+| `tools/guide/coverage_check.py` | run | run in round 2: coverage check |
+| `tools/ui/acceptance.py` | earlier | run in phase 7 (docs/ACCEPTANCE_REPORT.md) |
+| `tools/ui/walkthrough_shots.py` | earlier | run in phase 8 (docs/WALKTHROUGH.md) |
+| `tools/ui/desk_shots.py` | earlier | run in phase 6 |
+| `tools/ui/frappe_ui.py` | earlier | run in phases 6–8 (CDP driver of the older tools) |
+| `talent-engine/scripts/callback_receiver.py` | earlier | run in phase 1 (HMAC callback verified) |
+| `talent-engine/scripts/make_cvs.py` | earlier | run in phase 2 (`make cvs`) |
+| `talent-engine/scripts/cv_texts.py` | earlier | run in phase 2 |
+| `talent-engine/scripts/seed.py` | earlier | run in phase 1 (`make seed`) |
+| `talent-engine/scripts/seed_data.py` | earlier | run in phase 1 |
+| `talent-engine/scripts/init_env.py` | earlier | run in phase 1 (`make env`) |
+| `talent-engine/eval/run.py` | earlier | run in phase 4 (docs/EVALUATION_REPORT.md) |
+| `talent-engine/eval/bench.py` | earlier | run in phase 4 |
+| `talent-engine/eval/make_gold.py` | earlier | run in phase 4 |
+| `dev-frappe/clean_install.sh` | earlier | run in phase 7 (clean install rehearsal) |
+| `bench --site <site> migrate` | run | run in round 2 on talent.localhost and test.localhost |
+| `bench --site <site> run-tests --app ido_talent_ai` | run | run in round 2 on talent.localhost and test.localhost |
+| `bench get-app` | run | run in phase 7 clean install rehearsal; install-app also by reset_demo.sh in round 2 |
+| `bench --site <site> install-app ido_talent_ai` | run | run in phase 7 clean install rehearsal; install-app also by reset_demo.sh in round 2 |
+| `bench --site <site> uninstall-app ido_talent_ai` | run | run in phase 7 clean install rehearsal; install-app also by reset_demo.sh in round 2 |
 
 ## 12. Decisions and open questions: how they were checked
 
@@ -1018,7 +1089,7 @@ Engine: `make test` in `talent-engine/` — 112 passed, 1 skipped (the PaddleOCR
 | 15 UTC in the engine | Frappe `test_engine_payload_has_no_identity` (applied_at) |
 | 16 our own web form | C01–C09 |
 
-Decisions taken alone (docs/PROGRESS.md) are checked by the screen or test they describe: embeddings and the talent pool by K12; one suggestion per person and the host filter by K12; redaction keeps line breaks and layout in display pixels by C01–C04; fonts bundled by the engine test `test_fonts_are_served_locally`; no change to HRMS templates by the design audit of the public pages; English stage notes by the console screens N01; the old-application demo case by K12 (retention ended).
+Decisions taken alone (docs/PROGRESS.md) are checked by the screen or test they describe: embeddings and the talent pool by K12; one suggestion per person and the host filter by K12; redaction keeps line breaks and layout in display pixels by C01–C04; fonts bundled by the engine test `test_fonts_are_served_locally`; no change to HRMS templates by the design audit of the public pages; English stage notes by the console screens N01; the old-application demo case by K12 (retention ended); synthetic Employee records by R01–R09 (the Employee and self-service users hold their roles, `_employee_user` asserts it); a CV problem never fails a screening by C05 and the Frappe test `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail`; «إعادة تقييم الكل» skipping withdrawn consent by `test_withdrawn_consent_stops_processing`; the three guide decisions (screenshots cut to the part explained, page numbers from the printed PDF, the Word file checked through LibreOffice) by the page checks of §14.
 
 Open questions (docs/OPEN_QUESTIONS.md) wait for an answer from the client or the Frappe team; until then the current behaviour is what is tested: #6 placeholder rules → K02; #7 consent and retention → K12, Frappe consent tests; #15 database conflicts → Frappe `test_application_is_always_saved`; #16 rate limit → `talent_ai_apply_limit` used by every application of this run; #17 translations → design audit; #18 photo not built → C01–C09; #20 HR-entered applications → not processed without consent (Frappe consent tests); #21 consent-withdrawn stale results → F2 and K14. #1–#4, #8, #9 and #13 are deployment or data questions with nothing to test on the local bench.
 
@@ -1026,7 +1097,19 @@ Open questions (docs/OPEN_QUESTIONS.md) wait for an answer from the client or th
 
 Gold set of 50 synthetic applicants: Qwen3-8B-AWQ with `judge-v1` — 98% exact levels, 100% within one step, 100% evidence for levels above 0, 100% eligibility, 100% expected flags; rerun and name-swap identical for 100%. `judge-v2` (Arabic) and Qwen3-4B-AWQ were weaker. Throughput: 100 applicants in 13.4 / 7.8 / 5.4 minutes with 2 / 4 / 8 workers, GPU memory never above 9.5 GB. OCR_MIN_CONFIDENCE stays 0.80 (C09 shows a bad scan at 0.79 going to «يحتاج مراجعة»); quotes are matched at a fuzzy ratio of 0.9 after Arabic normalisation.
 
-## 9. Not done, and why
+## 14. The guide (docs/guide/)
+
+`tools/guide/build.py` writes the PDF (Chrome `page.pdf`) and the Word file (python-docx, checked by converting it to PDF with LibreOffice), then checks every page of both: no picture outside the page, no two text lines drawn over each other, nothing painted in the footer, no text at the paper edge, and every page of the chapters starting with its own title (a page that starts with something else holds the tail of the previous one). `tools/guide/coverage_check.py` reads the routes, DocTypes, endpoints and commands from the code again and compares them with `docs/guide/COVERAGE.md`.
+
+| Check | PDF | Word |
+|---|---|---|
+| Pages | 123 | 123 |
+| Page problems | 0 | 0 |
+| Page numbers of the contents and the index | stable after the second print | 312 of 312 page fields show their page; 0 moved |
+
+Inventory read from the code: **558 items, 558 with a guide page, a screenshot and a test** (`docs/guide/COVERAGE.md`); the independent check reports **MISSING: 0**.
+
+## 15. Not done, and why
 
 - The Playwright MCP server was not available in this session; the same Playwright engine (1.64) and the server's Chrome were driven from Python instead.
 - The CSV button opens the file in a new tab; in headless Chrome the download event of that tab was not caught, so K10 checked the same URL fetched by the page.

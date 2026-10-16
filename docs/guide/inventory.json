@@ -1,0 +1,4029 @@
+[
+ {
+  "id": "screen:desk:ai-batch",
+  "cat": "screen",
+  "name": "Frappe page /desk/ai-batch",
+  "label_ar": "AI Batch Monitor",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_batch/ai_batch.json",
+  "route": "/desk/ai-batch",
+  "roles": [
+   "HR Manager",
+   "HR User",
+   "System Manager"
+  ]
+ },
+ {
+  "id": "screen:desk:ai-ranking",
+  "cat": "screen",
+  "name": "Frappe page /desk/ai-ranking",
+  "label_ar": "AI Ranking",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_ranking/ai_ranking.json",
+  "route": "/desk/ai-ranking",
+  "roles": [
+   "HR Manager",
+   "HR User",
+   "System Manager"
+  ]
+ },
+ {
+  "id": "screen:desk:ai-recruitment",
+  "cat": "screen",
+  "name": "Frappe page /desk/ai-recruitment",
+  "label_ar": "AI Recruitment",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.json",
+  "route": "/desk/ai-recruitment",
+  "roles": [
+   "HR Manager",
+   "HR User",
+   "System Manager"
+  ]
+ },
+ {
+  "id": "screen:desk:ai-talent-pool",
+  "cat": "screen",
+  "name": "Frappe page /desk/ai-talent-pool",
+  "label_ar": "AI Talent Pool",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_talent_pool/ai_talent_pool.json",
+  "route": "/desk/ai-talent-pool",
+  "roles": [
+   "HR Manager",
+   "HR User",
+   "System Manager"
+  ]
+ },
+ {
+  "id": "screen:desk:talent-ai",
+  "cat": "screen",
+  "name": "Frappe page /desk/talent-ai",
+  "label_ar": "Talent AI",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/talent_ai/talent_ai.json",
+  "route": "/desk/talent-ai",
+  "roles": [
+   "HR Manager",
+   "HR User",
+   "System Manager"
+  ]
+ },
+ {
+  "id": "doctype:AI Applicant Answer",
+  "cat": "doctype",
+  "name": "AI Applicant Answer",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_applicant_answer/ai_applicant_answer.json",
+  "kind": "child table",
+  "fields": 4
+ },
+ {
+  "id": "doctype:AI Assessment Evidence",
+  "cat": "doctype",
+  "name": "AI Assessment Evidence",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_assessment_evidence/ai_assessment_evidence.json",
+  "kind": "child table",
+  "fields": 18
+ },
+ {
+  "id": "doctype:AI Candidate Assessment",
+  "cat": "doctype",
+  "name": "AI Candidate Assessment",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_candidate_assessment/ai_candidate_assessment.json",
+  "kind": "document",
+  "fields": 26
+ },
+ {
+  "id": "screen:form:AI Candidate Assessment",
+  "cat": "screen",
+  "name": "Frappe list and form /desk/ai-candidate-assessment",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_candidate_assessment/ai_candidate_assessment.json",
+  "route": "/desk/ai-candidate-assessment"
+ },
+ {
+  "id": "doctype:AI Job Criterion",
+  "cat": "doctype",
+  "name": "AI Job Criterion",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_criterion/ai_job_criterion.json",
+  "kind": "child table",
+  "fields": 16
+ },
+ {
+  "id": "doctype:AI Job Profile",
+  "cat": "doctype",
+  "name": "AI Job Profile",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_profile/ai_job_profile.json",
+  "kind": "document",
+  "fields": 17
+ },
+ {
+  "id": "screen:form:AI Job Profile",
+  "cat": "screen",
+  "name": "Frappe list and form /desk/ai-job-profile",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_profile/ai_job_profile.json",
+  "route": "/desk/ai-job-profile"
+ },
+ {
+  "id": "doctype:AI Job Profile Version",
+  "cat": "doctype",
+  "name": "AI Job Profile Version",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_profile_version/ai_job_profile_version.json",
+  "kind": "child table",
+  "fields": 6
+ },
+ {
+  "id": "doctype:AI Job Question",
+  "cat": "doctype",
+  "name": "AI Job Question",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_question/ai_job_question.json",
+  "kind": "child table",
+  "fields": 7
+ },
+ {
+  "id": "doctype:AI Job Rule",
+  "cat": "doctype",
+  "name": "AI Job Rule",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_rule/ai_job_rule.json",
+  "kind": "child table",
+  "fields": 5
+ },
+ {
+  "id": "doctype:AI Recruitment Audit Log",
+  "cat": "doctype",
+  "name": "AI Recruitment Audit Log",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_audit_log/ai_recruitment_audit_log.json",
+  "kind": "document",
+  "fields": 9
+ },
+ {
+  "id": "screen:form:AI Recruitment Audit Log",
+  "cat": "screen",
+  "name": "Frappe list and form /desk/ai-recruitment-audit-log",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_audit_log/ai_recruitment_audit_log.json",
+  "route": "/desk/ai-recruitment-audit-log"
+ },
+ {
+  "id": "doctype:AI Recruitment Job",
+  "cat": "doctype",
+  "name": "AI Recruitment Job",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.json",
+  "kind": "document",
+  "fields": 13
+ },
+ {
+  "id": "screen:form:AI Recruitment Job",
+  "cat": "screen",
+  "name": "Frappe list and form /desk/ai-recruitment-job",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.json",
+  "route": "/desk/ai-recruitment-job"
+ },
+ {
+  "id": "doctype:AI Recruitment Settings",
+  "cat": "doctype",
+  "name": "AI Recruitment Settings",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json",
+  "kind": "single",
+  "fields": 20
+ },
+ {
+  "id": "screen:form:AI Recruitment Settings",
+  "cat": "screen",
+  "name": "Frappe form /desk/ai-recruitment-settings",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json",
+  "route": "/desk/ai-recruitment-settings"
+ },
+ {
+  "id": "screen:form:Job Applicant",
+  "cat": "screen",
+  "name": "Frappe form Job Applicant (extended by the app)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py"
+ },
+ {
+  "id": "screen:form:Job Opening",
+  "cat": "screen",
+  "name": "Frappe form Job Opening (extended by the app)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py"
+ },
+ {
+  "id": "screen:list:Job Applicant",
+  "cat": "screen",
+  "name": "Frappe list Job Applicant (AI columns)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py"
+ },
+ {
+  "id": "screen:workspace:Talent AI",
+  "cat": "screen",
+  "name": "Workspace sidebar \"Talent AI\"",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Recruitment",
+  "cat": "button",
+  "name": "Sidebar item AI Recruitment → Page ai-recruitment",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:Cycle map",
+  "cat": "button",
+  "name": "Sidebar item Cycle map → Page talent-ai",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Job Profile",
+  "cat": "button",
+  "name": "Sidebar item AI Job Profile → DocType AI Job Profile",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:Job Opening",
+  "cat": "button",
+  "name": "Sidebar item Job Opening → DocType Job Opening",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:Job Applicant",
+  "cat": "button",
+  "name": "Sidebar item Job Applicant → DocType Job Applicant",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Batch Monitor",
+  "cat": "button",
+  "name": "Sidebar item AI Batch Monitor → Page ai-batch",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Ranking",
+  "cat": "button",
+  "name": "Sidebar item AI Ranking → Page ai-ranking",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Talent Pool",
+  "cat": "button",
+  "name": "Sidebar item AI Talent Pool → Page ai-talent-pool",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Recruitment Job",
+  "cat": "button",
+  "name": "Sidebar item AI Recruitment Job → DocType AI Recruitment Job",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Candidate Assessment",
+  "cat": "button",
+  "name": "Sidebar item AI Candidate Assessment → DocType AI Candidate Assessment",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Recruitment Audit Log",
+  "cat": "button",
+  "name": "Sidebar item AI Recruitment Audit Log → DocType AI Recruitment Audit Log",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "button:sidebar:AI Recruitment Settings",
+  "cat": "button",
+  "name": "Sidebar item AI Recruitment Settings → DocType AI Recruitment Settings",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/workspace_sidebar/talent_ai.json"
+ },
+ {
+  "id": "screen:desktop_icon:Talent AI",
+  "cat": "screen",
+  "name": "Desktop icon \"Talent AI\"",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/desktop_icon/talent_ai.json"
+ },
+ {
+  "id": "screen:web:/ai-apply/new",
+  "cat": "screen",
+  "name": "Public page /ai-apply/new",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/www/ai-apply/new.html",
+  "route": "/ai-apply/new"
+ },
+ {
+  "id": "screen:web:/jobs",
+  "cat": "screen",
+  "name": "Public job list /jobs (HRMS page, Talent AI requirements added)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai_web.js",
+  "route": "/jobs"
+ },
+ {
+  "id": "screen:web:/jobs/<route>",
+  "cat": "screen",
+  "name": "Public job page /jobs/<route> (HRMS page, Apply button to the AI form)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai_web.js",
+  "route": "/jobs/security/security-supervisor-riyadh"
+ },
+ {
+  "id": "screen:console:home",
+  "cat": "screen",
+  "name": "Talent Console screen home",
+  "label_ar": "الرئيسية",
+  "source": "talent-engine/console/static/app.js:73"
+ },
+ {
+  "id": "screen:console:apply",
+  "cat": "screen",
+  "name": "Talent Console screen apply",
+  "label_ar": "نموذج التقديم",
+  "source": "talent-engine/console/static/app.js:73"
+ },
+ {
+  "id": "screen:console:list",
+  "cat": "screen",
+  "name": "Talent Console screen list",
+  "label_ar": "المتقدمون",
+  "source": "talent-engine/console/static/app.js:73"
+ },
+ {
+  "id": "screen:console:ranking",
+  "cat": "screen",
+  "name": "Talent Console screen ranking",
+  "label_ar": "الترتيب",
+  "source": "talent-engine/console/static/app.js:73"
+ },
+ {
+  "id": "screen:console:profile",
+  "cat": "screen",
+  "name": "Talent Console screen profile",
+  "label_ar": "ملف المعايير",
+  "source": "talent-engine/console/static/app.js:74"
+ },
+ {
+  "id": "screen:console:processing",
+  "cat": "screen",
+  "name": "Talent Console screen processing",
+  "label_ar": "المعالجة",
+  "source": "talent-engine/console/static/app.js:74"
+ },
+ {
+  "id": "screen:console:cv",
+  "cat": "screen",
+  "name": "Talent Console screen cv",
+  "label_ar": "تحليل السيرة",
+  "source": "talent-engine/console/static/app.js:74"
+ },
+ {
+  "id": "screen:console:tryfile",
+  "cat": "screen",
+  "name": "Talent Console screen tryfile",
+  "label_ar": "جرّب ملف",
+  "source": "talent-engine/console/static/app.js:74"
+ },
+ {
+  "id": "screen:console:jobs",
+  "cat": "screen",
+  "name": "Talent Console screen jobs",
+  "label_ar": "مهام الذكاء",
+  "source": "talent-engine/console/static/app.js:74"
+ },
+ {
+  "id": "screen:console:audit",
+  "cat": "screen",
+  "name": "Talent Console screen audit",
+  "label_ar": "سجل التدقيق",
+  "source": "talent-engine/console/static/app.js:74"
+ },
+ {
+  "id": "screen:console:settings",
+  "cat": "screen",
+  "name": "Talent Console screen settings",
+  "label_ar": "الإعدادات",
+  "source": "talent-engine/console/static/app.js:74"
+ },
+ {
+  "id": "screen:console:applicant",
+  "cat": "screen",
+  "name": "Talent Console screen applicant",
+  "label_ar": "شاشة المتقدم",
+  "source": "talent-engine/console/static/app.js"
+ },
+ {
+  "id": "screen:console:login",
+  "cat": "screen",
+  "name": "Talent Console screen login",
+  "label_ar": "تسجيل الدخول",
+  "source": "talent-engine/console/static/app.js"
+ },
+ {
+  "id": "button:console:go",
+  "cat": "button",
+  "name": "Talent Console action go",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:81"
+ },
+ {
+  "id": "button:console:toggleDev",
+  "cat": "button",
+  "name": "Talent Console action toggleDev",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:90"
+ },
+ {
+  "id": "button:console:setLang",
+  "cat": "button",
+  "name": "Talent Console action setLang",
+  "label_ar": "عربي",
+  "source": "talent-engine/console/static/app.js:91"
+ },
+ {
+  "id": "button:console:closeModal",
+  "cat": "button",
+  "name": "Talent Console action closeModal",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:112"
+ },
+ {
+  "id": "button:console:pickJob",
+  "cat": "button",
+  "name": "Talent Console action pickJob",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:121"
+ },
+ {
+  "id": "button:console:newJob",
+  "cat": "button",
+  "name": "Talent Console action newJob",
+  "label_ar": "＋",
+  "source": "talent-engine/console/static/app.js:122"
+ },
+ {
+  "id": "button:console:delCrit",
+  "cat": "button",
+  "name": "Talent Console action delCrit",
+  "label_ar": "✕",
+  "source": "talent-engine/console/static/app.js:142"
+ },
+ {
+  "id": "button:console:delRule",
+  "cat": "button",
+  "name": "Talent Console action delRule",
+  "label_ar": "✕",
+  "source": "talent-engine/console/static/app.js:143"
+ },
+ {
+  "id": "button:console:delQ",
+  "cat": "button",
+  "name": "Talent Console action delQ",
+  "label_ar": "✕",
+  "source": "talent-engine/console/static/app.js:144"
+ },
+ {
+  "id": "button:console:useDraft",
+  "cat": "button",
+  "name": "Talent Console action useDraft",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:147"
+ },
+ {
+  "id": "button:console:discardDraft",
+  "cat": "button",
+  "name": "Talent Console action discardDraft",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:147"
+ },
+ {
+  "id": "button:console:aiDraft",
+  "cat": "button",
+  "name": "Talent Console action aiDraft",
+  "label_ar": "✦",
+  "source": "talent-engine/console/static/app.js:149"
+ },
+ {
+  "id": "button:console:approveProfile",
+  "cat": "button",
+  "name": "Talent Console action approveProfile",
+  "label_ar": "✓",
+  "source": "talent-engine/console/static/app.js:149"
+ },
+ {
+  "id": "button:console:addCrit",
+  "cat": "button",
+  "name": "Talent Console action addCrit",
+  "label_ar": "＋",
+  "source": "talent-engine/console/static/app.js:152"
+ },
+ {
+  "id": "button:console:addRule",
+  "cat": "button",
+  "name": "Talent Console action addRule",
+  "label_ar": "＋",
+  "source": "talent-engine/console/static/app.js:157"
+ },
+ {
+  "id": "button:console:addQ",
+  "cat": "button",
+  "name": "Talent Console action addQ",
+  "label_ar": "＋",
+  "source": "talent-engine/console/static/app.js:160"
+ },
+ {
+  "id": "button:console:submitForm",
+  "cat": "button",
+  "name": "Talent Console action submitForm",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:201"
+ },
+ {
+  "id": "button:console:retry",
+  "cat": "button",
+  "name": "Talent Console action retry",
+  "label_ar": "↻",
+  "source": "talent-engine/console/static/app.js:239"
+ },
+ {
+  "id": "button:console:openApp",
+  "cat": "button",
+  "name": "Talent Console action openApp",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:241"
+ },
+ {
+  "id": "button:console:cvLine",
+  "cat": "button",
+  "name": "Talent Console action cvLine",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:255"
+ },
+ {
+  "id": "button:console:cvPage",
+  "cat": "button",
+  "name": "Talent Console action cvPage",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:258"
+ },
+ {
+  "id": "button:console:cvSel",
+  "cat": "button",
+  "name": "Talent Console action cvSel",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:263"
+ },
+ {
+  "id": "button:console:tryRun",
+  "cat": "button",
+  "name": "Talent Console action tryRun",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:284"
+ },
+ {
+  "id": "button:console:rescreenOne",
+  "cat": "button",
+  "name": "Talent Console action rescreenOne",
+  "label_ar": "↻",
+  "source": "talent-engine/console/static/app.js:335"
+ },
+ {
+  "id": "button:console:hilite",
+  "cat": "button",
+  "name": "Talent Console action hilite",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:340"
+ },
+ {
+  "id": "button:console:override",
+  "cat": "button",
+  "name": "Talent Console action override",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:342"
+ },
+ {
+  "id": "button:console:rescreenAll",
+  "cat": "button",
+  "name": "Talent Console action rescreenAll",
+  "label_ar": "↻",
+  "source": "talent-engine/console/static/app.js:400"
+ },
+ {
+  "id": "button:console:exportCsv",
+  "cat": "button",
+  "name": "Talent Console action exportCsv",
+  "label_ar": "⤓",
+  "source": "talent-engine/console/static/app.js:400"
+ },
+ {
+  "id": "button:console:saveSettings",
+  "cat": "button",
+  "name": "Talent Console action saveSettings",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.js:434"
+ },
+ {
+  "id": "button:frappe:إعادة التقييم",
+  "cat": "button",
+  "name": "Frappe button \"إعادة التقييم\"",
+  "label_ar": "إعادة التقييم",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:41"
+ },
+ {
+  "id": "button:frappe:تحليل السيرة",
+  "cat": "button",
+  "name": "Frappe button \"تحليل السيرة\"",
+  "label_ar": "تحليل السيرة",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:44"
+ },
+ {
+  "id": "button:frappe:سحب موافقة المعالجة",
+  "cat": "button",
+  "name": "Frappe button \"سحب موافقة المعالجة\"",
+  "label_ar": "سحب موافقة المعالجة",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:47"
+ },
+ {
+  "id": "button:frappe:ترتيب الشاغر",
+  "cat": "button",
+  "name": "Frappe button \"ترتيب الشاغر\"",
+  "label_ar": "ترتيب الشاغر",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:56"
+ },
+ {
+  "id": "button:frappe:ترشيح للمقابلة",
+  "cat": "button",
+  "name": "Frappe decision button \"ترشيح للمقابلة\" (Shortlisted)",
+  "label_ar": "ترشيح للمقابلة",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:37"
+ },
+ {
+  "id": "button:frappe:تعليق",
+  "cat": "button",
+  "name": "Frappe decision button \"تعليق\" (Hold)",
+  "label_ar": "تعليق",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:37"
+ },
+ {
+  "id": "button:frappe:رفض",
+  "cat": "button",
+  "name": "Frappe decision button \"رفض\" (Rejected)",
+  "label_ar": "رفض",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_applicant.js:37"
+ },
+ {
+  "id": "button:frappe:ملف المعايير",
+  "cat": "button",
+  "name": "Frappe button \"ملف المعايير\"",
+  "label_ar": "ملف المعايير",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_opening.js:10"
+ },
+ {
+  "id": "button:frappe:إنشاء ملف المعايير",
+  "cat": "button",
+  "name": "Frappe button \"إنشاء ملف المعايير\"",
+  "label_ar": "إنشاء ملف المعايير",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_opening.js:12"
+ },
+ {
+  "id": "button:frappe:ترتيب المتقدمين",
+  "cat": "button",
+  "name": "Frappe button \"ترتيب المتقدمين\"",
+  "label_ar": "ترتيب المتقدمين",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_opening.js:15"
+ },
+ {
+  "id": "button:frappe:متابعة المعالجة",
+  "cat": "button",
+  "name": "Frappe button \"متابعة المعالجة\"",
+  "label_ar": "متابعة المعالجة",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_opening.js:16"
+ },
+ {
+  "id": "button:frappe:بنك المتقدمين",
+  "cat": "button",
+  "name": "Frappe button \"بنك المتقدمين\"",
+  "label_ar": "بنك المتقدمين",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/job_opening.js:17"
+ },
+ {
+  "id": "button:frappe-action:rescreen",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=rescreen",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:123"
+ },
+ {
+  "id": "button:frappe-action:retry",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=retry",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:127"
+ },
+ {
+  "id": "button:frappe-action:hilite",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=hilite",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:138"
+ },
+ {
+  "id": "button:frappe-action:override",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=override",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:144"
+ },
+ {
+  "id": "button:frappe-action:cv",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=cv",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:166"
+ },
+ {
+  "id": "button:frappe-action:decide",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=decide",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:192"
+ },
+ {
+  "id": "button:frappe-action:cvline",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=cvline",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:211"
+ },
+ {
+  "id": "button:frappe-action:cvpage",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=cvpage",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:215"
+ },
+ {
+  "id": "button:frappe-action:cvsel",
+  "cat": "button",
+  "name": "Frappe in-page action data-tai=cvsel",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:223"
+ },
+ {
+  "id": "button:frappe:فتح المتقدم",
+  "cat": "button",
+  "name": "Frappe button \"فتح المتقدم\"",
+  "label_ar": "فتح المتقدم",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_candidate_assessment/ai_candidate_assessment.js:7"
+ },
+ {
+  "id": "button:frappe:اعتماد",
+  "cat": "button",
+  "name": "Frappe button \"اعتماد\"",
+  "label_ar": "اعتماد",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_profile/ai_job_profile.js:9"
+ },
+ {
+  "id": "button:frappe:معاينة الأثر",
+  "cat": "button",
+  "name": "Frappe button \"معاينة الأثر\"",
+  "label_ar": "معاينة الأثر",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_profile/ai_job_profile.js:11"
+ },
+ {
+  "id": "button:frappe:اقتراح معايير AI",
+  "cat": "button",
+  "name": "Frappe button \"اقتراح معايير AI\"",
+  "label_ar": "اقتراح معايير AI",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_profile/ai_job_profile.js:13"
+ },
+ {
+  "id": "button:frappe:نسخ من قالب المسمى الوظيفي",
+  "cat": "button",
+  "name": "Frappe button \"نسخ من قالب المسمى الوظيفي\"",
+  "label_ar": "نسخ من قالب المسمى الوظيفي",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_job_profile/ai_job_profile.js:14"
+ },
+ {
+  "id": "button:frappe:إعادة المحاولة",
+  "cat": "button",
+  "name": "Frappe button \"إعادة المحاولة\"",
+  "label_ar": "إعادة المحاولة",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.js:6"
+ },
+ {
+  "id": "button:frappe:تحديث من المحرك",
+  "cat": "button",
+  "name": "Frappe button \"تحديث من المحرك\"",
+  "label_ar": "تحديث من المحرك",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.js:6"
+ },
+ {
+  "id": "button:frappe:مهام الذكاء",
+  "cat": "button",
+  "name": "Frappe button \"مهام الذكاء\"",
+  "label_ar": "مهام الذكاء",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_batch/ai_batch.js:16"
+ },
+ {
+  "id": "button:frappe:مقارنة المحددين",
+  "cat": "button",
+  "name": "Frappe button \"مقارنة المحددين\"",
+  "label_ar": "مقارنة المحددين",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_ranking/ai_ranking.js:19"
+ },
+ {
+  "id": "button:frappe:إعادة تقييم القديم والفاشل",
+  "cat": "button",
+  "name": "Frappe button \"إعادة تقييم القديم والفاشل\"",
+  "label_ar": "إعادة تقييم القديم والفاشل",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_ranking/ai_ranking.js:20"
+ },
+ {
+  "id": "button:frappe:خريطة الدورة",
+  "cat": "button",
+  "name": "Frappe button \"خريطة الدورة\"",
+  "label_ar": "خريطة الدورة",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js:7"
+ },
+ {
+  "id": "button:home-card:1",
+  "cat": "button",
+  "name": "Home page card 1 \"ملف المعايير\"",
+  "label_ar": "ملف المعايير",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "button:home-card:2",
+  "cat": "button",
+  "name": "Home page card 2 \"الشواغر\"",
+  "label_ar": "الشواغر",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "button:home-card:3",
+  "cat": "button",
+  "name": "Home page card 3 \"صفحة التقديم العامة\"",
+  "label_ar": "صفحة التقديم العامة",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "button:home-card:4",
+  "cat": "button",
+  "name": "Home page card 4 \"قائمة المتقدمين\"",
+  "label_ar": "قائمة المتقدمين",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "button:home-card:5",
+  "cat": "button",
+  "name": "Home page card 5 \"الترتيب\"",
+  "label_ar": "الترتيب",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "button:home-card:6",
+  "cat": "button",
+  "name": "Home page card 6 \"بنك المتقدمين\"",
+  "label_ar": "بنك المتقدمين",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "button:home-card:7",
+  "cat": "button",
+  "name": "Home page card 7 \"مهام الذكاء\"",
+  "label_ar": "مهام الذكاء",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "button:home-card:8",
+  "cat": "button",
+  "name": "Home page card 8 \"الإعدادات\"",
+  "label_ar": "الإعدادات",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "button:home-card:9",
+  "cat": "button",
+  "name": "Home page card 9 \"سجل التدقيق\"",
+  "label_ar": "سجل التدقيق",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_recruitment/ai_recruitment.js"
+ },
+ {
+  "id": "field:Job Opening.ai_enabled",
+  "cat": "field",
+  "name": "Job Opening.ai_enabled (Check)",
+  "label_ar": "AI screening enabled",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:31",
+  "doctype": "Job Opening"
+ },
+ {
+  "id": "field:Job Opening.ai_profile",
+  "cat": "field",
+  "name": "Job Opening.ai_profile (Link)",
+  "label_ar": "AI Job Profile",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:32",
+  "doctype": "Job Opening"
+ },
+ {
+  "id": "field:Job Opening.ai_profile_approved",
+  "cat": "field",
+  "name": "Job Opening.ai_profile_approved (Check)",
+  "label_ar": "AI profile approved",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:34",
+  "doctype": "Job Opening"
+ },
+ {
+  "id": "field:Job Opening.ai_links",
+  "cat": "field",
+  "name": "Job Opening.ai_links (HTML)",
+  "label_ar": "AI links",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:35",
+  "doctype": "Job Opening"
+ },
+ {
+  "id": "field:Job Applicant.nationality",
+  "cat": "field",
+  "name": "Job Applicant.nationality (Link)",
+  "label_ar": "Nationality",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:40",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.date_of_birth",
+  "cat": "field",
+  "name": "Job Applicant.date_of_birth (Date)",
+  "label_ar": "Date of Birth",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:41",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.id_type",
+  "cat": "field",
+  "name": "Job Applicant.id_type (Select)",
+  "label_ar": "ID type",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:42",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.national_id",
+  "cat": "field",
+  "name": "Job Applicant.national_id (Data)",
+  "label_ar": "National ID / Iqama",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:43",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.height_cm",
+  "cat": "field",
+  "name": "Job Applicant.height_cm (Int)",
+  "label_ar": "Height (cm)",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:46",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.weight_kg",
+  "cat": "field",
+  "name": "Job Applicant.weight_kg (Int)",
+  "label_ar": "Weight (kg)",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:47",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_consent",
+  "cat": "field",
+  "name": "Job Applicant.ai_consent (Check)",
+  "label_ar": "Consent to AI processing",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:48",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_consent_version",
+  "cat": "field",
+  "name": "Job Applicant.ai_consent_version (Data)",
+  "label_ar": "Consent version",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:49",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_consent_on",
+  "cat": "field",
+  "name": "Job Applicant.ai_consent_on (Datetime)",
+  "label_ar": "Consent given on",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:50",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_consent_withdrawn_on",
+  "cat": "field",
+  "name": "Job Applicant.ai_consent_withdrawn_on (Datetime)",
+  "label_ar": "Consent withdrawn on",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:51",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_answers",
+  "cat": "field",
+  "name": "Job Applicant.ai_answers (Table)",
+  "label_ar": "Screening answers",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:54",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_html",
+  "cat": "field",
+  "name": "Job Applicant.ai_html (HTML)",
+  "label_ar": "AI assessment",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:57",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_status",
+  "cat": "field",
+  "name": "Job Applicant.ai_status (Select)",
+  "label_ar": "AI status",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:59",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_score",
+  "cat": "field",
+  "name": "Job Applicant.ai_score (Float)",
+  "label_ar": "AI score",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:61",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_band",
+  "cat": "field",
+  "name": "Job Applicant.ai_band (Select)",
+  "label_ar": "AI band",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:62",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_eligibility",
+  "cat": "field",
+  "name": "Job Applicant.ai_eligibility (Select)",
+  "label_ar": "AI eligibility",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:63",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_coverage",
+  "cat": "field",
+  "name": "Job Applicant.ai_coverage (Percent)",
+  "label_ar": "AI coverage",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:65",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_rank",
+  "cat": "field",
+  "name": "Job Applicant.ai_rank (Int)",
+  "label_ar": "AI rank",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:66",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_assessment",
+  "cat": "field",
+  "name": "Job Applicant.ai_assessment (Link)",
+  "label_ar": "AI assessment",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:68",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_evaluated_on",
+  "cat": "field",
+  "name": "Job Applicant.ai_evaluated_on (Datetime)",
+  "label_ar": "AI evaluated on",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:69",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_stale",
+  "cat": "field",
+  "name": "Job Applicant.ai_stale (Check)",
+  "label_ar": "AI result is stale",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:70",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_duplicate_of",
+  "cat": "field",
+  "name": "Job Applicant.ai_duplicate_of (Link)",
+  "label_ar": "Duplicate of",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:71",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_cv_note",
+  "cat": "field",
+  "name": "Job Applicant.ai_cv_note (Small Text)",
+  "label_ar": "CV note",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:72",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_flags",
+  "cat": "field",
+  "name": "Job Applicant.ai_flags (Small Text)",
+  "label_ar": "AI flags",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:73",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_candidate_ref",
+  "cat": "field",
+  "name": "Job Applicant.ai_candidate_ref (Data)",
+  "label_ar": "AI candidate reference",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:74",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_data_hash",
+  "cat": "field",
+  "name": "Job Applicant.ai_data_hash (Data)",
+  "label_ar": "AI data hash",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:75",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_cv_sha",
+  "cat": "field",
+  "name": "Job Applicant.ai_cv_sha (Data)",
+  "label_ar": "AI CV hash",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:76",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_decision_reason",
+  "cat": "field",
+  "name": "Job Applicant.ai_decision_reason (Small Text)",
+  "label_ar": "Decision reason",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:78",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_decided_by",
+  "cat": "field",
+  "name": "Job Applicant.ai_decided_by (Link)",
+  "label_ar": "Decided by",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:79",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "field:Job Applicant.ai_decided_on",
+  "cat": "field",
+  "name": "Job Applicant.ai_decided_on (Datetime)",
+  "label_ar": "Decided on",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:80",
+  "doctype": "Job Applicant"
+ },
+ {
+  "id": "endpoint:frappe:apply",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.apply",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:55",
+  "guest": true
+ },
+ {
+  "id": "endpoint:frappe:job_requirements",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.job_requirements",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:182",
+  "guest": true
+ },
+ {
+  "id": "endpoint:frappe:receive_result",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.receive_result",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:195",
+  "guest": true
+ },
+ {
+  "id": "endpoint:frappe:get_assessment",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.get_assessment",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:232",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:decide",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.decide",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:277",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:override",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.override",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:299",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:rescreen",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.rescreen",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:316",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:retry_job",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.retry_job",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:323",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:rescreen_all",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.rescreen_all",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:332",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:ranking",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.ranking",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:370",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:export_ranking_csv",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.export_ranking_csv",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:408",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:compare",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.compare",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:430",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:batch_status",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.batch_status",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:462",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:home_counts",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.home_counts",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:486",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:openings",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.openings",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:503",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:talent_pool",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.talent_pool",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:513",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:withdraw_consent",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.withdraw_consent",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:549",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:cv_analysis",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.cv_analysis",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:567",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:cv_page",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.cv_page",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:591",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:engine_settings",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.engine_settings",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:603",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:i_am_hr",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.api.i_am_hr",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:609",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:approve",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.profile.approve",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/profile.py:168",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:impact_preview",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.profile.impact_preview",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/profile.py:233",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:draft_criteria",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.profile.draft_criteria",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/profile.py:259",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:templates_for",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.profile.templates_for",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/profile.py:292",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:copy_from_template",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.profile.copy_from_template",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/profile.py:303",
+  "guest": false
+ },
+ {
+  "id": "endpoint:frappe:refresh_from_engine",
+  "cat": "endpoint",
+  "name": "/api/method/ido_talent_ai.talent_ai.doctype.ai_recruitment_settings.ai_recruitment_settings.refresh_from_engine",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.py:55",
+  "guest": false
+ },
+ {
+  "id": "hook:ido_talent_ai.screening.on_applicant_insert",
+  "cat": "hook",
+  "name": "doc event after_insert → ido_talent_ai.screening.on_applicant_insert",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:33"
+ },
+ {
+  "id": "hook:ido_talent_ai.screening.on_applicant_update",
+  "cat": "hook",
+  "name": "doc event on_update → ido_talent_ai.screening.on_applicant_update",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:34"
+ },
+ {
+  "id": "hook:ido_talent_ai.screening.on_applicant_trash",
+  "cat": "hook",
+  "name": "doc event on_trash → ido_talent_ai.screening.on_applicant_trash",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:35"
+ },
+ {
+  "id": "hook:ido_talent_ai.screening.on_opening_validate",
+  "cat": "hook",
+  "name": "doc event validate → ido_talent_ai.screening.on_opening_validate",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:38"
+ },
+ {
+  "id": "hook:ido_talent_ai.screening.on_opening_trash",
+  "cat": "hook",
+  "name": "doc event on_trash → ido_talent_ai.screening.on_opening_trash",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:39"
+ },
+ {
+  "id": "hook:ido_talent_ai.screening.sync_running_jobs",
+  "cat": "hook",
+  "name": "scheduled job ido_talent_ai.screening.sync_running_jobs",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:44"
+ },
+ {
+  "id": "hook:ido_talent_ai.screening.queue_missing",
+  "cat": "hook",
+  "name": "scheduled job ido_talent_ai.screening.queue_missing",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:44"
+ },
+ {
+  "id": "hook:ido_talent_ai.screening.retry_failed_jobs",
+  "cat": "hook",
+  "name": "scheduled job ido_talent_ai.screening.retry_failed_jobs",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:45"
+ },
+ {
+  "id": "hook:on_session_creation",
+  "cat": "hook",
+  "name": "login hook → \"التوظيف الذكي\" for HR roles",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/hooks.py:25"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/audit",
+  "cat": "endpoint",
+  "name": "GET /v1/audit",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/audit.py:14"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/candidates",
+  "cat": "endpoint",
+  "name": "GET /v1/candidates",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/candidates.py:16"
+ },
+ {
+  "id": "endpoint:engine:PUT /v1/candidates/{ref}",
+  "cat": "endpoint",
+  "name": "PUT /v1/candidates/{ref}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/candidates.py:21"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/candidates/{ref}",
+  "cat": "endpoint",
+  "name": "GET /v1/candidates/{ref}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/candidates.py:46"
+ },
+ {
+  "id": "endpoint:engine:DELETE /v1/candidates/{ref}",
+  "cat": "endpoint",
+  "name": "DELETE /v1/candidates/{ref}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/candidates.py:72"
+ },
+ {
+  "id": "endpoint:engine:GET /console",
+  "cat": "endpoint",
+  "name": "GET /console",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:30"
+ },
+ {
+  "id": "endpoint:engine:GET /console/login",
+  "cat": "endpoint",
+  "name": "GET /console/login",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:37"
+ },
+ {
+  "id": "endpoint:engine:POST /console/login",
+  "cat": "endpoint",
+  "name": "POST /console/login",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:48"
+ },
+ {
+  "id": "endpoint:engine:POST /console/logout",
+  "cat": "endpoint",
+  "name": "POST /console/logout",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:69"
+ },
+ {
+  "id": "endpoint:engine:GET /console/me",
+  "cat": "endpoint",
+  "name": "GET /console/me",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:76"
+ },
+ {
+  "id": "endpoint:engine:POST /console/id-token",
+  "cat": "endpoint",
+  "name": "POST /console/id-token",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:88"
+ },
+ {
+  "id": "endpoint:engine:GET /console/static/{path:path}",
+  "cat": "endpoint",
+  "name": "GET /console/static/{path:path}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:98"
+ },
+ {
+  "id": "endpoint:engine:GET /console/health",
+  "cat": "endpoint",
+  "name": "GET /console/health",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:106"
+ },
+ {
+  "id": "endpoint:engine:PUT /v1/candidates/{ref}/cv",
+  "cat": "endpoint",
+  "name": "PUT /v1/candidates/{ref}/cv",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/documents.py:20"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/candidates/{ref}/cv",
+  "cat": "endpoint",
+  "name": "GET /v1/candidates/{ref}/cv",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/documents.py:59"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/candidates/{ref}/cv/file",
+  "cat": "endpoint",
+  "name": "GET /v1/candidates/{ref}/cv/file",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/documents.py:75"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/candidates/{ref}/cv/pages/{page}",
+  "cat": "endpoint",
+  "name": "GET /v1/candidates/{ref}/cv/pages/{page}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/documents.py:97"
+ },
+ {
+  "id": "endpoint:engine:DELETE /v1/candidates/{ref}/cv",
+  "cat": "endpoint",
+  "name": "DELETE /v1/candidates/{ref}/cv",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/documents.py:123"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/documents/inspect",
+  "cat": "endpoint",
+  "name": "POST /v1/documents/inspect",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/documents.py:139"
+ },
+ {
+  "id": "endpoint:engine:GET /health",
+  "cat": "endpoint",
+  "name": "GET /health",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/health.py:15"
+ },
+ {
+  "id": "endpoint:engine:GET /ready",
+  "cat": "endpoint",
+  "name": "GET /ready",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/health.py:20"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/jobs/draft-criteria",
+  "cat": "endpoint",
+  "name": "POST /v1/jobs/draft-criteria",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/jobs.py:24"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/jobs",
+  "cat": "endpoint",
+  "name": "GET /v1/jobs",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/jobs.py:47"
+ },
+ {
+  "id": "endpoint:engine:PUT /v1/jobs/{ref}",
+  "cat": "endpoint",
+  "name": "PUT /v1/jobs/{ref}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/jobs.py:55"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/jobs/{ref}",
+  "cat": "endpoint",
+  "name": "GET /v1/jobs/{ref}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/jobs.py:70"
+ },
+ {
+  "id": "endpoint:engine:DELETE /v1/jobs/{ref}",
+  "cat": "endpoint",
+  "name": "DELETE /v1/jobs/{ref}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/jobs.py:78"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/jobs/{ref}/ranking",
+  "cat": "endpoint",
+  "name": "GET /v1/jobs/{ref}/ranking",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/jobs.py:93"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/jobs/{ref}/impact",
+  "cat": "endpoint",
+  "name": "POST /v1/jobs/{ref}/impact",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/jobs.py:105"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/jobs/{ref}/rescreen",
+  "cat": "endpoint",
+  "name": "POST /v1/jobs/{ref}/rescreen",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/jobs.py:118"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/screenings",
+  "cat": "endpoint",
+  "name": "POST /v1/screenings",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/screenings.py:27"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/screenings",
+  "cat": "endpoint",
+  "name": "GET /v1/screenings",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/screenings.py:75"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/screenings/{screening_id}",
+  "cat": "endpoint",
+  "name": "GET /v1/screenings/{screening_id}",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/screenings.py:97"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/screenings/{screening_id}/override",
+  "cat": "endpoint",
+  "name": "POST /v1/screenings/{screening_id}/override",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/screenings.py:107"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/screenings/{screening_id}/retry",
+  "cat": "endpoint",
+  "name": "POST /v1/screenings/{screening_id}/retry",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/screenings.py:126"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/settings",
+  "cat": "endpoint",
+  "name": "GET /v1/settings",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/settings.py:15"
+ },
+ {
+  "id": "endpoint:engine:PUT /v1/settings",
+  "cat": "endpoint",
+  "name": "PUT /v1/settings",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/settings.py:22"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/talent-pool/search",
+  "cat": "endpoint",
+  "name": "POST /v1/talent-pool/search",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/talent_pool.py:26"
+ },
+ {
+  "id": "endpoint:engine:GET /v1/talent-pool/status",
+  "cat": "endpoint",
+  "name": "GET /v1/talent-pool/status",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/talent_pool.py:50"
+ },
+ {
+  "id": "endpoint:engine:POST /v1/talent-pool/reindex",
+  "cat": "endpoint",
+  "name": "POST /v1/talent-pool/reindex",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/talent_pool.py:67"
+ },
+ {
+  "id": "stage:intake",
+  "cat": "stage",
+  "name": "stage intake — Intake",
+  "label_ar": "استلام",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:answers",
+  "cat": "stage",
+  "name": "stage answers — Read form answers",
+  "label_ar": "قراءة إجابات النموذج",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:cv_text",
+  "cat": "stage",
+  "name": "stage cv_text — Extract CV text",
+  "label_ar": "استخراج نص السيرة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:redaction",
+  "cat": "stage",
+  "name": "stage redaction — Redaction",
+  "label_ar": "إخفاء الهوية",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:profile",
+  "cat": "stage",
+  "name": "stage profile — Structured profile",
+  "label_ar": "الملف المنظّم",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:evidence_check",
+  "cat": "stage",
+  "name": "stage evidence_check — Evidence check",
+  "label_ar": "التحقق من الأدلة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:eligibility",
+  "cat": "stage",
+  "name": "stage eligibility — Hard eligibility rules",
+  "label_ar": "الشروط الإلزامية",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:judgement",
+  "cat": "stage",
+  "name": "stage judgement — Criteria judgement",
+  "label_ar": "الحكم على المعايير",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:scoring",
+  "cat": "stage",
+  "name": "stage scoring — Score and rank",
+  "label_ar": "الدرجة والترتيب",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "stage:index",
+  "cat": "stage",
+  "name": "stage index — Index",
+  "label_ar": "الفهرسة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:missing_evidence",
+  "cat": "flag",
+  "name": "flag missing_evidence — Missing evidence",
+  "label_ar": "دليل ناقص",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:mandatory_missing",
+  "cat": "flag",
+  "name": "flag mandatory_missing — Mandatory criterion without evidence",
+  "label_ar": "معيار إلزامي بلا دليل",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:mandatory_zero",
+  "cat": "flag",
+  "name": "flag mandatory_zero — Mandatory criterion at level 0",
+  "label_ar": "معيار إلزامي عند المستوى 0",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:low_coverage",
+  "cat": "flag",
+  "name": "flag low_coverage — Low coverage",
+  "label_ar": "تغطية منخفضة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:contradiction",
+  "cat": "flag",
+  "name": "flag contradiction — Answer contradicts the CV",
+  "label_ar": "تعارض بين الإجابة والسيرة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:evidence_mismatch",
+  "cat": "flag",
+  "name": "flag evidence_mismatch — Evidence does not match the stored answer",
+  "label_ar": "دليل لا يطابق الإجابة المخزّنة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:cv_unreadable",
+  "cat": "flag",
+  "name": "flag cv_unreadable — CV file unreadable",
+  "label_ar": "ملف السيرة غير مقروء",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:low_ocr_confidence",
+  "cat": "flag",
+  "name": "flag low_ocr_confidence — Low OCR confidence",
+  "label_ar": "ثقة OCR منخفضة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:duplicate",
+  "cat": "flag",
+  "name": "flag duplicate — Duplicate application",
+  "label_ar": "طلب مكرر",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:stale",
+  "cat": "flag",
+  "name": "flag stale — Stale — previous criteria version",
+  "label_ar": "قديم — نسخة معايير سابقة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:data_changed",
+  "cat": "flag",
+  "name": "flag data_changed — Result does not reflect the latest edit",
+  "label_ar": "النتيجة لا تعكس آخر تعديل",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:hr_override",
+  "cat": "flag",
+  "name": "flag hr_override — HR override",
+  "label_ar": "تعديل HR",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:screening:queued",
+  "cat": "status",
+  "name": "screening status queued → ai_status Processing",
+  "label_ar": "",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:screening:processing",
+  "cat": "status",
+  "name": "screening status processing → ai_status Processing",
+  "label_ar": "",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:screening:completed",
+  "cat": "status",
+  "name": "screening status completed → ai_status Completed",
+  "label_ar": "",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:screening:needs_review",
+  "cat": "status",
+  "name": "screening status needs_review → ai_status Needs Review",
+  "label_ar": "",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:screening:failed",
+  "cat": "status",
+  "name": "screening status failed → ai_status Failed",
+  "label_ar": "",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:band:high",
+  "cat": "status",
+  "name": "band high — High",
+  "label_ar": "مرتفعة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:band:medium",
+  "cat": "status",
+  "name": "band medium — Medium",
+  "label_ar": "متوسطة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:band:low",
+  "cat": "status",
+  "name": "band low — Low",
+  "label_ar": "منخفضة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:eligibility:eligible",
+  "cat": "status",
+  "name": "eligibility eligible — Eligible",
+  "label_ar": "مستوفٍ",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:eligibility:not_eligible",
+  "cat": "status",
+  "name": "eligibility not_eligible — Not eligible (as declared)",
+  "label_ar": "غير مستوفٍ بحسب ما كتبه",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:eligibility:needs_review",
+  "cat": "status",
+  "name": "eligibility needs_review — Needs review",
+  "label_ar": "يحتاج مراجعة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:group:duplicate",
+  "cat": "status",
+  "name": "ranking group duplicate — Duplicate — only the original application is ranked",
+  "label_ar": "طلب مكرر — يُرتَّب الطلب الأصلي فقط",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:group:processing",
+  "cat": "status",
+  "name": "ranking group processing — Processing",
+  "label_ar": "جاري المعالجة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:group:failed",
+  "cat": "status",
+  "name": "ranking group failed — Processing failed",
+  "label_ar": "فشلت المعالجة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:group:stale",
+  "cat": "status",
+  "name": "ranking group stale — Stale — previous criteria version",
+  "label_ar": "قديم — نسخة معايير سابقة",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:group:data_changed",
+  "cat": "status",
+  "name": "ranking group data_changed — Result does not reflect the latest edit",
+  "label_ar": "النتيجة لا تعكس آخر تعديل",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:group:not_eligible",
+  "cat": "status",
+  "name": "ranking group not_eligible — Not eligible (as declared)",
+  "label_ar": "غير مستوفٍ بحسب ما كتبه",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:group:needs_review",
+  "cat": "status",
+  "name": "ranking group needs_review — Missing value, low coverage or contradiction",
+  "label_ar": "قيمة مفقودة أو تغطية منخفضة أو تعارض",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "status:decision:Shortlisted",
+  "cat": "status",
+  "name": "HR decision Shortlisted (Job Applicant.status)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py"
+ },
+ {
+  "id": "status:decision:Hold",
+  "cat": "status",
+  "name": "HR decision Hold (Job Applicant.status)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py"
+ },
+ {
+  "id": "status:decision:Rejected",
+  "cat": "status",
+  "name": "HR decision Rejected (Job Applicant.status)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py"
+ },
+ {
+  "id": "status:decision:Open",
+  "cat": "status",
+  "name": "HR decision Open (Job Applicant.status)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py"
+ },
+ {
+  "id": "status:decision:Replied",
+  "cat": "status",
+  "name": "HR decision Replied (Job Applicant.status)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py"
+ },
+ {
+  "id": "status:decision:Accepted",
+  "cat": "status",
+  "name": "HR decision Accepted (Job Applicant.status)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py"
+ },
+ {
+  "id": "status:ai_job:Queued",
+  "cat": "status",
+  "name": "AI Recruitment Job status Queued",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.json"
+ },
+ {
+  "id": "status:ai_job:Running",
+  "cat": "status",
+  "name": "AI Recruitment Job status Running",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.json"
+ },
+ {
+  "id": "status:ai_job:Completed",
+  "cat": "status",
+  "name": "AI Recruitment Job status Completed",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.json"
+ },
+ {
+  "id": "status:ai_job:Failed",
+  "cat": "status",
+  "name": "AI Recruitment Job status Failed",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_job/ai_recruitment_job.json"
+ },
+ {
+  "id": "setting:frappe:enabled",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.enabled (Check)",
+  "label_ar": "Enabled",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:auto_screen_on_apply",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.auto_screen_on_apply (Check)",
+  "label_ar": "Auto-screen on apply",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:engine_url",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.engine_url (Data)",
+  "label_ar": "Engine URL",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:api_key",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.api_key (Password)",
+  "label_ar": "Engine API Key",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:request_timeout",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.request_timeout (Int)",
+  "label_ar": "HTTP timeout (seconds)",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:callback_url",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.callback_url (Data)",
+  "label_ar": "Callback URL",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:callback_secret",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.callback_secret (Password)",
+  "label_ar": "Callback Secret",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:id_token_secret",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.id_token_secret (Password)",
+  "label_ar": "ID Token Secret",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:provider",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.provider (Select)",
+  "label_ar": "Provider",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:model",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.model (Data)",
+  "label_ar": "Model",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:judge_prompt",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.judge_prompt (Data)",
+  "label_ar": "Judge prompt",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:ocr_provider",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.ocr_provider (Select)",
+  "label_ar": "OCR provider",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:timeout",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.timeout (Int)",
+  "label_ar": "LLM timeout (seconds)",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:max_retries",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.max_retries (Int)",
+  "label_ar": "Max retries",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:last_synced",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.last_synced (Datetime)",
+  "label_ar": "Last synced with the engine",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:allowed_facts",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.allowed_facts (Small Text)",
+  "label_ar": "Allowed facts",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:retention_days",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.retention_days (Int)",
+  "label_ar": "Retention (days)",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:consent_version",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.consent_version (Data)",
+  "label_ar": "Consent text version",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:frappe:consent_text",
+  "cat": "setting",
+  "name": "AI Recruitment Settings.consent_text (Small Text)",
+  "label_ar": "Consent text",
+  "source": "ido_talent_ai/ido_talent_ai/talent_ai/doctype/ai_recruitment_settings/ai_recruitment_settings.json"
+ },
+ {
+  "id": "setting:engine-env:APP_ENV",
+  "cat": "setting",
+  "name": "engine .env APP_ENV",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:2"
+ },
+ {
+  "id": "setting:engine-env:LOG_LEVEL",
+  "cat": "setting",
+  "name": "engine .env LOG_LEVEL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:3"
+ },
+ {
+  "id": "setting:engine-env:TZ",
+  "cat": "setting",
+  "name": "engine .env TZ",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:4"
+ },
+ {
+  "id": "setting:engine-env:API_PORT",
+  "cat": "setting",
+  "name": "engine .env API_PORT",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:8"
+ },
+ {
+  "id": "setting:engine-env:API_BIND_TAILSCALE",
+  "cat": "setting",
+  "name": "engine .env API_BIND_TAILSCALE",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:9"
+ },
+ {
+  "id": "setting:engine-env:DB_HOST_PORT",
+  "cat": "setting",
+  "name": "engine .env DB_HOST_PORT",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:10"
+ },
+ {
+  "id": "setting:engine-env:REDIS_HOST_PORT",
+  "cat": "setting",
+  "name": "engine .env REDIS_HOST_PORT",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:11"
+ },
+ {
+  "id": "setting:engine-env:POSTGRES_USER",
+  "cat": "setting",
+  "name": "engine .env POSTGRES_USER",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:14"
+ },
+ {
+  "id": "setting:engine-env:POSTGRES_PASSWORD",
+  "cat": "setting",
+  "name": "engine .env POSTGRES_PASSWORD",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:15"
+ },
+ {
+  "id": "setting:engine-env:POSTGRES_DB",
+  "cat": "setting",
+  "name": "engine .env POSTGRES_DB",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:16"
+ },
+ {
+  "id": "setting:engine-env:REDIS_PASSWORD",
+  "cat": "setting",
+  "name": "engine .env REDIS_PASSWORD",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:17"
+ },
+ {
+  "id": "setting:engine-env:TENANT_API_KEY",
+  "cat": "setting",
+  "name": "engine .env TENANT_API_KEY",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:18"
+ },
+ {
+  "id": "setting:engine-env:CALLBACK_SECRET",
+  "cat": "setting",
+  "name": "engine .env CALLBACK_SECRET",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:19"
+ },
+ {
+  "id": "setting:engine-env:DATABASE_URL",
+  "cat": "setting",
+  "name": "engine .env DATABASE_URL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:22"
+ },
+ {
+  "id": "setting:engine-env:REDIS_URL",
+  "cat": "setting",
+  "name": "engine .env REDIS_URL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:23"
+ },
+ {
+  "id": "setting:engine-env:QUEUE_MODE",
+  "cat": "setting",
+  "name": "engine .env QUEUE_MODE",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:24"
+ },
+ {
+  "id": "setting:engine-env:AI_PROVIDER",
+  "cat": "setting",
+  "name": "engine .env AI_PROVIDER",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:27"
+ },
+ {
+  "id": "setting:engine-env:LLM_BASE_URL",
+  "cat": "setting",
+  "name": "engine .env LLM_BASE_URL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:28"
+ },
+ {
+  "id": "setting:engine-env:LLM_MODEL",
+  "cat": "setting",
+  "name": "engine .env LLM_MODEL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:29"
+ },
+ {
+  "id": "setting:engine-env:VLLM_MODEL",
+  "cat": "setting",
+  "name": "engine .env VLLM_MODEL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:30"
+ },
+ {
+  "id": "setting:engine-env:VLLM_IMAGE_TAG",
+  "cat": "setting",
+  "name": "engine .env VLLM_IMAGE_TAG",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:31"
+ },
+ {
+  "id": "setting:engine-env:VLLM_MAX_MODEL_LEN",
+  "cat": "setting",
+  "name": "engine .env VLLM_MAX_MODEL_LEN",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:32"
+ },
+ {
+  "id": "setting:engine-env:VLLM_MAX_NUM_SEQS",
+  "cat": "setting",
+  "name": "engine .env VLLM_MAX_NUM_SEQS",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:33"
+ },
+ {
+  "id": "setting:engine-env:LLM_TIMEOUT_S",
+  "cat": "setting",
+  "name": "engine .env LLM_TIMEOUT_S",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:34"
+ },
+ {
+  "id": "setting:engine-env:LLM_MAX_RETRIES",
+  "cat": "setting",
+  "name": "engine .env LLM_MAX_RETRIES",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:35"
+ },
+ {
+  "id": "setting:engine-env:VLLM_GPU_MEMORY_UTILIZATION",
+  "cat": "setting",
+  "name": "engine .env VLLM_GPU_MEMORY_UTILIZATION",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:36"
+ },
+ {
+  "id": "setting:engine-env:CLOUD_LLM_BASE_URL",
+  "cat": "setting",
+  "name": "engine .env CLOUD_LLM_BASE_URL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:38"
+ },
+ {
+  "id": "setting:engine-env:CLOUD_LLM_MODEL",
+  "cat": "setting",
+  "name": "engine .env CLOUD_LLM_MODEL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:39"
+ },
+ {
+  "id": "setting:engine-env:CLOUD_LLM_API_KEY",
+  "cat": "setting",
+  "name": "engine .env CLOUD_LLM_API_KEY",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:40"
+ },
+ {
+  "id": "setting:engine-env:OCR_PROVIDER",
+  "cat": "setting",
+  "name": "engine .env OCR_PROVIDER",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:41"
+ },
+ {
+  "id": "setting:engine-env:OCR_THREADS",
+  "cat": "setting",
+  "name": "engine .env OCR_THREADS",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:42"
+ },
+ {
+  "id": "setting:engine-env:MAX_UPLOAD_MB",
+  "cat": "setting",
+  "name": "engine .env MAX_UPLOAD_MB",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:43"
+ },
+ {
+  "id": "setting:engine-env:OCR_MIN_CONFIDENCE",
+  "cat": "setting",
+  "name": "engine .env OCR_MIN_CONFIDENCE",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:44"
+ },
+ {
+  "id": "setting:engine-env:EMBEDDING_MODEL",
+  "cat": "setting",
+  "name": "engine .env EMBEDDING_MODEL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:45"
+ },
+ {
+  "id": "setting:engine-env:EMBEDDING_PROVIDER",
+  "cat": "setting",
+  "name": "engine .env EMBEDDING_PROVIDER",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:46"
+ },
+ {
+  "id": "setting:engine-env:EMBEDDING_BASE_URL",
+  "cat": "setting",
+  "name": "engine .env EMBEDDING_BASE_URL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:47"
+ },
+ {
+  "id": "setting:engine-env:FILE_STORE",
+  "cat": "setting",
+  "name": "engine .env FILE_STORE",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:48"
+ },
+ {
+  "id": "setting:engine-env:RETENTION_DAYS_DEFAULT",
+  "cat": "setting",
+  "name": "engine .env RETENTION_DAYS_DEFAULT",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:49"
+ },
+ {
+  "id": "setting:engine-env:MAX_ATTEMPTS",
+  "cat": "setting",
+  "name": "engine .env MAX_ATTEMPTS",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:50"
+ },
+ {
+  "id": "setting:engine-env:TENANT_NAME",
+  "cat": "setting",
+  "name": "engine .env TENANT_NAME",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:54"
+ },
+ {
+  "id": "setting:engine-env:ALLOWED_FACTS",
+  "cat": "setting",
+  "name": "engine .env ALLOWED_FACTS",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:55"
+ },
+ {
+  "id": "setting:engine-env:CONSOLE_USER",
+  "cat": "setting",
+  "name": "engine .env CONSOLE_USER",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:58"
+ },
+ {
+  "id": "setting:engine-env:CONSOLE_PASSWORD",
+  "cat": "setting",
+  "name": "engine .env CONSOLE_PASSWORD",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:59"
+ },
+ {
+  "id": "setting:engine-env:CONSOLE_SESSION_SECRET",
+  "cat": "setting",
+  "name": "engine .env CONSOLE_SESSION_SECRET",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:60"
+ },
+ {
+  "id": "setting:engine-env:CONSOLE_ID_TOKEN_SECRET",
+  "cat": "setting",
+  "name": "engine .env CONSOLE_ID_TOKEN_SECRET",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:61"
+ },
+ {
+  "id": "setting:engine-env:CALLBACK_URL",
+  "cat": "setting",
+  "name": "engine .env CALLBACK_URL",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:65"
+ },
+ {
+  "id": "setting:dev-env:DB_ROOT_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env DB_ROOT_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:2"
+ },
+ {
+  "id": "setting:dev-env:ADMIN_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env ADMIN_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:3"
+ },
+ {
+  "id": "setting:dev-env:TAILSCALE_IP",
+  "cat": "setting",
+  "name": "dev bench .env TAILSCALE_IP",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:4"
+ },
+ {
+  "id": "setting:dev-env:SITE",
+  "cat": "setting",
+  "name": "dev bench .env SITE",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:5"
+ },
+ {
+  "id": "setting:dev-env:HR_MANAGER_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env HR_MANAGER_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:6"
+ },
+ {
+  "id": "setting:dev-env:HR_USER_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env HR_USER_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:7"
+ },
+ {
+  "id": "setting:dev-env:EMPLOYEE_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env EMPLOYEE_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:8"
+ },
+ {
+  "id": "setting:dev-env:INTERVIEWER_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env INTERVIEWER_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:9"
+ },
+ {
+  "id": "setting:dev-env:ESS_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env ESS_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:10"
+ },
+ {
+  "id": "setting:dev-env:SYSTEM_MANAGER_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env SYSTEM_MANAGER_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:11"
+ },
+ {
+  "id": "setting:dev-env:PORTAL_PASSWORD",
+  "cat": "setting",
+  "name": "dev bench .env PORTAL_PASSWORD",
+  "label_ar": "",
+  "source": "dev-frappe/.env.example:12"
+ },
+ {
+  "id": "setting:site:talent_ai_apply_limit",
+  "cat": "setting",
+  "name": "site config talent_ai_apply_limit (public form rate limit)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py"
+ },
+ {
+  "id": "role:HR Manager",
+  "cat": "role",
+  "name": "role HR Manager (AI fields at permission level 1)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py"
+ },
+ {
+  "id": "role:HR User",
+  "cat": "role",
+  "name": "role HR User (AI fields at permission level 1)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py"
+ },
+ {
+  "id": "role:System Manager",
+  "cat": "role",
+  "name": "role System Manager (AI fields at permission level 1)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py"
+ },
+ {
+  "id": "role:user:hr.manager@example.com",
+  "cat": "role",
+  "name": "demo user hr.manager@example.com (HR Manager, HR User, Employee)",
+  "label_ar": "مديرة الموارد البشرية",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py"
+ },
+ {
+  "id": "role:user:hr.user@example.com",
+  "cat": "role",
+  "name": "demo user hr.user@example.com (HR User, Employee)",
+  "label_ar": "أخصائي التوظيف",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py"
+ },
+ {
+  "id": "role:user:employee@example.com",
+  "cat": "role",
+  "name": "demo user employee@example.com (Employee)",
+  "label_ar": "موظف بدون صلاحيات توظيف",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py"
+ },
+ {
+  "id": "role:user:interviewer@example.com",
+  "cat": "role",
+  "name": "demo user interviewer@example.com (Interviewer, Employee)",
+  "label_ar": "مقابِل من قسم العمليات",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py"
+ },
+ {
+  "id": "role:user:ess@example.com",
+  "cat": "role",
+  "name": "demo user ess@example.com (Employee Self Service)",
+  "label_ar": "موظف خدمة ذاتية",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py"
+ },
+ {
+  "id": "role:user:sysmanager@example.com",
+  "cat": "role",
+  "name": "demo user sysmanager@example.com (System Manager)",
+  "label_ar": "مدير النظام",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py"
+ },
+ {
+  "id": "role:user:portal.applicant@example.com",
+  "cat": "role",
+  "name": "demo user portal.applicant@example.com (Website User)",
+  "label_ar": "متقدم بحساب على الموقع",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py"
+ },
+ {
+  "id": "role:Administrator",
+  "cat": "role",
+  "name": "role Administrator",
+  "label_ar": "",
+  "source": "tools/ui/full_test.py"
+ },
+ {
+  "id": "role:Interviewer",
+  "cat": "role",
+  "name": "role Interviewer",
+  "label_ar": "",
+  "source": "tools/ui/full_test.py"
+ },
+ {
+  "id": "role:Employee",
+  "cat": "role",
+  "name": "role Employee",
+  "label_ar": "",
+  "source": "tools/ui/full_test.py"
+ },
+ {
+  "id": "role:Employee Self Service",
+  "cat": "role",
+  "name": "role Employee Self Service",
+  "label_ar": "",
+  "source": "tools/ui/full_test.py"
+ },
+ {
+  "id": "role:Guest",
+  "cat": "role",
+  "name": "role Guest",
+  "label_ar": "",
+  "source": "tools/ui/full_test.py"
+ },
+ {
+  "id": "role:Website User",
+  "cat": "role",
+  "name": "role Website User",
+  "label_ar": "",
+  "source": "tools/ui/full_test.py"
+ },
+ {
+  "id": "command:make:builder-check",
+  "cat": "command",
+  "name": "make builder-check",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:10"
+ },
+ {
+  "id": "command:make:build",
+  "cat": "command",
+  "name": "make build",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:11"
+ },
+ {
+  "id": "command:make:env",
+  "cat": "command",
+  "name": "make env",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:17"
+ },
+ {
+  "id": "command:make:install",
+  "cat": "command",
+  "name": "make install",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:20"
+ },
+ {
+  "id": "command:make:test",
+  "cat": "command",
+  "name": "make test",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:23"
+ },
+ {
+  "id": "command:make:lint",
+  "cat": "command",
+  "name": "make lint",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:26"
+ },
+ {
+  "id": "command:make:fmt",
+  "cat": "command",
+  "name": "make fmt",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:29"
+ },
+ {
+  "id": "command:make:typecheck",
+  "cat": "command",
+  "name": "make typecheck",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:32"
+ },
+ {
+  "id": "command:make:up",
+  "cat": "command",
+  "name": "make up",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:37"
+ },
+ {
+  "id": "command:make:down",
+  "cat": "command",
+  "name": "make down",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:40"
+ },
+ {
+  "id": "command:make:logs",
+  "cat": "command",
+  "name": "make logs",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:43"
+ },
+ {
+  "id": "command:make:llm-logs",
+  "cat": "command",
+  "name": "make llm-logs",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:46"
+ },
+ {
+  "id": "command:make:gpu",
+  "cat": "command",
+  "name": "make gpu",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:49"
+ },
+ {
+  "id": "command:make:ps",
+  "cat": "command",
+  "name": "make ps",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:52"
+ },
+ {
+  "id": "command:make:migrate",
+  "cat": "command",
+  "name": "make migrate",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:55"
+ },
+ {
+  "id": "command:make:revision",
+  "cat": "command",
+  "name": "make revision",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:58"
+ },
+ {
+  "id": "command:make:seed",
+  "cat": "command",
+  "name": "make seed",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:61"
+ },
+ {
+  "id": "command:make:cvs",
+  "cat": "command",
+  "name": "make cvs",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:64"
+ },
+ {
+  "id": "command:make:receiver",
+  "cat": "command",
+  "name": "make receiver",
+  "label_ar": "",
+  "source": "talent-engine/Makefile:67"
+ },
+ {
+  "id": "command:script:talent-engine/scripts/callback_receiver.py",
+  "cat": "command",
+  "name": "talent-engine/scripts/callback_receiver.py",
+  "label_ar": "",
+  "source": "talent-engine/scripts/callback_receiver.py"
+ },
+ {
+  "id": "command:script:talent-engine/scripts/cv_texts.py",
+  "cat": "command",
+  "name": "talent-engine/scripts/cv_texts.py",
+  "label_ar": "",
+  "source": "talent-engine/scripts/cv_texts.py"
+ },
+ {
+  "id": "command:script:talent-engine/scripts/init_env.py",
+  "cat": "command",
+  "name": "talent-engine/scripts/init_env.py",
+  "label_ar": "",
+  "source": "talent-engine/scripts/init_env.py"
+ },
+ {
+  "id": "command:script:talent-engine/scripts/make_cvs.py",
+  "cat": "command",
+  "name": "talent-engine/scripts/make_cvs.py",
+  "label_ar": "",
+  "source": "talent-engine/scripts/make_cvs.py"
+ },
+ {
+  "id": "command:script:talent-engine/scripts/seed.py",
+  "cat": "command",
+  "name": "talent-engine/scripts/seed.py",
+  "label_ar": "",
+  "source": "talent-engine/scripts/seed.py"
+ },
+ {
+  "id": "command:script:talent-engine/scripts/seed_data.py",
+  "cat": "command",
+  "name": "talent-engine/scripts/seed_data.py",
+  "label_ar": "",
+  "source": "talent-engine/scripts/seed_data.py"
+ },
+ {
+  "id": "command:script:talent-engine/scripts/compose.sh",
+  "cat": "command",
+  "name": "talent-engine/scripts/compose.sh",
+  "label_ar": "",
+  "source": "talent-engine/scripts/compose.sh"
+ },
+ {
+  "id": "command:script:dev-frappe/clean_install.sh",
+  "cat": "command",
+  "name": "dev-frappe/clean_install.sh",
+  "label_ar": "",
+  "source": "dev-frappe/clean_install.sh"
+ },
+ {
+  "id": "command:script:dev-frappe/init_env.sh",
+  "cat": "command",
+  "name": "dev-frappe/init_env.sh",
+  "label_ar": "",
+  "source": "dev-frappe/init_env.sh"
+ },
+ {
+  "id": "command:script:dev-frappe/reset_demo.sh",
+  "cat": "command",
+  "name": "dev-frappe/reset_demo.sh",
+  "label_ar": "",
+  "source": "dev-frappe/reset_demo.sh"
+ },
+ {
+  "id": "command:script:dev-frappe/setup.sh",
+  "cat": "command",
+  "name": "dev-frappe/setup.sh",
+  "label_ar": "",
+  "source": "dev-frappe/setup.sh"
+ },
+ {
+  "id": "command:script:dev-frappe/start.sh",
+  "cat": "command",
+  "name": "dev-frappe/start.sh",
+  "label_ar": "",
+  "source": "dev-frappe/start.sh"
+ },
+ {
+  "id": "command:script:tools/ui/acceptance.py",
+  "cat": "command",
+  "name": "tools/ui/acceptance.py",
+  "label_ar": "",
+  "source": "tools/ui/acceptance.py"
+ },
+ {
+  "id": "command:script:tools/ui/apply_via_form.py",
+  "cat": "command",
+  "name": "tools/ui/apply_via_form.py",
+  "label_ar": "",
+  "source": "tools/ui/apply_via_form.py"
+ },
+ {
+  "id": "command:script:tools/ui/design_audit.py",
+  "cat": "command",
+  "name": "tools/ui/design_audit.py",
+  "label_ar": "",
+  "source": "tools/ui/design_audit.py"
+ },
+ {
+  "id": "command:script:tools/ui/design_pairs.py",
+  "cat": "command",
+  "name": "tools/ui/design_pairs.py",
+  "label_ar": "",
+  "source": "tools/ui/design_pairs.py"
+ },
+ {
+  "id": "command:script:tools/ui/desk_shots.py",
+  "cat": "command",
+  "name": "tools/ui/desk_shots.py",
+  "label_ar": "",
+  "source": "tools/ui/desk_shots.py"
+ },
+ {
+  "id": "command:script:tools/ui/frappe_ui.py",
+  "cat": "command",
+  "name": "tools/ui/frappe_ui.py",
+  "label_ar": "",
+  "source": "tools/ui/frappe_ui.py"
+ },
+ {
+  "id": "command:script:tools/ui/full_test.py",
+  "cat": "command",
+  "name": "tools/ui/full_test.py",
+  "label_ar": "",
+  "source": "tools/ui/full_test.py"
+ },
+ {
+  "id": "command:script:tools/ui/pw.py",
+  "cat": "command",
+  "name": "tools/ui/pw.py",
+  "label_ar": "",
+  "source": "tools/ui/pw.py"
+ },
+ {
+  "id": "command:script:tools/ui/test_report.py",
+  "cat": "command",
+  "name": "tools/ui/test_report.py",
+  "label_ar": "",
+  "source": "tools/ui/test_report.py"
+ },
+ {
+  "id": "command:script:tools/ui/walkthrough_shots.py",
+  "cat": "command",
+  "name": "tools/ui/walkthrough_shots.py",
+  "label_ar": "",
+  "source": "tools/ui/walkthrough_shots.py"
+ },
+ {
+  "id": "command:script:tools/guide/build.py",
+  "cat": "command",
+  "name": "tools/guide/build.py",
+  "label_ar": "",
+  "source": "tools/guide/build.py"
+ },
+ {
+  "id": "command:script:tools/guide/ch_appendix.py",
+  "cat": "command",
+  "name": "tools/guide/ch_appendix.py",
+  "label_ar": "",
+  "source": "tools/guide/ch_appendix.py"
+ },
+ {
+  "id": "command:script:tools/guide/ch_cases.py",
+  "cat": "command",
+  "name": "tools/guide/ch_cases.py",
+  "label_ar": "",
+  "source": "tools/guide/ch_cases.py"
+ },
+ {
+  "id": "command:script:tools/guide/ch_intro.py",
+  "cat": "command",
+  "name": "tools/guide/ch_intro.py",
+  "label_ar": "",
+  "source": "tools/guide/ch_intro.py"
+ },
+ {
+  "id": "command:script:tools/guide/ch_journey.py",
+  "cat": "command",
+  "name": "tools/guide/ch_journey.py",
+  "label_ar": "",
+  "source": "tools/guide/ch_journey.py"
+ },
+ {
+  "id": "command:script:tools/guide/ch_rest.py",
+  "cat": "command",
+  "name": "tools/guide/ch_rest.py",
+  "label_ar": "",
+  "source": "tools/guide/ch_rest.py"
+ },
+ {
+  "id": "command:script:tools/guide/ch_score.py",
+  "cat": "command",
+  "name": "tools/guide/ch_score.py",
+  "label_ar": "",
+  "source": "tools/guide/ch_score.py"
+ },
+ {
+  "id": "command:script:tools/guide/ch_stages.py",
+  "cat": "command",
+  "name": "tools/guide/ch_stages.py",
+  "label_ar": "",
+  "source": "tools/guide/ch_stages.py"
+ },
+ {
+  "id": "command:script:tools/guide/coverage.py",
+  "cat": "command",
+  "name": "tools/guide/coverage.py",
+  "label_ar": "",
+  "source": "tools/guide/coverage.py"
+ },
+ {
+  "id": "command:script:tools/guide/coverage_check.py",
+  "cat": "command",
+  "name": "tools/guide/coverage_check.py",
+  "label_ar": "",
+  "source": "tools/guide/coverage_check.py"
+ },
+ {
+  "id": "command:script:tools/guide/docshots.py",
+  "cat": "command",
+  "name": "tools/guide/docshots.py",
+  "label_ar": "",
+  "source": "tools/guide/docshots.py"
+ },
+ {
+  "id": "command:script:tools/guide/explain.py",
+  "cat": "command",
+  "name": "tools/guide/explain.py",
+  "label_ar": "",
+  "source": "tools/guide/explain.py"
+ },
+ {
+  "id": "command:script:tools/guide/facts.py",
+  "cat": "command",
+  "name": "tools/guide/facts.py",
+  "label_ar": "",
+  "source": "tools/guide/facts.py"
+ },
+ {
+  "id": "command:script:tools/guide/inv.py",
+  "cat": "command",
+  "name": "tools/guide/inv.py",
+  "label_ar": "",
+  "source": "tools/guide/inv.py"
+ },
+ {
+  "id": "command:script:tools/guide/inventory.py",
+  "cat": "command",
+  "name": "tools/guide/inventory.py",
+  "label_ar": "",
+  "source": "tools/guide/inventory.py"
+ },
+ {
+  "id": "command:script:tools/guide/layout.py",
+  "cat": "command",
+  "name": "tools/guide/layout.py",
+  "label_ar": "",
+  "source": "tools/guide/layout.py"
+ },
+ {
+  "id": "command:script:tools/guide/lint_ar.py",
+  "cat": "command",
+  "name": "tools/guide/lint_ar.py",
+  "label_ar": "",
+  "source": "tools/guide/lint_ar.py"
+ },
+ {
+  "id": "command:script:tools/guide/model.py",
+  "cat": "command",
+  "name": "tools/guide/model.py",
+  "label_ar": "",
+  "source": "tools/guide/model.py"
+ },
+ {
+  "id": "command:script:tools/guide/render_docx.py",
+  "cat": "command",
+  "name": "tools/guide/render_docx.py",
+  "label_ar": "",
+  "source": "tools/guide/render_docx.py"
+ },
+ {
+  "id": "command:script:tools/guide/render_html.py",
+  "cat": "command",
+  "name": "tools/guide/render_html.py",
+  "label_ar": "",
+  "source": "tools/guide/render_html.py"
+ },
+ {
+  "id": "command:script:tools/guide/shots.py",
+  "cat": "command",
+  "name": "tools/guide/shots.py",
+  "label_ar": "",
+  "source": "tools/guide/shots.py"
+ },
+ {
+  "id": "command:script:ido_talent_ai/ido_talent_ai/scripts/seed_demo.py",
+  "cat": "command",
+  "name": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/seed_demo.py"
+ },
+ {
+  "id": "command:script:ido_talent_ai/ido_talent_ai/scripts/submit_demo_applications.py",
+  "cat": "command",
+  "name": "ido_talent_ai/ido_talent_ai/scripts/submit_demo_applications.py",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/scripts/submit_demo_applications.py"
+ },
+ {
+  "id": "command:script:talent-engine/eval/bench.py",
+  "cat": "command",
+  "name": "talent-engine/eval/bench.py",
+  "label_ar": "",
+  "source": "talent-engine/eval/bench.py"
+ },
+ {
+  "id": "command:script:talent-engine/eval/make_gold.py",
+  "cat": "command",
+  "name": "talent-engine/eval/make_gold.py",
+  "label_ar": "",
+  "source": "talent-engine/eval/make_gold.py"
+ },
+ {
+  "id": "command:script:talent-engine/eval/run.py",
+  "cat": "command",
+  "name": "talent-engine/eval/run.py",
+  "label_ar": "",
+  "source": "talent-engine/eval/run.py"
+ },
+ {
+  "id": "command:bench:bench get-app",
+  "cat": "command",
+  "name": "bench get-app",
+  "label_ar": "",
+  "source": "docs/DEPLOY.md"
+ },
+ {
+  "id": "command:bench:bench --site <site> install-app ido_talent_ai",
+  "cat": "command",
+  "name": "bench --site <site> install-app ido_talent_ai",
+  "label_ar": "",
+  "source": "docs/DEPLOY.md"
+ },
+ {
+  "id": "command:bench:bench --site <site> migrate",
+  "cat": "command",
+  "name": "bench --site <site> migrate",
+  "label_ar": "",
+  "source": "docs/DEPLOY.md"
+ },
+ {
+  "id": "command:bench:bench --site <site> run-tests --app ido_talent_ai",
+  "cat": "command",
+  "name": "bench --site <site> run-tests --app ido_talent_ai",
+  "label_ar": "",
+  "source": "docs/DEPLOY.md"
+ },
+ {
+  "id": "command:bench:bench --site <site> uninstall-app ido_talent_ai",
+  "cat": "command",
+  "name": "bench --site <site> uninstall-app ido_talent_ai",
+  "label_ar": "",
+  "source": "docs/DEPLOY.md"
+ },
+ {
+  "id": "decision:claude:1",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 1: Application-form answers are the primary data source.",
+  "label_ar": "",
+  "source": "CLAUDE.md:22"
+ },
+ {
+  "id": "decision:claude:2",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 2: Weights are percentages that must total 100%.",
+  "label_ar": "",
+  "source": "CLAUDE.md:23"
+ },
+ {
+  "id": "decision:claude:3",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 3: Hard eligibility rules",
+  "label_ar": "",
+  "source": "CLAUDE.md:24"
+ },
+ {
+  "id": "decision:claude:4",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 4: Redaction happens before any LLM step.",
+  "label_ar": "",
+  "source": "CLAUDE.md:25"
+ },
+ {
+  "id": "decision:claude:5",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 5: Every judgement needs evidence",
+  "label_ar": "",
+  "source": "CLAUDE.md:26"
+ },
+ {
+  "id": "decision:claude:6",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 6: The LLM judges, code computes.",
+  "label_ar": "",
+  "source": "CLAUDE.md:27"
+ },
+ {
+  "id": "decision:claude:7",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 7: AI never changes an applicant's status.",
+  "label_ar": "",
+  "source": "CLAUDE.md:28"
+ },
+ {
+  "id": "decision:claude:8",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 8: AI provider is configurable (local | cloud)",
+  "label_ar": "",
+  "source": "CLAUDE.md:29"
+ },
+ {
+  "id": "decision:claude:9",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 9: OCR is an off-the-shelf tool (PaddleOCR), not trained.",
+  "label_ar": "",
+  "source": "CLAUDE.md:30"
+ },
+ {
+  "id": "decision:claude:10",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 10: Names follow the client's requirements document",
+  "label_ar": "",
+  "source": "CLAUDE.md:31"
+ },
+ {
+  "id": "decision:claude:11",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 11: Scope.",
+  "label_ar": "",
+  "source": "CLAUDE.md:32"
+ },
+ {
+  "id": "decision:claude:12",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 12: The client's 8 acceptance criteria",
+  "label_ar": "",
+  "source": "CLAUDE.md:33"
+ },
+ {
+  "id": "decision:claude:13",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 13: The engine owns the AI/OCR provider settings",
+  "label_ar": "",
+  "source": "CLAUDE.md:34"
+ },
+ {
+  "id": "decision:claude:14",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 14: An unreadable CV never fails a screening",
+  "label_ar": "",
+  "source": "CLAUDE.md:35"
+ },
+ {
+  "id": "decision:claude:15",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 15: Time",
+  "label_ar": "",
+  "source": "CLAUDE.md:36"
+ },
+ {
+  "id": "decision:claude:16",
+  "cat": "decision",
+  "name": "CLAUDE.md decision 16: Web form",
+  "label_ar": "",
+  "source": "CLAUDE.md:37"
+ },
+ {
+  "id": "decision:progress:Redaction keeps line breaks",
+  "cat": "decision",
+  "name": "PROGRESS.md (Phase 5 (continued) — CV analysis in…): Redaction keeps line breaks",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:13"
+ },
+ {
+  "id": "decision:progress:Layout in display pixels",
+  "cat": "decision",
+  "name": "PROGRESS.md (Phase 5 (continued) — CV analysis in…): Layout in display pixels",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:14"
+ },
+ {
+  "id": "decision:progress:Embeddings on CPU in a separate service",
+  "cat": "decision",
+  "name": "PROGRESS.md (Phase 8 — talent pool (feature 13)…): Embeddings on CPU in a separate service",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:75"
+ },
+ {
+  "id": "decision:progress:What is embedded",
+  "cat": "decision",
+  "name": "PROGRESS.md (Phase 8 — talent pool (feature 13)…): What is embedded",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:76"
+ },
+ {
+  "id": "decision:progress:One suggestion per person",
+  "cat": "decision",
+  "name": "PROGRESS.md (Phase 8 — talent pool (feature 13)…): One suggestion per person",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:77"
+ },
+ {
+  "id": "decision:progress:Suggestions are filtered to the host's own applicants",
+  "cat": "decision",
+  "name": "PROGRESS.md (Phase 8 — talent pool (feature 13)…): Suggestions are filtered to the host's own applicants",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:78"
+ },
+ {
+  "id": "decision:progress:Old-application demo case",
+  "cat": "decision",
+  "name": "PROGRESS.md (Phase 8 — talent pool (feature 13)…): Old-application demo case",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:79"
+ },
+ {
+  "id": "decision:progress:No change to HRMS templates",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): No change to HRMS templates",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:100"
+ },
+ {
+  "id": "decision:progress:Fonts bundled in the app",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): Fonts bundled in the app",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:101"
+ },
+ {
+  "id": "decision:progress:English stage notes are stored next to the Arabic ones",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): English stage notes are stored next to the Arabic ones",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:102"
+ },
+ {
+  "id": "decision:progress:Synthetic Employee records for the demo users",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): Synthetic Employee records for the demo users",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:111"
+ },
+ {
+  "id": "decision:progress:A CV problem never fails a screening",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): A CV problem never fails a screening",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:112"
+ },
+ {
+  "id": "decision:progress:«إعادة تقييم الكل» skips applicants without consent",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): \"إعادة تقييم الكل\" skips applicants without consent",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:113"
+ },
+ {
+  "id": "decision:progress:Screenshots cut to the part the page explains",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): Screenshots cut to the part the page explains",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:124"
+ },
+ {
+  "id": "decision:progress:Page numbers read from the printed PDF",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): Page numbers read from the printed PDF",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:125"
+ },
+ {
+  "id": "decision:progress:The Word file is checked through LibreOffice",
+  "cat": "decision",
+  "name": "PROGRESS.md (Round 2 — completion, design pass, full…): The Word file is checked through LibreOffice",
+  "label_ar": "",
+  "source": "docs/PROGRESS.md:126"
+ },
+ {
+  "id": "decision:open:1",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #1: Production HRMS commit on the `develop` branch (the demo runs 17.0.0-dev). Our dev bench p",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:7"
+ },
+ {
+  "id": "decision:open:2",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #2: Background **workers** on the production site: `frappe.enqueue` (queue `long`) needs RQ wo",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:8"
+ },
+ {
+  "id": "decision:open:3",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #3: How much GPU memory does the Luna stack (`remote-sdk`, `video-agent`, user awais) need whe",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:9"
+ },
+ {
+  "id": "decision:open:4",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #4: Where is this GPU server physically (inside KSA or not)? Decides whether real CVs may ever",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:10"
+ },
+ {
+  "id": "decision:open:6",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #6: Exact hard-rule values per role (nationality, height, weight, age range) and whether they ",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:11"
+ },
+ {
+  "id": "decision:open:7",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #7: Consent text (Arabic) for the application form, and the retention period for applicants' d",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:12"
+ },
+ {
+  "id": "decision:open:8",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #8: Dedicated API user / key on the client site for the engine callback, with minimum permissi",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:13"
+ },
+ {
+  "id": "decision:open:9",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #9: Production time zone (demo runs Africa/Cairo; our dev site uses Asia/Riyadh)",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:14"
+ },
+ {
+  "id": "decision:open:13",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #13: The phase-4 accuracy (98% exact levels) is measured on **synthetic** applicants. Real accu",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:15"
+ },
+ {
+  "id": "decision:open:15",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #15: MariaDB 11.8 runs with `innodb_snapshot_isolation=ON`: concurrent writers get error 1020 i",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:16"
+ },
+ {
+  "id": "decision:open:16",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #16: Public form rate limit: 20 applications per IP per 10 minutes (site config `talent_ai_appl",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:17"
+ },
+ {
+  "id": "decision:open:17",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #17: Arabic for HRMS's own labels: HRMS develop ships `ar.po` with many empty strings. Round 2 ",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:18"
+ },
+ {
+  "id": "decision:open:18",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #18: The demo's form also has \"الصورة الشخصية\" and \"الشهادات\". Not built: the requirement list ",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:19"
+ },
+ {
+  "id": "decision:open:20",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #20: Applications entered by HR in the desk (paper forms) have no consent record, so the AI doe",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:20"
+ },
+ {
+  "id": "decision:open:21",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #21: After a new profile version, an applicant who withdrew consent keeps the old result, now \"",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:21"
+ },
+ {
+  "id": "decision:open:A1",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A1: What happens with a corrupt or unreadable CV?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:29"
+ },
+ {
+  "id": "decision:open:A2",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A2: Does a client-specific web form (`job-application-ksa`) exist?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:30"
+ },
+ {
+  "id": "decision:open:A3",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A3: Separate console port?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:31"
+ },
+ {
+  "id": "decision:open:A4",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A4: Who owns the AI/OCR provider settings?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:32"
+ },
+ {
+  "id": "decision:open:A5",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A5: Is the national ID sent to the engine?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:33"
+ },
+ {
+  "id": "decision:open:A6",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A6: Time zones",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:34"
+ },
+ {
+  "id": "decision:open:A7",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A7: GPU cap and ports",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:35"
+ },
+ {
+  "id": "decision:open:Q5",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #Q5: CV upload for Guests on the application form",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:36"
+ },
+ {
+  "id": "decision:open:Q10",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #Q10: RQ worker overhead",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:37"
+ },
+ {
+  "id": "decision:open:Q11",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #Q11: OCR confidence threshold",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:38"
+ },
+ {
+  "id": "decision:open:Q12",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #Q12: Judge quality of Qwen3-8B-AWQ",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:39"
+ },
+ {
+  "id": "decision:open:Q14",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #Q14: Commit the dev bench scripts?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:40"
+ },
+ {
+  "id": "decision:open:Q19",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #Q19: Enforce a reason for every status change?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:41"
+ },
+ {
+  "id": "decision:open:A8",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A8: Which Docker builder may we use?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:42"
+ },
+ {
+  "id": "decision:open:A9",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #A9: Frappe MariaDB in memory?",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:43"
+ },
+ {
+  "id": "evaluation:run:8B v1",
+  "cat": "evaluation",
+  "name": "gold-set run 8B v1",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:11"
+ },
+ {
+  "id": "evaluation:run:8B v2",
+  "cat": "evaluation",
+  "name": "gold-set run 8B v2",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:12"
+ },
+ {
+  "id": "evaluation:run:4B v1",
+  "cat": "evaluation",
+  "name": "gold-set run 4B v1",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:13"
+ },
+ {
+  "id": "evaluation:throughput:2",
+  "cat": "evaluation",
+  "name": "throughput with 2 workers (13.4 min per 100)",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:24"
+ },
+ {
+  "id": "evaluation:throughput:4",
+  "cat": "evaluation",
+  "name": "throughput with 4 workers (7.8 min per 100)",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:25"
+ },
+ {
+  "id": "evaluation:throughput:8",
+  "cat": "evaluation",
+  "name": "throughput with 8 workers (5.4 min per 100)",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:26"
+ },
+ {
+  "id": "evaluation:rerun",
+  "cat": "evaluation",
+  "name": "evaluation: rerun",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:15"
+ },
+ {
+  "id": "evaluation:name-swap",
+  "cat": "evaluation",
+  "name": "evaluation: name-swap",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:15"
+ },
+ {
+  "id": "evaluation:ocr-threshold",
+  "cat": "evaluation",
+  "name": "evaluation: ocr-threshold",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:39"
+ },
+ {
+  "id": "evaluation:quote-ratio",
+  "cat": "evaluation",
+  "name": "evaluation: quote-ratio",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:40"
+ },
+ {
+  "id": "security:hmac-callback",
+  "cat": "security",
+  "name": "engine → Frappe results signed with HMAC-SHA256 (timestamp + body)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:196"
+ },
+ {
+  "id": "security:api-key",
+  "cat": "security",
+  "name": "Bearer API key per tenant on every /v1 call; key never in browser code",
+  "label_ar": "",
+  "source": "talent-engine/app/api/deps.py:1"
+ },
+ {
+  "id": "security:console-cookie",
+  "cat": "security",
+  "name": "console login with a signed HttpOnly cookie (12 h)",
+  "label_ar": "",
+  "source": "talent-engine/app/console/auth.py:1"
+ },
+ {
+  "id": "security:ports",
+  "cat": "security",
+  "name": "ports bound to 127.0.0.1 and the Tailscale address only; DB/Redis on 127.0.0.1",
+  "label_ar": "",
+  "source": "talent-engine/docker-compose.yml:1"
+ },
+ {
+  "id": "security:redaction",
+  "cat": "security",
+  "name": "redaction before any LLM step (name, phone, e-mail, ID, dob, nationality, gender, address)",
+  "label_ar": "",
+  "source": "talent-engine/app/pipeline/runner.py:1"
+ },
+ {
+  "id": "security:id-token",
+  "cat": "security",
+  "name": "raw national ID never leaves Frappe: id_token = HMAC-SHA256(national_id, secret)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/screening.py:1"
+ },
+ {
+  "id": "security:permlevel",
+  "cat": "security",
+  "name": "AI fields and identity at permission level 1 (HR roles only)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py:1"
+ },
+ {
+  "id": "security:require-hr",
+  "cat": "security",
+  "name": "every HR method refuses other users first (permanent test)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/utils.py:34"
+ },
+ {
+  "id": "security:rate-limit",
+  "cat": "security",
+  "name": "public form rate limit per IP",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:14"
+ },
+ {
+  "id": "security:upload-limit",
+  "cat": "security",
+  "name": "CV size limit 10 MB and allowed extensions",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:29"
+ },
+ {
+  "id": "security:consent",
+  "cat": "security",
+  "name": "consent recorded with its version; withdrawal stops processing and deletes the pool profile",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/api.py:550"
+ },
+ {
+  "id": "security:retention",
+  "cat": "security",
+  "name": "retention period for the talent pool",
+  "label_ar": "",
+  "source": "talent-engine/app/services/talent_pool.py:1"
+ },
+ {
+  "id": "security:audit",
+  "cat": "security",
+  "name": "every AI action and HR decision in the audit log (with reason and actor)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/utils.py:39"
+ },
+ {
+  "id": "security:secrets",
+  "cat": "security",
+  "name": "secrets in Password fields and .env files, never in git, logs, the guide or images",
+  "label_ar": "",
+  "source": "dev-frappe/.gitignore:1"
+ },
+ {
+  "id": "security:local-fonts",
+  "cat": "security",
+  "name": "no third-party calls from the screens (fonts served locally)",
+  "label_ar": "",
+  "source": "talent-engine/console/static/app.css:1"
+ },
+ {
+  "id": "security:static-traversal",
+  "cat": "security",
+  "name": "console static files: path traversal refused",
+  "label_ar": "",
+  "source": "talent-engine/app/api/routers/console.py:99"
+ },
+ {
+  "id": "security:xss",
+  "cat": "security",
+  "name": "every applicant text escaped before display",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:10"
+ },
+ {
+  "id": "security:no-sensitive-facts",
+  "cat": "security",
+  "name": "the LLM never sees nationality, gender, age, name, photo or IDs",
+  "label_ar": "",
+  "source": "talent-engine/app/pipeline/runner.py:1"
+ },
+ {
+  "id": "security:erase",
+  "cat": "security",
+  "name": "deleting an applicant de-identifies the audit rows",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/screening.py:618"
+ },
+ {
+  "id": "architecture:service:db",
+  "cat": "architecture",
+  "name": "engine service db (compose project talentai)",
+  "label_ar": "",
+  "source": "talent-engine/docker-compose.yml:21"
+ },
+ {
+  "id": "architecture:service:redis",
+  "cat": "architecture",
+  "name": "engine service redis (compose project talentai)",
+  "label_ar": "",
+  "source": "talent-engine/docker-compose.yml:38"
+ },
+ {
+  "id": "architecture:service:api",
+  "cat": "architecture",
+  "name": "engine service api (compose project talentai)",
+  "label_ar": "",
+  "source": "talent-engine/docker-compose.yml:53"
+ },
+ {
+  "id": "architecture:service:worker",
+  "cat": "architecture",
+  "name": "engine service worker (compose project talentai)",
+  "label_ar": "",
+  "source": "talent-engine/docker-compose.yml:71"
+ },
+ {
+  "id": "architecture:service:vllm",
+  "cat": "architecture",
+  "name": "engine service vllm (compose project talentai)",
+  "label_ar": "",
+  "source": "talent-engine/docker-compose.yml:80"
+ },
+ {
+  "id": "architecture:service:embed",
+  "cat": "architecture",
+  "name": "engine service embed (compose project talentai)",
+  "label_ar": "",
+  "source": "talent-engine/docker-compose.yml:124"
+ },
+ {
+  "id": "architecture:dev-service:mariadb",
+  "cat": "architecture",
+  "name": "dev bench service mariadb (compose project talentai-frappe)",
+  "label_ar": "",
+  "source": "dev-frappe/docker-compose.yml:7"
+ },
+ {
+  "id": "architecture:dev-service:redis-cache",
+  "cat": "architecture",
+  "name": "dev bench service redis-cache (compose project talentai-frappe)",
+  "label_ar": "",
+  "source": "dev-frappe/docker-compose.yml:33"
+ },
+ {
+  "id": "architecture:dev-service:redis-queue",
+  "cat": "architecture",
+  "name": "dev bench service redis-queue (compose project talentai-frappe)",
+  "label_ar": "",
+  "source": "dev-frappe/docker-compose.yml:35"
+ },
+ {
+  "id": "architecture:dev-service:bench",
+  "cat": "architecture",
+  "name": "dev bench service bench (compose project talentai-frappe)",
+  "label_ar": "",
+  "source": "dev-frappe/docker-compose.yml:40"
+ },
+ {
+  "id": "architecture:repo:talent-ai",
+  "cat": "architecture",
+  "name": "repository talent-ai (workspace, docs, engine, dev bench scripts)",
+  "label_ar": "",
+  "source": "CLAUDE.md"
+ },
+ {
+  "id": "architecture:repo:ido_talent_ai",
+  "cat": "architecture",
+  "name": "repository ido_talent_ai (Frappe app, bench get-app)",
+  "label_ar": "",
+  "source": "CLAUDE.md"
+ },
+ {
+  "id": "architecture:install",
+  "cat": "architecture",
+  "name": "install on the platform: bench get-app → install-app → migrate → settings",
+  "label_ar": "",
+  "source": "docs/DEPLOY.md"
+ },
+ {
+  "id": "architecture:uninstall",
+  "cat": "architecture",
+  "name": "uninstall leaves the platform as it was (custom fields and permission rows removed)",
+  "label_ar": "",
+  "source": "ido_talent_ai/ido_talent_ai/setup/install.py"
+ },
+ {
+  "id": "architecture:adapter",
+  "cat": "architecture",
+  "name": "the engine is standalone; Frappe is the first adapter (HTTP + HMAC callback)",
+  "label_ar": "",
+  "source": "docs/ARCHITECTURE.md"
+ },
+ {
+  "id": "architecture:tenant",
+  "cat": "architecture",
+  "name": "one tenant per host system (API key)",
+  "label_ar": "",
+  "source": "docs/ARCHITECTURE.md"
+ },
+ {
+  "id": "architecture:gpu-cap",
+  "cat": "architecture",
+  "name": "vLLM capped at 40% of the shared GPU",
+  "label_ar": "",
+  "source": "docs/SERVER_REPORT.md"
+ },
+ {
+  "id": "architecture:in-memory-db",
+  "cat": "architecture",
+  "name": "the dev Frappe database runs in memory, for testing only",
+  "label_ar": "",
+  "source": "docs/DEPLOY.md"
+ },
+ {
+  "id": "architecture:builder",
+  "cat": "architecture",
+  "name": "Docker images built with the default builder only",
+  "label_ar": "",
+  "source": "talent-engine/Makefile"
+ }
+]

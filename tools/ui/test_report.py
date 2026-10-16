@@ -40,6 +40,8 @@ BUGS = [
     ("F2", "Re-score all (found by the full test, K14)", "«إعادة تقييم الكل» stopped at the first applicant who had withdrawn consent: queue_screening raised and every applicant after him stayed «قديم» (19 of 36 after the new profile version).",
      "Applicants without consent are skipped and counted; one applicant's error never stops the others; the ranking page says how many were skipped.",
      "Frappe `test_withdrawn_consent_stops_processing` (extended; fails without the fix); browser K14"),
+    ("G1", "Job Opening (found while taking the guide screenshots)", "The Talent AI section of the opening sat inside the «تفاصيل الراتب» (Pay Details) tab: the custom fields were inserted after «description», which HRMS v16 follows with that tab.",
+     "The section is inserted after the application web form route, in the main tab next to the publishing settings.", "Frappe `test_ai_section_is_on_the_main_tab_of_the_opening`"),
     ("D1", "Design", "Grey text at 4.13:1 (below WCAG AA 4.5:1) on every screen.", "Darker greys (#56627c) and darker chip text.", "Design audit (low-contrast count)"),
     ("D2", "Design", "Text at 10–11 px (cycle map, sidebar, help texts, KPI labels, code).", "Nothing under 12 px.", "Design audit (small-font count)"),
     ("D3", "Design", "Console ranking: the reference «HR-APP-…» was cut and ran under the score at 1366 px.", "The name column wraps; narrower bar under 1440 px.", "Design audit 1366/1440"),
@@ -258,14 +260,34 @@ def main() -> None:
     w("| Decision (CLAUDE.md) | Checked by |\n|---|---|")
     for k, v in dec.items():
         w(f"| {k} | {v} |")
-    w("\nDecisions taken alone (docs/PROGRESS.md) are checked by the screen or test they describe: embeddings and the talent pool by K12; one suggestion per person and the host filter by K12; redaction keeps line breaks and layout in display pixels by C01–C04; fonts bundled by the engine test `test_fonts_are_served_locally`; no change to HRMS templates by the design audit of the public pages; English stage notes by the console screens N01; the old-application demo case by K12 (retention ended).\n")
+    w("\nDecisions taken alone (docs/PROGRESS.md) are checked by the screen or test they describe: embeddings and the talent pool by K12; one suggestion per person and the host filter by K12; redaction keeps line breaks and layout in display pixels by C01–C04; fonts bundled by the engine test `test_fonts_are_served_locally`; no change to HRMS templates by the design audit of the public pages; English stage notes by the console screens N01; the old-application demo case by K12 (retention ended); synthetic Employee records by R01–R09 (the Employee and self-service users hold their roles, `_employee_user` asserts it); a CV problem never fails a screening by C05 and the Frappe test `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail`; «إعادة تقييم الكل» skipping withdrawn consent by `test_withdrawn_consent_stops_processing`; the three guide decisions (screenshots cut to the part explained, page numbers from the printed PDF, the Word file checked through LibreOffice) by the page checks of §14.\n")
     w("Open questions (docs/OPEN_QUESTIONS.md) wait for an answer from the client or the Frappe team; until then the current behaviour is what is tested: #6 placeholder rules → K02; #7 consent and retention → K12, Frappe consent tests; #15 database conflicts → Frappe `test_application_is_always_saved`; #16 rate limit → `talent_ai_apply_limit` used by every application of this run; #17 translations → design audit; #18 photo not built → C01–C09; #20 HR-entered applications → not processed without consent (Frappe consent tests); #21 consent-withdrawn stale results → F2 and K14. #1–#4, #8, #9 and #13 are deployment or data questions with nothing to test on the local bench.\n")
     w("## 13. Evaluation results (phase 4, docs/EVALUATION_REPORT.md)\n")
     w("Gold set of 50 synthetic applicants: Qwen3-8B-AWQ with `judge-v1` — 98% exact levels, 100% within one step, 100% evidence for levels above 0, 100% eligibility, 100% expected flags; rerun and name-swap identical for 100%. "
       "`judge-v2` (Arabic) and Qwen3-4B-AWQ were weaker. Throughput: 100 applicants in 13.4 / 7.8 / 5.4 minutes with 2 / 4 / 8 workers, GPU memory never above 9.5 GB. "
       "OCR_MIN_CONFIDENCE stays 0.80 (C09 shows a bad scan at 0.79 going to «يحتاج مراجعة»); quotes are matched at a fuzzy ratio of 0.9 after Arabic normalisation.\n")
+    guide_check = os.path.join(DOCS, "test-run", "guide_check.json")
+    if os.path.exists(guide_check):
+        g = json.load(open(guide_check, encoding="utf-8"))
+        cov = g.get("coverage", {})
+        w("## 14. The guide (docs/guide/)\n")
+        w("`tools/guide/build.py` writes the PDF (Chrome `page.pdf`) and the Word file (python-docx, checked by converting it to PDF with LibreOffice), then checks every page of both: "
+          "no picture outside the page, no two text lines drawn over each other, nothing painted in the footer, no text at the paper edge, and every page of the chapters starting with its own title "
+          "(a page that starts with something else holds the tail of the previous one). `tools/guide/coverage_check.py` reads the routes, DocTypes, endpoints and commands from the code again and compares them with `docs/guide/COVERAGE.md`.\n")
+        w("| Check | PDF | Word |\n|---|---|---|")
+        w(f"| Pages | {g['pdf']['pages']} | {g.get('docx_as_pdf', {}).get('pages', '—')} |")
+        w(f"| Page problems | {len(g['pdf']['problems'])} | {len(g.get('docx_as_pdf', {}).get('problems', []))} |")
+        fld = g.get("docx_fields") or {}
+        word_fields = (f"{fld['fields'] - fld['without_number']} of {fld['fields']} page fields show their page; {len(fld['moved_after_pass_2'])} moved"
+                       if fld else "fields (PAGEREF)")
+        w(f"| Page numbers of the contents and the index | {'stable after the second print' if g.get('pages_stable') else 'NOT stable'} | {word_fields} |")
+        import sys as _sys
+
+        chk = subprocess.run([_sys.executable, os.path.join(ROOT, "tools", "guide", "coverage_check.py")], capture_output=True, text=True)
+        missing = (_re.search(r"MISSING: (\d+)", chk.stdout) or [None, "?"])[1]
+        w(f"\nInventory read from the code: **{cov.get('items')} items, {cov.get('complete')} with a guide page, a screenshot and a test** (`docs/guide/COVERAGE.md`); the independent check reports **MISSING: {missing}**.\n")
     if RUN.get("not_done"):
-        w("## 9. Not done, and why\n")
+        w("## 15. Not done, and why\n")
         for x in RUN["not_done"]:
             w(f"- {x}")
         w("")

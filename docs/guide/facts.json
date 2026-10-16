@@ -1,0 +1,4860 @@
+{
+ "ranking": {
+  "title": "مشرف أمن — الرياض",
+  "total": 25,
+  "ranked_total": 17,
+  "version": 1,
+  "groups": {
+   "not_eligible": 4,
+   "needs_review": 2,
+   "processing": 0,
+   "failed": 0,
+   "stale": 0,
+   "duplicate": 2
+  },
+  "top": [
+   {
+    "name": "فهد العتيبي",
+    "applicant": "applicant.2001@example.com",
+    "score": 100.0,
+    "band": "high",
+    "rank": 1,
+    "coverage": 1.0
+   },
+   {
+    "name": "راكان الغامدي",
+    "applicant": "applicant.2018@example.com",
+    "score": 100.0,
+    "band": "high",
+    "rank": 2,
+    "coverage": 1.0
+   },
+   {
+    "name": "Abdulaziz Al-Otaibi",
+    "applicant": "applicant.2022@example.com",
+    "score": 100.0,
+    "band": "high",
+    "rank": 3,
+    "coverage": 1.0
+   },
+   {
+    "name": "عبدالمجيد الرويلي",
+    "applicant": "applicant.2025@example.com",
+    "score": 93.0,
+    "band": "high",
+    "rank": 4,
+    "coverage": 1.0
+   },
+   {
+    "name": "بندر السبيعي",
+    "applicant": "applicant.2008@example.com",
+    "score": 92.5,
+    "band": "high",
+    "rank": 5,
+    "coverage": 1.0
+   },
+   {
+    "name": "خالد الدوسري",
+    "applicant": "applicant.2003@example.com",
+    "score": 89.0,
+    "band": "high",
+    "rank": 6,
+    "coverage": 1.0
+   }
+  ],
+  "low": [
+   {
+    "name": "حسن القرني",
+    "score": 47.5,
+    "band": "low",
+    "rank": 15
+   },
+   {
+    "name": "نايف الزهراني",
+    "score": 5.0,
+    "band": "low",
+    "rank": 16
+   },
+   {
+    "name": "Omar Al-Mutairi",
+    "score": 5.0,
+    "band": "low",
+    "rank": 17
+   }
+  ],
+  "not_eligible": [
+   {
+    "name": "سعد المالكي",
+    "reason": "غير مستوفٍ بحسب ما كتبه: الطول (سم): المصرّح به 172 سم — المطلوب 180 سم أو أكثر"
+   },
+   {
+    "name": "مازن الشهراني",
+    "reason": "غير مستوفٍ بحسب ما كتبه: الوزن (كجم): المصرّح به 92 كجم — المطلوب 80 كجم أو أقل"
+   },
+   {
+    "name": "أحمد حسن",
+    "reason": "غير مستوفٍ بحسب ما كتبه: الجنسية: المصرّح به مصر — المطلوب ضمن: السعودية"
+   },
+   {
+    "name": "وليد العنزي",
+    "reason": "غير مستوفٍ بحسب ما كتبه: العمر: المصرّح به 19 سنة — المطلوب 21 سنة أو أكثر"
+   }
+  ]
+ },
+ "example": {
+  "name": "سلطان الحربي",
+  "applicant": "applicant.2002@example.com",
+  "score": 81.5,
+  "band": "high",
+  "coverage": 1.0,
+  "rank": 7,
+  "ranked_total": 17,
+  "eligibility": "eligible",
+  "criteria": [
+   {
+    "key": "supervision",
+    "text": "خبرة الإشراف على أفراد الأمن",
+    "weight": 30.0,
+    "level": 75,
+    "mandatory": true,
+    "source": "form_field",
+    "evidence": "4",
+    "cv_quote": "أتابع عمل 8 جراس أمن وأوزع المهام عليهم يوميا",
+    "form_level": 75,
+    "cv_level": 75
+   },
+   {
+    "key": "security_exp",
+    "text": "الخبرة الأمنية العامة",
+    "weight": 20.0,
+    "level": 100,
+    "mandatory": true,
+    "source": "form_field",
+    "evidence": "6",
+    "cv_quote": "خبرة في الحراسة الأمنية تزيد عن سنوات في مواقع مختلفة",
+    "form_level": 100,
+    "cv_level": 100
+   },
+   {
+    "key": "shifts",
+    "text": "إدارة الورديات وجداول المناوبة",
+    "weight": 15.0,
+    "level": 100,
+    "mandatory": false,
+    "source": "form_field",
+    "evidence": "أعددتها بنفسي",
+    "cv_quote": "أتولى تنظيم جدول المناوبات الأسبوغي للحزاس",
+    "form_level": 100,
+    "cv_level": 100
+   },
+   {
+    "key": "licence",
+    "text": "رخصة حارس أمن",
+    "weight": 15.0,
+    "level": 100,
+    "mandatory": false,
+    "source": "form_field",
+    "evidence": "سارية",
+    "cv_quote": "رخصة أمن سارية حتى .2027",
+    "form_level": 100,
+    "cv_level": 100
+   },
+   {
+    "key": "reports",
+    "text": "كتابة التقارير الأمنية",
+    "weight": 8.0,
+    "level": 50,
+    "mandatory": false,
+    "source": "form_field",
+    "evidence": "أحيانًا",
+    "cv_quote": "أرفع لات لوة شفم الاث ي ف الوردية",
+    "form_level": 50,
+    "cv_level": 50
+   },
+   {
+    "key": "first_aid",
+    "text": "إسعافات أولية أو سلامة",
+    "weight": 7.0,
+    "level": 0,
+    "mandatory": false,
+    "source": "form_field",
+    "evidence": "لا",
+    "cv_quote": "",
+    "form_level": 0,
+    "cv_level": null
+   },
+   {
+    "key": "languages",
+    "text": "اللغات",
+    "weight": 5.0,
+    "level": 100,
+    "mandatory": false,
+    "source": "form_field",
+    "evidence": "العربية، الإنجليزية",
+    "cv_quote": "اللغة العربية بطلاقة ولدي إلمام بالإنجليزية",
+    "form_level": 100,
+    "cv_level": 100
+   }
+  ],
+  "stages": [
+   {
+    "key": "intake",
+    "label": "استلام",
+    "status": "done",
+    "note": null,
+    "ms": 0
+   },
+   {
+    "key": "answers",
+    "label": "قراءة إجابات النموذج",
+    "status": "done",
+    "note": "أجاب عن 11 من 11 سؤال",
+    "ms": 0
+   },
+   {
+    "key": "cv_text",
+    "label": "استخراج نص السيرة",
+    "status": "done",
+    "note": "قراءة ضوئية (OCR) · صفحة واحدة · 442 حرف · ثقة القراءة 91%",
+    "ms": null
+   },
+   {
+    "key": "redaction",
+    "label": "إخفاء الهوية",
+    "status": "done",
+    "note": "أُخفي 10 بيانات: تاريخ الميلاد (1)، الاسم (3)، البريد (1)، الهاتف (1)، الجنس (1)، العنوان (1)، رقم الهوية (1)، الجنسية (1)",
+    "ms": null
+   },
+   {
+    "key": "profile",
+    "label": "الملف المنظّم",
+    "status": "done",
+    "note": "استُخرج 7 عناصر",
+    "ms": 5886
+   },
+   {
+    "key": "evidence_check",
+    "label": "التحقق من الأدلة",
+    "status": "done",
+    "note": "7 عناصر باقتباس حرفي · لا عنصر محذوف · الخبرة 7.8 سنة · الإشراف 7.8 سنة",
+    "ms": 1
+   },
+   {
+    "key": "eligibility",
+    "label": "الشروط الإلزامية",
+    "status": "done",
+    "note": "مستوفٍ",
+    "ms": 0
+   },
+   {
+    "key": "judgement",
+    "label": "الحكم على المعايير",
+    "status": "done",
+    "note": "7 معايير بدليل · 7 محسوبة بالكود · السيرة تؤكد 6 · لا تعارض",
+    "ms": 13343
+   },
+   {
+    "key": "scoring",
+    "label": "الدرجة والترتيب",
+    "status": "done",
+    "note": "الدرجة 81.5 · التغطية 100%",
+    "ms": 0
+   },
+   {
+    "key": "index",
+    "label": "الفهرسة",
+    "status": "done",
+    "note": "أُضيف لبنك المتقدمين",
+    "ms": 1412
+   }
+  ],
+  "cv": {
+   "method": "ocr:paddle_cpu",
+   "ocr_confidence": 0.9123,
+   "status": "ready",
+   "pages": 1,
+   "chars": 442
+  },
+  "redaction": {
+   "dob": 1,
+   "name": 3,
+   "email": 1,
+   "phone": 1,
+   "gender": 1,
+   "address": 1,
+   "national_id": 1,
+   "nationality": 1
+  },
+  "versions": {
+   "model": "qwen3-8b-awq",
+   "prompt": "judge-v1",
+   "provider": "local",
+   "total_ms": 20771,
+   "llm_calls": [
+    {
+     "task": "profile",
+     "seconds": 5.88,
+     "prompt_tokens": 524,
+     "completion_tokens": 431
+    },
+    {
+     "task": "judge",
+     "seconds": 13.34,
+     "prompt_tokens": 1480,
+     "completion_tokens": 692
+    }
+   ],
+   "profile_schema": "1.0"
+  },
+  "summary": "الدرجة 81.5 من 100 (الفئة: مرتفعة)، التغطية 100%. مستوفٍ للشروط الإلزامية بحسب ما كتبه. نقاط القوة: خبرة الإشراف على أفراد الأمن، الخبرة الأمنية العامة، إدارة الورديات وجداول المناوبة، رخصة حارس أمن، اللغات. النواقص: إسعافات أولية أو سلامة.",
+  "checks": [
+   {
+    "ok": true,
+    "fact": "nationality",
+    "text_ar": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+    "text_en": "Nationality: declared السعودية — required one of: السعودية",
+    "declared": "السعودية",
+    "operator": "in",
+    "required_ar": "ضمن: السعودية",
+    "required_en": "one of: السعودية"
+   },
+   {
+    "ok": true,
+    "fact": "height_cm",
+    "text_ar": "الطول (سم): المصرّح به 181 سم — المطلوب 180 سم أو أكثر",
+    "text_en": "Height (cm): declared 181 cm — required 180 cm or more",
+    "declared": 181,
+    "operator": ">=",
+    "required_ar": "180 سم أو أكثر",
+    "required_en": "180 cm or more"
+   },
+   {
+    "ok": true,
+    "fact": "weight_kg",
+    "text_ar": "الوزن (كجم): المصرّح به 79 كجم — المطلوب 80 كجم أو أقل",
+    "text_en": "Weight (kg): declared 79 kg — required 80 kg or less",
+    "declared": 79,
+    "operator": "<=",
+    "required_ar": "80 كجم أو أقل",
+    "required_en": "80 kg or less"
+   },
+   {
+    "ok": true,
+    "fact": "age",
+    "text_ar": "العمر: المصرّح به 29 سنة — المطلوب 21 سنة أو أكثر",
+    "text_en": "Age: declared 29 years — required 21 years or more",
+    "declared": 29,
+    "operator": ">=",
+    "required_ar": "21 سنة أو أكثر",
+    "required_en": "21 years or more"
+   }
+  ],
+  "strengths": [
+   {
+    "key": "supervision",
+    "text": "خبرة الإشراف على أفراد الأمن",
+    "level": 75
+   },
+   {
+    "key": "security_exp",
+    "text": "الخبرة الأمنية العامة",
+    "level": 100
+   },
+   {
+    "key": "shifts",
+    "text": "إدارة الورديات وجداول المناوبة",
+    "level": 100
+   },
+   {
+    "key": "licence",
+    "text": "رخصة حارس أمن",
+    "level": 100
+   },
+   {
+    "key": "languages",
+    "text": "اللغات",
+    "level": 100
+   }
+  ],
+  "weaknesses": null,
+  "raise": [
+   {
+    "text": "خبرة الإشراف على أفراد الأمن",
+    "points": 7.5,
+    "missing": false,
+    "criterion": "supervision"
+   },
+   {
+    "text": "إسعافات أولية أو سلامة",
+    "points": 7.0,
+    "missing": false,
+    "criterion": "first_aid"
+   },
+   {
+    "text": "كتابة التقارير الأمنية",
+    "points": 4.0,
+    "missing": false,
+    "criterion": "reports"
+   }
+  ]
+ },
+ "profile": {
+  "criteria": [
+   {
+    "key": "supervision",
+    "text": "خبرة الإشراف على أفراد الأمن",
+    "weight": 30.0,
+    "mandatory": true,
+    "question": "years_sup",
+    "rubric": [
+     {
+      "level": 0,
+      "text": "لا يوجد"
+     },
+     {
+      "level": 25,
+      "text": "أقل من سنة",
+      "gt": 0.0
+     },
+     {
+      "level": 50,
+      "text": "1–2 سنة",
+      "gte": 1.0
+     },
+     {
+      "level": 75,
+      "text": "3–5 سنوات",
+      "gt": 2.0
+     },
+     {
+      "level": 100,
+      "text": "أكثر من 5",
+      "gt": 5.0
+     }
+    ]
+   },
+   {
+    "key": "security_exp",
+    "text": "الخبرة الأمنية العامة",
+    "weight": 20.0,
+    "mandatory": true,
+    "question": "years_sec",
+    "rubric": [
+     {
+      "level": 0,
+      "text": "لا يوجد"
+     },
+     {
+      "level": 25,
+      "text": "أقل من سنة",
+      "gt": 0.0
+     },
+     {
+      "level": 50,
+      "text": "1–2 سنة",
+      "gte": 1.0
+     },
+     {
+      "level": 75,
+      "text": "3–5 سنوات",
+      "gt": 2.0
+     },
+     {
+      "level": 100,
+      "text": "أكثر من 5",
+      "gt": 5.0
+     }
+    ]
+   },
+   {
+    "key": "shifts",
+    "text": "إدارة الورديات وجداول المناوبة",
+    "weight": 15.0,
+    "mandatory": false,
+    "question": "shifts",
+    "rubric": [
+     {
+      "level": 0,
+      "text": "لا",
+      "answers": [
+       "لا"
+      ]
+     },
+     {
+      "level": 25,
+      "text": "—"
+     },
+     {
+      "level": 50,
+      "text": "شاركت",
+      "answers": [
+       "شاركت"
+      ]
+     },
+     {
+      "level": 75,
+      "text": "—"
+     },
+     {
+      "level": 100,
+      "text": "أعددتها بنفسي",
+      "answers": [
+       "أعددتها بنفسي"
+      ]
+     }
+    ]
+   },
+   {
+    "key": "licence",
+    "text": "رخصة حارس أمن",
+    "weight": 15.0,
+    "mandatory": false,
+    "question": "licence",
+    "rubric": [
+     {
+      "level": 0,
+      "text": "لا",
+      "answers": [
+       "لا"
+      ]
+     },
+     {
+      "level": 25,
+      "text": "—"
+     },
+     {
+      "level": 50,
+      "text": "منتهية أو قيد الإصدار",
+      "answers": [
+       "منتهية أو قيد الإصدار"
+      ]
+     },
+     {
+      "level": 75,
+      "text": "—"
+     },
+     {
+      "level": 100,
+      "text": "سارية",
+      "answers": [
+       "سارية"
+      ]
+     }
+    ]
+   },
+   {
+    "key": "reports",
+    "text": "كتابة التقارير الأمنية",
+    "weight": 8.0,
+    "mandatory": false,
+    "question": "reports",
+    "rubric": [
+     {
+      "level": 0,
+      "text": "لا",
+      "answers": [
+       "لا"
+      ]
+     },
+     {
+      "level": 25,
+      "text": "—"
+     },
+     {
+      "level": 50,
+      "text": "أحيانًا",
+      "answers": [
+       "أحيانًا"
+      ]
+     },
+     {
+      "level": 75,
+      "text": "—"
+     },
+     {
+      "level": 100,
+      "text": "بانتظام",
+      "answers": [
+       "بانتظام"
+      ]
+     }
+    ]
+   },
+   {
+    "key": "first_aid",
+    "text": "إسعافات أولية أو سلامة",
+    "weight": 7.0,
+    "mandatory": false,
+    "question": "first_aid",
+    "rubric": [
+     {
+      "level": 0,
+      "text": "لا",
+      "answers": [
+       "لا"
+      ]
+     },
+     {
+      "level": 25,
+      "text": "—"
+     },
+     {
+      "level": 50,
+      "text": "أقدم من سنتين",
+      "answers": [
+       "أقدم من سنتين"
+      ]
+     },
+     {
+      "level": 75,
+      "text": "—"
+     },
+     {
+      "level": 100,
+      "text": "حديثة",
+      "answers": [
+       "حديثة"
+      ]
+     }
+    ]
+   },
+   {
+    "key": "languages",
+    "text": "اللغات",
+    "weight": 5.0,
+    "mandatory": false,
+    "question": "languages",
+    "rubric": [
+     {
+      "level": 0,
+      "text": "لا شيء"
+     },
+     {
+      "level": 25,
+      "text": "—"
+     },
+     {
+      "level": 50,
+      "text": "العربية فقط",
+      "answers": [
+       "العربية"
+      ]
+     },
+     {
+      "level": 75,
+      "text": "—"
+     },
+     {
+      "level": 100,
+      "text": "العربية والإنجليزية",
+      "answers": [
+       "العربية",
+       "الإنجليزية"
+      ]
+     }
+    ]
+   }
+  ],
+  "questions": [
+   {
+    "key": "edu",
+    "label": "أعلى مؤهل دراسي",
+    "label_en": "Highest qualification",
+    "type": "select",
+    "options": [
+     "ثانوي",
+     "دبلوم",
+     "بكالوريوس",
+     "أعلى"
+    ],
+    "required": true,
+    "hint": null
+   },
+   {
+    "key": "years_sec",
+    "label": "عدد سنوات الخبرة في المجال الأمني",
+    "label_en": "Years of experience in security",
+    "type": "number",
+    "options": null,
+    "required": false,
+    "hint": "اكتب 0 إذا لا توجد خبرة. الفراغ يعني لم يُجب"
+   },
+   {
+    "key": "years_sup",
+    "label": "عدد سنوات الخبرة في الإشراف على أفراد أمن",
+    "label_en": "Years supervising security guards",
+    "type": "number",
+    "options": null,
+    "required": false,
+    "hint": "اكتب 0 إذا لا توجد خبرة. الفراغ يعني لم يُجب"
+   },
+   {
+    "key": "max_team",
+    "label": "أكبر عدد من الأفراد أشرفت عليهم",
+    "label_en": "Largest team you supervised",
+    "type": "number",
+    "options": null,
+    "required": false,
+    "hint": null
+   },
+   {
+    "key": "shifts",
+    "label": "هل أعددت جداول مناوبة أو وزّعت ورديات؟",
+    "label_en": "Did you prepare rosters or allocate shifts?",
+    "type": "select",
+    "options": [
+     "لا",
+     "شاركت",
+     "أعددتها بنفسي"
+    ],
+    "required": true,
+    "hint": null
+   },
+   {
+    "key": "licence",
+    "label": "هل لديك رخصة حارس أمن؟",
+    "label_en": "Do you hold a security guard licence?",
+    "type": "select",
+    "options": [
+     "لا",
+     "منتهية أو قيد الإصدار",
+     "سارية"
+    ],
+    "required": true,
+    "hint": null
+   },
+   {
+    "key": "licence_exp",
+    "label": "تاريخ انتهاء الرخصة",
+    "label_en": "Licence expiry date",
+    "type": "date",
+    "options": null,
+    "required": false,
+    "hint": null
+   },
+   {
+    "key": "reports",
+    "label": "هل تكتب تقارير أمنية أو تسجّل الحوادث؟",
+    "label_en": "Do you write security reports or log incidents?",
+    "type": "select",
+    "options": [
+     "لا",
+     "أحيانًا",
+     "بانتظام"
+    ],
+    "required": true,
+    "hint": null
+   },
+   {
+    "key": "first_aid",
+    "label": "دورة إسعافات أولية أو سلامة",
+    "label_en": "First aid or safety course",
+    "type": "select",
+    "options": [
+     "لا",
+     "أقدم من سنتين",
+     "حديثة"
+    ],
+    "required": true,
+    "hint": null
+   },
+   {
+    "key": "languages",
+    "label": "اللغات",
+    "label_en": "Languages",
+    "type": "multiselect",
+    "options": [
+     "العربية",
+     "الإنجليزية",
+     "أخرى"
+    ],
+    "required": false,
+    "hint": null
+   },
+   {
+    "key": "last_job",
+    "label": "صف آخر عمل في سطرين",
+    "label_en": "Describe your last job in two lines",
+    "type": "text",
+    "options": null,
+    "required": false,
+    "hint": null
+   }
+  ]
+ },
+ "cv_analysis": {
+  "pdf": {
+   "applicant": "applicant.2001@example.com",
+   "method": "pdf_text",
+   "confidence": null,
+   "lines": 17,
+   "pages": 1,
+   "chars": 550,
+   "redaction": {
+    "dob": 2,
+    "name": 3,
+    "phone": 1,
+    "gender": 1,
+    "address": 1,
+    "national_id": 1,
+    "nationality": 1
+   }
+  },
+  "word": {
+   "applicant": "applicant.2018@example.com",
+   "method": "docx",
+   "confidence": null,
+   "lines": 17,
+   "pages": 1,
+   "chars": 432,
+   "redaction": {
+    "dob": 1,
+    "name": 3,
+    "email": 1,
+    "phone": 1,
+    "gender": 1,
+    "address": 1,
+    "national_id": 1,
+    "nationality": 1
+   }
+  },
+  "scan": {
+   "applicant": "applicant.2002@example.com",
+   "method": "ocr:paddle_cpu",
+   "confidence": 0.9123,
+   "lines": 17,
+   "pages": 1,
+   "chars": 442,
+   "redaction": {
+    "dob": 1,
+    "name": 3,
+    "email": 1,
+    "phone": 1,
+    "gender": 1,
+    "address": 1,
+    "national_id": 1,
+    "nationality": 1
+   }
+  }
+ },
+ "cases": {
+  "contradiction": {
+   "name": "محمد الشهري",
+   "applicant": "applicant.2012@example.com",
+   "score": 75.5,
+   "band": "high",
+   "eligibility": "eligible",
+   "flags": [
+    "contradiction",
+    "quote_not_found"
+   ],
+   "rank": null,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 184 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 78 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 33 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 50,
+     "missing": false,
+     "evidence": "أشرفت على فريق صغير من الحراس لمدة سنتين | إجابة النموذج: 6",
+     "contradiction": true,
+     "form_level": 100,
+     "cv_level": 50,
+     "cv_quote": "أشرفت على فريق صغير من الحراس لمدة سنتين"
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "7",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "خبرة أمنية7. سنوات"
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 100,
+     "missing": false,
+     "evidence": "أعددتها بنفسي",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "أعددت جدول المناوبة [الاسم] للوردية"
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "رخصة حارس أمن سارية"
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 100,
+     "missing": false,
+     "evidence": "بانتظام",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "أكتب تقارير الوردية اليومية"
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 50,
+     "missing": false,
+     "evidence": "العربية",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  },
+  "not_eligible": {
+   "name": "سعد المالكي",
+   "applicant": "applicant.2010@example.com",
+   "score": 96.0,
+   "band": "high",
+   "eligibility": "not_eligible",
+   "flags": [],
+   "rank": null,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 172 سم — المطلوب 180 سم أو أكثر",
+     "ok": false
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 70 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 32 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "7",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "إدارة فريق من9. أفراد أمن على مدار الساعة"
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "8",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "خبرة في الأمن والحراسة8. سنوات"
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 100,
+     "missing": false,
+     "evidence": "أعددتها بنفسي",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "توزيع الورديات وإعداد جدول المناوبة الأسبوعي"
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "رخصة حارس أمن سارية"
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 50,
+     "missing": false,
+     "evidence": "أحيانًا",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": 50,
+     "cv_quote": "تسجيل الحوادث في سجل الوردية"
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "حديثة",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "دورة إسعافات أولية معتمدة"
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 100,
+     "missing": false,
+     "evidence": "العربية، الإنجليزية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "العربية لغة أم والإنجليزية جيدة"
+    }
+   ]
+  },
+  "blank": {
+   "name": "إبراهيم الأحمدي",
+   "applicant": "applicant.2021@example.com",
+   "score": 53.0,
+   "band": "medium",
+   "eligibility": "eligible",
+   "flags": [
+    "mandatory_missing",
+    "missing_evidence"
+   ],
+   "rank": null,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 180 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 78 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 31 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 0,
+     "missing": true,
+     "evidence": "",
+     "contradiction": false,
+     "form_level": null,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "6",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 50,
+     "missing": false,
+     "evidence": "شاركت",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 100,
+     "missing": false,
+     "evidence": "بانتظام",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 50,
+     "missing": false,
+     "evidence": "العربية",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  },
+  "blank_with_cv": {
+   "name": "يوسف العنزي",
+   "applicant": "applicant.2009@example.com",
+   "score": 52.5,
+   "band": "medium",
+   "eligibility": "eligible",
+   "flags": [
+    "quote_not_found"
+   ],
+   "rank": 13,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 180 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 75 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 28 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "حارس أمن منذ 2019 — خبرة 6 سنوات في الحراسة.",
+     "contradiction": false,
+     "form_level": null,
+     "cv_level": 100,
+     "cv_quote": "حارس أمن منذ 2019 — خبرة 6 سنوات في الحراسة."
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "6",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "خبرة 6 سنوات في الحراسة."
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 50,
+     "missing": false,
+     "evidence": "العربية",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": 100,
+     "cv_quote": "اللغة: العربية والإنجليزية."
+    }
+   ]
+  },
+  "zero": {
+   "name": "نايف الزهراني",
+   "applicant": "applicant.2006@example.com",
+   "score": 5.0,
+   "band": "low",
+   "eligibility": "eligible",
+   "flags": [
+    "mandatory_zero"
+   ],
+   "rank": 16,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 186 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 79 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 35 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 0,
+     "missing": false,
+     "evidence": "0",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "0",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 100,
+     "missing": false,
+     "evidence": "العربية، الإنجليزية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  },
+  "duplicate": {
+   "name": "حسن القرني",
+   "applicant": "hassan.q.second@example.com",
+   "score": 47.5,
+   "band": "low",
+   "eligibility": "eligible",
+   "flags": [
+    "duplicate"
+   ],
+   "rank": null,
+   "cv_note": null,
+   "duplicate_of": "applicant.2015@example.com",
+   "duplicate_of_name": "حسن القرني",
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 181 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 79 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 29 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 50,
+     "missing": false,
+     "evidence": "1",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 75,
+     "missing": false,
+     "evidence": "3",
+     "contradiction": false,
+     "form_level": 75,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 50,
+     "missing": false,
+     "evidence": "العربية",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  },
+  "corrupt": {
+   "name": "فيصل العمري",
+   "applicant": "applicant.2013@example.com",
+   "score": 65.0,
+   "band": "medium",
+   "eligibility": "eligible",
+   "flags": [],
+   "rank": 10,
+   "cv_note": "ملف السيرة «HR-APP-2026-2013.pdf» تالف أو غير آمن ولم يُحفظ (PdfStreamError). التقييم من الإجابات فقط.",
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 181 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 76 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 30 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 50,
+     "missing": false,
+     "evidence": "2",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 75,
+     "missing": false,
+     "evidence": "4",
+     "contradiction": false,
+     "form_level": 75,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 50,
+     "missing": false,
+     "evidence": "شاركت",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 50,
+     "missing": false,
+     "evidence": "أحيانًا",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 50,
+     "missing": false,
+     "evidence": "أقدم من سنتين",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 100,
+     "missing": false,
+     "evidence": "العربية، الإنجليزية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  },
+  "nationality": {
+   "name": "أحمد حسن",
+   "applicant": "applicant.2011@example.com",
+   "score": 78.0,
+   "band": "high",
+   "eligibility": "not_eligible",
+   "flags": [],
+   "rank": null,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به مصر — المطلوب ضمن: السعودية",
+     "ok": false
+    },
+    {
+     "text": "الطول (سم): المصرّح به 183 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 79 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 36 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "7",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "8",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 100,
+     "missing": false,
+     "evidence": "أعددتها بنفسي",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 100,
+     "missing": false,
+     "evidence": "بانتظام",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 100,
+     "missing": false,
+     "evidence": "العربية، الإنجليزية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  },
+  "needs_review": {
+   "name": "إبراهيم الأحمدي",
+   "applicant": "applicant.2021@example.com",
+   "score": 53.0,
+   "band": "medium",
+   "eligibility": "eligible",
+   "flags": [
+    "mandatory_missing",
+    "missing_evidence"
+   ],
+   "rank": null,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 180 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 78 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 31 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 0,
+     "missing": true,
+     "evidence": "",
+     "contradiction": false,
+     "form_level": null,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "6",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 50,
+     "missing": false,
+     "evidence": "شاركت",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 100,
+     "missing": false,
+     "evidence": "بانتظام",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 50,
+     "missing": false,
+     "evidence": "العربية",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  },
+  "strong": {
+   "name": "فهد العتيبي",
+   "applicant": "applicant.2001@example.com",
+   "score": 100.0,
+   "band": "high",
+   "eligibility": "eligible",
+   "flags": [],
+   "rank": 1,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 183 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 78 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 34 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "7",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "أشرف على فريق من14. فرد أمن في ثلاث مواقع تجارية"
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "9",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "إجمالي الخبرة في مجال الأمن والحراسة9. سنوات"
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 100,
+     "missing": false,
+     "evidence": "أعددتها بنفسي",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "مسؤول عن إعداد جداول المناوبة وتوزيع الورديات الصباحية والمسائية"
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "حاصل على رخصة حارس أمن سارية من الهيئة العليا للأمن الصناعي"
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 100,
+     "missing": false,
+     "evidence": "بانتظام",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "أقوم بكتابة التقارير الأمنية اليومية ورفع تقارير الحوادث للإدارة"
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "حديثة",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "حاصل على شهادة إسعافات أولية معتمدة من الهلال الأحمر"
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 100,
+     "missing": false,
+     "evidence": "العربية، الإنجليزية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "اللغة العربية لغة أم، وإجادة اللغة الإنجليزية بمستوى جيد"
+    }
+   ]
+  },
+  "medium": {
+   "name": "عبدالله الشمري",
+   "applicant": "applicant.2004@example.com",
+   "score": 63.0,
+   "band": "medium",
+   "eligibility": "eligible",
+   "flags": [],
+   "rank": 11,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 180 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 77 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 27 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 50,
+     "missing": false,
+     "evidence": "1",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 75,
+     "missing": false,
+     "evidence": "5",
+     "contradiction": false,
+     "form_level": 75,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 50,
+     "missing": false,
+     "evidence": "شاركت",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 100,
+     "missing": false,
+     "evidence": "بانتظام",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": null,
+     "cv_quote": ""
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 50,
+     "missing": false,
+     "evidence": "العربية",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  },
+  "weak": {
+   "name": "ماجد القحطاني",
+   "applicant": "applicant.2005@example.com",
+   "score": 48.5,
+   "band": "low",
+   "eligibility": "eligible",
+   "flags": [
+    "evidence_mismatch",
+    "missing_evidence",
+    "quote_not_found"
+   ],
+   "rank": 14,
+   "cv_note": null,
+   "duplicate_of": null,
+   "duplicate_of_name": null,
+   "checks": [
+    {
+     "text": "الجنسية: المصرّح به السعودية — المطلوب ضمن: السعودية",
+     "ok": true
+    },
+    {
+     "text": "الطول (سم): المصرّح به 182 سم — المطلوب 180 سم أو أكثر",
+     "ok": true
+    },
+    {
+     "text": "الوزن (كجم): المصرّح به 74 كجم — المطلوب 80 كجم أو أقل",
+     "ok": true
+    },
+    {
+     "text": "العمر: المصرّح به 30 سنة — المطلوب 21 سنة أو أكثر",
+     "ok": true
+    }
+   ],
+   "criteria": [
+    {
+     "key": "supervision",
+     "text": "خبرة الإشراف على أفراد الأمن",
+     "level": 25,
+     "missing": false,
+     "evidence": "0.5",
+     "contradiction": false,
+     "form_level": 25,
+     "cv_level": 50,
+     "cv_quote": "كُلفت لمدة ثلاثة أشهر بمتابعة فريق صغير من الحراس الجدد."
+    },
+    {
+     "key": "security_exp",
+     "text": "الخبرة الأمنية العامة",
+     "level": 75,
+     "missing": false,
+     "evidence": "5",
+     "contradiction": false,
+     "form_level": 75,
+     "cv_level": 75,
+     "cv_quote": "خبرة أمنية 5 سنوات متصلة."
+    },
+    {
+     "key": "shifts",
+     "text": "إدارة الورديات وجداول المناوبة",
+     "level": 0,
+     "missing": false,
+     "evidence": "لا",
+     "contradiction": false,
+     "form_level": 0,
+     "cv_level": 0,
+     "cv_quote": "لم أشارك في إعداد جداول المناوبة."
+    },
+    {
+     "key": "licence",
+     "text": "رخصة حارس أمن",
+     "level": 100,
+     "missing": false,
+     "evidence": "سارية",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "حاصل على رخصة حارس أمن معتمدة."
+    },
+    {
+     "key": "reports",
+     "text": "كتابة التقارير الأمنية",
+     "level": 50,
+     "missing": false,
+     "evidence": "أحيانًا",
+     "contradiction": false,
+     "form_level": 50,
+     "cv_level": 50,
+     "cv_quote": "أبلّغ عن الحوادث شفهيًا وأدوّن ملاحظات مختصرة."
+    },
+    {
+     "key": "first_aid",
+     "text": "إسعافات أولية أو سلامة",
+     "level": 100,
+     "missing": false,
+     "evidence": "حديثة",
+     "contradiction": false,
+     "form_level": 100,
+     "cv_level": 100,
+     "cv_quote": "دورة إسعافات أولية من الهلال الأحمر [الجنسية] 2022."
+    },
+    {
+     "key": "languages",
+     "text": "اللغات",
+     "level": 0,
+     "missing": true,
+     "evidence": "",
+     "contradiction": false,
+     "form_level": null,
+     "cv_level": null,
+     "cv_quote": ""
+    }
+   ]
+  }
+ },
+ "pool": {
+  "suggestions": 16,
+  "excluded": 8,
+  "reasons": [
+   "consent_withdrawn",
+   "duplicate",
+   "not_eligible",
+   "retention_expired"
+  ],
+  "top": [
+   {
+    "name": "فهد العتيبي",
+    "similarity": 0.7957
+   },
+   {
+    "name": "بندر السبيعي",
+    "similarity": 0.7915
+   },
+   {
+    "name": "Abdulaziz Al-Otaibi",
+    "similarity": 0.791
+   }
+  ]
+ },
+ "batch": {
+  "jobs": {
+   "Completed": 25
+  },
+  "applicants": {
+   "Completed": 23,
+   "Needs Review": 2
+  },
+  "finished_last_10_min": 25,
+  "avg_duration_s": 39.796,
+  "recent_jobs": [
+   {
+    "name": "AI-JOB-00038",
+    "reference_name": "applicant.2025@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 54.3,
+    "creation": "2026-10-16 12:55:15.065711",
+    "applicant_name": "عبدالمجيد الرويلي"
+   },
+   {
+    "name": "AI-JOB-00036",
+    "reference_name": "khaled.d.second@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 24.4,
+    "creation": "2026-10-16 12:55:12.495057",
+    "applicant_name": "خالد الدوسري"
+   },
+   {
+    "name": "AI-JOB-00035",
+    "reference_name": "applicant.2023@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 21.1,
+    "creation": "2026-10-16 12:55:10.034709",
+    "applicant_name": "وليد العنزي"
+   },
+   {
+    "name": "AI-JOB-00033",
+    "reference_name": "applicant.2022@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 47.5,
+    "creation": "2026-10-16 12:55:07.587885",
+    "applicant_name": "Abdulaziz Al-Otaibi"
+   },
+   {
+    "name": "AI-JOB-00031",
+    "reference_name": "applicant.2021@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 2,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 49.5,
+    "creation": "2026-10-16 12:55:05.201686",
+    "applicant_name": "إبراهيم الأحمدي"
+   },
+   {
+    "name": "AI-JOB-00030",
+    "reference_name": "applicant.2020@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 21.5,
+    "creation": "2026-10-16 12:55:02.784637",
+    "applicant_name": "مازن الشهراني"
+   },
+   {
+    "name": "AI-JOB-00029",
+    "reference_name": "applicant.2019@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 66.2,
+    "creation": "2026-10-16 12:55:00.355006",
+    "applicant_name": "زياد البلوي"
+   },
+   {
+    "name": "AI-JOB-00027",
+    "reference_name": "applicant.2018@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 68.8,
+    "creation": "2026-10-16 12:54:57.979856",
+    "applicant_name": "راكان الغامدي"
+   },
+   {
+    "name": "AI-JOB-00025",
+    "reference_name": "hassan.q.second@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 34.6,
+    "creation": "2026-10-16 12:54:55.612335",
+    "applicant_name": "حسن القرني"
+   },
+   {
+    "name": "AI-JOB-00024",
+    "reference_name": "applicant.2015@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 32.3,
+    "creation": "2026-10-16 12:54:53.070067",
+    "applicant_name": "حسن القرني"
+   },
+   {
+    "name": "AI-JOB-00021",
+    "reference_name": "applicant.2014@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 50.3,
+    "creation": "2026-10-16 12:54:50.351103",
+    "applicant_name": "طلال الحارثي"
+   },
+   {
+    "name": "AI-JOB-00020",
+    "reference_name": "applicant.2013@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 24.9,
+    "creation": "2026-10-16 12:54:47.945874",
+    "applicant_name": "فيصل العمري"
+   }
+  ],
+  "title": "مشرف أمن — الرياض"
+ },
+ "home": {
+  "openings": 2,
+  "applicants": 25,
+  "processing": 0,
+  "needs_review": 2,
+  "failed": 0
+ },
+ "settings": {
+  "tenant": "dev",
+  "ai_provider": "local",
+  "ai_model": "qwen3-8b-awq",
+  "ocr_provider": "paddle_cpu",
+  "judge_prompt": "judge-v1",
+  "llm_timeout_s": 120,
+  "max_retries": 3,
+  "retention_days": 365,
+  "allowed_facts": [
+   "age",
+   "height_cm",
+   "nationality",
+   "weight_kg"
+  ],
+  "callback_url": "http://frappe:18050/api/method/ido_talent_ai.api.receive_result",
+  "callback_secret_set": true,
+  "provider_ready": true,
+  "provider_note": "ok",
+  "providers": {
+   "fake": "deterministic rubric provider (tests)",
+   "local": "vLLM on the shared GPU (OpenAI-compatible, inside the compose network)",
+   "cloud": "OpenAI-compatible cloud endpoint; enabled only when CLOUD_LLM_API_KEY is set"
+  },
+  "ocr_ready": true,
+  "ocr_note": "PaddleOCR Arabic on CPU (phase 2)",
+  "ocr_providers": {
+   "none": "no OCR: scanned CVs are marked unreadable",
+   "fake": "tests only",
+   "paddle_cpu": "PaddleOCR Arabic on CPU (phase 2)",
+   "paddle_vl": "PaddleOCR-VL on GPU (phase 3)",
+   "cloud": "disabled (no key)"
+  },
+  "defaults_from_env": {
+   "ai_provider": "local",
+   "llm_model": "qwen3-8b-awq",
+   "ocr_provider": "paddle_cpu"
+  }
+ },
+ "evaluation": {
+  "runs": {
+   "8B v1": {
+    "model": "qwen3-8b-awq",
+    "prompt": "judge-v1",
+    "exact": 98.0,
+    "within_one": 100.0,
+    "evidence": 100.0,
+    "eligibility": 100.0,
+    "flags": 100.0,
+    "free_text": 77.0,
+    "supervision": 91.0,
+    "seconds": 11.49
+   },
+   "8B v2": {
+    "model": "qwen3-8b-awq",
+    "prompt": "judge-v2",
+    "exact": 97.0,
+    "within_one": 97.7,
+    "evidence": 100.0,
+    "eligibility": 100.0,
+    "flags": 73.0,
+    "free_text": 62.0,
+    "supervision": 91.0,
+    "seconds": 12.25
+   },
+   "4B v1": {
+    "model": "qwen3-4b-awq",
+    "prompt": "judge-v1",
+    "exact": 96.0,
+    "within_one": 96.1,
+    "evidence": 100.0,
+    "eligibility": 100.0,
+    "flags": 73.0,
+    "free_text": 31.0,
+    "supervision": 91.0,
+    "seconds": 12.05
+   }
+  },
+  "throughput": {
+   "2": {
+    "per100_min": 13.4,
+    "per_min": 7.5,
+    "per1000_min": 134,
+    "gpu_mib": 9484,
+    "failures": 0
+   },
+   "4": {
+    "per100_min": 7.8,
+    "per_min": 12.8,
+    "per1000_min": 78,
+    "gpu_mib": 9484,
+    "failures": 0
+   },
+   "8": {
+    "per100_min": 5.4,
+    "per_min": 18.4,
+    "per1000_min": 54,
+    "gpu_mib": 9484,
+    "failures": 0
+   }
+  },
+  "rerun_pct": 100,
+  "name_swap_pct": 100,
+  "gold": 50
+ },
+ "open_questions": {
+  "open": [
+   {
+    "n": "1",
+    "q": "Production HRMS commit on the `develop` branch (the demo runs 17.0.0-dev). Our dev bench pins the develop HEAD of the day it is built and records it in `dev-frappe/VERSIONS.md`; production must be pinned the same way",
+    "who": "Frappe team",
+    "when": "Phase 6",
+    "state": "open"
+   },
+   {
+    "n": "2",
+    "q": "Background **workers** on the production site: `frappe.enqueue` (queue `long`) needs RQ workers, not the scheduler. The **scheduler** is only needed for the hourly retry of Failed jobs. The demo has the scheduler disabled (last job 2025-08-21); the gap analysis in `reference/discovery/08_gap_analysis.md` wrongly says `enqueue` depends on the scheduler",
+    "who": "Frappe team",
+    "when": "Phase 6 (dev) / deploy",
+    "state": "open"
+   },
+   {
+    "n": "3",
+    "q": "How much GPU memory does the Luna stack (`remote-sdk`, `video-agent`, user awais) need when healthy? Our cap is 0.40 (~9.8 GB) and can be raised to 0.50 if Luna needs < 6 GB",
+    "who": "Nadine asks awais",
+    "when": "Phase 3",
+    "state": "open"
+   },
+   {
+    "n": "4",
+    "q": "Where is this GPU server physically (inside KSA or not)? Decides whether real CVs may ever be processed here under PDPL. Until answered: synthetic data only",
+    "who": "Abdullah + client",
+    "when": "before any real data",
+    "state": "open"
+   },
+   {
+    "n": "6",
+    "q": "Exact hard-rule values per role (nationality, height, weight, age range) and whether they are per Designation or per opening. `age >= 18` is a placeholder",
+    "who": "Abdullah + client",
+    "when": "Phase 1 seed is a placeholder; real values before acceptance",
+    "state": "open"
+   },
+   {
+    "n": "7",
+    "q": "Consent text (Arabic) for the application form, and the retention period for applicants' data",
+    "who": "Client (PDPL)",
+    "when": "Phase 6",
+    "state": "open"
+   },
+   {
+    "n": "8",
+    "q": "Dedicated API user / key on the client site for the engine callback, with minimum permissions",
+    "who": "Frappe team",
+    "when": "deploy",
+    "state": "open"
+   },
+   {
+    "n": "9",
+    "q": "Production time zone (demo runs Africa/Cairo; our dev site uses Asia/Riyadh)",
+    "who": "Frappe team",
+    "when": "deploy",
+    "state": "open"
+   },
+   {
+    "n": "13",
+    "q": "The phase-4 accuracy (98% exact levels) is measured on **synthetic** applicants. Real accuracy needs the client's HR to label 30–40 real applications (after redaction, inside the client's environment) with the expected level per criterion; then rerun `eval/run.py` on that set",
+    "who": "Abdullah + client HR",
+    "when": "before acceptance",
+    "state": "open (Nadine, 2026-10-15)"
+   },
+   {
+    "n": "15",
+    "q": "MariaDB 11.8 runs with `innodb_snapshot_isolation=ON`: concurrent writers get error 1020 instead of waiting. The app now keeps transactions short and retries conflicts; which MariaDB version and isolation settings does the client platform use?",
+    "who": "Frappe team",
+    "when": "deploy",
+    "state": "open (2026-10-16)"
+   },
+   {
+    "n": "16",
+    "q": "Public form rate limit: 20 applications per IP per 10 minutes (site config `talent_ai_apply_limit`). Applicants applying from one office or kiosk share an IP; what limit does the client want?",
+    "who": "Abdullah + client",
+    "when": "deploy",
+    "state": "open (2026-10-16)"
+   },
+   {
+    "n": "17",
+    "q": "Arabic for HRMS's own labels: HRMS develop ships `ar.po` with many empty strings. Round 2 fills the 87 recruitment strings our screens show (Job Opening, Job Applicant, Interview buttons, the public job pages) in the app's `translations/ar.csv`, and fixes «No.» → «م» and «Apply Now». The client's `ido_design` app may translate them differently; on the real platform, check which translation wins (the app installed last)",
+    "who": "Frappe team",
+    "when": "deploy",
+    "state": "open (updated 2026-10-17)"
+   },
+   {
+    "n": "18",
+    "q": "The demo's form also has «الصورة الشخصية» and «الشهادات». Not built: the requirement list asks for an optional CV only, and a photo must never reach the AI. Add certificates as plain attachments (not read by the AI)?",
+    "who": "Abdullah + client",
+    "when": "phase 2",
+    "state": "open (2026-10-16)"
+   },
+   {
+    "n": "20",
+    "q": "Applications entered by HR in the desk (paper forms) have no consent record, so the AI does not process them (consent is required). Should HR be able to record a paper consent (with the form version and a reason) so these applications are screened too?",
+    "who": "Abdullah + client",
+    "when": "before go-live",
+    "state": "open (2026-10-17)"
+   },
+   {
+    "n": "21",
+    "q": "After a new profile version, an applicant who withdrew consent keeps the old result, now «قديم», in the stale group of the ranking (no new processing is allowed, so it never leaves it). Show these applicants in their own group «سحب الموافقة» instead, or hide their old result?",
+    "who": "Abdullah + client",
+    "when": "before go-live",
+    "state": "open (2026-10-17)"
+   }
+  ]
+ },
+ "tests": {
+  "total": 38,
+  "passed": 38,
+  "items": {
+   "R01": {
+    "title": "Employee, Interviewer, self-service, website user and guest never see a score, an assessment or a CV",
+    "user": "interviewer, employee, ess, portal, guest",
+    "file": null,
+    "expected": "every AI screen and API call refused (403 or login page)",
+    "actual": "screens open: none; API 200: none",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   },
+   "R02": {
+    "title": "HR Manager, HR User, System Manager and Administrator see the assessment with the decision buttons",
+    "user": "administrator, system_manager, hr_manager, hr_user",
+    "file": null,
+    "expected": "assessment section + «القرار» buttons",
+    "actual": "administrator: edit; system_manager: edit; hr_manager: edit; hr_user: edit",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   },
+   "R03": {
+    "title": "Shortlist / reject / override are HR-only (server side)",
+    "user": "all",
+    "file": null,
+    "expected": "HR: the call passes the permission check and stops at validation (417); others: 403",
+    "actual": "administrator: decide 417, override 417; system_manager: decide 417, override 417; hr_manager: decide 417, override 417; hr_user: decide 417, override 417; interviewer: decide 403, override 403; employee: decide 403, override 403; ess: decide 403, override 403; portal: decide 403, override 403; guest: decide 403, override 403",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   },
+   "R04": {
+    "title": "Settings: HR Manager and System Manager edit, HR User is refused",
+    "user": "hr_manager, hr_user",
+    "file": null,
+    "expected": "HR Manager edit; HR User denied",
+    "actual": "HR Manager edit; HR User deny",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   },
+   "R05": {
+    "title": "HRMS's own Shortlist/Reject buttons (no reason) are replaced by «القرار»",
+    "user": "administrator, system_manager, hr_manager, hr_user",
+    "file": null,
+    "expected": "no Shortlist/Reject outside «القرار»",
+    "actual": "visible for: nobody",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   },
+   "R06": {
+    "title": "The REST API gives HR the AI fields and refuses everyone else",
+    "user": "all",
+    "file": null,
+    "expected": "HR 200, others 403",
+    "actual": "administrator: 200; system_manager: 200; hr_manager: 200; hr_user: 200; interviewer: 403; employee: 403; ess: 403; portal: 403; guest: 403",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   },
+   "R07": {
+    "title": "Settings read through the API never show the secrets",
+    "user": "hr_manager",
+    "file": null,
+    "expected": "API key and secrets masked",
+    "actual": "HTTP 200, secrets masked",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   },
+   "R08_hr_manager": {
+    "title": "hr_manager lands on «التوظيف الذكي» in Arabic after the login form",
+    "user": "hr.manager@example.com",
+    "file": null,
+    "expected": "/desk/ai-recruitment, language ar",
+    "actual": "/desk/ai-recruitment, language ar, 2.97s",
+    "ok": true,
+    "seconds": 2.97,
+    "shots": [
+     "guide/images/test/R08_hr_manager_login.png",
+     "guide/images/test/R08_hr_manager_home.png"
+    ]
+   },
+   "R08_hr_user": {
+    "title": "hr_user lands on «التوظيف الذكي» in Arabic after the login form",
+    "user": "hr.user@example.com",
+    "file": null,
+    "expected": "/desk/ai-recruitment, language ar",
+    "actual": "/desk/ai-recruitment, language ar, 3.59s",
+    "ok": true,
+    "seconds": 3.59,
+    "shots": [
+     "guide/images/test/R08_hr_user_home.png"
+    ]
+   },
+   "R09": {
+    "title": "An applicant cannot open another applicant's application",
+    "user": "portal.applicant@example.com, Guest",
+    "file": null,
+    "expected": "403 on every call; the desk page refuses",
+    "actual": "website user {'rest': 403, 'list': 403, 'assessment': 403}, desk: /desk/job-applicant/applicant.2001@example.com denied; guest {'rest': 403, 'assessment': 403}",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/R09_portal_other_application.png",
+     "guide/images/test/R09_guest_other_application.png"
+    ]
+   },
+   "C01": {
+    "title": "Arabic scanned image (JPG, OCR)",
+    "user": "Guest → HR Manager",
+    "file": "HR-APP-2026-2002.jpg",
+    "expected": "CV read, redacted, quotes verified",
+    "actual": "Completed; score 81.5 (high); method ocr:paddle_cpu, OCR confidence 0.91; flags quote_not_found",
+    "ok": true,
+    "seconds": 53.3,
+    "shots": [
+     "guide/images/test/C01_form.png",
+     "guide/images/test/C01_thanks.png",
+     "guide/images/test/C01_assessment.png",
+     "guide/images/test/C01_cv_analysis.png"
+    ],
+    "timing": {
+     "form_load_s": 0.86,
+     "submit_s": 0.28,
+     "until_result_s": 53.3,
+     "pipeline_s": 19.4,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": 6004,
+      "evidence_check": 1,
+      "eligibility": 0,
+      "judgement": 11563,
+      "scoring": 0,
+      "index": 1628
+     }
+    },
+    "applicant": "t.cv.scan@example.com"
+   },
+   "C02": {
+    "title": "Arabic text PDF",
+    "user": "Guest → HR Manager",
+    "file": "HR-APP-2026-2001.pdf",
+    "expected": "CV read, redacted, quotes verified",
+    "actual": "Completed; score 100 (high); method pdf_text",
+    "ok": true,
+    "seconds": 33.0,
+    "shots": [
+     "guide/images/test/C02_assessment.png",
+     "guide/images/test/C02_cv_analysis.png"
+    ],
+    "timing": {
+     "form_load_s": 0.51,
+     "submit_s": 0.18,
+     "until_result_s": 33.0,
+     "pipeline_s": 22.0,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": 6832,
+      "evidence_check": 1,
+      "eligibility": 0,
+      "judgement": 12850,
+      "scoring": 0,
+      "index": 2221
+     }
+    },
+    "applicant": "t.cv.arpdf@example.com"
+   },
+   "C03": {
+    "title": "English PDF",
+    "user": "Guest → HR Manager",
+    "file": "HR-APP-2026-2022.pdf",
+    "expected": "CV read, redacted, quotes verified",
+    "actual": "Completed; score 100 (high); method pdf_text",
+    "ok": true,
+    "seconds": 27.1,
+    "shots": [
+     "guide/images/test/C03_assessment.png",
+     "guide/images/test/C03_cv_analysis.png"
+    ],
+    "timing": {
+     "form_load_s": 0.29,
+     "submit_s": 0.16,
+     "until_result_s": 27.1,
+     "pipeline_s": 16.4,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": 4375,
+      "evidence_check": 1,
+      "eligibility": 0,
+      "judgement": 10423,
+      "scoring": 0,
+      "index": 1506
+     }
+    },
+    "applicant": "t.cv.enpdf@example.com"
+   },
+   "C04": {
+    "title": "Word (DOCX)",
+    "user": "Guest → HR Manager",
+    "file": "HR-APP-2026-2018.docx",
+    "expected": "CV read, redacted, quotes verified",
+    "actual": "Completed; score 100 (high); method docx",
+    "ok": true,
+    "seconds": 35.2,
+    "shots": [
+     "guide/images/test/C04_assessment.png",
+     "guide/images/test/C04_cv_analysis.png"
+    ],
+    "timing": {
+     "form_load_s": 0.31,
+     "submit_s": 0.15,
+     "until_result_s": 35.2,
+     "pipeline_s": 19.3,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": 5889,
+      "evidence_check": 1,
+      "eligibility": 0,
+      "judgement": 11519,
+      "scoring": 0,
+      "index": 1750
+     }
+    },
+    "applicant": "t.cv.docx@example.com"
+   },
+   "C05": {
+    "title": "RTF (converted from the Word CV)",
+    "user": "Guest → HR Manager",
+    "file": "HR-APP-2026-2018.rtf",
+    "expected": "CV read, redacted, quotes verified",
+    "actual": "Completed; score 100 (high); method libreoffice+pdf_text",
+    "ok": true,
+    "seconds": 30.5,
+    "shots": [
+     "guide/images/test/C05_assessment.png",
+     "guide/images/test/C05_cv_analysis.png"
+    ],
+    "timing": {
+     "form_load_s": 0.67,
+     "submit_s": 0.16,
+     "until_result_s": 30.5,
+     "pipeline_s": 19.2,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": 5647,
+      "evidence_check": 1,
+      "eligibility": 0,
+      "judgement": 11814,
+      "scoring": 0,
+      "index": 1615
+     }
+    },
+    "applicant": "t.cv.rtf.r2@example.com",
+    "history": "first run: Failed — «TypeError: Strings must be encoded before hashing» (bug F1); after the fix and a worker restart: Completed"
+   },
+   "C06": {
+    "title": "DOC, Word 97 (converted from the Word CV)",
+    "user": "Guest → HR Manager",
+    "file": "HR-APP-2026-2018.doc",
+    "expected": "CV read, redacted, quotes verified",
+    "actual": "Completed; score 100 (high); method libreoffice+pdf_text",
+    "ok": true,
+    "seconds": 31.6,
+    "shots": [
+     "guide/images/test/C06_assessment.png",
+     "guide/images/test/C06_cv_analysis.png"
+    ],
+    "timing": {
+     "form_load_s": 0.48,
+     "submit_s": 0.89,
+     "until_result_s": 31.6,
+     "pipeline_s": 19.9,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": 6315,
+      "evidence_check": 1,
+      "eligibility": 0,
+      "judgement": 11915,
+      "scoring": 0,
+      "index": 1543
+     }
+    },
+    "applicant": "t.cv.doc@example.com"
+   },
+   "C07": {
+    "title": "No CV",
+    "user": "Guest → HR Manager",
+    "file": null,
+    "expected": "Completed from the answers; no CV",
+    "actual": "Completed; score 89 (high); method -",
+    "ok": true,
+    "seconds": 10.0,
+    "shots": [
+     "guide/images/test/C07_form.png",
+     "guide/images/test/C07_assessment.png"
+    ],
+    "timing": {
+     "form_load_s": 0.29,
+     "submit_s": 0.16,
+     "until_result_s": 10.0,
+     "pipeline_s": 1.0,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": null,
+      "evidence_check": null,
+      "eligibility": 0,
+      "judgement": 0,
+      "scoring": 0,
+      "index": 868
+     }
+    },
+    "applicant": "t.cv.none@example.com"
+   },
+   "C08": {
+    "title": "Corrupt PDF",
+    "user": "Guest → HR Manager",
+    "file": "HR-APP-2026-2013.pdf",
+    "expected": "the platform refuses the file, the application is saved and assessed from the answers (decision 14)",
+    "actual": "Completed; score 65 (medium); method -; note: ملف السيرة «HR-APP-2026-2013.pdf» تالف أو غير آمن ولم يُحفظ (PdfStreamError). التقييم من الإجابات فقط.",
+    "ok": true,
+    "seconds": 9.9,
+    "shots": [
+     "guide/images/test/C08_assessment.png"
+    ],
+    "timing": {
+     "form_load_s": 0.58,
+     "submit_s": 0.15,
+     "until_result_s": 9.9,
+     "pipeline_s": 1.0,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": null,
+      "evidence_check": null,
+      "eligibility": 0,
+      "judgement": 0,
+      "scoring": 0,
+      "index": 851
+     }
+    },
+    "applicant": "t.cv.corrupt@example.com"
+   },
+   "C09": {
+    "title": "Bad-quality image (blurred, noisy, JPEG quality 18)",
+    "user": "Guest → HR Manager",
+    "file": "HR-APP-2026-2025-bad.jpg",
+    "expected": "read with OCR; low confidence flagged if under the threshold",
+    "actual": "Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence, quote_not_found",
+    "ok": true,
+    "seconds": 45.1,
+    "shots": [
+     "guide/images/test/C09_assessment.png",
+     "guide/images/test/C09_cv_analysis.png"
+    ],
+    "timing": {
+     "form_load_s": 0.29,
+     "submit_s": 0.87,
+     "until_result_s": 45.1,
+     "pipeline_s": 17.0,
+     "stages": {
+      "intake": 0,
+      "answers": 0,
+      "cv_text": null,
+      "redaction": null,
+      "profile": 5499,
+      "evidence_check": 1,
+      "eligibility": 0,
+      "judgement": 10170,
+      "scoring": 0,
+      "index": 1188
+     }
+    },
+    "applicant": "t.cv.badimg@example.com"
+   },
+   "K01": {
+    "title": "Strong, medium and weak applicants",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "bands high / medium / low",
+    "actual": "2001 (strong): 100 high, rank 1; 2004 (medium): 63 medium, rank 19; 2005 (weak): 48.5 low, rank 22",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K01_strong_2001.png",
+     "guide/images/test/K01_medium_2004.png",
+     "guide/images/test/K01_weak_2005.png"
+    ]
+   },
+   "K02": {
+    "title": "Not eligible: height 172 cm and nationality Egypt",
+    "user": "Guest → HR Manager",
+    "file": null,
+    "expected": "not eligible with both reasons, kept out of the ranking, score shown in grey",
+    "actual": "Completed; eligibility not_eligible; failed rules: الجنسية: المصرّح به مصر — المطلوب ضمن: السعودية | الطول (سم): المصرّح به 172 سم — المطلوب 180 سم أو أكثر; ranked: False",
+    "ok": true,
+    "seconds": 18.9,
+    "shots": [
+     "guide/images/test/K02_not_eligible.png"
+    ],
+    "applicant": "t.noteligible@example.com"
+   },
+   "K03a": {
+    "title": "Public form: height left blank on an opening with a height rule",
+    "user": "Guest",
+    "file": null,
+    "expected": "the form asks for the height before sending (the console case K03b shows the engine side)",
+    "actual": "message «الطول مطلوب لهذا الشاغر» shown",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K03_public_form_height_required.png"
+    ]
+   },
+   "K04": {
+    "title": "Blank answer vs the answer 0",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "blank → level 0 + «دليل ناقص» flag (needs review on a mandatory criterion); 0 → level 0 with the evidence «0», no flag",
+    "actual": "2021 (no CV) years_sup='': level 0, missing_evidence True, eligibility eligible; 2006 years_sup='0': level 0, evidence '0', missing_evidence False",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K04_blank_2021.png",
+     "guide/images/test/K04_zero_2006.png"
+    ],
+    "history": "first run failed because the test used applicant 2009, whose CV supplies the supervision evidence (correct behaviour); the test now uses 2021 (blank answer, no CV)"
+   },
+   "K05": {
+    "title": "The answer says one thing, the CV another",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "contradiction flag, the lower level is used, needs review before any decision",
+    "actual": "flags ['contradiction', 'quote_not_found']; supervision: form level 100, CV level 50 → used 50; quote «أشرفت على فريق صغير من الحراس لمدة سنتين»",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K05_contradiction_head.png",
+     "guide/images/test/K05_contradiction_criteria.png"
+    ]
+   },
+   "K06": {
+    "title": "Duplicate applications (same national ID, another e-mail)",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "linked to the original, grey, only the original is ranked, nothing deleted",
+    "actual": "2016 → applicant.2015@example.com; 2024 → applicant.2003@example.com; in the duplicate group: ['hassan.q.second@example.com', 'khaled.d.second@example.com', 't.enginedown@example.com']",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K06_duplicate.png"
+    ],
+    "history": "first run failed because the test built the duplicate's e-mail from its number; it now reads the e-mails from the demo data"
+   },
+   "K07": {
+    "title": "Editing an answer after the evaluation",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "result marked stale (grey), out of the ranking; re-score → new score, ranked again",
+    "actual": "stale 1 after 0.0s; in stale group True; score 63 → 78 after re-score (7.4s, Completed); ranked again True",
+    "ok": true,
+    "seconds": 7.4,
+    "shots": [
+     "guide/images/test/K07_stale_banner.png",
+     "guide/images/test/K07_rescored.png"
+    ],
+    "score_before": 63,
+    "score_after": 78
+   },
+   "K08": {
+    "title": "Override one criterion, without and with a reason",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "no reason → refused; with a reason → new level, new score, «تعديل HR» tag, audit row",
+    "actual": "no reason: undefined; supervision → 100; score 81.5 → 89; audit 2 row(s)",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K08_override_no_reason.png",
+     "guide/images/test/K08_override_dialog.png",
+     "guide/images/test/K08_override_done.png"
+    ],
+    "criterion": "supervision",
+    "criterion_text": "خبرة الإشراف على أفراد الأمن",
+    "level_before": 75,
+    "score_before": 81.5,
+    "score_after": 89,
+    "history": "first run failed because the test closed the override dialog together with the «السبب مطلوب» message; it now drives the dialog itself"
+   },
+   "K09": {
+    "title": "Shortlist, hold and reject, each with a reason; no reason → refused",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "status changes only through HR, with the reason, the person and the time in the audit log",
+    "actual": "2001: Shortlisted by hr.manager@example.com; 2003: Hold by hr.manager@example.com; 2020: Rejected by hr.manager@example.com; empty reason: refused; audit rows 3",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K09_decision_no_reason.png",
+     "guide/images/test/K09_decision_dialog.png",
+     "guide/images/test/K09_decision_done.png"
+    ]
+   },
+   "K10": {
+    "title": "Export the ranking to CSV (Excel)",
+    "user": "HR Manager",
+    "file": "ranking.csv",
+    "expected": "UTF-8 with BOM, Arabic header, one row per applicant, no national ID",
+    "actual": "27 rows via same URL fetched by the page; header: الترتيب | المتقدم | الاسم | الدرجة | الفئة | التغطية | حالة المعالجة | نسخة المعايير; national IDs in the file: 0",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   },
+   "K11": {
+    "title": "Compare three ranked applicants side by side",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "3 columns, criterion by criterion with evidence",
+    "actual": "3 applicant columns",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K11_ranking_selected.png",
+     "guide/images/test/K11_compare.png"
+    ]
+   },
+   "K12": {
+    "title": "Talent pool for the Jeddah opening",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "rules first, then similarity; withdrawn consent and expired retention excluded with the reason",
+    "actual": "20 suggested, 9 excluded (consent_withdrawn, duplicate, not_eligible, retention_expired); page 4.8s",
+    "ok": true,
+    "seconds": 4.8,
+    "shots": [
+     "guide/images/test/K12_talent_pool.png"
+    ],
+    "suggested": 20,
+    "excluded": 9,
+    "reasons": [
+     "consent_withdrawn",
+     "duplicate",
+     "not_eligible",
+     "retention_expired"
+    ]
+   },
+   "K13": {
+    "title": "An applicant name with HTML/JavaScript is shown as text",
+    "user": "Guest → HR Manager",
+    "file": null,
+    "expected": "saved; shown as plain text everywhere; no script runs",
+    "actual": "submitted True; list: script False, img False; form: script False, img False; ranking: script False, img False",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K13_xss_escaped.png"
+    ]
+   },
+   "K14": {
+    "title": "Change the weights, approve version 2, re-score everyone",
+    "user": "HR Manager",
+    "file": null,
+    "expected": "105% refused; impact preview; v2 approved; old results stale until re-scored; re-score all",
+    "actual": "weights before {'supervision': 30, 'security_exp': 20, 'shifts': 20, 'licence': 10, 'reports': 8, 'first_aid': 7, 'languages': 5}; 105% approval refused; v3 with 37 stale; 37 re-scored in 448.8s, 1 skipped (consent withdrawn); stale left 1; top 5 before ['applicant.2001@example.com', 'applicant.2008@example.com', 'applicant.2002@example.com', 'applicant.2003@example.com', 'applicant.2017@example.com'] after ['applicant.2001@example.com', 'applicant.2018@example.com', 'applicant.2022@example.com', 't.cv.arpdf@example.com', 't.cv.enpdf@example.com']",
+    "ok": true,
+    "seconds": 448.8,
+    "shots": [
+     "guide/images/test/K14_weights_105.png",
+     "guide/images/test/K14_impact_preview.png",
+     "guide/images/test/K14_ranking_stale.png",
+     "guide/images/test/K14_batch_rescoring.png",
+     "guide/images/test/K14_ranking_v2.png"
+    ],
+    "rescored": 37,
+    "top_before": [
+     "applicant.2001@example.com",
+     "applicant.2008@example.com",
+     "applicant.2002@example.com",
+     "applicant.2003@example.com",
+     "applicant.2017@example.com"
+    ],
+    "top_after": [
+     "applicant.2001@example.com",
+     "applicant.2018@example.com",
+     "applicant.2022@example.com",
+     "t.cv.arpdf@example.com",
+     "t.cv.enpdf@example.com"
+    ],
+    "version": 3,
+    "history": "first run: 19 of 36 results stayed «قديم» — bug F2; after the fix: all re-scored but the one applicant without consent"
+   },
+   "K15": {
+    "title": "Engine stopped: apply, then retry",
+    "user": "Guest → HR Manager",
+    "file": null,
+    "expected": "the application is saved at once; «فشل» after the retries; «إعادة المحاولة» works when the engine is back",
+    "actual": "saved in 0.13s while the engine was down; Failed after 25.2s; after retry Completed in 8.7s",
+    "ok": true,
+    "seconds": 8.7,
+    "shots": [
+     "guide/images/test/K15_saved_engine_down.png",
+     "guide/images/test/K15_failed.png",
+     "guide/images/test/K15_after_retry.png"
+    ],
+    "saved_s": 0.13,
+    "failed_after_s": 25.2,
+    "retry_s": 8.7,
+    "final": "Completed",
+    "history": "first two runs failed in the test only (a screenshot selector, then an e-mail reused from the first run); the product behaved the same in all three runs"
+   },
+   "N01": {
+    "title": "Talent Console: login and the main screens",
+    "user": "Nadine (console)",
+    "file": null,
+    "expected": "every screen opens",
+    "actual": "login 1.43s; screens home 2.17s, profile 1.12s, list 1.09s, ranking 1.09s, jobs 1.6s, audit 2.54s, settings 1.83s",
+    "ok": true,
+    "seconds": 1.43,
+    "shots": [
+     "guide/images/test/N01_console_home.png",
+     "guide/images/test/N01_console_profile.png",
+     "guide/images/test/N01_console_list.png",
+     "guide/images/test/N01_console_ranking.png",
+     "guide/images/test/N01_console_jobs.png",
+     "guide/images/test/N01_console_audit.png",
+     "guide/images/test/N01_console_settings.png"
+    ]
+   },
+   "K03b": {
+    "title": "Blank height through the console (a host system that allows it)",
+    "user": "Nadine (console)",
+    "file": null,
+    "expected": "eligibility «يحتاج مراجعة» with «?» on the height rule, not «غير مستوفٍ»",
+    "actual": "CON-APP-MVARLAJI: eligibility needs_review; height check الطول (سم): غير مصرّح به (المطلوب 180 سم أو أكثر) — يحتاج مراجعة ok=None",
+    "ok": true,
+    "seconds": null,
+    "shots": [
+     "guide/images/test/K03b_console_form.png",
+     "guide/images/test/K03b_console_processing.png",
+     "guide/images/test/K03b_console_applicant.png"
+    ]
+   },
+   "N02": {
+    "title": "Try a file: the bad-quality scan",
+    "user": "Nadine (console)",
+    "file": "HR-APP-2026-2025-bad.jpg",
+    "expected": "OCR result with the confidence per line, or «غير مقروء»",
+    "actual": "status ready, method ocr:paddle_cpu, confidence 0.7893, 23.0s",
+    "ok": true,
+    "seconds": 23.0,
+    "shots": [
+     "guide/images/test/N02_tryfile_bad_image.png"
+    ]
+   },
+   "P01": {
+    "title": "Page load times",
+    "user": "HR Manager, Guest",
+    "file": null,
+    "expected": "every main page ready in under 5 s (warm)",
+    "actual": "desk: home: 0.45s; desk: applicant list: 0.96s; desk: applicant with assessment: 0.71s; desk: ranking: 0.46s; desk: talent pool: 2.33s; desk: AI job profile: 0.45s; public: jobs: 0.88s; public: job page: 0.5s; public: application form: 0.28s; public: application form (phone 390 px): 0.72s",
+    "ok": true,
+    "seconds": null,
+    "shots": []
+   }
+  },
+  "pages": {
+   "desk: home": {
+    "cold": 0.58,
+    "warm_median": 0.45,
+    "runs": [
+     0.58,
+     0.43,
+     0.48
+    ]
+   },
+   "desk: applicant list": {
+    "cold": 2.51,
+    "warm_median": 0.96,
+    "runs": [
+     2.51,
+     0.62,
+     1.29
+    ]
+   },
+   "desk: applicant with assessment": {
+    "cold": 1.36,
+    "warm_median": 0.71,
+    "runs": [
+     1.36,
+     0.66,
+     0.75
+    ]
+   },
+   "desk: ranking": {
+    "cold": 0.71,
+    "warm_median": 0.46,
+    "runs": [
+     0.71,
+     0.43,
+     0.5
+    ]
+   },
+   "desk: talent pool": {
+    "cold": 2.81,
+    "warm_median": 2.33,
+    "runs": [
+     2.81,
+     2.38,
+     2.29
+    ]
+   },
+   "desk: AI job profile": {
+    "cold": 0.52,
+    "warm_median": 0.45,
+    "runs": [
+     0.52,
+     0.46,
+     0.44
+    ]
+   },
+   "public: jobs": {
+    "cold": 1.19,
+    "warm_median": 0.88,
+    "runs": [
+     1.19,
+     1.16,
+     0.6
+    ]
+   },
+   "public: job page": {
+    "cold": 0.3,
+    "warm_median": 0.5,
+    "runs": [
+     0.3,
+     0.55,
+     0.45
+    ]
+   },
+   "public: application form": {
+    "cold": 0.78,
+    "warm_median": 0.28,
+    "runs": [
+     0.78,
+     0.31,
+     0.25
+    ]
+   },
+   "public: application form (phone 390 px)": {
+    "cold": 0.72
+   }
+  },
+  "perm": {
+   "roles_on_site": [
+    "Academics User",
+    "Accounts Manager",
+    "Accounts User",
+    "Administrator",
+    "All",
+    "Analytics",
+    "Auditor",
+    "Customer (no desk)",
+    "Dashboard Manager",
+    "Delivery Manager",
+    "Delivery User",
+    "Desk User",
+    "Employee",
+    "Employee Self Service",
+    "Expense Approver",
+    "Fleet Manager",
+    "Fulfillment User",
+    "Guest (no desk)",
+    "HR Manager",
+    "HR User",
+    "Inbox User",
+    "Interviewer",
+    "Item Manager",
+    "Knowledge Base Contributor",
+    "Knowledge Base Editor",
+    "Leave Approver",
+    "Maintenance Manager",
+    "Maintenance User",
+    "Manufacturing Manager",
+    "Manufacturing User",
+    "Marketing Manager",
+    "Newsletter Manager",
+    "Prepared Report User",
+    "Projects Manager",
+    "Projects User",
+    "Purchase Manager",
+    "Purchase Master Manager",
+    "Purchase User",
+    "Quality Manager",
+    "Report Manager",
+    "Sales Manager",
+    "Sales Master Manager",
+    "Sales User",
+    "Script Manager",
+    "Stock Manager",
+    "Stock User",
+    "Supplier (no desk)",
+    "Support Team",
+    "System Manager",
+    "Translator",
+    "Website Manager",
+    "Workspace Manager"
+   ],
+   "recruitment_roles": [
+    "Administrator",
+    "System Manager",
+    "HR Manager",
+    "HR User",
+    "Interviewer",
+    "Employee",
+    "Employee Self Service",
+    "Guest",
+    "Website User (no role)"
+   ],
+   "not_found": "No «Hiring Manager» or department-manager role exists in Frappe HR v16 (checked the full role list); a hiring manager is an Employee who may also be an Interviewer.",
+   "screens": [
+    {
+     "key": "home",
+     "label": "الصفحة الرئيسية «التوظيف الذكي»"
+    },
+    {
+     "key": "cycle",
+     "label": "خريطة الدورة"
+    },
+    {
+     "key": "profile",
+     "label": "ملف المعايير"
+    },
+    {
+     "key": "opening",
+     "label": "الشاغر"
+    },
+    {
+     "key": "list",
+     "label": "قائمة المتقدمين"
+    },
+    {
+     "key": "applicant",
+     "label": "طلب المتقدم"
+    },
+    {
+     "key": "assessment",
+     "label": "قسم تقييم الذكاء"
+    },
+    {
+     "key": "cv_analysis",
+     "label": "تحليل السيرة"
+    },
+    {
+     "key": "cv_file",
+     "label": "ملف السيرة الأصلي"
+    },
+    {
+     "key": "ranking",
+     "label": "الترتيب"
+    },
+    {
+     "key": "batch",
+     "label": "متابعة الدفعة"
+    },
+    {
+     "key": "pool",
+     "label": "بنك المتقدمين"
+    },
+    {
+     "key": "jobs",
+     "label": "مهام الذكاء"
+    },
+    {
+     "key": "settings",
+     "label": "الإعدادات"
+    },
+    {
+     "key": "audit",
+     "label": "سجل التدقيق"
+    },
+    {
+     "key": "public_form",
+     "label": "صفحة التقديم العامة"
+    },
+    {
+     "key": "console",
+     "label": "Talent Console"
+    }
+   ],
+   "users": [
+    {
+     "key": "administrator",
+     "login": "Administrator",
+     "label": "Administrator",
+     "roles": [
+      "Administrator (كل الصلاحيات)"
+     ]
+    },
+    {
+     "key": "system_manager",
+     "login": "sysmanager@example.com",
+     "label": "مدير النظام",
+     "roles": [
+      "System Manager"
+     ]
+    },
+    {
+     "key": "hr_manager",
+     "login": "hr.manager@example.com",
+     "label": "مدير الموارد البشرية",
+     "roles": [
+      "HR Manager",
+      "HR User",
+      "Employee"
+     ]
+    },
+    {
+     "key": "hr_user",
+     "login": "hr.user@example.com",
+     "label": "أخصائي التوظيف",
+     "roles": [
+      "HR User",
+      "Employee"
+     ]
+    },
+    {
+     "key": "interviewer",
+     "login": "interviewer@example.com",
+     "label": "المقابِل",
+     "roles": [
+      "Interviewer",
+      "Employee"
+     ]
+    },
+    {
+     "key": "employee",
+     "login": "employee@example.com",
+     "label": "موظف",
+     "roles": [
+      "Employee"
+     ]
+    },
+    {
+     "key": "ess",
+     "login": "ess@example.com",
+     "label": "موظف خدمة ذاتية",
+     "roles": [
+      "Employee Self Service",
+      "Employee"
+     ]
+    },
+    {
+     "key": "portal",
+     "login": "portal.applicant@example.com",
+     "label": "متقدم بحساب على الموقع",
+     "roles": [
+      "Website User"
+     ]
+    },
+    {
+     "key": "guest",
+     "login": "Guest",
+     "label": "زائر / متقدم بلا حساب",
+     "roles": [
+      "Guest"
+     ]
+    }
+   ],
+   "matrix": {
+    "administrator": {
+     "home": {
+      "state": "see",
+      "detail": "actions: English · خريطة الدورة",
+      "shot": "guide/images/roles/administrator_home.png"
+     },
+     "cycle": {
+      "state": "see",
+      "detail": "actions: English",
+      "shot": "guide/images/roles/administrator_cycle.png"
+     },
+     "profile": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/administrator_profile.png"
+     },
+     "opening": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/administrator_opening.png"
+     },
+     "list": {
+      "state": "edit",
+      "detail": "20 rows; AI columns: حالة المعالجة (AI), درجة الذكاء",
+      "shot": "guide/images/roles/administrator_list.png"
+     },
+     "applicant": {
+      "state": "edit",
+      "detail": "can edit the form",
+      "shot": "guide/images/roles/administrator_applicant.png"
+     },
+     "assessment": {
+      "state": "edit",
+      "detail": "decision buttons «القرار» + override",
+      "shot": "guide/images/roles/administrator_assessment.png"
+     },
+     "cv_analysis": {
+      "state": "see",
+      "detail": "dialog with the page image and OCR boxes",
+      "shot": "guide/images/roles/administrator_cv_analysis.png"
+     },
+     "cv_file": {
+      "state": "see",
+      "detail": "HTTP 200"
+     },
+     "ranking": {
+      "state": "edit",
+      "detail": "actions: English · مقارنة المحددين · إعادة تقييم القديم والفاشل · متابعة المعالجة · بنك المتقدمين · تصدير CSV",
+      "shot": "guide/images/roles/administrator_ranking.png"
+     },
+     "batch": {
+      "state": "edit",
+      "detail": "actions: English · ترتيب الشاغر · مهام الذكاء",
+      "shot": "guide/images/roles/administrator_batch.png"
+     },
+     "pool": {
+      "state": "see",
+      "detail": "actions: English · ترتيب الشاغر · بحث في بنك المتقدمين",
+      "shot": "guide/images/roles/administrator_pool.png"
+     },
+     "jobs": {
+      "state": "see",
+      "detail": "20 rows",
+      "shot": "guide/images/roles/administrator_jobs.png"
+     },
+     "settings": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/administrator_settings.png"
+     },
+     "audit": {
+      "state": "see",
+      "detail": "20 rows",
+      "shot": "guide/images/roles/administrator_audit.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/administrator_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    },
+    "system_manager": {
+     "home": {
+      "state": "see",
+      "detail": "actions: English · خريطة الدورة",
+      "shot": "guide/images/roles/system_manager_home.png"
+     },
+     "cycle": {
+      "state": "see",
+      "detail": "actions: English",
+      "shot": "guide/images/roles/system_manager_cycle.png"
+     },
+     "profile": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/system_manager_profile.png"
+     },
+     "opening": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/system_manager_opening.png"
+     },
+     "list": {
+      "state": "edit",
+      "detail": "20 rows; AI columns: حالة المعالجة (AI), درجة الذكاء",
+      "shot": "guide/images/roles/system_manager_list.png"
+     },
+     "applicant": {
+      "state": "edit",
+      "detail": "can edit the form",
+      "shot": "guide/images/roles/system_manager_applicant.png"
+     },
+     "assessment": {
+      "state": "edit",
+      "detail": "decision buttons «القرار» + override",
+      "shot": "guide/images/roles/system_manager_assessment.png"
+     },
+     "cv_analysis": {
+      "state": "see",
+      "detail": "dialog with the page image and OCR boxes",
+      "shot": "guide/images/roles/system_manager_cv_analysis.png"
+     },
+     "cv_file": {
+      "state": "see",
+      "detail": "HTTP 200"
+     },
+     "ranking": {
+      "state": "edit",
+      "detail": "actions: English · مقارنة المحددين · إعادة تقييم القديم والفاشل · متابعة المعالجة · بنك المتقدمين · تصدير CSV",
+      "shot": "guide/images/roles/system_manager_ranking.png"
+     },
+     "batch": {
+      "state": "edit",
+      "detail": "actions: English · ترتيب الشاغر · مهام الذكاء",
+      "shot": "guide/images/roles/system_manager_batch.png"
+     },
+     "pool": {
+      "state": "see",
+      "detail": "actions: English · ترتيب الشاغر · بحث في بنك المتقدمين",
+      "shot": "guide/images/roles/system_manager_pool.png"
+     },
+     "jobs": {
+      "state": "see",
+      "detail": "20 rows",
+      "shot": "guide/images/roles/system_manager_jobs.png"
+     },
+     "settings": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/system_manager_settings.png"
+     },
+     "audit": {
+      "state": "see",
+      "detail": "20 rows",
+      "shot": "guide/images/roles/system_manager_audit.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/system_manager_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    },
+    "hr_manager": {
+     "home": {
+      "state": "see",
+      "detail": "actions: English · خريطة الدورة",
+      "shot": "guide/images/roles/hr_manager_home.png"
+     },
+     "cycle": {
+      "state": "see",
+      "detail": "actions: English",
+      "shot": "guide/images/roles/hr_manager_cycle.png"
+     },
+     "profile": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/hr_manager_profile.png"
+     },
+     "opening": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/hr_manager_opening.png"
+     },
+     "list": {
+      "state": "edit",
+      "detail": "20 rows; AI columns: حالة المعالجة (AI), درجة الذكاء",
+      "shot": "guide/images/roles/hr_manager_list.png"
+     },
+     "applicant": {
+      "state": "edit",
+      "detail": "can edit the form",
+      "shot": "guide/images/roles/hr_manager_applicant.png"
+     },
+     "assessment": {
+      "state": "edit",
+      "detail": "decision buttons «القرار» + override",
+      "shot": "guide/images/roles/hr_manager_assessment.png"
+     },
+     "cv_analysis": {
+      "state": "see",
+      "detail": "dialog with the page image and OCR boxes",
+      "shot": "guide/images/roles/hr_manager_cv_analysis.png"
+     },
+     "cv_file": {
+      "state": "see",
+      "detail": "HTTP 200"
+     },
+     "ranking": {
+      "state": "edit",
+      "detail": "actions: English · مقارنة المحددين · إعادة تقييم القديم والفاشل · متابعة المعالجة · بنك المتقدمين · تصدير CSV",
+      "shot": "guide/images/roles/hr_manager_ranking.png"
+     },
+     "batch": {
+      "state": "edit",
+      "detail": "actions: English · ترتيب الشاغر · مهام الذكاء",
+      "shot": "guide/images/roles/hr_manager_batch.png"
+     },
+     "pool": {
+      "state": "see",
+      "detail": "actions: English · ترتيب الشاغر · بحث في بنك المتقدمين",
+      "shot": "guide/images/roles/hr_manager_pool.png"
+     },
+     "jobs": {
+      "state": "see",
+      "detail": "20 rows",
+      "shot": "guide/images/roles/hr_manager_jobs.png"
+     },
+     "settings": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/hr_manager_settings.png"
+     },
+     "audit": {
+      "state": "see",
+      "detail": "20 rows",
+      "shot": "guide/images/roles/hr_manager_audit.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/hr_manager_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    },
+    "hr_user": {
+     "home": {
+      "state": "see",
+      "detail": "1 card(s) shown as «غير متاح لدورك»",
+      "shot": "guide/images/roles/hr_user_home.png"
+     },
+     "cycle": {
+      "state": "see",
+      "detail": "actions: English",
+      "shot": "guide/images/roles/hr_user_cycle.png"
+     },
+     "profile": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/hr_user_profile.png"
+     },
+     "opening": {
+      "state": "edit",
+      "detail": "can edit",
+      "shot": "guide/images/roles/hr_user_opening.png"
+     },
+     "list": {
+      "state": "edit",
+      "detail": "20 rows; AI columns: حالة المعالجة (AI), درجة الذكاء",
+      "shot": "guide/images/roles/hr_user_list.png"
+     },
+     "applicant": {
+      "state": "edit",
+      "detail": "can edit the form",
+      "shot": "guide/images/roles/hr_user_applicant.png"
+     },
+     "assessment": {
+      "state": "edit",
+      "detail": "decision buttons «القرار» + override",
+      "shot": "guide/images/roles/hr_user_assessment.png"
+     },
+     "cv_analysis": {
+      "state": "see",
+      "detail": "dialog with the page image and OCR boxes",
+      "shot": "guide/images/roles/hr_user_cv_analysis.png"
+     },
+     "cv_file": {
+      "state": "see",
+      "detail": "HTTP 200"
+     },
+     "ranking": {
+      "state": "edit",
+      "detail": "actions: English · مقارنة المحددين · إعادة تقييم القديم والفاشل · متابعة المعالجة · بنك المتقدمين · تصدير CSV",
+      "shot": "guide/images/roles/hr_user_ranking.png"
+     },
+     "batch": {
+      "state": "edit",
+      "detail": "actions: English · ترتيب الشاغر · مهام الذكاء",
+      "shot": "guide/images/roles/hr_user_batch.png"
+     },
+     "pool": {
+      "state": "see",
+      "detail": "actions: English · ترتيب الشاغر · بحث في بنك المتقدمين",
+      "shot": "guide/images/roles/hr_user_pool.png"
+     },
+     "jobs": {
+      "state": "see",
+      "detail": "20 rows",
+      "shot": "guide/images/roles/hr_user_jobs.png"
+     },
+     "settings": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/hr_user_settings.png"
+     },
+     "audit": {
+      "state": "see",
+      "detail": "20 rows",
+      "shot": "guide/images/roles/hr_user_audit.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/hr_user_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    },
+    "interviewer": {
+     "home": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_home.png"
+     },
+     "cycle": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_home.png"
+     },
+     "profile": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "opening": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "list": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "applicant": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "assessment": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "cv_analysis": {
+      "state": "deny",
+      "detail": "API HTTP 403",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "cv_file": {
+      "state": "deny",
+      "detail": "HTTP 403"
+     },
+     "ranking": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_home.png"
+     },
+     "batch": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_home.png"
+     },
+     "pool": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_home.png"
+     },
+     "jobs": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "settings": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "audit": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/interviewer_profile.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/interviewer_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    },
+    "employee": {
+     "home": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_home.png"
+     },
+     "cycle": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_home.png"
+     },
+     "profile": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "opening": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "list": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "applicant": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "assessment": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "cv_analysis": {
+      "state": "deny",
+      "detail": "API HTTP 403",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "cv_file": {
+      "state": "deny",
+      "detail": "HTTP 403"
+     },
+     "ranking": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_home.png"
+     },
+     "batch": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_home.png"
+     },
+     "pool": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_home.png"
+     },
+     "jobs": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "settings": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "audit": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/employee_profile.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/employee_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    },
+    "ess": {
+     "home": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_home.png"
+     },
+     "cycle": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_home.png"
+     },
+     "profile": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "opening": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "list": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "applicant": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "assessment": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "cv_analysis": {
+      "state": "deny",
+      "detail": "API HTTP 403",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "cv_file": {
+      "state": "deny",
+      "detail": "HTTP 403"
+     },
+     "ranking": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_home.png"
+     },
+     "batch": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_home.png"
+     },
+     "pool": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_home.png"
+     },
+     "jobs": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "settings": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "audit": {
+      "state": "deny",
+      "detail": "Frappe: البدء",
+      "shot": "guide/images/roles/ess_profile.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/ess_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    },
+    "portal": {
+     "home": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "cycle": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "profile": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "opening": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "list": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "applicant": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "assessment": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "cv_analysis": {
+      "state": "deny",
+      "detail": "API HTTP 403",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "cv_file": {
+      "state": "deny",
+      "detail": "HTTP 403"
+     },
+     "ranking": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "batch": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "pool": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "jobs": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "settings": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "audit": {
+      "state": "deny",
+      "detail": "Frappe: لا يسمح",
+      "shot": "guide/images/roles/portal_home.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/portal_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    },
+    "guest": {
+     "home": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "cycle": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "profile": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "opening": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "list": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "applicant": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "assessment": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "cv_analysis": {
+      "state": "deny",
+      "detail": "API HTTP 403",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "cv_file": {
+      "state": "deny",
+      "detail": "HTTP 403"
+     },
+     "ranking": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "batch": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "pool": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "jobs": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "settings": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "audit": {
+      "state": "deny",
+      "detail": "redirected to the login page",
+      "shot": "guide/images/roles/guest_home.png"
+     },
+     "public_form": {
+      "state": "edit",
+      "detail": "public form (anyone can apply)",
+      "shot": "guide/images/roles/guest_public_form.png"
+     },
+     "console": {
+      "state": "deny",
+      "detail": "separate login; only the console user (Nadine) has an account"
+     }
+    }
+   },
+   "probes": {
+    "administrator": {
+     "get_assessment": {
+      "status": 200,
+      "note": ""
+     },
+     "ranking": {
+      "status": 200,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 200,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 200,
+      "note": ""
+     },
+     "compare": {
+      "status": 200,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 200,
+      "note": ""
+     },
+     "decide": {
+      "status": 417,
+      "note": ""
+     },
+     "override": {
+      "status": 417,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 404,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 200,
+      "note": "AI fields in the reply; national ID in the reply"
+     },
+     "rest_assessment": {
+      "status": 200,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 200,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 200,
+      "note": "secrets masked"
+     },
+     "cv_file": {
+      "status": 200,
+      "note": ""
+     }
+    },
+    "system_manager": {
+     "get_assessment": {
+      "status": 200,
+      "note": ""
+     },
+     "ranking": {
+      "status": 200,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 200,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 200,
+      "note": ""
+     },
+     "compare": {
+      "status": 200,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 200,
+      "note": ""
+     },
+     "decide": {
+      "status": 417,
+      "note": ""
+     },
+     "override": {
+      "status": 417,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 404,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 200,
+      "note": "AI fields in the reply; national ID in the reply"
+     },
+     "rest_assessment": {
+      "status": 200,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 200,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 200,
+      "note": "secrets masked"
+     },
+     "cv_file": {
+      "status": 200,
+      "note": ""
+     }
+    },
+    "hr_manager": {
+     "get_assessment": {
+      "status": 200,
+      "note": ""
+     },
+     "ranking": {
+      "status": 200,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 200,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 200,
+      "note": ""
+     },
+     "compare": {
+      "status": 200,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 200,
+      "note": ""
+     },
+     "decide": {
+      "status": 417,
+      "note": ""
+     },
+     "override": {
+      "status": 417,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 404,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 200,
+      "note": "AI fields in the reply; national ID in the reply"
+     },
+     "rest_assessment": {
+      "status": 200,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 200,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 200,
+      "note": "secrets masked"
+     },
+     "cv_file": {
+      "status": 200,
+      "note": ""
+     }
+    },
+    "hr_user": {
+     "get_assessment": {
+      "status": 200,
+      "note": ""
+     },
+     "ranking": {
+      "status": 200,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 200,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 200,
+      "note": ""
+     },
+     "compare": {
+      "status": 200,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 200,
+      "note": ""
+     },
+     "decide": {
+      "status": 417,
+      "note": ""
+     },
+     "override": {
+      "status": 417,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 404,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 200,
+      "note": "AI fields in the reply; national ID in the reply"
+     },
+     "rest_assessment": {
+      "status": 200,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 200,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_file": {
+      "status": 200,
+      "note": ""
+     }
+    },
+    "interviewer": {
+     "get_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "ranking": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 403,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 403,
+      "note": ""
+     },
+     "compare": {
+      "status": 403,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 403,
+      "note": ""
+     },
+     "decide": {
+      "status": 403,
+      "note": ""
+     },
+     "override": {
+      "status": 403,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_file": {
+      "status": 403,
+      "note": ""
+     }
+    },
+    "employee": {
+     "get_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "ranking": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 403,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 403,
+      "note": ""
+     },
+     "compare": {
+      "status": 403,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 403,
+      "note": ""
+     },
+     "decide": {
+      "status": 403,
+      "note": ""
+     },
+     "override": {
+      "status": 403,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_file": {
+      "status": 403,
+      "note": ""
+     }
+    },
+    "ess": {
+     "get_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "ranking": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 403,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 403,
+      "note": ""
+     },
+     "compare": {
+      "status": 403,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 403,
+      "note": ""
+     },
+     "decide": {
+      "status": 403,
+      "note": ""
+     },
+     "override": {
+      "status": 403,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_file": {
+      "status": 403,
+      "note": ""
+     }
+    },
+    "portal": {
+     "get_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "ranking": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 403,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 403,
+      "note": ""
+     },
+     "compare": {
+      "status": 403,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 403,
+      "note": ""
+     },
+     "decide": {
+      "status": 403,
+      "note": ""
+     },
+     "override": {
+      "status": 403,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_file": {
+      "status": 403,
+      "note": ""
+     }
+    },
+    "guest": {
+     "get_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "ranking": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_analysis": {
+      "status": 403,
+      "note": ""
+     },
+     "talent_pool": {
+      "status": 403,
+      "note": ""
+     },
+     "compare": {
+      "status": 403,
+      "note": ""
+     },
+     "export_csv": {
+      "status": 403,
+      "note": ""
+     },
+     "decide": {
+      "status": 403,
+      "note": ""
+     },
+     "override": {
+      "status": 403,
+      "note": ""
+     },
+     "rescreen": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_applicant": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_assessment": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_audit": {
+      "status": 403,
+      "note": ""
+     },
+     "rest_settings": {
+      "status": 403,
+      "note": ""
+     },
+     "cv_file": {
+      "status": 403,
+      "note": ""
+     }
+    }
+   },
+   "console_login_shot": "guide/images/roles/console_login.png"
+  }
+ }
+}

@@ -68,6 +68,7 @@ Open `http://127.0.0.1:18000/console` on the server or `http://100.85.37.127:180
 
 ```bash
 uv sync                       # Python 3.12 venv in .venv (no system packages)
+uv sync --group documents     # + PaddleOCR, Presidio and spaCy (without them the two English-name redaction tests skip)
 make test                     # pytest, SQLite in memory, inline queue, fake LLM
 make lint typecheck           # ruff + mypy
 make revision m="message"     # alembic autogenerate (needs the db container)
