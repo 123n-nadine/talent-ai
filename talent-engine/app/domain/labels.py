@@ -14,6 +14,7 @@ STAGES: list[tuple[str, str, str]] = [
 ]
 
 NO_CV_NOTE = "لا توجد سيرة — التقييم من الإجابات فقط"
+NO_CV_NOTE_EN = "No CV — assessed from the answers only"
 
 AI_STATUS = {
     "queued": "Processing",

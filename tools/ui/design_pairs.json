@@ -1,0 +1,7 @@
+[
+ {"key": "desk_ranking", "title": "Desk ranking at 1366 px: strengths on their own line, neutral «إلزامي», bands as chips", "size": "1366", "file": "desk_ranking.png", "before_box": [0, 280, 1140, 1100], "after_box": [0, 280, 1140, 1100]},
+ {"key": "desk_stages", "title": "The 10 processing stages at 1440 px: Arabic notes in order, 4 columns inside the AI section", "size": "1440", "file": "desk_applicant_2002_scan.png", "before_box": [300, 1600, 1210, 2010], "after_box": [300, 1625, 1210, 2085]},
+ {"key": "desk_form_head", "title": "Applicant form at 1440 px: HRMS labels in Arabic (Schedule Interview, Applicant Rating, Salary Expectation, Last Edited By)", "size": "1440", "file": "desk_applicant_2002_scan.png", "before_box": [0, 0, 1440, 560], "after_box": [0, 0, 1440, 560]},
+ {"key": "console_ranking", "title": "Console ranking at 1366 px: the reference is no longer cut and no longer runs under the score", "size": "1366", "file": "console_ranking.png", "before_box": [320, 170, 1060, 1000], "after_box": [320, 170, 1060, 1000]},
+ {"key": "console_editor", "title": "Console criteria editor at 1366 px: delete buttons visible, «إلزامي» on one line, Arabic hints in the Arabic font", "size": "1366", "file": "console_profile.png", "before_box": [20, 470, 1060, 1400], "after_box": [20, 470, 1060, 1400]}
+]

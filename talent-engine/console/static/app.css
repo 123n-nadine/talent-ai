@@ -1,3 +1,14 @@
+/* IBM Plex Sans Arabic + IBM Plex Mono, served locally (SIL Open Font License 1.1, see OFL-IBM-Plex-Sans-Arabic.txt) */
+@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('/console/static/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2') format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-089F, U+08A0-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC}
+@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('/console/static/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:500;font-display:swap;src:url('/console/static/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2') format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-089F, U+08A0-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC}
+@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:500;font-display:swap;src:url('/console/static/fonts/ibm-plex-sans-arabic-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('/console/static/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2') format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-089F, U+08A0-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC}
+@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('/console/static/fonts/ibm-plex-sans-arabic-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:700;font-display:swap;src:url('/console/static/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2') format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-089F, U+08A0-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC}
+@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:700;font-display:swap;src:url('/console/static/fonts/ibm-plex-sans-arabic-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/console/static/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('/console/static/fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 :root{
   --blue:#1e4db5; --blue-dark:#173d93; --blue-soft:#e4ecfb; --blue-text:#1b3f94;
   --bg:#eef2fb; --card:#ffffff; --text:#1f2b47; --muted:#6f7d9c; --border:#e1e8f4; --border-2:#cbd6ea;
@@ -284,60 +295,6 @@ details.collapse summary{cursor:pointer;font-weight:600;color:var(--muted)}
 .impact table td{padding:6px 10px}
 .aihead .kpi b.blue{color:var(--blue)}.aihead .kpi b.green{color:var(--green)}.aihead .kpi b.amber{color:var(--amber)}.aihead .kpi b.red{color:var(--red)}
 .note.danger a{color:var(--red);text-decoration:underline}
-
-/* v2 additions */
-.ul{margin:0;padding-inline-start:18px;font-size:13px;line-height:1.9}
-.lbl{font-size:12px;display:block;margin-bottom:4px}
-.lvl{display:inline-block;min-width:34px;text-align:center;border-radius:8px;padding:1px 6px;font-weight:700;font-size:12px;font-family:"IBM Plex Mono",Consolas,monospace;direction:ltr}
-.lvl.l0{background:var(--red-bg);color:var(--red)}.lvl.l25{background:#ffe9d6;color:#b34a00}.lvl.l50{background:var(--amber-bg);color:var(--amber)}.lvl.l75{background:#e3f3ea;color:#1e6f42}.lvl.l100{background:var(--green-bg);color:var(--green)}
-.src{display:inline-block;border-radius:6px;padding:0 6px;font-size:10.5px;font-weight:600;white-space:nowrap;vertical-align:middle}
-.src.form{background:var(--blue-soft);color:var(--blue-text)}.src.cv{background:#fff1d6;color:#7a4d00}.src.missing{background:var(--grey-bg);color:var(--muted);border:1px dashed var(--border-2)}
-.prop{display:inline-block;background:var(--purple-bg);color:var(--purple);border-radius:8px;padding:0 7px;font-size:10.5px;font-weight:600;margin-inline-start:6px;vertical-align:middle}
-.rub{font-size:11px;line-height:1.5;white-space:normal}.rub .rb{display:inline-block;margin-inline-end:8px;color:var(--muted)}.rub .rb b{color:var(--text);font-family:Consolas,monospace;direction:ltr;display:inline-block}
-.contra{display:grid;gap:4px;font-size:12px;background:#fff6f6;border:1px solid #f3c0c0;border-radius:8px;padding:6px 8px}
-.multi{display:flex;gap:14px;flex-wrap:wrap;padding:8px 0}
-.field.q label{color:var(--text)}
-.pstep.skip{opacity:.45;border-style:dashed}
-.crit.c5{grid-template-columns:1.4fr 150px 1.6fr}
-.impact table td{padding:6px 10px}
-.aihead .kpi b.blue{color:var(--blue)}.aihead .kpi b.green{color:var(--green)}.aihead .kpi b.amber{color:var(--amber)}.aihead .kpi b.red{color:var(--red)}
-.note.danger a{color:var(--red);text-decoration:underline}
-
-/* v2 additions */
-.ul{margin:0;padding-inline-start:18px;font-size:13px;line-height:1.9}
-.lbl{font-size:12px;display:block;margin-bottom:4px}
-.lvl{display:inline-block;min-width:34px;text-align:center;border-radius:8px;padding:1px 6px;font-weight:700;font-size:12px;font-family:"IBM Plex Mono",Consolas,monospace;direction:ltr}
-.lvl.l0{background:var(--red-bg);color:var(--red)}.lvl.l25{background:#ffe9d6;color:#b34a00}.lvl.l50{background:var(--amber-bg);color:var(--amber)}.lvl.l75{background:#e3f3ea;color:#1e6f42}.lvl.l100{background:var(--green-bg);color:var(--green)}
-.src{display:inline-block;border-radius:6px;padding:0 6px;font-size:10.5px;font-weight:600;white-space:nowrap;vertical-align:middle}
-.src.form{background:var(--blue-soft);color:var(--blue-text)}.src.cv{background:#fff1d6;color:#7a4d00}.src.missing{background:var(--grey-bg);color:var(--muted);border:1px dashed var(--border-2)}
-.prop{display:inline-block;background:var(--purple-bg);color:var(--purple);border-radius:8px;padding:0 7px;font-size:10.5px;font-weight:600;margin-inline-start:6px;vertical-align:middle}
-.rub{font-size:11px;line-height:1.5;white-space:normal}.rub .rb{display:inline-block;margin-inline-end:8px;color:var(--muted)}.rub .rb b{color:var(--text);font-family:Consolas,monospace;direction:ltr;display:inline-block}
-.contra{display:grid;gap:4px;font-size:12px;background:#fff6f6;border:1px solid #f3c0c0;border-radius:8px;padding:6px 8px}
-.multi{display:flex;gap:14px;flex-wrap:wrap;padding:8px 0}
-.field.q label{color:var(--text)}
-.pstep.skip{opacity:.45;border-style:dashed}
-.crit.c5{grid-template-columns:1.4fr 150px 1.6fr}
-.impact table td{padding:6px 10px}
-.aihead .kpi b.blue{color:var(--blue)}.aihead .kpi b.green{color:var(--green)}.aihead .kpi b.amber{color:var(--amber)}.aihead .kpi b.red{color:var(--red)}
-.note.danger a{color:var(--red);text-decoration:underline}
-
-/* v2 additions */
-.ul{margin:0;padding-inline-start:18px;font-size:13px;line-height:1.9}
-.lbl{font-size:12px;display:block;margin-bottom:4px}
-.lvl{display:inline-block;min-width:34px;text-align:center;border-radius:8px;padding:1px 6px;font-weight:700;font-size:12px;font-family:"IBM Plex Mono",Consolas,monospace;direction:ltr}
-.lvl.l0{background:var(--red-bg);color:var(--red)}.lvl.l25{background:#ffe9d6;color:#b34a00}.lvl.l50{background:var(--amber-bg);color:var(--amber)}.lvl.l75{background:#e3f3ea;color:#1e6f42}.lvl.l100{background:var(--green-bg);color:var(--green)}
-.src{display:inline-block;border-radius:6px;padding:0 6px;font-size:10.5px;font-weight:600;white-space:nowrap;vertical-align:middle}
-.src.form{background:var(--blue-soft);color:var(--blue-text)}.src.cv{background:#fff1d6;color:#7a4d00}.src.missing{background:var(--grey-bg);color:var(--muted);border:1px dashed var(--border-2)}
-.prop{display:inline-block;background:var(--purple-bg);color:var(--purple);border-radius:8px;padding:0 7px;font-size:10.5px;font-weight:600;margin-inline-start:6px;vertical-align:middle}
-.rub{font-size:11px;line-height:1.5;white-space:normal}.rub .rb{display:inline-block;margin-inline-end:8px;color:var(--muted)}.rub .rb b{color:var(--text);font-family:Consolas,monospace;direction:ltr;display:inline-block}
-.contra{display:grid;gap:4px;font-size:12px;background:#fff6f6;border:1px solid #f3c0c0;border-radius:8px;padding:6px 8px}
-.multi{display:flex;gap:14px;flex-wrap:wrap;padding:8px 0}
-.field.q label{color:var(--text)}
-.pstep.skip{opacity:.45;border-style:dashed}
-.crit.c5{grid-template-columns:1.4fr 150px 1.6fr}
-.impact table td{padding:6px 10px}
-.aihead .kpi b.blue{color:var(--blue)}.aihead .kpi b.green{color:var(--green)}.aihead .kpi b.amber{color:var(--amber)}.aihead .kpi b.red{color:var(--red)}
-.note.danger a{color:var(--red);text-decoration:underline}
 .multi input{width:auto;min-height:0;margin:0 4px}
 .rankrow .list-id{white-space:normal;line-height:2;display:flex;flex-wrap:wrap;gap:3px 4px;align-items:center}
 .rankrow>div{overflow:hidden}
@@ -382,3 +339,65 @@ mark.tok{background:var(--red-bg);color:var(--red);border-radius:4px;padding:0 3
 .evq{border:1px solid var(--border);border-radius:var(--radius-s);padding:8px 10px;margin-bottom:6px;cursor:pointer}
 .evq.on{border-color:var(--purple);background:var(--purple-bg)}
 .evq .quote{display:block;margin-top:4px}
+
+/* ==== Design pass 2026-10-17: readable sizes, WCAG AA contrast, colours with one meaning ====
+   green = eligible / high · amber = medium / needs review · red = not eligible / low / failed ·
+   grey = stale / duplicate / neutral · blue = processing / information · purple = an HR edit */
+:root{--muted:#56627c;--green-text:#166c3c;--amber-text:#8a5300;--red-text:#b42525;--grey-text:#475569}
+.chip{font-size:12.5px;padding:3px 10px;line-height:1.5;gap:6px}
+.chip.green{color:var(--green-text)}.chip.amber{color:var(--amber-text)}.chip.red{color:var(--red-text)}
+.chip:not(.green):not(.amber):not(.red):not(.blue):not(.purple):not(.mand){background:var(--grey-bg);color:var(--grey-text)}
+.chip.grey{background:var(--grey-bg);color:var(--grey-text)}
+.chip.mand{background:transparent;color:var(--text);border:1px solid var(--border-2);font-weight:600}
+.badge-demo{color:var(--amber-text)}
+.note{font-size:13px;color:var(--text);background:#f6f8fc;line-height:1.7}
+.note.strong{color:var(--amber-text)}.note.danger{color:var(--red-text)}
+.note.grey{border-color:#94a3b8;background:var(--grey-bg);color:var(--grey-text)}
+.note.info{border-color:var(--blue);background:var(--blue-soft);color:var(--blue-text)}
+.btn.danger{color:var(--red-text)}.btn.ok{color:var(--green-text)}.btn.warn{color:var(--amber-text)}
+.score.high{color:var(--green-text)}.score.medium{color:var(--amber-text)}.score.low{color:var(--red-text)}.score.off{color:#6b7280}
+.mv.up{color:var(--green-text)}.mv.down{color:var(--red-text)}
+.was,.poolwhy .was,.crit .was{color:var(--red-text)}.poolwhy .now{color:var(--green-text)}
+.who.applicant{color:var(--green-text)}
+.lvl.l0{color:var(--red-text)}.lvl.l50{color:var(--amber-text)}.lvl.l100{color:var(--green-text)}.lvl.l25{color:#9a3f00}
+.cf.hi{color:var(--green-text)}.cf.mid{color:var(--amber-text)}.cf.lo{color:var(--red-text)}
+.ocrout .cf{color:var(--green-text)}
+.warnbox{color:var(--amber-text)}
+.aihead .kpi b.green{color:var(--green-text)}.aihead .kpi b.amber{color:var(--amber-text)}.aihead .kpi b.red{color:var(--red-text)}
+/* readable sizes: nothing under 12px */
+.brand small{font-size:11.5px;letter-spacing:.04em}
+.ws small,.nav .sec,.nav a .cnt,.field .help,.aihead .kpi small,.mnode .box small,.pipe-grid .pstep .t small,.rub,.rb,.tag-hr,.tag-off,
+.poolwhy b,.audit,.audit code,.list-id,.hint,.disclaimer,.src,.prop,.legend,.cf,.ocrout .cf,.dev .wr,.site .facts small,.upl .fn,
+.lbl,.dev .ar,.card h2 small,th,.contra,.poolwhy,.pcard h4,.pcard .it,.seg button,.tgl{font-size:12.5px}
+.nav a.new::after,.field.new label::after{font-size:11.5px}
+.mnode .box .who{font-size:12px;padding:2px 9px}
+.step{font-size:12px}
+.dev pre{font-size:12px}
+.field label{font-size:13px}
+.quote{font-size:13px;max-width:none;overflow-wrap:anywhere;white-space:normal;line-height:1.7}
+td{overflow-wrap:anywhere}
+.cvtext,.ocrline .ln{unicode-bidi:plaintext}
+.kv .bands{display:flex;flex-wrap:wrap;gap:6px}
+.pos.off{background:var(--grey-bg);color:var(--muted)}
+.pstep .t small{display:block;line-height:1.6;overflow-wrap:anywhere}
+td.payload{font-size:12px !important}
+/* ranking rows: the reference wraps instead of running under the score */
+.rankrow.r1{grid-template-columns:44px minmax(160px,2.2fr) 70px 104px minmax(70px,130px) 92px 52px}
+.rankrow.r3{grid-template-columns:44px minmax(180px,1.6fr) 72px minmax(150px,1.6fr) 52px}
+.rankrow .c-name b{display:block;overflow-wrap:anywhere;line-height:1.4}
+.rankrow .c-chips{display:flex;flex-wrap:wrap;gap:6px}
+.rankrow .bar{width:auto}
+@media (max-width:1440px){.rankrow.r1{grid-template-columns:40px minmax(150px,2fr) 64px 100px minmax(50px,90px) 88px 48px}}
+@media (max-width:1100px){.rankrow.r1 .bar{display:none}.rankrow.r1{grid-template-columns:40px minmax(150px,1fr) 64px 100px 0 88px 48px}}
+/* audit payload wraps inside its cell; editor tables fit at 1366 */
+td.payload{white-space:normal;word-break:break-all;max-width:420px}
+td.payload .mono{font-size:12px;white-space:normal}
+.kv small,small{font-size:12.5px}
+.mnode .arrow{color:#7b8499}
+table.edit .chk{white-space:nowrap;padding:6px 8px;gap:6px}
+table.edit td:first-child{min-width:150px}
+table.edit select{max-width:210px}
+table.edit td.rub input[dir=auto]{font-family:var(--font)}
+table.edit td{vertical-align:top}
+.stack{display:block}
+table.edit td input[dir=auto]{font-family:var(--font)}

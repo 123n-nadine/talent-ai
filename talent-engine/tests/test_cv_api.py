@@ -51,7 +51,7 @@ def test_upload_replaces_stale_and_shows_in_screening(tmp_path, seeded, client):
     r = client.post("/v1/screenings", json={"job_ref": SEC, "candidate_ref": "HR-APP-2026-2002"})
     s = client.get(f"/v1/screenings/{r.json()['screening_id']}").json()
     stages = {st["key"]: st for st in s["stages"]}
-    assert stages["cv_text"]["status"] == "done" and "pdf_text" in stages["cv_text"]["note"]
+    assert stages["cv_text"]["status"] == "done" and "نص PDF مباشر" in stages["cv_text"]["note"]
     assert stages["redaction"]["status"] == "done" and stages["profile"]["status"] == "skipped"
     assert s["cv"]["status"] == "ready" and "redacted_text" in s["cv"] and s["score"] == 81.5
     cv = client.get("/v1/candidates/HR-APP-2026-2002/cv").json()["document"]

@@ -1,0 +1,40 @@
+{
+ "screens": 110,
+ "before": {
+  "low-contrast": 6524,
+  "small-font": 2870,
+  "overlap": 825,
+  "off-screen-text": 268
+ },
+ "after": {
+  "overlap": 2
+ },
+ "pairs": [
+  {
+   "title": "Desk ranking at 1366 px: strengths on their own line, neutral «إلزامي», bands as chips",
+   "before": "guide/images/design/desk_ranking_before.png",
+   "after": "guide/images/design/desk_ranking_after.png"
+  },
+  {
+   "title": "The 10 processing stages at 1440 px: Arabic notes in order, 4 columns inside the AI section",
+   "before": "guide/images/design/desk_stages_before.png",
+   "after": "guide/images/design/desk_stages_after.png"
+  },
+  {
+   "title": "Applicant form at 1440 px: HRMS labels in Arabic (Schedule Interview, Applicant Rating, Salary Expectation, Last Edited By)",
+   "before": "guide/images/design/desk_form_head_before.png",
+   "after": "guide/images/design/desk_form_head_after.png"
+  },
+  {
+   "title": "Console ranking at 1366 px: the reference is no longer cut and no longer runs under the score",
+   "before": "guide/images/design/console_ranking_before.png",
+   "after": "guide/images/design/console_ranking_after.png"
+  },
+  {
+   "title": "Console criteria editor at 1366 px: delete buttons visible, «إلزامي» on one line, Arabic hints in the Arabic font",
+   "before": "guide/images/design/console_editor_before.png",
+   "after": "guide/images/design/console_editor_after.png"
+  }
+ ],
+ "notes": "The two overlaps left are the HRMS «قدّم الآن» button on the phone job page: it stays fixed at the bottom of the screen and the page scrolls under it (standard HRMS behaviour, not changed). No JavaScript error on any of the screens."
+}
