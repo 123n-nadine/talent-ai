@@ -192,6 +192,18 @@ def engine_labels() -> None:
     api = read(os.path.join(APP, "api.py"))
     for st in literal(api, "DECISIONS") if "DECISIONS =" in api else []:
         add("status", f"decision:{st}", f"HR decision {st} (Job Applicant.status)", "", "ido_talent_ai/ido_talent_ai/api.py")
+    # AI statuses that only Frappe sets (no consent yet, consent withdrawn), and the ranking groups
+    # that only the platform knows (applications never sent to the engine)
+    from_engine = set(literal(s, "AI_STATUS").values())
+    inst = read(os.path.join(APP, "setup", "install.py"))
+    m = re.search(r'_f\("ai_status", "Select", "AI status", options="([^"]*)"', inst)
+    for o in [x for x in (m.group(1).split("\\n") if m else []) if x and x not in from_engine]:
+        add("status", f"ai_status:{o}", f"Job Applicant ai_status {o} (set by Frappe)", "", "ido_talent_ai/ido_talent_ai/setup/install.py")
+    rk_js = read(os.path.join(APP, "talent_ai", "page", "ai_ranking", "ai_ranking.js"))
+    engine_groups = set(literal(s, "GROUP_REASONS"))
+    for k, ar in re.findall(r'^\t\t(\w+): \{ ar: "([^"]+)"', rk_js, re.M):
+        if k not in engine_groups and k not in ("processing", "stale", "duplicate"):
+            add("status", f"group:{k}", f"ranking group {k} (built by Frappe)", ar, "ido_talent_ai/ido_talent_ai/talent_ai/page/ai_ranking/ai_ranking.js")
     j = json.load(open(os.path.join(APP, "talent_ai", "doctype", "ai_recruitment_job", "ai_recruitment_job.json"), encoding="utf-8"))
     for f in j["fields"]:
         if f["fieldname"] == "status":

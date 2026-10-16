@@ -4,7 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.deps import actor_from, get_db, get_tenant
+from app.api.deps import actor_from, get_db, get_settings_dep, get_tenant
+from app.core.config import Settings
 from app.domain.models import CandidateIn
 from app.services import candidates as cand_svc
 from app.services import screenings as scr_svc
@@ -24,8 +25,11 @@ def upsert_candidate(
     data: CandidateIn,
     db: Session = Depends(get_db),
     tenant: Tenant = Depends(get_tenant),
+    settings: Settings = Depends(get_settings_dep),
     actor: str = Depends(actor_from),
 ):
+    """Create or update a candidate. `consent: false` on a candidate that had consent erases
+    everything the AI made of the application; only the reference stays (OPEN_QUESTIONS #21)."""
     unknown = cand_svc.unknown_facts(data.facts, tenant.allowed_facts or [])
     if unknown:
         raise HTTPException(
@@ -36,10 +40,13 @@ def upsert_candidate(
                 "allowed_facts": tenant.allowed_facts,
             },
         )
-    cand, created = cand_svc.upsert_candidate(db, tenant, ref, data, actor)
+    cand, created = cand_svc.upsert_candidate(db, tenant, ref, data, actor, settings.file_store)
+    erased = db.info.get("erasures", {}).get(ref)
     db.commit()
     out = cand_svc.candidate_out(cand)
     out["created"] = created
+    if erased is not None:  # what the withdrawal removed; the host refreshes the promoted copies
+        out["erased"] = erased
     return out
 
 
@@ -74,11 +81,13 @@ def delete_candidate(
     ref: str,
     db: Session = Depends(get_db),
     tenant: Tenant = Depends(get_tenant),
+    settings: Settings = Depends(get_settings_dep),
     actor: str = Depends(actor_from),
 ):
+    """Full erasure (the host deleted the application): the AI data and the reference itself."""
     cand = cand_svc.get_candidate(db, tenant, ref)
     if cand is None:
         raise HTTPException(status_code=404, detail="candidate not found")
-    counts = cand_svc.delete_candidate(db, tenant, ref, actor)
+    counts = cand_svc.delete_candidate(db, tenant, ref, actor, settings.file_store)
     db.commit()
     return {"deleted": True, "ref": ref, "removed": counts}

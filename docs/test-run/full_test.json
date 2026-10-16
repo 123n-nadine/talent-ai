@@ -686,6 +686,37 @@
    "ok": true,
    "seconds": null,
    "shots": []
+  },
+  "K16": {
+   "title": "Paper application without consent, then HR records the consent",
+   "user": "HR Manager",
+   "file": null,
+   "expected": "saved, «بانتظار الموافقة», nothing sent to the AI; empty source refused; consent recorded with its source, who and when; screening starts by itself",
+   "actual": "status before Awaiting Consent, engine ref none, AI jobs 0, ranking group awaiting_consent: True; empty source refused: True; recorded by hr.manager@example.com at 2026-10-16 15:55:00.509486 (source «ورقة موقّعة»); result Completed 11.1s after the consent; audit rows 1",
+   "ok": true,
+   "seconds": 11.1,
+   "shots": [
+    "guide/images/test/K16_awaiting.png",
+    "guide/images/test/K16_source_required.png",
+    "guide/images/test/K16_dialog.png",
+    "guide/images/test/K16_after.png"
+   ],
+   "applicant": "t.paper@example.com"
+  },
+  "K17": {
+   "title": "Consent withdrawn: out of the ranking, AI data erased, application kept",
+   "user": "HR Manager",
+   "file": null,
+   "expected": "out of the ranking at once into «مستبعد: سحب الموافقة» with no score; engine documents, CV file, profile, index and results erased; Frappe assessment gone; application kept",
+   "actual": "before: Completed, ranked True, CV file present; after 4.0s: status Consent Withdrawn, score 0, assessments 0, answers kept 11; engine: consent False, facts {}, documents 0, screenings 0, CV file removed, audit findings scrubbed True; ranking group: True, score None; talent pool: consent_withdrawn",
+   "ok": true,
+   "seconds": 4.0,
+   "shots": [
+    "guide/images/test/K17_reason.png",
+    "guide/images/test/K17_after.png",
+    "guide/images/test/K17_group.png"
+   ],
+   "applicant": "t.withdraw@example.com"
   }
  },
  "perm": {
@@ -2295,9 +2326,9 @@
   }
  },
  "run_started": "2026-10-16 08:22:42",
- "updated_at": "2026-10-16 09:29:00",
- "engine_suite": "112 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1)",
- "frappe_suite": "18 passed",
+ "updated_at": "2026-10-16 12:56:34",
+ "engine_suite": "120 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1)",
+ "frappe_suite": "22 passed",
  "not_done": [
   "The Playwright MCP server was not available in this session; the same Playwright engine (1.64) and the server's Chrome were driven from Python instead.",
   "The CSV button opens the file in a new tab; in headless Chrome the download event of that tab was not caught, so K10 checked the same URL fetched by the page.",

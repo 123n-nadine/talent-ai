@@ -603,7 +603,7 @@ async def run_cases(b) -> None:
              ("K04", lambda: case_blank_vs_zero(hr)), ("K05", lambda: case_contradiction(hr)), ("K06", lambda: case_duplicate(hr)),
              ("K07", lambda: case_edit_after(hr)), ("K08", lambda: case_override(hr)), ("K09", lambda: case_decisions(hr)), ("K10", lambda: case_csv(hr)),
              ("K11", lambda: case_compare(hr)), ("K12", lambda: case_pool(hr)), ("K13", lambda: case_xss(hr, guest)), ("K14", lambda: case_weights(hr)),
-             ("K15", lambda: case_engine_down(hr, guest))]
+             ("K15", lambda: case_engine_down(hr, guest)), ("K16", lambda: case_paper_consent(hr)), ("K17", lambda: case_withdrawal(hr, guest))]
     try:
         for tid, fn in cases:
             if not only or tid in only:
@@ -1022,6 +1022,154 @@ async def case_engine_down(hr, guest) -> None:
 
 
 # ============================================================================== console (Nadine)
+def engine_api(method: str, path: str, body: dict | None = None) -> dict:
+    """The engine API with the tenant key from the engine .env (never printed or saved)."""
+    import urllib.error
+    import urllib.request
+
+    req = urllib.request.Request(f"http://127.0.0.1:18000{path}", method=method, data=json.dumps(body).encode() if body is not None else None,
+                                 headers={"Authorization": f"Bearer {ENG['TENANT_API_KEY']}", "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.loads(r.read() or b"{}")
+    except urllib.error.HTTPError as e:
+        return {"__status__": e.code}
+
+
+def engine_file_exists(sha: str) -> bool:
+    r = subprocess.run(["docker", "exec", "talentai-api-1", "test", "-f", f"/data/files/{sha[:2]}/{sha}"], capture_output=True)
+    return r.returncode == 0
+
+
+async def case_paper_consent(hr) -> None:
+    """OPEN_QUESTIONS #20 (default): a paper application entered by HR waits for the consent; HR
+    records it with a mandatory source, and the screening starts by itself."""
+    try:
+        shots = []
+        tpl = DATA["paper_applications"][0]
+        labels = {q["question_key"]: q["label"] for q in DATA["profile"]["questions"]}
+        doc = {"doctype": "Job Applicant", "applicant_name": "عادل السهلي", "email_id": f"t.paper{RERUN}@example.com", "phone_number": "05200109205",
+               "job_title": OP1, "designation": DATA["designation"], "status": "Open", "source": "Walk In", "nationality": "Saudi Arabia",
+               "id_type": "هوية وطنية", "national_id": f"100009{NID}205", "height_cm": 183, "weight_kg": 80,
+               "date_of_birth": (date.today().replace(year=date.today().year - 33) - timedelta(days=120)).isoformat(),
+               "ai_answers": [{"question_key": k, "question": labels.get(k, k), "answer": "\n".join(v) if isinstance(v, list) else str(v), "answered": 1}
+                              for k, v in tpl["answers"].items()]}
+        made = await xcall(hr, "frappe.client.insert", {"doc": doc})
+        name = made["name"]
+        await asyncio.sleep(2)
+        st = await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": name, "fieldname": ["ai_status", "ai_candidate_ref", "ai_consent"]})
+        jobs = await xcall(hr, "frappe.client.get_count", {"doctype": "AI Recruitment Job", "filters": {"reference_name": name}})
+        rk = await xcall(hr, "ido_talent_ai.api.ranking", {"job_opening": OP1})
+        waiting = name in [x.get("applicant") for x in rk["groups"].get("awaiting_consent", [])]
+        await open_applicant(hr, name)
+        shots.append(await snap(hr, "test/K16_awaiting.png", selector=f"{AI} .tai"))
+        # the dialog refuses an empty source, then records it
+        await hr.evaluate("window.__d = talent_ai_form.consent(cur_frm)")
+        await hr.wait_for_selector(".modal.show [data-fieldname=source] input", timeout=20000)
+        await asyncio.sleep(0.6)
+        await hr.evaluate("window.__d.get_primary_btn().click()")
+        await asyncio.sleep(1.2)
+        empty_refused = await hr.evaluate("!!document.querySelector('.modal.show [data-fieldname=source]') && !(cur_frm.doc.ai_consent)")
+        shots.append(await snap(hr, "test/K16_source_required.png"))
+        await hr.evaluate("frappe.hide_msgprint()")
+        await asyncio.sleep(0.8)
+        await hr.evaluate("window.__d.set_value('source', 'ورقة موقّعة')")
+        await asyncio.sleep(0.4)
+        shots.append(await snap(hr, "test/K16_dialog.png", selector=".modal.show .modal-content"))
+        t0 = time.time()
+        await hr.evaluate("window.__d.get_primary_btn().click()")
+        await asyncio.sleep(2)
+        rec = await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": name,
+                                                         "fieldname": ["ai_consent", "ai_consent_source", "ai_consent_recorded_by", "ai_consent_on", "ai_status"]})
+        final, secs = await wait_final(hr, name, 600)
+        secs = round(time.time() - t0, 1)
+        await open_applicant(hr, name)
+        shots.append(await snap(hr, "test/K16_after.png", selector=f"{AI} .tai"))
+        log = await xcall(hr, "frappe.client.get_list", {"doctype": "AI Recruitment Audit Log", "filters": {"reference_name": name, "action": "applicant.consent_recorded"},
+                                                        "fields": ["actor", "reason", "timestamp"]})
+        ok = (st["ai_status"] == "Awaiting Consent" and not st["ai_candidate_ref"] and jobs == 0 and waiting and empty_refused
+              and rec["ai_consent"] == 1 and rec["ai_consent_source"] == "ورقة موقّعة" and rec["ai_consent_recorded_by"] == "hr.manager@example.com"
+              and final in ("Completed", "Needs Review") and len(log) == 1 and log[0]["actor"] == "hr.manager@example.com")
+        record("K16", "Paper application without consent, then HR records the consent", "HR Manager", ok,
+               "saved, «بانتظار الموافقة», nothing sent to the AI; empty source refused; consent recorded with its source, who and when; screening starts by itself",
+               f"status before {st['ai_status']}, engine ref {'none' if not st['ai_candidate_ref'] else 'SET'}, AI jobs {jobs}, ranking group awaiting_consent: {waiting}; "
+               f"empty source refused: {empty_refused}; recorded by {rec['ai_consent_recorded_by']} at {rec['ai_consent_on']} (source «{rec['ai_consent_source']}»); "
+               f"result {final} {secs}s after the consent; audit rows {len(log)}",
+               seconds=secs, shots=shots, applicant=name)
+    except Exception as e:
+        fail("K16", "paper application consent", "HR Manager", e)
+
+
+async def case_withdrawal(hr, guest) -> None:
+    """OPEN_QUESTIONS #21 (default): a withdrawal takes the applicant out of the ranking at once, into
+    «مستبعد: سحب الموافقة» without a score; the AI data is erased in the engine (documents and files,
+    profile, index, results, audit findings) and in Frappe; the application stays."""
+    try:
+        shots = []
+        # an applicant with a CV file of its own (a shared file would rightly stay)
+        src = open(os.path.join(CVS, "HR-APP-2026-2007.pdf"), "rb").read()
+        cv = os.path.join(SCRATCH, "k17_cv.pdf")
+        os.makedirs(SCRATCH, exist_ok=True)
+        open(cv, "wb").write(src + f"\n% K17 {time.time()}\n".encode())
+        a = applicant("2007", applicant_name="منيف القرشي", email_id=f"t.withdraw{RERUN}@example.com", national_id=f"100009{NID}206")
+        sub = await submit_public(guest, OP1, a, cv)
+        name = (await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": {"email_id": a["email_id"]}, "fieldname": "name"}))["name"]
+        final, _ = await wait_final(hr, name, 900)
+        ref = (await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": name, "fieldname": "ai_candidate_ref"}))["ai_candidate_ref"]
+        before = engine_api("GET", f"/v1/candidates/{ref}")
+        sha = (before.get("documents") or [{}])[0].get("sha256")
+        file_before = bool(sha) and engine_file_exists(sha)
+        rk0 = await xcall(hr, "ido_talent_ai.api.ranking", {"job_opening": OP1})
+        ranked_before = name in [x.get("applicant") for x in rk0["ranked"]]
+        # the HR action, from the button of the form
+        await open_applicant(hr, name)
+        t0 = time.time()
+        await hr.evaluate("cur_frm.custom_buttons[Object.keys(cur_frm.custom_buttons).find(k => /سحب موافقة المعالجة|Withdraw consent/.test(k))].click()")
+        await hr.wait_for_selector(".modal.show [data-fieldname=reason] textarea", timeout=20000)
+        await asyncio.sleep(0.6)
+        await hr.evaluate("cur_dialog.set_value('reason', 'طلب المتقدم سحب موافقته على المعالجة (اختبار)')")
+        await asyncio.sleep(0.4)
+        shots.append(await snap(hr, "test/K17_reason.png", selector=".modal.show .modal-content"))
+        await hr.evaluate("cur_dialog.get_primary_btn().click()")
+        row, _ = await wait_value(hr, "Job Applicant", name, "ai_erased_on", lambda v: bool(v), 120, 1.0)
+        secs = round(time.time() - t0, 1)
+        jf = await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": name,
+                                                        "fieldname": ["ai_status", "ai_score", "ai_assessment", "ai_consent", "ai_consent_withdrawn_on", "ai_erased_on"]})
+        kept = await xcall(hr, "frappe.client.get", {"doctype": "Job Applicant", "name": name})
+        n_assess = await xcall(hr, "frappe.client.get_count", {"doctype": "AI Candidate Assessment", "filters": {"job_applicant": name}})
+        after = engine_api("GET", f"/v1/candidates/{ref}")
+        file_after = bool(sha) and engine_file_exists(sha)
+        ev = engine_api("GET", f"/v1/audit?ref={ref}").get("events", [])
+        scrubbed = all(e["payload"] == {"erased": True} or e["action"] == "candidate.consent_withdrawn" for e in ev) and not any("score" in e["payload"] for e in ev)
+        rk = await xcall(hr, "ido_talent_ai.api.ranking", {"job_opening": OP1})
+        item = next((x for x in rk["groups"].get("consent_withdrawn", []) if x.get("applicant") == name), None)
+        out_of_ranking = name not in [x.get("applicant") for x in rk["ranked"]] and item is not None and item.get("score") is None
+        pool = await xcall(hr, "ido_talent_ai.api.talent_pool", {"job_opening": OP2})
+        pool_reason = next((x.get("reason") for x in pool.get("excluded", []) if x.get("applicant") == name), None)
+        await open_applicant(hr, name)
+        shots.append(await snap(hr, "test/K17_after.png", selector=f"{AI} .tai"))
+        await hr.goto(f"{BASE}/desk/ai-ranking?opening={OP1}")
+        await hr.wait_for_selector(".tai .rankrow", timeout=90000)
+        await settle(hr, 2)
+        await hr.evaluate("""() => { const g = Array.from(document.querySelectorAll('details.tai-group')).find(d => /سحب الموافقة|consent withdrawn/i.test(d.querySelector('summary').innerText));
+            if (g) { g.open = true; g.setAttribute('data-tai-k17', '1'); } }""")
+        await asyncio.sleep(0.8)
+        shots.append(await snap(hr, "test/K17_group.png", selector="[data-tai-k17='1']"))
+        ok = (final in ("Completed", "Needs Review") and ranked_before and file_before and jf["ai_status"] == "Consent Withdrawn" and not jf["ai_score"]
+              and not jf["ai_assessment"] and n_assess == 0 and jf["ai_erased_on"] and len(kept.get("ai_answers") or []) == 11
+              and after.get("consent") is False and after.get("facts") == {} and not after.get("documents") and not after.get("screenings")
+              and not file_after and scrubbed and out_of_ranking and pool_reason == "consent_withdrawn")
+        record("K17", "Consent withdrawn: out of the ranking, AI data erased, application kept", "HR Manager", ok,
+               "out of the ranking at once into «مستبعد: سحب الموافقة» with no score; engine documents, CV file, profile, index and results erased; Frappe assessment gone; application kept",
+               f"before: {final}, ranked {ranked_before}, CV file {'present' if file_before else 'MISSING'}; after {secs}s: status {jf['ai_status']}, score {jf['ai_score']}, "
+               f"assessments {n_assess}, answers kept {len(kept.get('ai_answers') or [])}; engine: consent {after.get('consent')}, facts {after.get('facts')}, documents {len(after.get('documents') or [])}, "
+               f"screenings {len(after.get('screenings') or [])}, CV file {'still there' if file_after else 'removed'}, audit findings scrubbed {scrubbed}; "
+               f"ranking group: {bool(item)}, score {item.get('score') if item else '-'}; talent pool: {pool_reason}",
+               seconds=secs, shots=sub.get("shots", []) + shots, applicant=name)
+    except Exception as e:
+        fail("K17", "consent withdrawal", "HR Manager", e)
+
+
 async def run_console(b) -> None:
     page = await new_page(b, "1440", scale=1.5)
     try:

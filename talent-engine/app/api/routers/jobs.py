@@ -140,6 +140,9 @@ def rescreen(
     skipped: list[str] = []
     for s in scr_svc.latest_per_candidate(db, job):
         current, _ = scr_svc.is_current(s, job, s.candidate)
+        if not s.candidate.consent:  # no processing without consent
+            skipped.append(s.candidate.external_ref)
+            continue
         if current and s.status in ("completed", "needs_review") and not force:
             skipped.append(s.candidate.external_ref)
             continue

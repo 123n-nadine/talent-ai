@@ -127,7 +127,7 @@ Stored per AI Job Profile as rows: `fact`, `operator`, `value`, `if_missing` (al
 | tenant | id, name, api_key_hash, callback_url, callback_secret, ai_provider, ai_model, ocr_provider, llm_timeout_s, max_retries, retention_days (the effective settings; read and written through `/v1/settings`) |
 | job | tenant_id, external_ref, title, description, active_version |
 | job_version | job_id, version, criteria (json: text, weight, mandatory, rubric), rules (json), questions (json), approved_by, approved_at |
-| candidate | tenant_id, external_ref, id_token (HMAC-SHA256 of the national ID, computed by the adapter with a secret the engine never sees; used only for duplicate detection), facts (json: only allowed facts), answers (json), consent, retention_until, data_hash |
+| candidate | tenant_id, external_ref, id_token (HMAC-SHA256 of the national ID, computed by the adapter with a secret the engine never sees; used only for duplicate detection), facts (json: only allowed facts), answers (json), consent, consent_withdrawn_at, withdrawn_from (json: the jobs, kept after the erasure for the `consent_withdrawn` group), retention_until, data_hash |
 | document | candidate_id, kind (cv), mime, sha256, text, extraction_method, ocr_confidence, redacted_text |
 | profile | candidate_id, schema_version, data (json with quotes) |
 | screening | job_version_id, candidate_id, status, eligibility, eligibility_reasons, score, coverage, band, flags, rank, summary, strengths, gaps, versions (model, prompt, schema), input_hash, attempts, error |
@@ -218,7 +218,7 @@ Rule: **no edits to frappe/erpnext/hrms code.** Everything is DocTypes, Custom F
 ### 9.2 Custom fields
 
 - Job Opening: `ai_enabled` (Check), `ai_profile` (Link AI Job Profile), `ai_profile_approved` (Check, read-only).
-- Job Applicant: `ai_status` (Select: Processing / Completed / Needs Review / Failed), `ai_score` (Percent), `ai_assessment` (Link), `ai_evaluated_on` (Datetime), plus the application facts the form collects: nationality, id_type, national_id (permlevel 1; the raw value never leaves Frappe: the adapter sends only `id_token = HMAC-SHA256(national_id, id_token_secret)` for duplicate detection), date_of_birth, height_cm, weight_kg, photo, certificates (table), ai_consent, and a child table for screening-question answers.
+- Job Applicant: `ai_status` (Select: Awaiting Consent / Processing / Completed / Needs Review / Failed / Consent Withdrawn), `ai_score` (Percent), `ai_assessment` (Link), `ai_evaluated_on` (Datetime), plus the application facts the form collects: nationality, id_type, national_id (permlevel 1; the raw value never leaves Frappe: the adapter sends only `id_token = HMAC-SHA256(national_id, id_token_secret)` for duplicate detection), date_of_birth, height_cm, weight_kg, photo, certificates (table), ai_consent, and a child table for screening-question answers.
 - Check `reference/discovery/04_fields_matrix.csv` first: some fields already exist on the site.
 
 ### 9.3 Web form
@@ -275,7 +275,8 @@ The UX target is `reference/demo/talent-ai-demo.html`.
 - The raw national ID never reaches the engine. For duplicate detection the adapter sends `id_token = HMAC-SHA256(national_id, id_token_secret)`; the secret stays in Frappe (Password field), so the engine cannot reverse the token.
 - Redaction before LLM; logs contain no raw CV text or personal data (hashes and ids only).
 - Secrets in `.env` (engine) and Password fields (Frappe). Never committed.
-- Retention per tenant; deletion endpoint removes everything; talent pool honours consent withdrawal and retention.
+- Retention per tenant; deletion endpoint removes everything (rows and the stored CV files no other document uses); talent pool honours consent withdrawal and retention.
+- No consent, no AI (OPEN_QUESTIONS #20, #21, defaults until the client confirms): an application saved without consent (a paper form entered by HR) is never sent to the engine and waits as «بانتظار الموافقة» until HR records the consent with its source; `consent: false` on a candidate that had consent erases everything the AI made of it (documents and files, profile, index, screenings, findings in the audit trail) and keeps only the reference, listed in the ranking group `consent_withdrawn` with no score.
 - Blind judging: the model never receives name, nationality, gender, age, photo. Periodic name-swap test (same CV, different names → same result).
 - Applicants never see AI scores.
 

@@ -36,5 +36,12 @@
    "after": "guide/images/design/console_editor_after.png"
   }
  ],
- "notes": "The two overlaps left are the HRMS «قدّم الآن» button on the phone job page: it stays fixed at the bottom of the screen and the page scrolls under it (standard HRMS behaviour, not changed). No JavaScript error on any of the screens."
+ "notes": "The two overlaps left are the HRMS «قدّم الآن» button on the phone job page: it stays fixed at the bottom of the screen and the page scrolls under it (standard HRMS behaviour, not changed). No JavaScript error on any of the screens.",
+ "round3": {
+  "date": "2026-10-16",
+  "screens": 99,
+  "parts": "desk and console at 1366, 1440 and 1920 px, with the three consent screens (paper application awaiting consent, consent recorded, consent withdrawn)",
+  "issues": {},
+  "js_errors": 0
+ }
 }

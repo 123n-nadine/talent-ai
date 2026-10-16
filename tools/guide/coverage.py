@@ -89,6 +89,10 @@ def find_test(it: dict) -> str:
             return "§4 C01–C09 (form), §7 P01 (public pages)"
         return "§2 roles matrix (every role opened it), §7 P01"
     if cat == "button":
+        if key in ("frappe:تسجيل الموافقة", "frappe-action:consent"):
+            return "§5 K16 (paper application, consent recorded by HR)"
+        if key == "frappe:سحب موافقة المعالجة":
+            return "§5 K17 (consent withdrawn)"
         if key.startswith("console:"):
             return "§6 N01 (console screens)"
         if key.startswith("home-card") or key.startswith("sidebar"):

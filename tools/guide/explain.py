@@ -130,6 +130,12 @@ DECISION_AR = {
     "progress:Screenshots cut to the part the page explains": "الصورة الطويلة بيظهر أولها بس، عشان تتقري بعرض الصفحة",
     "progress:Page numbers read from the printed PDF": "أرقام صفحات الفهرس مقروءة من النسخة المطبوعة نفسها",
     "progress:The Word file is checked through LibreOffice": "نسخة الوورد اتراجعت صفحة صفحة بعد تحويلها بـ LibreOffice",
+    "progress:Frappe's copy of the AI result goes too": "نسخة نتيجة الذكاء في المنصة بتتمسح كمان، عشان «من غير درجة» تبقى في كل شاشة",
+    "progress:A withdrawal is final for that application": "سحب الموافقة نهائي للطلب، والموافقة من جديد بطلب جديد",
+    "progress:The engine keeps the reference only": "المحرك بيفضّل رقم الطلب بس، عشان يعرض مجموعة «مستبعد: سحب الموافقة»",
+    "progress:The earliest later copy becomes the original": "لو الطلب الأصلي اتسحبت موافقته، أقدم طلب بعده لنفس الشخص بيبقى الأصلي",
+    "progress:A paper consent carries the current consent text version": "الموافقة الورقية بتتسجّل على نسخة نص الموافقة الحالية",
+    "progress:Score 0 means no score in the list": "الدرجة صفر في القائمة معناها مفيش درجة",
 }
 
 

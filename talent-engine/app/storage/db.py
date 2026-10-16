@@ -7,6 +7,8 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
+import app.documents.store  # noqa: F401  (registers the after-commit removal of released files)
+
 
 def make_engine(url: str) -> Engine:
     if url.startswith("sqlite"):

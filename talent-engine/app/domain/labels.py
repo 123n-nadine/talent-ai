@@ -64,6 +64,10 @@ GROUP_REASONS = {
         "قيمة مفقودة أو تغطية منخفضة أو تعارض",
         "Missing value, low coverage or contradiction",
     ),
+    "consent_withdrawn": (
+        "مستبعد: سحب الموافقة — حُذفت بيانات الذكاء الاصطناعي الخاصة به",
+        "Excluded: consent withdrawn — the AI data was erased",
+    ),
 }
 
 SCORE_DISCLAIMER = "الدرجة ترتيب مقابل معايير معتمدة، وليست احتمال نجاح في الوظيفة."

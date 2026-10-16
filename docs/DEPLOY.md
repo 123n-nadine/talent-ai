@@ -23,13 +23,14 @@ Network: Frappe → engine `https://<engine>/v1/...` with a Bearer key; engine �
 | Engine host and PDPL location | **to confirm** (#4) | Synthetic data only until approved |
 | Network and TLS both ways | **to confirm** | Engine URL in AI Recruitment Settings; callback URL = site URL + `/api/method/ido_talent_ai.api.receive_result` |
 | Background workers (`long` and `short` queues) | **to confirm** (#2) | Required: every screening runs in a worker. Without workers applications are still saved, but stay «Processing» |
-| Scheduler | **to confirm** (#2) | Disabled on the demo site. Only the safety nets need it (every 2 min: missed callbacks, missed jobs; hourly: retry engine outages). Without it HR uses «إعادة المحاولة» / «إعادة تقييم الكل» |
+| Scheduler | **to confirm** (#2) | Disabled on the demo site. Only the safety nets need it (every 2 min: missed callbacks, missed jobs, the engine erasure of a consent withdrawn while the engine was down; hourly: retry engine outages). Without it HR uses «إعادة المحاولة» / «إعادة تقييم الكل», and a pending erasure waits for the next withdrawal call |
 | API user for the callback | not needed | The callback is verified by its HMAC signature and runs as Administrator inside `receive_result` only. **to confirm** with the Frappe team whether they prefer a dedicated user (#8) |
 | Secrets | us | Engine: `make env` (random). Frappe: callback secret and ID-token secret are generated at install; paste the engine key and the callback secret into the right places (§4) |
 | GPU | **to confirm** | Local LLM needs ~9.5 GB GPU (cap 0.40 on a 24 GB card). Without GPU: `AI_PROVIDER=cloud` with written approval |
 | MariaDB isolation | **to confirm** (#15) | MariaDB 11.8 snapshot isolation is handled (short transactions + retries); check the production version |
 | Time zone | **to confirm** (#9) | Demo site: Africa/Cairo. The engine stores UTC; the app converts application times to UTC |
 | Backups | infra | Engine: Postgres volume `talentai_pgdata` + files volume `talentai_files`. Frappe: normal site backups |
+| Paper applications and consent withdrawal | default in force (#20, #21) | Defaults decided by Nadine on 2026-10-16 until the client confirms: no AI without consent («بانتظار الموافقة» until HR records it with its source); a withdrawal takes the applicant out of the ranking and erases the AI data in the engine and in Frappe, the application stays |
 | Rollback | ready | Turn off «AI screening enabled» on an opening, or «Enabled» in AI Recruitment Settings: applications keep working without AI. Full removal: §6 |
 
 ## 3. Engine
@@ -83,8 +84,12 @@ Rate limit of the public form: 20 applications per IP per 10 minutes; change wit
 bench --site <site> uninstall-app ido_talent_ai --yes
 ```
 
-`before_uninstall` removes the custom fields on Job Opening and Job Applicant and the permission-level-1 rows it added; the DocTypes and their data are removed by Frappe. Applications stay as normal Job Applicants with their standard fields. Rehearsed on a fresh site (§7). In the engine, `DELETE /v1/candidates/{ref}` and `DELETE /v1/jobs/{ref}` erase per applicant / opening; dropping the engine volumes erases everything.
+`before_uninstall` removes the custom fields on Job Opening and Job Applicant and the permission-level-1 rows it added; the DocTypes and their data are removed by Frappe. Applications stay as normal Job Applicants with their standard fields. Rehearsed on a fresh site (§8). In the engine, `DELETE /v1/candidates/{ref}` and `DELETE /v1/jobs/{ref}` erase per applicant / opening; dropping the engine volumes erases everything.
 
-## 7. Rehearsal on a fresh site (local bench)
+## 7. Upgrading an installed version
+
+Engine: `make build` then `make up WORKERS=4` (or `make migrate` and a restart of `api` and `worker`); the Alembic revisions add columns only (the latest, `b9f7e8a1c2d3`, adds `candidates.consent_withdrawn_at` and `withdrawn_from`). Frappe: `bench --site <site> migrate` (new custom fields «مصدر الموافقة», «سجّل الموافقة», «تاريخ حذف بيانات الذكاء الاصطناعي», the AI statuses «بانتظار الموافقة» and «سحب الموافقة», the AI job status «أُلغيت») and `bench restart`. Applications saved earlier without consent keep an empty AI status; their «تسجيل الموافقة» button works the same.
+
+## 8. Rehearsal on a fresh site (local bench)
 
 See `ACCEPTANCE_REPORT.md` §«Clean install» for the log: a separate bench cloned from the local one, `bench get-app` from the app's git repository, new site with ERPNext + HRMS, `install-app`, `migrate`, the app tests, `uninstall-app`, and a check that Job Applicant still works without the app.

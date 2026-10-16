@@ -29,10 +29,18 @@ if [ -n "${FORM_DRIVER:-}" ] && [ -x "${FORM_PYTHON:-}" ]; then
 fi
 python3 "$ROOT/ido_talent_ai/ido_talent_ai/scripts/submit_demo_applications.py" --url http://127.0.0.1:18050 --host "$SITE" \
   --opening "$OPENING" --cvs "$ROOT/talent-engine/data/cvs" --delay 1.5 --skip "$SKIP" | tail -2
-# 5. wait for the AI, then the second opening (Jeddah) and the talent-pool cases, then a backup
-for i in $(seq 1 120); do
-  n=$(docker compose exec -T bench bash -lc "cd ~/work/frappe-bench && bench --site $SITE mariadb -N -e \"select count(*) from \\\`tabJob Applicant\\\` where ai_status='Processing'\"" 2>/dev/null | tr -d '\r\n ')
-  [ "$n" = "0" ] && break; sleep 10
-done
+# 5. wait for the AI, then the second opening (Jeddah), the talent-pool cases and the consent cases
+#    (OPEN_QUESTIONS #20, #21), wait again, then a backup
+wait_ai() {
+  for i in $(seq 1 120); do
+    n=$(docker compose exec -T bench bash -lc "cd ~/work/frappe-bench && bench --site $SITE mariadb -N -e \"select count(*) from \\\`tabJob Applicant\\\` where ai_status='Processing'\"" 2>/dev/null | tr -d '\r\n ')
+    [ "$n" = "0" ] && break; sleep 10
+  done
+}
+wait_ai
 echo "processing done"
-docker compose exec -T bench bash -lc "cd ~/work/frappe-bench && bench --site $SITE execute ido_talent_ai.scripts.seed_demo.second_opening | tail -1 && bench --site $SITE execute ido_talent_ai.scripts.seed_demo.pool_cases | tail -1 && bench --site $SITE backup --with-files | tail -1"
+docker compose exec -T bench bash -lc "cd ~/work/frappe-bench && bench --site $SITE execute ido_talent_ai.scripts.seed_demo.second_opening | tail -1 && bench --site $SITE execute ido_talent_ai.scripts.seed_demo.pool_cases | tail -1 && bench --site $SITE execute ido_talent_ai.scripts.seed_demo.paper_cases | tail -1"
+sleep 5
+wait_ai
+echo "consent cases done"
+docker compose exec -T bench bash -lc "cd ~/work/frappe-bench && bench --site $SITE backup --with-files | tail -1"

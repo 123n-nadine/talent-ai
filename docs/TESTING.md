@@ -31,7 +31,10 @@ Run this list in order. Each line has an expected result. Note anything differen
 | 21 | Check that the AI never changed any status | Audit log shows status changes only by users |
 | 22 | Export ranking CSV | Opens correctly in Excel with Arabic (UTF-8 BOM) |
 | 23 | Switch AR/EN | Arabic screens RTL and correct; English LTR |
-| 24 | Delete a candidate via API | Documents, profile, vectors, results gone in the engine |
+| 24 | Delete a candidate via API | Documents, profile, vectors, results gone in the engine, and the stored CV file too |
+| 25 | Enter a paper application in the desk (Job Applicant, no consent box) on an AI opening (OPEN_QUESTIONS #20, default) | Saved; AI status «بانتظار الموافقة»; nothing sent to the engine; listed in the ranking group «بانتظار الموافقة» |
+| 26 | «تسجيل الموافقة» on it: first with an empty source, then «ورقة موقّعة» | Empty source refused; then «سجّل الموافقة» = you, «مصدر الموافقة», the time and an audit row; the screening starts by itself |
+| 27 | «سحب موافقة المعالجة» on a ranked applicant, with a reason (OPEN_QUESTIONS #21, default) | Out of the ranking at once, in «مستبعد: سحب الموافقة» with no score; no AI section left; in the engine `GET /v1/candidates/{ref}` shows no facts, documents or screenings and the CV file is gone; the application itself stays |
 
 ## 2. Client acceptance criteria (definition of done, phase 1)
 

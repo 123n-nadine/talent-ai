@@ -81,7 +81,8 @@ def main() -> None:
     hr = Frappe("hr.manager@example.com", DEV["HR_MANAGER_PASSWORD"])
     F: dict = {}
     rk = hr.call("ido_talent_ai.api.ranking", {"job_opening": OP1})
-    F["ranking"] = {"title": rk.get("job_title"), "total": rk.get("total"), "ranked_total": rk.get("ranked_total"), "version": rk.get("job_version"),
+    F["ranking"] = {"title": rk.get("job_title"), "total": rk.get("total"), "applicants_total": rk.get("applicants_total"),
+                    "ranked_total": rk.get("ranked_total"), "version": rk.get("job_version"),
                     "groups": {k: len(v) for k, v in rk["groups"].items()},
                     "top": [{"name": x.get("applicant_name"), "applicant": x.get("applicant"), "score": x.get("score"), "band": x.get("band"), "rank": x.get("rank"), "coverage": x.get("coverage")} for x in rk["ranked"][:6]],
                     "low": [{"name": x.get("applicant_name"), "score": x.get("score"), "band": x.get("band"), "rank": x.get("rank")} for x in rk["ranked"][-3:]],
@@ -126,6 +127,25 @@ def main() -> None:
                                     "evidence": (c.get("evidence") or "")[:120], "contradiction": c.get("contradiction"), "form_level": c.get("form_level"),
                                     "cv_level": c.get("cv_level"), "cv_quote": (c.get("cv_quote") or "")[:120]} for c in res.get("criteria") or []]}
     F["cases"] = cases
+    # consent defaults (OPEN_QUESTIONS #20, #21): the two paper applications and the withdrawn one
+    con: dict = {"groups": {g: [{"name": x.get("applicant_name"), "applicant": x.get("applicant"), "at": x.get("at")} for x in rk["groups"].get(g, [])]
+                            for g in ("awaiting_consent", "consent_withdrawn")}}
+    paper = {a["key"][-4:]: a for a in demo.get("paper_applications", [])}
+    con["paper_count"] = len(paper)
+    for key, who in (("paper_waiting", paper["2026"]["email_id"]), ("paper_recorded", paper["2027"]["email_id"]), ("withdrawn", mail["2014"])):
+        a = hr.call("ido_talent_ai.api.get_assessment", {"applicant": who})
+        res = a.get("result") or {}
+        con[key] = {"name": a.get("applicant_name"), "applicant": who, "ai_status": a.get("ai_status"), "consent": a.get("consent"),
+                    "score": res.get("score"), "band": res.get("band"), "rank": res.get("rank"), "ranked_total": res.get("ranked_total")}
+    ref = hr.call("frappe.client.get_value", {"doctype": "Job Applicant", "filters": mail["2014"], "fieldname": "ai_candidate_ref"})["ai_candidate_ref"]
+    c = engine(f"/v1/candidates/{ref}")
+    con["withdrawn"]["engine"] = {"consent": c.get("consent"), "facts": len(c.get("facts") or {}), "answers": len(c.get("answers") or {}),
+                                  "documents": len(c.get("documents") or []), "screenings": len(c.get("screenings") or []),
+                                  "withdrawn_from": c.get("withdrawn_from")}
+    ev = engine(f"/v1/audit?ref={ref}")["events"]
+    con["withdrawn"]["engine_audit"] = {"events": len(ev), "erased": sum(1 for e in ev if e["payload"] == {"erased": True}),
+                                        "erasure": next((e["payload"] for e in ev if e["action"] == "candidate.consent_withdrawn"), {})}
+    F["consent"] = con
     pool = hr.call("ido_talent_ai.api.talent_pool", {"job_opening": OP2})
     F["pool"] = {"suggestions": len(pool.get("suggestions", [])), "excluded": len(pool.get("excluded", [])),
                  "reasons": sorted({x.get("reason") for x in pool.get("excluded", [])}),

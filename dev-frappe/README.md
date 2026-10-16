@@ -15,6 +15,9 @@ MariaDB on 127.0.0.1:18052. Versions follow the client site: see `VERSIONS.md`.
   user passwords and the Tailscale address.
 
 Sites: `talent.localhost` (demo, default site) and `test.localhost` (automated tests:
-`bench --site test.localhost run-tests --app ido_talent_ai --skip-before-tests`).
+`bench --site test.localhost run-tests --app ido_talent_ai --skip-before-tests`). Keep the
+scheduler of `test.localhost` disabled (`bench --site test.localhost disable-scheduler`): its
+safety nets would queue screenings of test applicants against an engine address nobody serves,
+and those jobs fill the shared `long` queue ahead of the demo's.
 
-This folder is git-ignored by the `talent-ai` repo; nothing here is committed.
+The scripts here are committed; `.env` and the bench data never are.

@@ -43,6 +43,8 @@ def create_screening(
     cand = cand_svc.get_candidate(db, tenant, data.candidate_ref)
     if cand is None:
         raise HTTPException(status_code=404, detail="candidate not found")
+    if not cand.consent:
+        raise HTTPException(status_code=409, detail="candidate has no consent to AI processing")
     try:
         prov = get_provider(tenant.ai_provider, settings, tenant.ai_model or None)
     except ProviderNotAvailable as e:

@@ -17,8 +17,9 @@ build: builder-check
 env:
 > uv run python -m scripts.init_env
 
+# PaddleOCR, Presidio and spaCy too: a plain `uv sync` removes them and two tests skip silently
 install:
-> uv sync
+> uv sync --group documents
 
 test:
 > uv run pytest -q
