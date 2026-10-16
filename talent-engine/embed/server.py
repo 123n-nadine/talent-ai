@@ -26,7 +26,12 @@ class EmbeddingsIn(BaseModel):
 
 @app.get("/health")
 def health():
-    return {"ok": True, "model": MODEL, "dim": model.get_sentence_embedding_dimension(), "load_s": LOAD_S}
+    return {
+        "ok": True,
+        "model": MODEL,
+        "dim": model.get_sentence_embedding_dimension(),
+        "load_s": LOAD_S,
+    }
 
 
 @app.post("/v1/embeddings")
@@ -39,6 +44,8 @@ def embeddings(data: EmbeddingsIn):
     return {
         "object": "list",
         "model": MODEL,
-        "data": [{"object": "embedding", "index": i, "embedding": v.tolist()} for i, v in enumerate(vecs)],
+        "data": [
+            {"object": "embedding", "index": i, "embedding": v.tolist()} for i, v in enumerate(vecs)
+        ],
         "usage": {"prompt_tokens": 0, "total_tokens": 0, "ms": int((time.time() - t0) * 1000)},
     }
