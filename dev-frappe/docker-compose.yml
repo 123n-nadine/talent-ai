@@ -1,0 +1,73 @@
+# Local Frappe bench (compose project "talentai-frappe"). Ports 18050-18059 only, on 127.0.0.1 and
+# the Tailscale address. Versions follow the client site: Frappe 16.31.0, ERPNext 16.32.0, HRMS
+# develop pinned (see VERSIONS.md). Joins the engine network so Frappe <-> engine talk by name.
+name: talentai-frappe
+
+services:
+  mariadb:
+    image: mariadb:11.8
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --innodb-flush-log-at-trx-commit=0
+      - --innodb-doublewrite=0
+      - --skip-innodb-read-only-compressed
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?set DB_ROOT_PASSWORD in dev-frappe/.env}
+      MARIADB_AUTO_UPGRADE: "1"
+    # Dev database in memory: the server disk is a busy HDD (~350 ms per fsync, ~1.7 s per CREATE
+    # TABLE even without fsync), which made an ERPNext + HRMS install take hours. The data is
+    # synthetic; start.sh restores the latest bench backup (kept on disk) when the database is empty.
+    tmpfs:
+      - /var/lib/mysql:size=4g,mode=0755
+    ports:
+      - "127.0.0.1:18052:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 120
+      start_period: 300s
+
+  redis-cache:
+    image: redis:6.2-alpine
+  redis-queue:
+    image: redis:6.2-alpine
+    volumes:
+      - redis-queue:/data
+
+  bench:
+    image: frappe/bench:v5.31.0
+    command: ["bash", "/home/frappe/start.sh"]
+    environment:
+      TZ: Asia/Riyadh
+      PYTHONDONTWRITEBYTECODE: "1"
+      SITE: ${SITE:-talent.localhost}
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - bench:/home/frappe/work                       # bench lives in a volume owned by the image user
+      - ../ido_talent_ai:/home/frappe/apps-src/ido_talent_ai:ro   # our app, read-only from the host
+      - ./setup.sh:/home/frappe/setup.sh:ro
+      - ./start.sh:/home/frappe/start.sh:ro
+    ports:
+      - "127.0.0.1:18050:18050"
+      - "${TAILSCALE_IP:?set TAILSCALE_IP}:18050:18050"
+      - "127.0.0.1:18051:18051"
+      - "${TAILSCALE_IP:?set TAILSCALE_IP}:18051:18051"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      default:
+      talentai:
+        aliases: [frappe]
+
+volumes:
+  redis-queue:
+  bench:
+
+networks:
+  talentai:
+    external: true
+    name: talentai_default

@@ -57,7 +57,7 @@ def eng(path, method="GET", body=None):
 
 
 def compose(*args):
-    return subprocess.run(["docker", "compose", "-p", "talentai", *args], cwd=os.path.join(ROOT, "talent-engine"),
+    return subprocess.run([os.path.join(ROOT, "talent-engine", "scripts", "compose.sh"), *args], cwd=os.path.join(ROOT, "talent-engine"),
                           capture_output=True, text=True, env={**os.environ, "BUILDX_BUILDER": "default"})
 
 

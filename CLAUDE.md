@@ -39,6 +39,8 @@ Full design: `docs/ARCHITECTURE.md`. Build order and checkpoints: `docs/PLAN.md`
 ## Hard rules for working on this server
 - **The server is shared with colleagues.** Work only inside this project folder. Never stop, modify or remove containers, volumes, models, ports or files that are not ours.
 - Docker Compose project name: **`talentai`**. All our containers, networks and volumes carry that prefix. Use host ports in the range **18000–18099** only, after checking they are free.
+- **Docker images are built only with the daemon's default builder**: `make build` / `make up` in `talent-engine/` (they force `BUILDX_BUILDER=default` and refuse anything else) or `talent-engine/scripts/compose.sh`. Never a plain `docker compose build` and never another buildx builder (the shell's selected `sdf-builder` belongs to someone else).
+- **The dev Frappe database (`dev-frappe/`) runs in memory for testing only** (slow server disk); production always uses the platform's normal MariaDB.
 - **GPU is shared.** Before loading any model, run `nvidia-smi` and report free memory. Cap vLLM with `--gpu-memory-utilization` so we never take memory others are using. If another local LLM endpoint already exists on the server, tell Nadine before deciding to reuse it.
 - **Ask Nadine before**: any `sudo` command, installing system packages, downloading models larger than 5 GB, opening ports outside the range, or touching anything outside this folder.
 - **Never** connect to or modify `demo.hs1.ido.sa` or `secure4security.ido.sa` from code or scripts. Integration testing happens on our own local Frappe bench.
@@ -61,7 +63,7 @@ talent-ai/                      <- this workspace = git repo 1 (github.com/123n-
   reference/                    <- client doc, clickable demo, discovery of the real system, Arabic guide (read-only)
   talent-engine/                <- the engine (part of repo 1)
   ido_talent_ai/                <- git repo 2 (github.com/123n-nadine/ido_talent_ai; repo root = app root so bench get-app works); git-ignored by repo 1
-  dev-frappe/                   <- local Frappe dev bench (Docker); git-ignored, never committed
+  dev-frappe/                   <- local Frappe dev bench (Docker): scripts committed, its .env never (MariaDB in memory = testing only)
 ```
 
 ## Reference material (read when relevant)
@@ -91,4 +93,5 @@ talent-ai/                      <- this workspace = git repo 1 (github.com/123n-
 - Known limits (phase 6): HRMS develop leaves some of its own labels in English (OPEN_QUESTIONS #17); status changes outside the Talent AI buttons are audited, not blocked (#19); dev scripts in `dev-frappe/` are not committed (#14).
 - 2026-10-16 (Phase 7 done, merged): 13/13 acceptance checks passed in a real browser (A1–A6, A8; A7 = postponed features), report `docs/ACCEPTANCE_REPORT.md` with screenshots; clean install rehearsed (`bench get-app` from git → install → migrate → tests → uninstall); `docs/DEPLOY.md`; UI tools in `tools/ui/`.
 - 2026-10-16 (Phase 8 done, merged): talent pool (feature 13) — engine embeddings gateway + internal `embed` service (Qwen3-Embedding-0.6B on CPU, no GPU), stage 10 indexing with consent/retention, `POST /v1/talent-pool/search` (rules first, then similarity, exclusions with reasons); Frappe page «بنك المتقدمين», «سحب موافقة المعالجة», second opening «مشرف أمن — جدة». Comparison (feature 10) is in the ranking page. `docs/WALKTHROUGH.md` (Egyptian Arabic, guide order) with screenshots. Tests: engine 109, Frappe 13. `docs/DEFINITION_OF_DONE.md` fully marked.
-- Next: Nadine reviews the walkthrough on the live bench and answers OPEN_QUESTIONS #14–#19; then the move to the client platform following `docs/DEPLOY.md`.
+- 2026-10-17 (round 2, part 1 done): home page «التوظيف الذكي» (`/desk/ai-recruitment`) where HR lands after login, Arabic by default for HR; dev-frappe scripts in git (no `.env`); default Docker builder only (`make builder-check`); in-memory Frappe DB documented as test-only; the public save path retries DB conflicts and a permanent test proves an application is always saved. Frappe tests 15.
+- Next (round 2): design pass, full browser test with every role (`docs/TEST_REPORT.md`), inventory `docs/guide/COVERAGE.md` and the full guide (PDF + Word).

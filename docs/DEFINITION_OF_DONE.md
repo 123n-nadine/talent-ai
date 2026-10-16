@@ -78,3 +78,16 @@ Last update: 2026-10-16, end of phase 8 — everything done (details in `docs/PR
 | `docs/ACCEPTANCE_REPORT.md` | ✅ |
 | Clean install on a fresh bench + site (`bench get-app` → `install-app` → `migrate`) and clean uninstall | ✅ |
 | `docs/DEPLOY.md` filled from `DEPLOY_CHECKLIST.md` | ✅ |
+
+## 5. Round 2 (Nadine, 2026-10-16 night)
+
+| # | Item | Where | Status |
+|---|---|---|---|
+| H1 | Home page «التوظيف الذكي» shown first to HR after login: nine big buttons in order (ملف المعايير، الشواغر، صفحة التقديم العامة، قائمة المتقدمين، الترتيب، بنك المتقدمين، مهام الذكاء، الإعدادات، سجل التدقيق) with one line each; Arabic by default for HR users | page `ai-recruitment`, hook `on_session_creation`, first sidebar item | ✅ |
+| H2 | Decisions: dev-frappe scripts in git without `.env`; status reason stays audit-only; only the default Docker builder; the in-memory Frappe DB is for testing only | `.gitignore`, `dev-frappe/`, `Makefile` (`builder-check`), `scripts/compose.sh`, `DEPLOY.md`, `CLAUDE.md`, `OPEN_QUESTIONS.md` | ✅ |
+| H3 | Permanent test that an application is always saved (queue down, hook crash, audit down, DB conflict, AI off, damaged CV) | `test_application_is_always_saved` + retried save in `api.apply` | ✅ |
+| D1 | Design pass on every screen (1366/1440/1920, mobile for the public pages), RTL, font, colours with a fixed meaning | Frappe, console, public site, form | ⬜ |
+| T1 | Full browser test of the whole system (users, CV types, cases, timings), bugs fixed with tests, `docs/TEST_REPORT.md` | `tools/ui/full_test.py` | ⬜ |
+| T2 | Roles and permissions test (every recruitment role, every screen, screenshots of the refusals) | `TEST_REPORT.md` | ⬜ |
+| G1 | Inventory from the code (`docs/guide/COVERAGE.md`) and a check script with zero missing | `tools/guide/coverage_check.py` | ⬜ |
+| G2 | Full guide in Egyptian Arabic, PDF (Chromium) and Word | `docs/guide/` | ⬜ |
