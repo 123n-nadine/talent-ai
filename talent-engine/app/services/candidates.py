@@ -88,6 +88,8 @@ def upsert_candidate(
     cand.facts = facts
     cand.answers = data.answers
     cand.consent = data.consent
+    if not data.consent and not created:  # withdrawn consent: the talent pool forgets the profile
+        db.execute(delete(Embedding).where(Embedding.candidate_id == cand.id))
     if data.applied_at is not None:
         at = data.applied_at
         cand.applied_at = at.astimezone(UTC) if at.tzinfo else at.replace(tzinfo=UTC)

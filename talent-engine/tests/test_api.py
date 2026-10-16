@@ -465,3 +465,54 @@ def test_copy_screened_before_its_original_is_marked_duplicate_afterwards(client
     groups = client.get("/v1/jobs/HR-OPN-2026-0011/ranking").json()["groups"]
     dups = {x["candidate_ref"] for x in groups["duplicate"]}
     assert "COPY" in dups and "ORIG" not in dups
+
+
+def test_talent_pool_rules_first_then_similarity_with_exclusions(client, seeded, sec_job):
+    """Feature 13 on the demo candidates (fake embeddings): a new opening of the same kind."""
+    jeddah = {**sec_job, "title": "مشرف أمن — جدة"}
+    assert client.put("/v1/jobs/HR-OPN-2026-0099", json=jeddah).status_code == 200
+    st = client.get("/v1/talent-pool/status").json()
+    assert st["indexed_profiles"] >= 10 and st["provider"] == "fake"
+    # one applicant withdraws consent, one has an expired retention period
+    c = client.get("/v1/candidates/HR-APP-2026-2003").json()
+    client.put(
+        "/v1/candidates/HR-APP-2026-2003",
+        json={**{k: c[k] for k in ("id_token", "facts", "answers")}, "consent": False},
+    )
+    c = client.get("/v1/candidates/HR-APP-2026-2004").json()
+    client.put(
+        "/v1/candidates/HR-APP-2026-2004",
+        json={
+            **{k: c[k] for k in ("id_token", "facts", "answers")},
+            "applied_at": "2024-01-10T08:00:00Z",
+            "retention_days": 365,
+        },
+    )
+    r = client.post("/v1/talent-pool/search", json={"job_ref": "HR-OPN-2026-0099", "limit": 50})
+    assert r.status_code == 200, r.text
+    out = r.json()
+    assert out["suggestion_only"] is True
+    refs = [x["candidate_ref"] for x in out["suggestions"]]
+    excluded = {x["candidate_ref"]: x["reason"] for x in out["excluded"]}
+    assert excluded.get("HR-APP-2026-2003") == "consent_withdrawn"
+    assert excluded.get("HR-APP-2026-2004") == "retention_expired"
+    assert excluded.get("HR-APP-2026-2010") == "not_eligible"  # height 172 < 180: rules come first
+    assert (
+        excluded.get("HR-APP-2026-2016") == "duplicate"
+        or excluded.get("HR-APP-2026-2015") == "duplicate"
+    )
+    assert not {"HR-APP-2026-2003", "HR-APP-2026-2004", "HR-APP-2026-2010"} & set(refs)
+    sims = [x["similarity"] for x in out["suggestions"] if x["eligibility"] == "eligible"]
+    assert sims == sorted(sims, reverse=True) and all(0 <= s <= 1 for s in sims)
+    assert out["suggestions"][0]["previous"]["job_ref"] == "HR-OPN-2026-0011"
+    # applicants of the searched opening itself are never suggested
+    r2 = client.post("/v1/talent-pool/search", json={"job_ref": "HR-OPN-2026-0011"}).json()
+    assert not r2["suggestions"] and all(
+        x["reason"] in ("already_applied", "consent_withdrawn", "retention_expired")
+        for x in r2["excluded"]
+    )
+    # withdrawn consent also deletes the stored profile
+    assert (
+        client.get("/v1/talent-pool/status").json()["indexed_profiles"]
+        == st["indexed_profiles"] - 1
+    )

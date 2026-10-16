@@ -13,6 +13,7 @@ from app.core.config import Settings
 from app.core.ids import new_id
 from app.core.timeutil import utcnow
 from app.domain.labels import NO_CV_NOTE
+from app.embeddings.registry import get_embedding_provider
 from app.llm.base import JudgeRequest, LLMProvider
 from app.llm.registry import get_provider
 from app.llm.schemas import CriterionJudgement
@@ -26,6 +27,7 @@ from app.services import audit
 from app.services.callback import send as send_callback
 from app.services.ranking import rank_of
 from app.services.screenings import REVIEW_FLAGS, SCORE_FLAGS, mark_later_duplicates, to_out
+from app.services.talent_pool import index_screening
 from app.storage.models import CriterionResult, Profile, Screening, Tenant
 
 log = logging.getLogger(__name__)
@@ -263,7 +265,20 @@ def run_screening(
         tracker.set(
             "scoring", "done", f"الدرجة {result.score:g} · التغطية {round(result.coverage * 100)}%"
         )
-        tracker.set("index", "skipped", "يُفعَّل مع بنك المتقدمين (المرحلة 8)")
+        tracker.start("index")
+        try:  # the talent pool never fails a screening
+            note = index_screening(
+                db,
+                get_embedding_provider(settings),
+                s,
+                version,
+                result.rows,
+                settings.pool_cv_chars,
+            )
+            tracker.set("index", "done", note)
+        except Exception as e:  # noqa: BLE001
+            log.warning("talent pool indexing skipped for %s: %s", screening_id, e)
+            tracker.set("index", "skipped", f"تعذّرت الفهرسة: {type(e).__name__}")
 
         for old in list(s.criteria):
             db.delete(old)
