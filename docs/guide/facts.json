@@ -2544,7 +2544,7 @@
     "q": "Arabic for HRMS's own labels: HRMS develop ships `ar.po` with many empty strings. Round 2 fills the 87 recruitment strings our screens show (Job Opening, Job Applicant, Interview buttons, the public job pages) in the app's `translations/ar.csv`, and fixes «No.» → «م» and «Apply Now». The client's `ido_design` app may translate them differently; on the real platform, check which translation wins (the app installed last)",
     "who": "Frappe team",
     "when": "deploy",
-    "state": "open (updated 2026-10-17)"
+    "state": "open (updated 2026-10-16)"
    },
    {
     "n": "18",
@@ -2558,14 +2558,14 @@
     "q": "Applications entered by HR in the desk (paper forms) have no consent record, so the AI does not process them (consent is required). Should HR be able to record a paper consent (with the form version and a reason) so these applications are screened too?",
     "who": "Abdullah + client",
     "when": "before go-live",
-    "state": "open (2026-10-17)"
+    "state": "open (2026-10-16)"
    },
    {
     "n": "21",
     "q": "After a new profile version, an applicant who withdrew consent keeps the old result, now «قديم», in the stale group of the ranking (no new processing is allowed, so it never leaves it). Show these applicants in their own group «سحب الموافقة» instead, or hide their old result?",
     "who": "Abdullah + client",
     "when": "before go-live",
-    "state": "open (2026-10-17)"
+    "state": "open (2026-10-16)"
    }
   ]
  },
