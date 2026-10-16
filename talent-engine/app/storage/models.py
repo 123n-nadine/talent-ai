@@ -102,6 +102,7 @@ class Candidate(Base):
     answers: Mapped[dict[str, Any]] = mapped_column(JSONType, default=dict)
     consent: Mapped[bool] = mapped_column(Boolean, default=True)
     retention_until: Mapped[datetime | None] = mapped_column(TS)
+    applied_at: Mapped[datetime | None] = mapped_column(TS)  # application time on the host system
     data_hash: Mapped[str] = mapped_column(String(80))
     created_at: Mapped[datetime] = mapped_column(TS, default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(TS, default=utcnow, onupdate=utcnow)

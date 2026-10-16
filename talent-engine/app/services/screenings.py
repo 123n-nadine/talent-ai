@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any
 
 from sqlalchemy import select
@@ -58,11 +59,15 @@ def find_duplicate_of(db: Session, tenant: Tenant, job: Job, candidate: Candidat
             Candidate.id_token == candidate.id_token,
             Candidate.id != candidate.id,
         )
-        .order_by(Candidate.created_at, Candidate.external_ref)
     ).all()
-    me = (candidate.created_at, candidate.external_ref)
-    for p in peers:
-        if (p.created_at, p.external_ref) >= me:
+
+    def when(c: Candidate) -> tuple[datetime, str]:
+        at = c.applied_at or c.created_at
+        return (at if at.tzinfo else at.replace(tzinfo=UTC), c.external_ref)
+
+    me = when(candidate)
+    for p in sorted(peers, key=when):
+        if when(p) >= me:
             continue  # only an EARLIER application can be the original
         has = db.scalar(
             select(Screening.id)
