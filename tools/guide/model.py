@@ -35,6 +35,7 @@ class Img:
     max_h_cm: float = 15.5
     crop: bool = True  # may keep only its top part when the page has little room (build.fill_width)
     top: float | None = None  # always keep only this top share (the part the page explains)
+    fixed: bool = False  # keep max_h_cm as given (the page fitter does not shrink it)
 
 
 @dataclass

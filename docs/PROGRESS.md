@@ -158,3 +158,12 @@ Decisions taken alone:
 - **A weak OCR line is removed, not down-weighted**: the model never sees it, so it cannot quote it; HR sees it in the analysis for a manual check.
 - **The leak guard is a second gate**: the redaction already sweeps; the guard before the model call exists so a future extraction bug can never reach a model silently (it flags and audits).
 
+
+## Round 5 — Nadine's review of the guide v2, 2026-10-16
+
+Guide only (branch `p15-guide-v3`); no engine or Frappe code changed.
+- **Form pictures**: the public form in three pictures cut at its section headings (details, screening questions, CV + consent + submit), each caption listing exactly what the picture shows (`shots.py` `snap_parts(cuts=…)`). The browser already runs with locale `ar-SA` and the Riyadh time zone; the date field still shows the browser's own `mm/dd/yyyy` because headless Chrome draws the Arabic placeholder with broken, unshaped letters whatever is tried (`--lang`, `LANG`/`LANGUAGE`, old headless, other fonts) — the caption says the field follows the applicant's browser language.
+- **Speed numbers** (manager page, two FAQ answers) now come from the raw bench reports (`facts.py` reads `talent-engine/eval/reports/*-bench-*.json`): 100 applicants = 46 without a CV + 54 with a text PDF (Word → LibreOffice), 0 scanned; per-applicant pipeline mean 13.9 / 18.1 / 28.0 s with 2 / 4 / 8 workers; 100 × 28.0 ÷ 8 = 350 s against 325 s measured; one application 10 s (no CV) to 53.3 s (scanned); 54 min written as «حوالي ساعة». Same facts added to `docs/EVALUATION_REPORT.md`.
+- **Bug table row D**: the 10,487 explained from `TEST_REPORT.md` §8 (110 screens × widths, every text box counted: 6524 contrast + 2870 small font + 825 overlap + 268 off screen) and the two remaining notes named (the HRMS «قدّم الآن» fixed button on the phone job page); `facts.py` parses the section (`F["design"]`).
+- **Home page**: `snap_parts` grows the window to the whole content first (the desk scrolls inside a container, so the ninth card was cut at the first screen) and pads the clip; cards 5–9 are now whole in the second picture.
+- Small: «العميل (PDPL)» in the open-questions table; the settings caption gives the full callback URL (the field is narrower than the text; the status card shows it whole); `SHOTS_ONLY=public,home,…` reruns one group of screenshots. All screenshots retaken on the rebuilt demo so the pictures and the facts come from the same state.

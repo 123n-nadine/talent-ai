@@ -233,14 +233,14 @@
     "label": "الملف المنظّم",
     "status": "done",
     "note": "استُخرج 10 عناصر",
-    "ms": 9720
+    "ms": 17944
    },
    {
     "key": "evidence_check",
     "label": "التحقق من الأدلة",
     "status": "done",
     "note": "10 عناصر باقتباس حرفي · لا عنصر محذوف · الخبرة 31.2 سنة · الإشراف 31.2 سنة",
-    "ms": 5
+    "ms": 2
    },
    {
     "key": "eligibility",
@@ -254,7 +254,7 @@
     "label": "الحكم على المعايير",
     "status": "done",
     "note": "7 معايير بدليل · 7 محسوبة بالكود · السيرة تؤكد 6 · لا تعارض",
-    "ms": 14102
+    "ms": 16718
    },
    {
     "key": "scoring",
@@ -268,7 +268,7 @@
     "label": "الفهرسة",
     "status": "done",
     "note": "أُضيف لبنك المتقدمين",
-    "ms": 1679
+    "ms": 1650
    }
   ],
   "cv": {
@@ -292,17 +292,17 @@
    "model": "qwen3-8b-awq",
    "prompt": "judge-v1",
    "provider": "local",
-   "total_ms": 25667,
+   "total_ms": 36427,
    "llm_calls": [
     {
      "task": "profile",
-     "seconds": 9.71,
+     "seconds": 17.94,
      "prompt_tokens": 525,
      "completion_tokens": 675
     },
     {
      "task": "judge",
-     "seconds": 14.1,
+     "seconds": 16.71,
      "prompt_tokens": 1483,
      "completion_tokens": 621
     }
@@ -2177,14 +2177,14 @@
     {
      "name": "صالح المطيري",
      "applicant": "paper.2026@example.com",
-     "at": "2026-10-16 17:19:23.743713"
+     "at": "2026-10-16 18:06:50.797005"
     }
    ],
    "consent_withdrawn": [
     {
      "name": "طلال الحارثي",
      "applicant": "applicant.2014@example.com",
-     "at": "2026-10-16 17:19:18.668581"
+     "at": "2026-10-16 18:06:45.779950"
     }
    ]
   },
@@ -2212,7 +2212,7 @@
    "ai_status": "Completed",
    "consent": {
     "given": 1,
-    "on": "2026-10-16 17:19:23.965624",
+    "on": "2026-10-16 18:06:51.027963",
     "source": "ورقة موقّعة",
     "recorded_by": "hr.manager@example.com",
     "withdrawn_on": null,
@@ -2229,11 +2229,11 @@
    "ai_status": "Consent Withdrawn",
    "consent": {
     "given": 0,
-    "on": "2026-10-16 17:16:23.964165",
+    "on": "2026-10-16 18:04:17.330826",
     "source": null,
     "recorded_by": null,
-    "withdrawn_on": "2026-10-16 17:19:18.668581",
-    "erased_on": "2026-10-16 17:19:19.122223"
+    "withdrawn_on": "2026-10-16 18:06:45.779950",
+    "erased_on": "2026-10-16 18:06:46.188269"
    },
    "score": null,
    "band": null,
@@ -2299,7 +2299,7 @@
    "Needs Review": 2
   },
   "finished_last_10_min": 0,
-  "avg_duration_s": 45.18846,
+  "avg_duration_s": 35.38462,
   "recent_jobs": [
    {
     "name": "AI-JOB-00054",
@@ -2309,141 +2309,141 @@
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 5.7,
-    "creation": "2026-10-16 17:19:27.019355",
+    "duration_s": 4.8,
+    "creation": "2026-10-16 18:06:54.259605",
     "applicant_name": "بدر الرشيدي"
    },
    {
-    "name": "AI-JOB-00040",
+    "name": "AI-JOB-00043",
     "reference_name": "applicant.2025@example.com",
     "job_type": "Screening",
     "status": "Completed",
-    "attempts": 1,
+    "attempts": 2,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 67.3,
-    "creation": "2026-10-16 17:17:06.672888",
+    "duration_s": 48.3,
+    "creation": "2026-10-16 18:05:07.300633",
     "applicant_name": "عبدالمجيد الرويلي"
    },
    {
-    "name": "AI-JOB-00038",
+    "name": "AI-JOB-00042",
     "reference_name": "khaled.d.second@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 49.4,
-    "creation": "2026-10-16 17:17:04.333403",
+    "duration_s": 27.0,
+    "creation": "2026-10-16 18:05:04.677646",
     "applicant_name": "خالد الدوسري"
    },
    {
-    "name": "AI-JOB-00036",
+    "name": "AI-JOB-00041",
     "reference_name": "applicant.2023@example.com",
     "job_type": "Screening",
     "status": "Completed",
-    "attempts": 2,
+    "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 50.8,
-    "creation": "2026-10-16 17:17:01.981122",
+    "duration_s": 28.7,
+    "creation": "2026-10-16 18:05:02.082431",
     "applicant_name": "وليد العنزي"
    },
    {
-    "name": "AI-JOB-00035",
+    "name": "AI-JOB-00039",
     "reference_name": "applicant.2022@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 70.5,
-    "creation": "2026-10-16 17:16:59.627640",
+    "duration_s": 47.0,
+    "creation": "2026-10-16 18:04:59.442938",
     "applicant_name": "Abdulaziz Al-Otaibi"
    },
    {
-    "name": "AI-JOB-00032",
+    "name": "AI-JOB-00037",
     "reference_name": "applicant.2021@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 48.5,
-    "creation": "2026-10-16 17:16:56.782114",
+    "duration_s": 27.2,
+    "creation": "2026-10-16 18:04:51.235451",
     "applicant_name": "إبراهيم الأحمدي"
    },
    {
-    "name": "AI-JOB-00030",
+    "name": "AI-JOB-00036",
     "reference_name": "applicant.2020@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 45.6,
-    "creation": "2026-10-16 17:16:54.381601",
+    "duration_s": 27.3,
+    "creation": "2026-10-16 18:04:48.616413",
     "applicant_name": "مازن الشهراني"
    },
    {
-    "name": "AI-JOB-00029",
+    "name": "AI-JOB-00034",
     "reference_name": "applicant.2019@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 77.4,
-    "creation": "2026-10-16 17:16:51.971113",
+    "duration_s": 58.6,
+    "creation": "2026-10-16 18:04:46.183468",
     "applicant_name": "زياد البلوي"
    },
    {
-    "name": "AI-JOB-00027",
+    "name": "AI-JOB-00033",
     "reference_name": "applicant.2018@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 2,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 75.2,
-    "creation": "2026-10-16 17:16:49.474732",
+    "duration_s": 54.1,
+    "creation": "2026-10-16 18:04:43.820462",
     "applicant_name": "راكان الغامدي"
    },
    {
-    "name": "AI-JOB-00026",
+    "name": "AI-JOB-00030",
+    "reference_name": "applicant.2017@example.com",
+    "job_type": "Screening",
+    "status": "Completed",
+    "attempts": 1,
+    "max_attempts": 3,
+    "error_message": null,
+    "duration_s": 14.2,
+    "creation": "2026-10-16 18:04:40.713969",
+    "applicant_name": "تركي العسيري"
+   },
+   {
+    "name": "AI-JOB-00028",
     "reference_name": "hassan.q.second@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 41.1,
-    "creation": "2026-10-16 17:16:46.980480",
+    "duration_s": 21.2,
+    "creation": "2026-10-16 18:04:38.323011",
     "applicant_name": "حسن القرني"
    },
    {
-    "name": "AI-JOB-00024",
+    "name": "AI-JOB-00026",
     "reference_name": "applicant.2015@example.com",
     "job_type": "Screening",
     "status": "Completed",
     "attempts": 1,
     "max_attempts": 3,
     "error_message": null,
-    "duration_s": 41.0,
-    "creation": "2026-10-16 17:16:44.564340",
+    "duration_s": 21.4,
+    "creation": "2026-10-16 18:04:35.885051",
     "applicant_name": "حسن القرني"
-   },
-   {
-    "name": "AI-JOB-00023",
-    "reference_name": "applicant.2014@example.com",
-    "job_type": "Screening",
-    "status": "Completed",
-    "attempts": 1,
-    "max_attempts": 3,
-    "error_message": null,
-    "duration_s": 70.2,
-    "creation": "2026-10-16 17:16:42.041467",
-    "applicant_name": "طلال الحارثي"
    }
   ],
   "title": "مشرف أمن — الرياض"
@@ -2556,9 +2556,81 @@
     "failures": 0
    }
   },
+  "bench": {
+   "2": {
+    "n": 100,
+    "with_cv": 54,
+    "without_cv": 46,
+    "scanned": 0,
+    "pipeline_mean_s": 13.85,
+    "submit_s": 57.2,
+    "processing_wall_s": 801.1,
+    "total_wall_s": 858.3,
+    "per_min": 7.5,
+    "projected_1000_min": 133.5,
+    "failed": 0
+   },
+   "4": {
+    "n": 100,
+    "with_cv": 54,
+    "without_cv": 46,
+    "scanned": 0,
+    "pipeline_mean_s": 18.13,
+    "submit_s": 74.8,
+    "processing_wall_s": 467.5,
+    "total_wall_s": 542.3,
+    "per_min": 12.8,
+    "projected_1000_min": 77.9,
+    "failed": 0
+   },
+   "8": {
+    "n": 100,
+    "with_cv": 54,
+    "without_cv": 46,
+    "scanned": 0,
+    "pipeline_mean_s": 28.02,
+    "submit_s": 77.1,
+    "processing_wall_s": 325.4,
+    "total_wall_s": 402.5,
+    "per_min": 18.4,
+    "projected_1000_min": 54.2,
+    "failed": 0
+   }
+  },
   "rerun_pct": 100,
   "name_swap_pct": 100,
   "gold": 50
+ },
+ "design": {
+  "screens": 110,
+  "issues": {
+   "low-contrast": {
+    "before": 6524,
+    "after": 0
+   },
+   "small-font": {
+    "before": 2870,
+    "after": 0
+   },
+   "overlap": {
+    "before": 825,
+    "after": 2
+   },
+   "off-screen-text": {
+    "before": 268,
+    "after": 0
+   },
+   "cut-text": {
+    "before": 0,
+    "after": 0
+   },
+   "page-overflow": {
+    "before": 0,
+    "after": 0
+   }
+  },
+  "before": 10487,
+  "after": 2
  },
  "open_questions": {
   "open": [
@@ -2788,7 +2860,7 @@
     "expected": "CV read, redacted, quotes verified",
     "actual": "Completed; score 81.5 (high); method ocr:paddle_cpu, OCR confidence 0.91; flags quote_not_found",
     "ok": true,
-    "seconds": 53.3,
+    "seconds": 51.7,
     "shots": [
      "guide/images/test/C01_form.png",
      "guide/images/test/C01_thanks.png",
@@ -2796,21 +2868,21 @@
      "guide/images/test/C01_cv_analysis.png"
     ],
     "timing": {
-     "form_load_s": 0.86,
-     "submit_s": 0.28,
-     "until_result_s": 53.3,
-     "pipeline_s": 19.4,
+     "form_load_s": 0.68,
+     "submit_s": 0.69,
+     "until_result_s": 51.7,
+     "pipeline_s": 21.4,
      "stages": {
       "intake": 0,
       "answers": 0,
       "cv_text": null,
       "redaction": null,
-      "profile": 6004,
-      "evidence_check": 1,
+      "profile": 9111,
+      "evidence_check": 2,
       "eligibility": 0,
-      "judgement": 11563,
+      "judgement": 10277,
       "scoring": 0,
-      "index": 1628
+      "index": 1904
      }
     },
     "applicant": "t.cv.scan@example.com"
@@ -2828,21 +2900,21 @@
      "guide/images/test/C02_cv_analysis.png"
     ],
     "timing": {
-     "form_load_s": 0.51,
-     "submit_s": 0.18,
+     "form_load_s": 0.52,
+     "submit_s": 0.16,
      "until_result_s": 33.0,
-     "pipeline_s": 22.0,
+     "pipeline_s": 20.2,
      "stages": {
       "intake": 0,
       "answers": 0,
       "cv_text": null,
       "redaction": null,
-      "profile": 6832,
-      "evidence_check": 1,
+      "profile": 6797,
+      "evidence_check": 2,
       "eligibility": 0,
-      "judgement": 12850,
+      "judgement": 11467,
       "scoring": 0,
-      "index": 2221
+      "index": 1822
      }
     },
     "applicant": "t.cv.arpdf@example.com"
@@ -2854,27 +2926,27 @@
     "expected": "CV read, redacted, quotes verified",
     "actual": "Completed; score 100 (high); method pdf_text",
     "ok": true,
-    "seconds": 27.1,
+    "seconds": 27.6,
     "shots": [
      "guide/images/test/C03_assessment.png",
      "guide/images/test/C03_cv_analysis.png"
     ],
     "timing": {
-     "form_load_s": 0.29,
+     "form_load_s": 0.31,
      "submit_s": 0.16,
-     "until_result_s": 27.1,
-     "pipeline_s": 16.4,
+     "until_result_s": 27.6,
+     "pipeline_s": 17.1,
      "stages": {
       "intake": 0,
       "answers": 0,
       "cv_text": null,
       "redaction": null,
-      "profile": 4375,
+      "profile": 4435,
       "evidence_check": 1,
       "eligibility": 0,
-      "judgement": 10423,
+      "judgement": 11057,
       "scoring": 0,
-      "index": 1506
+      "index": 1469
      }
     },
     "applicant": "t.cv.enpdf@example.com"
@@ -2886,27 +2958,27 @@
     "expected": "CV read, redacted, quotes verified",
     "actual": "Completed; score 100 (high); method docx",
     "ok": true,
-    "seconds": 35.2,
+    "seconds": 36.9,
     "shots": [
      "guide/images/test/C04_assessment.png",
      "guide/images/test/C04_cv_analysis.png"
     ],
     "timing": {
-     "form_load_s": 0.31,
-     "submit_s": 0.15,
-     "until_result_s": 35.2,
-     "pipeline_s": 19.3,
+     "form_load_s": 0.37,
+     "submit_s": 0.16,
+     "until_result_s": 36.9,
+     "pipeline_s": 20.2,
      "stages": {
       "intake": 0,
       "answers": 0,
       "cv_text": null,
       "redaction": null,
-      "profile": 5889,
+      "profile": 6075,
       "evidence_check": 1,
       "eligibility": 0,
-      "judgement": 11519,
+      "judgement": 12223,
       "scoring": 0,
-      "index": 1750
+      "index": 1788
      }
     },
     "applicant": "t.cv.docx@example.com"
@@ -2918,31 +2990,30 @@
     "expected": "CV read, redacted, quotes verified",
     "actual": "Completed; score 100 (high); method libreoffice+pdf_text",
     "ok": true,
-    "seconds": 30.5,
+    "seconds": 33.7,
     "shots": [
      "guide/images/test/C05_assessment.png",
      "guide/images/test/C05_cv_analysis.png"
     ],
     "timing": {
-     "form_load_s": 0.67,
-     "submit_s": 0.16,
-     "until_result_s": 30.5,
-     "pipeline_s": 19.2,
+     "form_load_s": 0.3,
+     "submit_s": 1.33,
+     "until_result_s": 33.7,
+     "pipeline_s": 19.6,
      "stages": {
       "intake": 0,
       "answers": 0,
       "cv_text": null,
       "redaction": null,
-      "profile": 5647,
+      "profile": 5945,
       "evidence_check": 1,
       "eligibility": 0,
-      "judgement": 11814,
+      "judgement": 11514,
       "scoring": 0,
-      "index": 1615
+      "index": 2045
      }
     },
-    "applicant": "t.cv.rtf.r2@example.com",
-    "history": "first run: Failed — «TypeError: Strings must be encoded before hashing» (bug F1); after the fix and a worker restart: Completed"
+    "applicant": "t.cv.rtf@example.com"
    },
    "C06": {
     "title": "DOC, Word 97 (converted from the Word CV)",
@@ -2951,27 +3022,27 @@
     "expected": "CV read, redacted, quotes verified",
     "actual": "Completed; score 100 (high); method libreoffice+pdf_text",
     "ok": true,
-    "seconds": 31.6,
+    "seconds": 33.5,
     "shots": [
      "guide/images/test/C06_assessment.png",
      "guide/images/test/C06_cv_analysis.png"
     ],
     "timing": {
-     "form_load_s": 0.48,
+     "form_load_s": 0.41,
      "submit_s": 0.89,
-     "until_result_s": 31.6,
-     "pipeline_s": 19.9,
+     "until_result_s": 33.5,
+     "pipeline_s": 19.7,
      "stages": {
       "intake": 0,
       "answers": 0,
       "cv_text": null,
       "redaction": null,
-      "profile": 6315,
+      "profile": 5939,
       "evidence_check": 1,
       "eligibility": 0,
-      "judgement": 11915,
+      "judgement": 11508,
       "scoring": 0,
-      "index": 1543
+      "index": 2152
      }
     },
     "applicant": "t.cv.doc@example.com"
@@ -2983,16 +3054,16 @@
     "expected": "Completed from the answers; no CV",
     "actual": "Completed; score 89 (high); method -",
     "ok": true,
-    "seconds": 10.0,
+    "seconds": 11.4,
     "shots": [
      "guide/images/test/C07_form.png",
      "guide/images/test/C07_assessment.png"
     ],
     "timing": {
-     "form_load_s": 0.29,
-     "submit_s": 0.16,
-     "until_result_s": 10.0,
-     "pipeline_s": 1.0,
+     "form_load_s": 0.34,
+     "submit_s": 0.15,
+     "until_result_s": 11.4,
+     "pipeline_s": 1.1,
      "stages": {
       "intake": 0,
       "answers": 0,
@@ -3003,7 +3074,7 @@
       "eligibility": 0,
       "judgement": 0,
       "scoring": 0,
-      "index": 868
+      "index": 1028
      }
     },
     "applicant": "t.cv.none@example.com"
@@ -3015,14 +3086,14 @@
     "expected": "the platform refuses the file, the application is saved and assessed from the answers (decision 14)",
     "actual": "Completed; score 65 (medium); method -; note: ملف السيرة «HR-APP-2026-2013.pdf» تالف أو غير آمن ولم يُحفظ (PdfStreamError). التقييم من الإجابات فقط.",
     "ok": true,
-    "seconds": 9.9,
+    "seconds": 12.2,
     "shots": [
      "guide/images/test/C08_assessment.png"
     ],
     "timing": {
-     "form_load_s": 0.58,
-     "submit_s": 0.15,
-     "until_result_s": 9.9,
+     "form_load_s": 0.29,
+     "submit_s": 0.16,
+     "until_result_s": 12.2,
      "pipeline_s": 1.0,
      "stages": {
       "intake": 0,
@@ -3034,7 +3105,7 @@
       "eligibility": 0,
       "judgement": 0,
       "scoring": 0,
-      "index": 851
+      "index": 919
      }
     },
     "applicant": "t.cv.corrupt@example.com"
@@ -3044,29 +3115,29 @@
     "user": "Guest → HR Manager",
     "file": "HR-APP-2026-2025-bad.jpg",
     "expected": "read with OCR; low confidence flagged if under the threshold",
-    "actual": "Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence, quote_not_found",
+    "actual": "Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence",
     "ok": true,
-    "seconds": 45.1,
+    "seconds": 40.9,
     "shots": [
      "guide/images/test/C09_assessment.png",
      "guide/images/test/C09_cv_analysis.png"
     ],
     "timing": {
-     "form_load_s": 0.29,
-     "submit_s": 0.87,
-     "until_result_s": 45.1,
-     "pipeline_s": 17.0,
+     "form_load_s": 0.72,
+     "submit_s": 0.89,
+     "until_result_s": 40.9,
+     "pipeline_s": 14.1,
      "stages": {
       "intake": 0,
       "answers": 0,
       "cv_text": null,
       "redaction": null,
-      "profile": 5499,
+      "profile": 3545,
       "evidence_check": 1,
       "eligibility": 0,
-      "judgement": 10170,
+      "judgement": 8973,
       "scoring": 0,
-      "index": 1188
+      "index": 1489
      }
     },
     "applicant": "t.cv.badimg@example.com"
@@ -3092,7 +3163,7 @@
     "expected": "not eligible with both reasons, kept out of the ranking, score shown in grey",
     "actual": "Completed; eligibility not_eligible; failed rules: الجنسية: المصرّح به مصر — المطلوب ضمن: السعودية | الطول (سم): المصرّح به 172 سم — المطلوب 180 سم أو أكثر; ranked: False",
     "ok": true,
-    "seconds": 18.9,
+    "seconds": 18.0,
     "shots": [
      "guide/images/test/K02_not_eligible.png"
     ],
@@ -3121,15 +3192,14 @@
     "shots": [
      "guide/images/test/K04_blank_2021.png",
      "guide/images/test/K04_zero_2006.png"
-    ],
-    "history": "first run failed because the test used applicant 2009, whose CV supplies the supervision evidence (correct behaviour); the test now uses 2021 (blank answer, no CV)"
+    ]
    },
    "K05": {
     "title": "The answer says one thing, the CV another",
     "user": "HR Manager",
     "file": null,
     "expected": "contradiction flag, the lower level is used, needs review before any decision",
-    "actual": "flags ['contradiction', 'quote_not_found']; supervision: form level 100, CV level 50 → used 50; quote «أشرفت على فريق صغير من الحراس لمدة سنتين»",
+    "actual": "flags ['contradiction', 'quote_not_found']; supervision: form level 100, CV level 50 → used 50; quote «أشرفت على فريق صغير من الحراس لمدة سنتين.»",
     "ok": true,
     "seconds": null,
     "shots": [
@@ -3142,13 +3212,12 @@
     "user": "HR Manager",
     "file": null,
     "expected": "linked to the original, grey, only the original is ranked, nothing deleted",
-    "actual": "2016 → applicant.2015@example.com; 2024 → applicant.2003@example.com; in the duplicate group: ['hassan.q.second@example.com', 'khaled.d.second@example.com', 't.enginedown@example.com']",
+    "actual": "2016 → applicant.2015@example.com; 2024 → applicant.2003@example.com; in the duplicate group: ['hassan.q.second@example.com', 'khaled.d.second@example.com']",
     "ok": true,
     "seconds": null,
     "shots": [
      "guide/images/test/K06_duplicate.png"
-    ],
-    "history": "first run failed because the test built the duplicate's e-mail from its number; it now reads the e-mails from the demo data"
+    ]
    },
    "K07": {
     "title": "Editing an answer after the evaluation",

@@ -7,6 +7,7 @@ Nothing in the guide is typed by hand: every number comes from here.
 
 from __future__ import annotations
 
+import glob
 import http.cookiejar
 import json
 import os
@@ -64,8 +65,28 @@ def parse_eval() -> dict:
         thr[m.group(1)] = {"per100_min": float(m.group(2)), "per_min": float(m.group(3)), "per1000_min": int(m.group(4)), "gpu_mib": int(m.group(5)), "failures": int(m.group(6))}
     rerun = re.search(r"identical levels for \*\*(\d+)%\*\*", s)
     swap = re.search(r"Name-swap[^:]*: identical for \*\*(\d+)%\*\*", s)
-    return {"runs": runs, "throughput": thr, "rerun_pct": int(rerun.group(1)) if rerun else None, "name_swap_pct": int(swap.group(1)) if swap else None,
-            "gold": 50}
+    # the raw throughput reports (eval/bench.py): what the batch was made of and the measured times,
+    # so the guide explains the thousand-applicant figure from the numbers themselves
+    bench = {}
+    for p in sorted(glob.glob(os.path.join(ROOT, "talent-engine", "eval", "reports", "*-bench-*.json"))):
+        r = json.load(open(p, encoding="utf-8"))
+        bench[str(r["workers"])] = {"n": r["n"], "with_cv": r["with_cv"], "without_cv": r["n"] - r["with_cv"], "scanned": 0,  # the bench renders text PDFs only
+                                   "pipeline_mean_s": r["per_applicant_pipeline_mean_s"], "submit_s": r["submit_s"], "processing_wall_s": r["processing_wall_s"],
+                                   "total_wall_s": r["total_wall_s"], "per_min": r["throughput_applicants_per_min"], "projected_1000_min": r["projected_1000_min"],
+                                   "failed": len(r["failed"])}
+    return {"runs": runs, "throughput": thr, "bench": bench, "rerun_pct": int(rerun.group(1)) if rerun else None,
+            "name_swap_pct": int(swap.group(1)) if swap else None, "gold": 50}
+
+
+def parse_design() -> dict:
+    """The design audit of TEST_REPORT §8: how many screens were measured and the count of every
+    kind of issue before and after the design pass (the 10,487 of the bug table)."""
+    s = open(os.path.join(ROOT, "docs", "TEST_REPORT.md"), encoding="utf-8").read()
+    sec = s[s.index("## 8. Design pass"):] if "## 8. Design pass" in s else s
+    issues = {m.group(1): {"before": int(m.group(2)), "after": int(m.group(3))} for m in re.finditer(r"^\| ([a-z-]+) \| (\d+) \| (\d+) \|", sec, re.M)}
+    screens = re.search(r"(\d+) screens per run", sec)
+    return {"screens": int(screens.group(1)) if screens else None, "issues": issues,
+            "before": sum(v["before"] for v in issues.values()), "after": sum(v["after"] for v in issues.values())}
 
 
 def parse_open_questions() -> dict:
@@ -155,6 +176,7 @@ def main() -> None:
     F["home"] = hr.call("ido_talent_ai.api.home_counts")
     F["settings"] = engine("/v1/settings")
     F["evaluation"] = parse_eval()
+    F["design"] = parse_design()
     F["open_questions"] = parse_open_questions()
     ft = os.path.join(ROOT, "docs", "test-run", "full_test.json")
     if os.path.exists(ft):

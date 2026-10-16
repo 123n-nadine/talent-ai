@@ -27,7 +27,8 @@ Judgement design since this phase: structured form answers (numbers, selects) ar
 
 - GPU memory never exceeded the cap: vLLM holds ~8.7–9.0 GB regardless of concurrency (the KV cache is pre-allocated inside the 0.40 share).
 - Per-applicant pipeline time rises with concurrency (13.9 s → 18.1 s → 28.0 s) because the GPU is shared between requests; total throughput still improves. 8 workers ≈ **1000 applicants in about 55 minutes**; 4 workers ≈ 78 minutes. The default is 4 workers (`make up`, `WORKERS=8 make up` for peaks).
-- Applicants without a CV cost ~0.1 s (no model call). A 1000-applicant job where only half attach a CV would take roughly half the times above.
+- What the batch was made of (`eval/bench.py`, raw reports in `talent-engine/eval/reports/*-bench-*.json`): the 50 gold applicants cycled twice; 46 applicants without a CV and 54 with a text PDF (the gold CV lines rendered through Word → LibreOffice, i.e. the same kind of Arabic text PDF the demo uses); no scanned image, so no OCR time is in these figures. The per-applicant pipeline mean is over all 100 (the no-CV ones cost ~1 s). The arithmetic behind the wall time: 100 × 28.0 s ÷ 8 workers = 350 s against 325 s measured from the last submission to the last result (402 s from the first submission); ×10 gives the 54 min projection.
+- Applicants without a CV cost ~1 s (no model call). A 1000-applicant job where only half attach a CV would take roughly half the times above.
 - The RQ per-job overhead noted in phase 1 (~1.5 s) is now minor next to the LLM time; keep as is.
 
 ## 3. Why applicant 2001 scored 92.5 in phase 3 and 100 now
