@@ -1,0 +1,22 @@
+[clean] bench get-app from the app's git repository (branch phase-7-acceptance)
+$ uv pip install --quiet -e /home/frappe/work/clean-bench/apps/ido_talent_ai  --python /home/frappe/work/clean-bench/env/bin/python
+Found existing apps updating states...
+[clean] apps: erpnext frappe hrms ido_talent_ai 
+[clean] new site with ERPNext + HRMS
+[clean] install-app ido_talent_ai
+Updating Dashboard for ido_talent_ai
+[clean] migrate
+
+\u0634\u0631\u0643\u0629 \u0627\u0644\u062d\u0631\u0627\u0633\u0627\u062a \u0627\u0644\u062a\u062c\u0631\u064a\u0628\u064a\u0629
+[clean] custom fields: 42
+[clean] app tests
+Ran 11 tests in 2.117s
+OK
+[clean] uninstall-app
+Deleting Workspace Sidebars
+Uninstalled App ido_talent_ai from Site clean.localhost
+[clean] after uninstall: custom fields 0, level-1 perms 0, AI doctypes 0
+[clean] platform check: a Job Applicant can still be created
+{"name": "clean.check@example.com", "owner": "Administrator", "creation": "2026-10-16 06:40:14.958293", "modified": "2026-10-16 06:40:14.958293", "modified_by": "Administrator", "docstatus": 0, "idx":
+[clean] done
+exit 0

@@ -44,3 +44,20 @@ Decisions taken alone (and why):
 - **HRMS's own Reject/Shortlist buttons** are hidden on the applicant form when the AI section is shown; the reasoned decision buttons replace them. Status changes made elsewhere are audited (see OPEN_QUESTIONS #19).
 - **Not built from the demo form**: personal photo and certificates (not in the requirement list; a photo must never reach the AI; OPEN_QUESTIONS #18).
 - Engine image builds use the default Docker builder: a build was started once by mistake on the shared `sdf-builder` (selected by default in the shell) and stopped after ~4 minutes; its cache was left untouched (not ours).
+
+## Phase 7 — acceptance criteria, clean install, deployment guide
+
+Done (branch `phase-7-acceptance`):
+- `tools/ui/` (committed): the headless-Chrome tools used for the evidence — `frappe_ui.py` (CDP driver), `apply_via_form.py` (fills the public form like an applicant), `desk_shots.py` (renders every desk screen), `acceptance.py` (the checks below).
+- **13 of 13 acceptance checks passed** in a real browser as Guest, HR Manager, HR User and Employee: A1–A6 and A8 of the client's criteria (A7 is about postponed features), plus the guide's continuation steps (weights/impact/v2, re-score all, CSV, comparison, settings in the engine, audit log). Report: `docs/ACCEPTANCE_REPORT.md`; screenshots and JSON: `docs/screenshots/acceptance/`.
+- **Clean install** rehearsed on a separate bench: `bench get-app` from the app's git repository → new site with ERPNext + HRMS → `install-app` → `migrate` → app tests (11 passed) → `uninstall-app` (custom fields, permission rows and DocTypes removed) → Job Applicant still works. Script: `dev-frappe/clean_install.sh`.
+- `docs/DEPLOY.md`: engine and app installation, settings, first opening, uninstall, and the open deployment questions.
+
+Problems found and fixed:
+- `bench init --clone-from` installs the cloned apps into the parent folder (path bug in bench 5.31); the rehearsal bench is built with local git clones and a fresh virtualenv instead.
+- Git in the bench container refuses the host-owned app repository ("dubious ownership"); the rehearsal marks it as a safe directory inside the container only.
+- On a website page, Frappe's `xcall` never settles when the server answers 403, so the role checks use `fetch` and read the status code.
+
+Decisions taken alone:
+- The acceptance run changes the demo (a decision, profile v2, an engine outage, test applications); the demo is rebuilt with `dev-frappe/reset_demo.sh` afterwards so Nadine starts from the clean state.
+- The engine outage in A6 was produced by stopping our own `talentai-api` container for ~3 minutes and starting it again; nothing else on the server was touched.

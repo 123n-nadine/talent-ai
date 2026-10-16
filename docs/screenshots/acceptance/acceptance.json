@@ -1,0 +1,116 @@
+{
+ "run_at": "2026-10-16 03:29:11",
+ "checks": {
+  "A1_application_linked_with_all_answers": {
+   "ok": true,
+   "saved_in_s": 0.5,
+   "job_title": "HR-OPN-2026-0001",
+   "answers": 11,
+   "questions": 11,
+   "cv_attached": true
+  },
+  "A2_status_updates_live": {
+   "ok": true,
+   "statuses": [
+    "Processing",
+    "Completed"
+   ],
+   "page_not_reloaded": true,
+   "seconds": 43.5
+  },
+  "A3_every_level_has_evidence": {
+   "ok": true,
+   "levels_above_0": 145,
+   "with_verified_evidence": 145,
+   "from_cv": 2,
+   "problems": [],
+   "screenings": 26
+  },
+  "A4_edit_makes_result_stale": {
+   "ok": true,
+   "stale_flag": 1,
+   "banner": true,
+   "in_stale_group": true,
+   "ranked_while_stale": false,
+   "rescored": true,
+   "new_score": 78,
+   "ranked_again": true
+  },
+  "A5_openings_separate_and_status_only_by_hr": {
+   "ok": true,
+   "opening1": 26,
+   "opening2": [
+    "jeddah.1@example.com",
+    "jeddah.2@example.com"
+   ],
+   "overlap": [],
+   "reason_required": true,
+   "status_changes": 1,
+   "hr_decision_audits": 1
+  },
+  "G1_weights_impact_and_versions": {
+   "ok": true,
+   "approval_blocked_at_105": true,
+   "new_version": 2,
+   "stale_after_approval": 26,
+   "impact_summary": {
+    "applicants": 26,
+    "score_changed": 15,
+    "band_changed": 0,
+    "rank_changed": 6
+   },
+   "stale_group": 24
+  },
+  "G7_rescore_all_after_v2": {
+   "ok": true,
+   "queued": 26,
+   "seconds": 125,
+   "ranked": 18,
+   "stale_left": 0
+  },
+  "G10_csv_utf8_bom_arabic": {
+   "ok": true,
+   "head": "239,187,191|الترتيب,المتقدم,الاسم,الدرجة,الفئة,التغطية,حالة المعالجة,نسخة المعاي"
+  },
+  "G10c_compare_same_opening": {
+   "ok": true,
+   "compared": [
+    "فهد العتيبي",
+    "راكان الغامدي",
+    "Abdulaziz Al-Otaibi"
+   ],
+   "refuses_mixed_openings": true
+  },
+  "G13_settings_written_to_engine": {
+   "ok": true,
+   "before": 3,
+   "after_change": 4
+  },
+  "A6_application_works_when_engine_is_down": {
+   "ok": true,
+   "saved_in_s": 0.5,
+   "status_while_down": "Failed",
+   "job": {
+    "name": "AI-JOB-00112",
+    "status": "Failed",
+    "attempts": 3,
+    "error_message": "تعذّر الوصول إلى محرك الذكاء: ConnectionError"
+   },
+   "after_retry": "Completed"
+  },
+  "A8_employee_cannot_see_or_decide": {
+   "ok": true,
+   "ranking": 403,
+   "decide": 403,
+   "read_applicant": 403
+  },
+  "A8_hr_user_sees_ai_section_in_arabic_rtl": {
+   "ok": true,
+   "ai_section": true,
+   "dir": "rtl",
+   "js_errors": 1
+  }
+ },
+ "passed": 13,
+ "total": 13
+}
