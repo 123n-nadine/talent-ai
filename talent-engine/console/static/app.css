@@ -374,8 +374,10 @@ mark.tok{background:var(--red-bg);color:var(--red);border-radius:4px;padding:0 3
 .step{font-size:12px}
 .dev pre{font-size:12px}
 .field label{font-size:13px}
-.quote{font-size:13px;max-width:none;overflow-wrap:anywhere;white-space:normal;line-height:1.7}
-td{overflow-wrap:anywhere}
+.quote{font-size:13px;max-width:none;overflow-wrap:break-word;white-space:normal;line-height:1.7}
+/* break-word (not anywhere): a long word still breaks, but a column is never squeezed to one letter */
+td{overflow-wrap:break-word}
+td code,td .mono{overflow-wrap:anywhere}
 .cvtext,.ocrline .ln{unicode-bidi:plaintext}
 .kv .bands{display:flex;flex-wrap:wrap;gap:6px}
 .pos.off{background:var(--grey-bg);color:var(--muted)}

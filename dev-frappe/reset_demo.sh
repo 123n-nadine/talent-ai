@@ -19,7 +19,7 @@ docker compose exec -T bench bash -lc "cd ~/work/frappe-bench && bench new-site 
 # 3. setup (arguments through stdin, never on the command line)
 KEY="$KEY" python3 -c "
 import json,os
-print(json.dumps({'engine_url':'http://api:8000','api_key':os.environ['KEY'],'callback_url':'http://frappe:18050/api/method/ido_talent_ai.api.receive_result','passwords':{'hr.manager@example.com':os.environ['HR_MANAGER_PASSWORD'],'hr.user@example.com':os.environ['HR_USER_PASSWORD'],'employee@example.com':os.environ['EMPLOYEE_PASSWORD']}}))" \
+print(json.dumps({'engine_url':'http://api:8000','api_key':os.environ['KEY'],'callback_url':'http://frappe:18050/api/method/ido_talent_ai.api.receive_result','passwords':{k:v for k,v in {'hr.manager@example.com':os.environ['HR_MANAGER_PASSWORD'],'hr.user@example.com':os.environ['HR_USER_PASSWORD'],'employee@example.com':os.environ['EMPLOYEE_PASSWORD'],'interviewer@example.com':os.environ.get('INTERVIEWER_PASSWORD'),'ess@example.com':os.environ.get('ESS_PASSWORD'),'sysmanager@example.com':os.environ.get('SYSTEM_MANAGER_PASSWORD'),'portal.applicant@example.com':os.environ.get('PORTAL_PASSWORD')}.items() if v}}))" \
   | docker compose exec -T bench bash -c 'umask 077; cat > /home/frappe/seed_args.json'
 docker compose exec -T bench bash -lc 'cd ~/work/frappe-bench && bench --site '"$SITE"' execute ido_talent_ai.scripts.seed_demo.setup --kwargs "$(cat ~/seed_args.json)" | tail -1; rm -f ~/seed_args.json'
 # 4. applicants: 2017 through the real form (optional), the rest through the same endpoint

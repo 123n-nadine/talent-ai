@@ -30,7 +30,7 @@ const pct = n => n == null ? '—' : Math.round(n * 100) + '%';
 const fd = s => { if (!s) return '—'; const d = new Date(s); if (isNaN(d)) return esc(s); return `<bdi>${esc(d.toLocaleString(S.lang === 'ar' ? 'ar-EG-u-nu-latn' : 'en-GB', {day:'numeric', month:'long', year:'numeric', hour:'numeric', minute:'2-digit'}))}</bdi>`; };
 // Latin words and numbers inside Arabic sentences keep their own order (no jumbled «dob 1، name 3»)
 const mix = s => esc(s).replace(/(?<![&#\w])[A-Za-z0-9](?:[A-Za-z0-9_.:/@%+\-]*[A-Za-z0-9%])?(?:\s+[A-Za-z](?:[A-Za-z0-9_.:/@%+\-]*[A-Za-z0-9%])?)*/g, m => `<bdi dir="ltr">${m}</bdi>`);
-const qt = s => `«<bdi>${esc(s)}</bdi>»`;
+const qt = s => /[\u0600-\u06FF]/.test(String(s || '')) ? `«<bdi>${esc(s)}</bdi>»` : `<bdi dir="ltr">“${esc(s)}”</bdi>`;
 // Same labels as the engine (app/domain/arabic_text.py)
 const REDACT = {name:['الاسم', 'name'], phone:['الهاتف', 'phone'], email:['البريد', 'e-mail'], national_id:['رقم الهوية', 'ID number'], dob:['تاريخ الميلاد', 'date of birth'], age:['العمر', 'age'], nationality:['الجنسية', 'nationality'], gender:['الجنس', 'gender'], address:['العنوان', 'address'], url:['رابط', 'link']};
 const redactLabel = k => REDACT[k] ? t(REDACT[k][0], REDACT[k][1]) : k;

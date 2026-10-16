@@ -100,3 +100,14 @@ Decisions taken alone:
 - **No change to HRMS templates**: the public job pages are improved only with a stylesheet scoped by `body[data-path]` and with translations in our app.
 - **Fonts bundled in the app** rather than loaded from Google: same look, no third-party request with the applicant's or HR's IP, works on a platform without internet access.
 - **English stage notes are stored next to the Arabic ones** (`note_en`); screenings made before this change keep their Arabic note in English mode.
+
+### Part 2b — full browser test (branch `p11-full-test`)
+`tools/ui/full_test.py` (Playwright for Python with the server's Chrome; the Playwright MCP server was not available in this session) drives the whole system as nine kinds of user, through every CV type, the special cases and the console, and writes `docs/test-run/full_test.json`; `tools/ui/test_report.py` turns it into `docs/TEST_REPORT.md`. Screenshots (8-bit PNG) go to `docs/guide/images/roles/` and `docs/guide/images/test/` and are reused by the guide.
+- **Roles**: the site has 52 roles; the recruitment-related ones were tested with their own users (Administrator, System Manager, HR Manager, HR User, Interviewer, Employee, Employee Self Service, a website applicant account, Guest) on 16 screens and 14 server calls each. HRMS v16 has no «Hiring Manager» or department-manager role.
+- Problems found and fixed (each with a permanent test that fails without the fix): an RTF CV failed the screening (F1); «إعادة تقييم الكل» stopped at the first applicant who had withdrawn consent (F2); `profile.templates_for` had no HR check (S1); the «Employee» test users held no role because ERPNext strips it without an Employee record (S2); console fonts were sent as octet-stream (S3).
+- Test-script mistakes corrected during the run (not product bugs): applicant 2009 was the wrong example of a blank answer (his CV supplies the evidence), the duplicate's e-mail, the dialog handling of the override case, and re-run e-mails.
+
+Decisions taken alone:
+- **Synthetic Employee records for the demo users** that need the Employee or Employee Self Service role (ERPNext removes those roles from a user without one).
+- **A CV problem never fails a screening**, including a file the platform cannot read or the engine refuses: a note for HR and the assessment from the answers (decision 14 applied to the upload step too); only an engine outage is retried.
+- **«إعادة تقييم الكل» skips applicants without consent** and reports how many; how to show them afterwards is OPEN_QUESTIONS #21.
