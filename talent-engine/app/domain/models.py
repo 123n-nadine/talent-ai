@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from datetime import datetime
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
@@ -111,6 +112,8 @@ class CandidateIn(BaseModel):
     answers: dict[str, Any] = Field(default_factory=dict)
     consent: bool = True
     retention_days: int | None = Field(default=None, ge=1)
+    # when the person applied on the host system; orders duplicates and starts the retention period
+    applied_at: datetime | None = None
 
 
 class ScreeningCreate(BaseModel):

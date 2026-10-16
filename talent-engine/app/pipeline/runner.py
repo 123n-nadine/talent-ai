@@ -25,7 +25,7 @@ from app.scoring.score import JudgedCriterion, compute, summary_text
 from app.services import audit
 from app.services.callback import send as send_callback
 from app.services.ranking import rank_of
-from app.services.screenings import REVIEW_FLAGS, SCORE_FLAGS, to_out
+from app.services.screenings import REVIEW_FLAGS, SCORE_FLAGS, mark_later_duplicates, to_out
 from app.storage.models import CriterionResult, Profile, Screening, Tenant
 
 log = logging.getLogger(__name__)
@@ -223,6 +223,9 @@ def run_screening(
                 settings.quote_match_threshold,
                 c.get("question"),
                 code_level=code_levels.get(c["key"]),
+                numeric_rubric=c.get("rubric")
+                if (questions.get(c.get("question") or "") or {}).get("type") == "number"
+                else None,
             )
             problems.extend(probs)
             verified[c["key"]] = j
@@ -357,19 +360,23 @@ def run_screening(
         db.commit()
         return s
 
+    copies = mark_later_duplicates(db, tenant, s)
+    if copies:
+        db.commit()
     if deliver and tenant.callback_url and tenant.callback_secret:
-        rank, total = rank_of(db, tenant, s)
-        outcome = send_callback(
-            tenant.callback_url, tenant.callback_secret, to_out(s, rank, total), settings
-        )
-        audit.log(
-            db,
-            tenant.id,
-            s.candidate.external_ref,
-            "callback.sent" if outcome["ok"] else "callback.failed",
-            "system",
-            {"screening_id": s.id, **outcome},
-        )
+        for item in [s, *copies]:  # copies re-marked as duplicates are re-sent to the host
+            rank, total = rank_of(db, tenant, item)
+            outcome = send_callback(
+                tenant.callback_url, tenant.callback_secret, to_out(item, rank, total), settings
+            )
+            audit.log(
+                db,
+                tenant.id,
+                item.candidate.external_ref,
+                "callback.sent" if outcome["ok"] else "callback.failed",
+                "system",
+                {"screening_id": item.id, **outcome},
+            )
         db.commit()
     return s
 

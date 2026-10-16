@@ -382,3 +382,86 @@ def test_api_key_rotation_on_restart():
         tenants = db.scalars(select(Tenant)).all()
         assert len(tenants) == 1
         assert tenants[0].api_key_hash == hash_api_key("new-key")
+
+
+def test_impact_preview_keeps_levels_and_moves_weights(client, seeded, sec_job):
+    crit = copy.deepcopy(sec_job["criteria"])
+    crit[2]["weight"] = 20  # shifts 15 -> 20
+    crit[3]["weight"] = 10  # licence 15 -> 10
+    r = client.post(f"/v1/jobs/{SEC}/impact", json={"criteria": crit})
+    assert r.status_code == 200, r.text
+    d = r.json()
+    by = {x["candidate_ref"]: x for x in d["rows"]}
+    assert (
+        by["HR-APP-2026-2002"]["old_score"] == 81.5 and by["HR-APP-2026-2002"]["new_score"] == 81.5
+    )
+    assert (
+        by["HR-APP-2026-2003"]["old_score"] == 89.0 and by["HR-APP-2026-2003"]["new_score"] == 86.5
+    )
+    assert (
+        by["HR-APP-2026-2010"]["rankable"] is False and by["HR-APP-2026-2010"]["new_rank"] is None
+    )
+    assert d["weights_total"] == 100 and d["summary"]["score_changed"] >= 1
+    # nothing was written: the ranking is unchanged
+    assert client.get(f"/v1/jobs/{SEC}/ranking").json()["ranked"][2]["score"] == 89.0
+
+
+def test_delete_job_removes_versions_and_screenings_but_keeps_candidates(client, seeded):
+    r = client.delete("/v1/jobs/HR-OPN-2026-0011")
+    assert r.status_code == 200, r.text
+    body = r.json()
+    assert body["screenings"] >= 17 and body["versions"] == 1
+    assert client.get("/v1/jobs/HR-OPN-2026-0011").status_code == 404
+    assert client.get("/v1/candidates/HR-APP-2026-2001").status_code == 200
+    assert client.delete("/v1/jobs/HR-OPN-2026-0011").status_code == 404
+
+
+def test_applied_at_orders_duplicates_and_starts_retention(client, sec_job):
+    client.put("/v1/jobs/HR-OPN-2026-0011", json=sec_job)
+    base = {
+        "id_token": "tok-same-person",
+        "facts": {"nationality": "السعودية", "height_cm": 181, "weight_kg": 78, "age": 30},
+        "answers": {"years_sup": 3},
+        "retention_days": 30,
+    }
+    # the engine sees the later application first (e.g. after a retry on the host)
+    r = client.put("/v1/candidates/LATE", json={**base, "applied_at": "2026-10-10T10:00:00Z"})
+    assert r.status_code == 200, r.text
+    client.put("/v1/candidates/EARLY", json={**base, "applied_at": "2026-10-01T10:00:00+03:00"})
+    early = client.get("/v1/candidates/EARLY").json()
+    assert early["applied_at"].startswith("2026-10-01T07:00:00")
+    assert early["retention_until"].startswith("2026-10-31T07:00:00")
+    s1 = client.post(
+        "/v1/screenings", json={"job_ref": "HR-OPN-2026-0011", "candidate_ref": "EARLY"}
+    ).json()
+    s2 = client.post(
+        "/v1/screenings", json={"job_ref": "HR-OPN-2026-0011", "candidate_ref": "LATE"}
+    ).json()
+    late = client.get(f"/v1/screenings/{s2['screening_id']}").json()
+    first = client.get(f"/v1/screenings/{s1['screening_id']}").json()
+    assert late["duplicate_of"] == "EARLY"
+    assert first["duplicate_of"] is None
+
+
+def test_copy_screened_before_its_original_is_marked_duplicate_afterwards(client, sec_job):
+    client.put("/v1/jobs/HR-OPN-2026-0011", json=sec_job)
+    base = {
+        "id_token": "tok-late-original",
+        "facts": {"nationality": "السعودية", "height_cm": 181, "weight_kg": 78, "age": 30},
+        "answers": {"years_sup": 3},
+    }
+    client.put("/v1/candidates/ORIG", json={**base, "applied_at": "2026-10-01T08:00:00Z"})
+    client.put("/v1/candidates/COPY", json={**base, "applied_at": "2026-10-02T08:00:00Z"})
+    copy = client.post(
+        "/v1/screenings", json={"job_ref": "HR-OPN-2026-0011", "candidate_ref": "COPY"}
+    ).json()
+    assert client.get(f"/v1/screenings/{copy['screening_id']}").json()["duplicate_of"] is None
+    orig = client.post(
+        "/v1/screenings", json={"job_ref": "HR-OPN-2026-0011", "candidate_ref": "ORIG"}
+    ).json()
+    assert client.get(f"/v1/screenings/{orig['screening_id']}").json()["duplicate_of"] is None
+    later = client.get(f"/v1/screenings/{copy['screening_id']}").json()
+    assert later["duplicate_of"] == "ORIG" and "duplicate" in later["flags"]
+    groups = client.get("/v1/jobs/HR-OPN-2026-0011/ranking").json()["groups"]
+    dups = {x["candidate_ref"] for x in groups["duplicate"]}
+    assert "COPY" in dups and "ORIG" not in dups

@@ -122,6 +122,60 @@ CV_TEXTS: dict[str, dict] = {
             "العربية والإنجليزية.",
         ],
     },
+    # extra applicants of «مشرف أمن — الرياض» submitted through the Frappe public form (phase 6)
+    "HR-APP-2026-2018": {
+        "type": "docx",
+        "lines": [
+            "السيرة الذاتية — راكان الغامدي",
+            "مشرف أمن في مستشفى حكومي بالرياض منذ 2018.",
+            "أشرف على 12 فرد أمن موزعين على ثلاث ورديات.",
+            "خبرة في الأمن والحراسة 8 سنوات.",
+            "أعد جداول المناوبة الشهرية وأوزع الورديات بنفسي.",
+            "رخصة حارس أمن سارية.",
+            "أكتب التقارير الأمنية اليومية وتقارير الحوادث بانتظام.",
+            "دورة إسعافات أولية من الهلال الأحمر 2025.",
+            "العربية والإنجليزية.",
+        ],
+    },
+    "HR-APP-2026-2019": {
+        "type": "scan_ar",
+        "lines": [
+            "زياد البلوي — حارس أمن أول",
+            "حارس أمن أول في جامعة بالرياض منذ 2021.",
+            "أنوب عن مشرف الوردية عند غيابه وأتابع 5 حراس.",
+            "خبرة أمنية 4 سنوات.",
+            "شاركت في إعداد جدول المناوبة.",
+            "رخصة حارس أمن سارية.",
+            "العربية.",
+        ],
+    },
+    "HR-APP-2026-2022": {
+        "type": "pdf_en",
+        "lines": [
+            "CV — Abdulaziz Al-Otaibi",
+            "Security supervisor at a logistics park in Riyadh since 2016.",
+            "Supervised a team of 18 security guards across day and night shifts.",
+            "Total experience in security: 10 years.",
+            "Prepared the weekly duty roster and allocated shifts.",
+            "Valid security guard licence.",
+            "Writes daily security reports and incident reports.",
+            "First aid certificate, renewed in 2025.",
+            "Arabic (native) and English (fluent).",
+        ],
+    },
+    "HR-APP-2026-2025": {
+        "type": "scan_ar",
+        "lines": [
+            "السيرة الذاتية — عبدالمجيد الرويلي",
+            "مشرف أمن في مجمع مكاتب بالرياض منذ 2019.",
+            "أشرف على 10 حراس أمن.",
+            "خبرة في المجال الأمني 7 سنوات.",
+            "أعد جداول المناوبة بنفسي.",
+            "رخصة حارس أمن سارية.",
+            "أكتب تقارير أمنية بانتظام.",
+            "العربية والإنجليزية.",
+        ],
+    },
     "HR-APP-2026-1901": {
         "type": "pdf_ar",
         "lines": [

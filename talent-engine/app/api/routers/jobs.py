@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+from typing import Any
+
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from app.api.deps import actor_from, get_db, get_settings_dep, get_tenant
@@ -72,12 +75,44 @@ def get_job(ref: str, db: Session = Depends(get_db), tenant: Tenant = Depends(ge
     return jobs_svc.job_out(job, jobs_svc.active_version(db, job), job.versions)
 
 
+@router.delete("/{ref}")
+def delete_job(
+    ref: str,
+    db: Session = Depends(get_db),
+    tenant: Tenant = Depends(get_tenant),
+    actor: str = Depends(actor_from),
+):
+    job = jobs_svc.get_job(db, tenant, ref)
+    if job is None:
+        raise HTTPException(status_code=404, detail="job not found")
+    counts = jobs_svc.delete_job(db, tenant, job, actor)
+    db.commit()
+    return {"deleted": ref, **counts}
+
+
 @router.get("/{ref}/ranking")
 def ranking(ref: str, db: Session = Depends(get_db), tenant: Tenant = Depends(get_tenant)):
     job = jobs_svc.get_job(db, tenant, ref)
     if job is None:
         raise HTTPException(status_code=404, detail="job not found")
     return build_ranking(db, tenant, job)
+
+
+class ImpactIn(BaseModel):
+    criteria: list[dict[str, Any]]
+
+
+@router.post("/{ref}/impact")
+def impact(
+    ref: str, data: ImpactIn, db: Session = Depends(get_db), tenant: Tenant = Depends(get_tenant)
+):
+    """Impact preview of proposed criteria (weights, mandatory, set of criteria) before approval."""
+    from app.services.impact import preview
+
+    job = jobs_svc.get_job(db, tenant, ref)
+    if job is None:
+        raise HTTPException(status_code=404, detail="job not found")
+    return preview(db, tenant, job, data.criteria)
 
 
 @router.post("/{ref}/rescreen", status_code=202)

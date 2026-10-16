@@ -487,3 +487,33 @@ def test_llm_draft_is_normalised_into_an_approvable_job():
             "rules": [],
         }
     )  # approvable as is
+
+
+def test_cv_duration_is_levelled_in_code_not_by_the_model():
+    """Demo 2012: the model gave «لمدة سنتين» level 100; code reads 2 years -> 50 -> contradiction."""
+    from app.llm.schemas import CriterionJudgement
+    from app.llm.templates import SEC_QUESTIONS, YEARS_RUBRIC
+    from app.pipeline.stages.answers import normalise_answers
+    from app.pipeline.stages.evidence import resolve
+    from app.scoring.rubric import years_in_quote
+
+    assert years_in_quote("أشرفت على فريق صغير من الحراس لمدة سنتين") == 2
+    assert years_in_quote("خبرة أمنية7. سنوات") == 7  # digit moved by PDF bidi extraction
+    assert years_in_quote("ثلاث سنوات في الإشراف") == 3
+    assert years_in_quote("Total experience in security: 10 years.") == 10
+    assert years_in_quote("أشرف على 14 فرد أمن") is None
+    text = "حارس أمن في مجمع تجاري.\nأشرفت على فريق صغير من الحراس لمدة سنتين.\n"
+    norm = normalise_answers(SEC_QUESTIONS, {"years_sup": 6})
+    raw = CriterionJudgement(
+        key="supervision",
+        form_level=100,
+        form_value="6",
+        cv_level=100,
+        cv_quote="أشرفت على فريق صغير من الحراس لمدة سنتين",
+    )
+    j, probs = resolve(
+        raw, norm, text, question_key="years_sup", code_level=100, numeric_rubric=YEARS_RUBRIC
+    )
+    assert probs == []
+    assert j.cv_level == 50 and j.form_level == 100
+    assert j.contradiction and j.level == 50

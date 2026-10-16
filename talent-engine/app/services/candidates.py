@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import timedelta
+from datetime import UTC, timedelta
 from typing import Any
 
 from sqlalchemy import delete, select
@@ -88,8 +88,13 @@ def upsert_candidate(
     cand.facts = facts
     cand.answers = data.answers
     cand.consent = data.consent
+    if data.applied_at is not None:
+        at = data.applied_at
+        cand.applied_at = at.astimezone(UTC) if at.tzinfo else at.replace(tzinfo=UTC)
+    elif cand.applied_at is None:
+        cand.applied_at = utcnow()
     days = data.retention_days or tenant.retention_days
-    cand.retention_until = utcnow() + timedelta(days=days)
+    cand.retention_until = cand.applied_at + timedelta(days=days)
     docs = [doc_fingerprint(d) for d in cand.documents] if not created else []
     new_hash = data_hash(cand.id_token, cand.facts, cand.answers, docs)
     changed = new_hash != cand.data_hash
@@ -141,6 +146,7 @@ def candidate_out(
         "answers": cand.answers,
         "consent": cand.consent,
         "retention_until": iso(cand.retention_until),
+        "applied_at": iso(cand.applied_at),
         "data_hash": cand.data_hash,
         "documents": [
             {

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from app.core.hashing import hash_obj
@@ -12,7 +12,7 @@ from app.core.ids import new_id
 from app.core.timeutil import iso, utcnow
 from app.domain.models import JobIn
 from app.services import audit
-from app.storage.models import Job, JobVersion, Tenant
+from app.storage.models import CriterionResult, Job, JobVersion, Screening, Tenant
 
 
 def content_hash(data: JobIn) -> str:
@@ -124,3 +124,19 @@ def job_out(
             for v in include_versions
         ]
     return out
+
+
+def delete_job(db: Session, tenant: Tenant, job: Job, actor: str = "adapter") -> dict[str, int]:
+    """Remove a job (the host deleted its opening): its versions and screenings go; candidates stay."""
+    screening_ids = list(db.scalars(select(Screening.id).where(Screening.job_id == job.id)))
+    if screening_ids:
+        db.execute(delete(CriterionResult).where(CriterionResult.screening_id.in_(screening_ids)))
+        db.execute(delete(Screening).where(Screening.id.in_(screening_ids)))
+    versions = len(job.versions)
+    db.execute(delete(JobVersion).where(JobVersion.job_id == job.id))
+    ref = job.external_ref
+    db.delete(job)
+    counts = {"screenings": len(screening_ids), "versions": versions}
+    audit.log(db, tenant.id, ref, "job.deleted", actor, counts)
+    db.flush()
+    return counts
