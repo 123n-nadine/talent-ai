@@ -50,6 +50,8 @@ def fit_page(pg: Page, first_of_chapter: bool, intro: bool) -> float | None:
     imgs = [b for b in pg.blocks if isinstance(b, Img)]
     if len(imgs) != 1:
         return None
+    if imgs[0].fixed:  # a height chosen by hand (the text estimate is on the safe side and would print the picture small)
+        return imgs[0].max_h_cm
     avail = PAGE_MM - (CHAPTER_HEAD_MM + (8 if intro else 0) if first_of_chapter else 0) - text_mm(pg)
     h_cm = max(5.0, min(imgs[0].max_h_cm, avail / 10))
     imgs[0].max_h_cm = round(h_cm, 1)

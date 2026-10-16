@@ -39,9 +39,16 @@ def manager(F: dict) -> Chapter:
     c_scan, c_pdf, c_none = tt.get("C01", {}), tt.get("C02", {}), tt.get("C07", {})
     k15 = tt.get("K15", {})
     perm_users = len(F["tests"]["perm"].get("users", []))
+    b8 = dict((ev.get("bench") or {}).get("8", {}))
+    b8["pipeline_mean_s"] = round(b8.get("pipeline_mean_s", 0), 1)  # one decimal, as in the evaluation report
+    t_none = c_none.get("timing", {}).get("until_result_s", "—")
+    t_scan = c_scan.get("timing", {}).get("until_result_s", "—")
     pts = [
-        f"الوقت: ألف متقدم بياخدوا حوالي {thr['8']['per1000_min']} دقيقة بثمانية عمّال، و{thr['4']['per1000_min']} دقيقة بأربعة.\n"
-        f"الطلب الواحد بياخد من {c_pdf.get('timing', {}).get('until_result_s', '—')} لـ {c_scan.get('timing', {}).get('until_result_s', '—')} ثانية حسب نوع السيرة، والألف أسرع من مجموعهم لإن الطلبات بتتعالج مع بعض.",
+        f"الوقت: ألف متقدم بياخدوا حوالي ساعة بثمانية عمّال ({thr['8']['per1000_min']} دقيقة)، وحوالي ساعة وتلت بأربعة ({thr['4']['per1000_min']} دقيقة).\n"
+        f"الطلب الواحد بياخد من {t_none} ثانية من غير سيرة لـ {t_scan} ثانية بصورة ممسوحة، والألف أسرع من مجموعهم لإن العمّال بيشتغلوا على طلبات مختلفة في نفس الوقت.\n"
+        f"الرقم ده من اختبار {b8.get('n', '—')} طلب مضروب في عشرة: {b8.get('without_cv', '—')} من غير سيرة، و{b8.get('with_cv', '—')} بسيرة نصية، ومفيش صور ممسوحة؛ "
+        f"متوسط معالجة الطلب فيه {b8.get('pipeline_mean_s', '—')} ثانية بثمانية عمّال، و{b8.get('n', '—')} طلب × {b8.get('pipeline_mean_s', '—')} ثانية ÷ 8 عمّال = {round(b8.get('n', 0) * b8.get('pipeline_mean_s', 0) / 8)} ثانية، "
+        f"والمقاس فعلًا {round(b8.get('processing_wall_s', 0))} ثانية من آخر إرسال لآخر نتيجة.",
         f"الدقة: على {ev['gold']} متقدم اختبار، النظام جاب نفس مستوى الخبير في {pct(r8['exact'])} من المعايير.",
         f"القرب: الباقي كله كان على بُعد درجة واحدة بس، يعني {pct(r8['within_one'])} في حدود خطوة.",
         f"الأدلة: {pct(r8['evidence'])} من الأحكام اللي فوق الصفر ليها دليل اتراجع بالكود.",
