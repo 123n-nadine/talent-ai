@@ -12,7 +12,15 @@ from sqlalchemy.orm import Session
 from app.core.config import Settings
 from app.core.ids import new_id
 from app.core.timeutil import utcnow
-from app.domain.labels import NO_CV_NOTE
+from app.domain.arabic_text import (
+    count,
+    count_en,
+    extraction_label,
+    extraction_label_en,
+    redaction_note,
+    redaction_note_en,
+)
+from app.domain.labels import NO_CV_NOTE, NO_CV_NOTE_EN
 from app.embeddings.registry import get_embedding_provider
 from app.llm.base import JudgeRequest, LLMProvider
 from app.llm.registry import get_provider
@@ -42,11 +50,14 @@ class StageTracker:
         self._t0[key] = time.time()
         self.set(key, "running")
 
-    def set(self, key: str, status: str, note: str | None = None) -> None:
+    def set(
+        self, key: str, status: str, note: str | None = None, note_en: str | None = None
+    ) -> None:
         for s in self.stages:
             if s["key"] == key:
                 s["status"] = status
                 s["note"] = note
+                s["note_en"] = note_en if note_en is not None else note
                 if key in self._t0 and status in ("done", "failed", "skipped"):
                     s["ms"] = int((time.time() - self._t0.pop(key)) * 1000)
                 return
@@ -88,7 +99,13 @@ def run_screening(
         tracker.start("answers")
         answers = normalise_answers(version.questions, cand.answers)
         answered = sum(1 for a in answers.values() if a.answered)
-        tracker.set("answers", "done", f"{answered} من {len(version.questions)} إجابات")
+        total_q = len(version.questions)
+        tracker.set(
+            "answers",
+            "done",
+            f"أجاب عن {answered} من {count(total_q, 'سؤال', 'سؤالين', 'أسئلة').replace('لا ', '0 ')}",
+            f"{answered} of {count_en(total_q, 'question', 'questions')} answered",
+        )
 
         extra_flags = {f for f in (s.flags or []) if f not in SCORE_FLAGS}
         cv = next((d for d in cand.documents if d.kind == "cv"), None)
@@ -97,26 +114,38 @@ def run_screening(
         llm_calls: list[dict[str, Any]] = []
         if cv is None:
             for key in ("cv_text", "redaction", "profile", "evidence_check"):
-                tracker.set(key, "skipped", NO_CV_NOTE)
+                tracker.set(key, "skipped", NO_CV_NOTE, NO_CV_NOTE_EN)
         elif cv.status == "ready":
-            note = f"{cv.extraction_method} · {cv.char_count} حرف · {cv.page_count} صفحة"
+            note = (
+                f"{extraction_label(cv.extraction_method)} · {count(cv.page_count or 1, 'صفحة', 'صفحتان', 'صفحات', True)}"
+                f" · {cv.char_count} حرف"
+            )
+            note_en = (
+                f"{extraction_label_en(cv.extraction_method)} · {count_en(cv.page_count or 1, 'page', 'pages')}"
+                f" · {cv.char_count} characters"
+            )
             if cv.ocr_confidence is not None:
-                note += f" · ثقة OCR {round(cv.ocr_confidence * 100)}%"
+                note += f" · ثقة القراءة {round(cv.ocr_confidence * 100)}%"
+                note_en += f" · read confidence {round(cv.ocr_confidence * 100)}%"
                 if cv.ocr_confidence < settings.ocr_min_confidence:
                     extra_flags.add("low_ocr_confidence")
-            tracker.set("cv_text", "done", note)
+            tracker.set("cv_text", "done", note, note_en)
             counts = (cv.redaction_report or {}).get("counts", {})
             tracker.set(
                 "redaction",
                 "done",
-                "حُذف: " + "، ".join(f"{k} {v}" for k, v in counts.items())
-                if counts
-                else "لم يُعثر على بيانات شخصية",
+                redaction_note(counts),
+                redaction_note_en(counts),
             )
             redacted_text = cv.redacted_text or ""
             if prov.name == "fake":
-                tracker.set("profile", "skipped", "المزوّد الوهمي لا يقرأ السيرة")
-                tracker.set("evidence_check", "skipped", "لا ملف منظّم")
+                tracker.set(
+                    "profile",
+                    "skipped",
+                    "المزوّد الوهمي لا يقرأ السيرة",
+                    "the fake provider does not read the CV",
+                )
+                tracker.set("evidence_check", "skipped", "لا ملف منظّم", "no structured profile")
             else:
                 tracker.start("profile")
                 raw_profile = prov.profile(redacted_text)
@@ -128,12 +157,21 @@ def run_screening(
                     len(vp.data[k])
                     for k in ("experience", "certifications", "skills", "languages", "education")
                 )
-                tracker.set("profile", "done", f"{n_items + vp.dropped} عنصر مستخرج")
+                tracker.set(
+                    "profile",
+                    "done",
+                    f"استُخرج {count(n_items + vp.dropped, 'عنصر', 'عنصران', 'عناصر')}",
+                    f"{count_en(n_items + vp.dropped, 'item', 'items')} extracted",
+                )
                 tracker.set(
                     "evidence_check",
                     "done",
-                    f"{n_items} عنصر بدليل حرفي، {vp.dropped} حُذف لعدم وجود الاقتباس · "
-                    f"خبرة {derived['total_experience_years']} سنة · إشراف {derived['supervision_years']} سنة",
+                    f"{count(n_items, 'عنصر', 'عنصران', 'عناصر')} باقتباس حرفي"
+                    f" · {'لا عنصر محذوف' if not vp.dropped else count(vp.dropped, 'عنصر', 'عنصران', 'عناصر') + ' بلا اقتباس (حُذف)'}"
+                    f" · الخبرة {derived['total_experience_years']} سنة · الإشراف {derived['supervision_years']} سنة",
+                    f"{count_en(n_items, 'item', 'items')} with a literal quote"
+                    f" · {'nothing dropped' if not vp.dropped else count_en(vp.dropped, 'item', 'items') + ' without a quote (dropped)'}"
+                    f" · experience {derived['total_experience_years']} years · supervision {derived['supervision_years']} years",
                 )
                 for old_profile in db.query(Profile).filter(Profile.candidate_id == cand.id).all():
                     db.delete(old_profile)
@@ -148,10 +186,13 @@ def run_screening(
         else:
             extra_flags.add("cv_unreadable")
             tracker.set(
-                "cv_text", "failed", f"ملف السيرة غير مقروء: {cv.error} — التقييم من الإجابات فقط"
+                "cv_text",
+                "failed",
+                f"ملف السيرة غير مقروء: {cv.error} — التقييم من الإجابات فقط",
+                f"CV file unreadable: {cv.error} — assessed from the answers only",
             )
             for key in ("redaction", "profile", "evidence_check"):
-                tracker.set(key, "skipped", "لا نص للسيرة")
+                tracker.set(key, "skipped", "لا نص للسيرة", "no CV text")
 
         tracker.start("eligibility")
         elig = evaluate(cand.facts, version.rules)
@@ -162,6 +203,11 @@ def run_screening(
                 "eligible": "مستوفٍ",
                 "not_eligible": "غير مستوفٍ بحسب ما كتبه",
                 "needs_review": "يحتاج مراجعة",
+            }[elig.status],
+            {
+                "eligible": "eligible",
+                "not_eligible": "not eligible (as declared)",
+                "needs_review": "needs review",
             }[elig.status],
         )
 
@@ -256,18 +302,25 @@ def run_screening(
         tracker.set(
             "judgement",
             "done",
-            f"{n_ev} معيار بدليل · {len(code_levels)} محسوب بالكود · {n_cv} تؤكده السيرة · {n_contra} تعارض"
+            f"{count(n_ev, 'معيار', 'معياران', 'معايير')} بدليل · {len(code_levels)} محسوبة بالكود"
+            f" · السيرة تؤكد {n_cv} · {count(n_contra, 'تعارض', 'تعارضان', 'تعارضات')}"
             + ("" if needs_model else " · بدون نموذج لغوي"),
+            f"{count_en(n_ev, 'criterion', 'criteria')} with evidence · {len(code_levels)} computed in code"
+            f" · confirmed by the CV {n_cv} · {count_en(n_contra, 'contradiction', 'contradictions')}"
+            + ("" if needs_model else " · no language model"),
         )
 
         tracker.start("scoring")
         result = compute(rows)
         tracker.set(
-            "scoring", "done", f"الدرجة {result.score:g} · التغطية {round(result.coverage * 100)}%"
+            "scoring",
+            "done",
+            f"الدرجة {result.score:g} · التغطية {round(result.coverage * 100)}%",
+            f"score {result.score:g} · coverage {round(result.coverage * 100)}%",
         )
         tracker.start("index")
         try:  # the talent pool never fails a screening
-            note = index_screening(
+            index_note = index_screening(
                 db,
                 get_embedding_provider(settings),
                 s,
@@ -275,10 +328,15 @@ def run_screening(
                 result.rows,
                 settings.pool_cv_chars,
             )
-            tracker.set("index", "done", note)
+            tracker.set("index", "done", *index_note)
         except Exception as e:  # noqa: BLE001
             log.warning("talent pool indexing skipped for %s: %s", screening_id, e)
-            tracker.set("index", "skipped", f"تعذّرت الفهرسة: {type(e).__name__}")
+            tracker.set(
+                "index",
+                "skipped",
+                f"تعذّرت الفهرسة: {type(e).__name__}",
+                f"indexing skipped: {type(e).__name__}",
+            )
 
         for old in list(s.criteria):
             db.delete(old)

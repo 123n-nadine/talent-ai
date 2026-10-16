@@ -14,6 +14,13 @@ from app.core.config import Settings
 
 router = APIRouter(tags=["console"])
 STATIC = Path(__file__).resolve().parent.parent.parent.parent / "console" / "static"
+# the slim image has no /etc/mime.types, so the fonts would go out as application/octet-stream
+MEDIA_TYPES = {
+    ".woff2": "font/woff2",
+    ".css": "text/css",
+    ".js": "text/javascript",
+    ".txt": "text/plain",
+}
 
 
 def _user(request: Request, settings: Settings) -> str | None:
@@ -93,7 +100,7 @@ def static(path: str):
     target = (STATIC / path).resolve()
     if not str(target).startswith(str(STATIC.resolve())) or not target.is_file():
         raise HTTPException(status_code=404)
-    return FileResponse(target)
+    return FileResponse(target, media_type=MEDIA_TYPES.get(target.suffix))
 
 
 @router.get("/console/health", include_in_schema=False)

@@ -122,7 +122,14 @@ def find_duplicate_of(db: Session, tenant: Tenant, job: Job, candidate: Candidat
 
 def initial_stages() -> list[dict[str, Any]]:
     return [
-        {"key": k, "label_ar": ar, "label_en": en, "status": "pending", "note": None}
+        {
+            "key": k,
+            "label_ar": ar,
+            "label_en": en,
+            "status": "pending",
+            "note": None,
+            "note_en": None,
+        }
         for k, ar, en in STAGES
     ]
 

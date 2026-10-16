@@ -94,3 +94,14 @@ def test_static_path_traversal_blocked():
     assert c.get("/console/static/../../.env").status_code in (404, 400)
     assert c.get("/console/static/app.css").status_code == 200
     c.__exit__(None, None, None)
+
+
+def test_fonts_are_served_locally():
+    """The console never calls a third-party font service; the fonts ship with the app."""
+    c = _client()
+    r = c.get("/console/static/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2")
+    assert r.status_code == 200 and r.headers["content-type"] == "font/woff2"
+    for page in ("index.html", "login.html", "app.css"):
+        assert "googleapis" not in c.get(f"/console/static/{page}").text
+    assert "@font-face" in c.get("/console/static/app.css").text
+    c.__exit__(None, None, None)

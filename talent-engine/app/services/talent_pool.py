@@ -84,13 +84,14 @@ def index_screening(
     version: JobVersion,
     rows: list[Any],
     cv_chars: int = 1500,
-) -> str:
-    """Store the profile embedding of a finished screening. Returns a short stage note."""
+) -> tuple[str, str]:
+    """Store the profile embedding of a finished screening. Returns a short stage note (ar, en)."""
     cand = s.candidate
     ok, why = indexable(cand)
     if not ok:
         db.execute(delete(Embedding).where(Embedding.candidate_id == cand.id))
-        return EXCLUDED_LABELS[why or "consent_withdrawn"][0] + " — لا فهرسة"
+        ar, en = EXCLUDED_LABELS[why or "consent_withdrawn"]
+        return f"{ar} — لا فهرسة", f"{en} — not indexed"
     doc = db.scalar(
         select(Document)
         .where(Document.candidate_id == cand.id, Document.status == "ready")
@@ -101,7 +102,7 @@ def index_screening(
     existing = db.scalar(select(Embedding).where(Embedding.candidate_id == cand.id).limit(1))
     if existing is not None and existing.text_hash == digest and existing.model == provider.model:
         existing.screening_id = s.id
-        return "الملف مفهرس مسبقًا"
+        return "الملف مفهرس مسبقًا", "profile already indexed"
     vector = provider.embed([text])[0]
     db.execute(delete(Embedding).where(Embedding.candidate_id == cand.id))
     db.add(
@@ -114,7 +115,7 @@ def index_screening(
             text_hash=digest,
         )
     )
-    return f"فُهرس لبنك المتقدمين ({provider.model})"
+    return "أُضيف لبنك المتقدمين", "added to the talent pool"
 
 
 def _latest_completed(db: Session, cand: Candidate) -> Screening | None:
@@ -253,10 +254,11 @@ def reindex(
         s = _latest_completed(db, c)
         if s is None:
             continue
-        note = index_screening(
+        note, _ = index_screening(
             db, provider, s, s.job_version, rows_from_results(list(s.criteria)), cv_chars
         )
-        done += note.startswith("فُهرس") or note.startswith("الملف")
-        skipped += not (note.startswith("فُهرس") or note.startswith("الملف"))
+        ok = note.startswith("أُضيف") or note.startswith("الملف")
+        done += ok
+        skipped += not ok
     db.flush()
     return {"indexed": done, "skipped": skipped}

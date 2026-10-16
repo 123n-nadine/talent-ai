@@ -249,7 +249,9 @@ def test_local_provider_full_cycle(tmp_path, mock_llm):
     assert by["security_exp"]["cv_quote"] is None
     stages = {st["key"]: st for st in s["stages"]}
     assert stages["profile"]["status"] == "done" and stages["evidence_check"]["status"] == "done"
-    assert "1 حُذف" in stages["evidence_check"]["note"]  # the invented experience item was dropped
+    assert (
+        "عنصر واحد بلا اقتباس (حُذف)" in stages["evidence_check"]["note"]
+    )  # the invented item was dropped
     # the request to the model: thinking off, json schema, temperature 0, no facts/name in the prompt
     judge_req = [
         r

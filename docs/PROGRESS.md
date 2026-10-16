@@ -79,3 +79,24 @@ Decisions taken alone:
 - **Old-application demo case**: the creation date of one synthetic application is set to 2024-09-15 in the dev site so its retention period has ended; marked as a simulation in `seed_demo.pool_cases`.
 - The public HRMS pages follow the browser language for guests (standard Frappe); the walkthrough explains `?_lang=ar`. Our own form is Arabic first in any case.
 - Form helper objects are exposed on `window` (Frappe evaluates form scripts inside a function), so they can be reached by tests.
+
+## Round 2 — completion, design pass, full browser test, guide (autonomous, 2026-10-16/17)
+
+### Part 1 — what was missing (merged as `p9-completion`)
+- Frappe home page «التوظيف الذكي» (`/desk/ai-recruitment`): nine cards in the order Nadine gave, one line under each, live counts; HR Manager and HR User land on it after login (login hook), Arabic set for new HR users; a card the role cannot open shows «غير متاح لدورك».
+- Nadine's decisions applied: dev-frappe scripts committed without `.env`; the status-change reason stays audit-only; only the default Docker builder (`make` refuses any other, `scripts/compose.sh`); the in-memory Frappe database is documented as test-only; a permanent test that an application is always saved (`test_application_is_always_saved`: queue down at commit, hook crash, audit down, DB conflict retried, AI off, damaged CV).
+
+### Part 2a — design pass (branch `p10-design`)
+Measured in a real browser on every screen at 1366, 1440 and 1920 px (public pages also at 375 and 390 px): `tools/ui/design_audit.py` reports overlapping text boxes, cut or off-screen text, page overflow, text under 11.5 px and contrast under WCAG AA. Before/after numbers and image pairs are in `docs/TEST_REPORT.md` §8.
+- **Fonts**: IBM Plex Sans Arabic and IBM Plex Mono are served by the app and the console (OFL licence file included); no page calls Google Fonts any more.
+- **Contrast and sizes**: the muted grey #6f7d9c (4.13:1) became #56627c; chip texts are darker; nothing is under 12 px.
+- **Colours with one meaning**: green = eligible / high, amber = medium / needs review (contradiction, unreadable CV, AI draft), red = not eligible / low / failed, grey = stale / duplicate, blue = information / processing, purple = an HR edit; «إلزامي» is a neutral outlined chip.
+- **Mixed text**: Latin words and numbers inside Arabic sentences are isolated (`T.mix`, `mix`); quotes are «…»; dates are readable Arabic dates; the engine writes its stage notes in Arabic with correct number agreement (`app/domain/arabic_text.py`) and now also in English (`note_en`) for the English toggle; method names and redaction keys have Arabic labels.
+- **Layouts**: ranking rows put the strengths on their own line and wrap long references; the 10 stages follow the width of their own card; the console criteria editor fits at 1366 (no letter-by-letter «إلزامي», Arabic hints in the Arabic font, rules and questions stacked); the audit-log payload wraps in its cell.
+- **Frappe look**: our cards inside the desk use Frappe's own card background, border and radius; HRMS labels shown on our screens are translated (87 strings in `translations/ar.csv`, «No.» → «م»), the applicant list hides the ID column that only showed «com», the answers grid hides the technical key.
+- **Public job pages (HRMS)**: a scoped web stylesheet (`talent_ai_web.css`, `/jobs` and `/ai-apply` only) gives the grey texts AA contrast and 12.5 px labels; the HRMS templates are not modified.
+
+Decisions taken alone:
+- **No change to HRMS templates**: the public job pages are improved only with a stylesheet scoped by `body[data-path]` and with translations in our app.
+- **Fonts bundled in the app** rather than loaded from Google: same look, no third-party request with the applicant's or HR's IP, works on a platform without internet access.
+- **English stage notes are stored next to the Arabic ones** (`note_en`); screenings made before this change keep their Arabic note in English mode.
