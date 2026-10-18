@@ -57,6 +57,7 @@ class VerifiedProfile:
     data: dict[str, Any]
     derived: dict[str, Any] = field(default_factory=dict)
     dropped: int = 0  # items whose quote was not found
+    duplicates: int = 0  # repeated items kept once (round 8)
 
 
 def verify_profile(
@@ -70,12 +71,22 @@ def verify_profile(
         k: [] for k in ("experience", "certifications", "skills", "languages", "education")
     }
     dropped = 0
+    duplicates = 0
     for section in kept:
+        seen: set[tuple[str, ...]] = set()
         for item in getattr(profile, section):
-            if quote_in_text(item.quote, redacted_text, threshold):
-                kept[section].append(item.model_dump())
-            else:
+            if not quote_in_text(item.quote, redacted_text, threshold):
                 dropped += 1
+                continue
+            row = item.model_dump()
+            # the same item written twice (an 8B model may repeat one entry until its list is
+            # full, round 8) is kept once: the first occurrence, before anything is shown or saved
+            key = _item_key(section, row)
+            if key in seen:
+                duplicates += 1
+                continue
+            seen.add(key)
+            kept[section].append(row)
     total_years = 0.0
     sup_years = 0.0
     max_team = 0
@@ -108,4 +119,19 @@ def verify_profile(
         "education": [e["level"] for e in kept["education"]],
     }
     data = {**kept, "summary": profile.summary, "derived": derived}
-    return VerifiedProfile(data=data, derived=derived, dropped=dropped)
+    return VerifiedProfile(data=data, derived=derived, dropped=dropped, duplicates=duplicates)
+
+
+ITEM_KEYS = {
+    "experience": ("title", "employer", "start", "end"),
+    "certifications": ("name", "status"),
+    "skills": ("name",),
+    "languages": ("language", "level"),
+    "education": ("level", "field"),
+}
+
+
+def _item_key(section: str, row: dict[str, Any]) -> tuple[str, ...]:
+    """What makes two items of a section the same: their descriptive fields, normalised; two
+    items that only differ in their quote are one item."""
+    return tuple(normalize(str(row.get(k) or "")) for k in ITEM_KEYS[section])

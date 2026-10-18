@@ -202,7 +202,12 @@ def run_screening(
                     "done",
                     f"{count(n_items, 'عنصر', 'عنصران', 'عناصر')} باقتباس حرفي"
                     f" · {'لا عنصر محذوف' if not vp.dropped else count(vp.dropped, 'عنصر', 'عنصران', 'عناصر') + ' بلا اقتباس (حُذف)'}"
-                    f" · الخبرة {derived['total_experience_years']} سنة · الإشراف {derived['supervision_years']} سنة",
+                    + (
+                        f" · {count(vp.duplicates, 'عنصر مكرر', 'عنصران مكرران', 'عناصر مكررة')} (حُذف)"
+                        if vp.duplicates
+                        else ""
+                    )
+                    + f" · الخبرة {derived['total_experience_years']} سنة · الإشراف {derived['supervision_years']} سنة",
                     f"{count_en(n_items, 'item', 'items')} with a literal quote"
                     f" · {'nothing dropped' if not vp.dropped else count_en(vp.dropped, 'item', 'items') + ' without a quote (dropped)'}"
                     f" · experience {derived['total_experience_years']} years · supervision {derived['supervision_years']} years",
