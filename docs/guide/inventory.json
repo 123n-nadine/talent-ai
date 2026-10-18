@@ -3751,109 +3751,123 @@
   "source": "docs/OPEN_QUESTIONS.md:21"
  },
  {
+  "id": "decision:open:22",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #22: An applicant whose **supervision years exceed the security-experience years** (impossible:",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:22"
+ },
+ {
+  "id": "decision:open:23",
+  "cat": "decision",
+  "name": "OPEN_QUESTIONS #23: The **languages** criterion as the demo rubric levels it: English only = 0, Arabic only = ",
+  "label_ar": "",
+  "source": "docs/OPEN_QUESTIONS.md:23"
+ },
+ {
   "id": "decision:open:A1",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A1: What happens with a corrupt or unreadable CV?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:29"
+  "source": "docs/OPEN_QUESTIONS.md:31"
  },
  {
   "id": "decision:open:A2",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A2: Does a client-specific web form (`job-application-ksa`) exist?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:30"
+  "source": "docs/OPEN_QUESTIONS.md:32"
  },
  {
   "id": "decision:open:A3",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A3: Separate console port?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:31"
+  "source": "docs/OPEN_QUESTIONS.md:33"
  },
  {
   "id": "decision:open:A4",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A4: Who owns the AI/OCR provider settings?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:32"
+  "source": "docs/OPEN_QUESTIONS.md:34"
  },
  {
   "id": "decision:open:A5",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A5: Is the national ID sent to the engine?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:33"
+  "source": "docs/OPEN_QUESTIONS.md:35"
  },
  {
   "id": "decision:open:A6",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A6: Time zones",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:34"
+  "source": "docs/OPEN_QUESTIONS.md:36"
  },
  {
   "id": "decision:open:A7",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A7: GPU cap and ports",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:35"
+  "source": "docs/OPEN_QUESTIONS.md:37"
  },
  {
   "id": "decision:open:Q5",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #Q5: CV upload for Guests on the application form",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:36"
+  "source": "docs/OPEN_QUESTIONS.md:38"
  },
  {
   "id": "decision:open:Q10",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #Q10: RQ worker overhead",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:37"
+  "source": "docs/OPEN_QUESTIONS.md:39"
  },
  {
   "id": "decision:open:Q11",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #Q11: OCR confidence threshold",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:38"
+  "source": "docs/OPEN_QUESTIONS.md:40"
  },
  {
   "id": "decision:open:Q12",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #Q12: Judge quality of Qwen3-8B-AWQ",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:39"
+  "source": "docs/OPEN_QUESTIONS.md:41"
  },
  {
   "id": "decision:open:Q14",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #Q14: Commit the dev bench scripts?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:40"
+  "source": "docs/OPEN_QUESTIONS.md:42"
  },
  {
   "id": "decision:open:Q19",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #Q19: Enforce a reason for every status change?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:41"
+  "source": "docs/OPEN_QUESTIONS.md:43"
  },
  {
   "id": "decision:open:A8",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A8: Which Docker builder may we use?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:42"
+  "source": "docs/OPEN_QUESTIONS.md:44"
  },
  {
   "id": "decision:open:A9",
   "cat": "decision",
   "name": "OPEN_QUESTIONS #A9: Frappe MariaDB in memory?",
   "label_ar": "",
-  "source": "docs/OPEN_QUESTIONS.md:43"
+  "source": "docs/OPEN_QUESTIONS.md:45"
  },
  {
   "id": "evaluation:run:8B v1",
@@ -3875,6 +3889,13 @@
   "name": "gold-set run 4B v1",
   "label_ar": "",
   "source": "docs/EVALUATION_REPORT.md:13"
+ },
+ {
+  "id": "evaluation:run:8B v1 r6",
+  "cat": "evaluation",
+  "name": "gold-set run 8B v1 r6",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:52"
  },
  {
   "id": "evaluation:throughput:2",
@@ -3916,14 +3937,14 @@
   "cat": "evaluation",
   "name": "evaluation: ocr-threshold",
   "label_ar": "",
-  "source": "docs/EVALUATION_REPORT.md:39"
+  "source": "docs/EVALUATION_REPORT.md:40"
  },
  {
   "id": "evaluation:quote-ratio",
   "cat": "evaluation",
   "name": "evaluation: quote-ratio",
   "label_ar": "",
-  "source": "docs/EVALUATION_REPORT.md:40"
+  "source": "docs/EVALUATION_REPORT.md:41"
  },
  {
   "id": "security:hmac-callback",

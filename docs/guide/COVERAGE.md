@@ -6,7 +6,7 @@ page (or, for items without a natural picture such as endpoints and settings, th
 settings file without values), and the test is a section of `docs/TEST_REPORT.md`. `tools/guide/coverage_check.py` re-reads the code and
 checks that nothing is missing.
 
-**581 items**, 581 with all three columns filled.
+**584 items**, 584 with all three columns filled.
 
 | Category | Items |
 |---|---|
@@ -22,8 +22,8 @@ checks that nothing is missing.
 | setting | 77 |
 | role | 16 |
 | command | 73 |
-| decision | 71 |
-| evaluation | 10 |
+| decision | 73 |
+| evaluation | 11 |
 | security | 19 |
 | architecture | 19 |
 
@@ -547,31 +547,34 @@ checks that nothing is missing.
 | DC-054 | decision | `OPEN_QUESTIONS #18: The demo's form also has "الصورة الشخصية" and "الشهادات". Not built: the requirement list ` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 18 |
 | DC-055 | decision | `OPEN_QUESTIONS #20: Applications entered by HR in the desk (paper forms) have no consent record. **Default in ` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 20 |
 | DC-056 | decision | `OPEN_QUESTIONS #21: What happens to an applicant who withdraws consent? **Default in force until the client co` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 21 |
-| DC-057 | decision | `OPEN_QUESTIONS #A1: What happens with a corrupt or unreadable CV?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A1 |
-| DC-058 | decision | `OPEN_QUESTIONS #A2: Does a client-specific web form (`job-application-ksa`) exist?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A2 |
-| DC-059 | decision | `OPEN_QUESTIONS #A3: Separate console port?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A3 |
-| DC-060 | decision | `OPEN_QUESTIONS #A4: Who owns the AI/OCR provider settings?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A4 |
-| DC-061 | decision | `OPEN_QUESTIONS #A5: Is the national ID sent to the engine?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A5 |
-| DC-062 | decision | `OPEN_QUESTIONS #A6: Time zones` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A6 |
-| DC-063 | decision | `OPEN_QUESTIONS #A7: GPU cap and ports` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A7 |
-| DC-064 | decision | `OPEN_QUESTIONS #Q5: CV upload for Guests on the application form` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q5 |
-| DC-065 | decision | `OPEN_QUESTIONS #Q10: RQ worker overhead` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q10 |
-| DC-066 | decision | `OPEN_QUESTIONS #Q11: OCR confidence threshold` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q11 |
-| DC-067 | decision | `OPEN_QUESTIONS #Q12: Judge quality of Qwen3-8B-AWQ` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q12 |
-| DC-068 | decision | `OPEN_QUESTIONS #Q14: Commit the dev bench scripts?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q14 |
-| DC-069 | decision | `OPEN_QUESTIONS #Q19: Enforce a reason for every status change?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q19 |
-| DC-070 | decision | `OPEN_QUESTIONS #A8: Which Docker builder may we use?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A8 |
-| DC-071 | decision | `OPEN_QUESTIONS #A9: Frappe MariaDB in memory?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A9 |
+| DC-057 | decision | `OPEN_QUESTIONS #22: An applicant whose **supervision years exceed the security-experience years** (impossible:` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 22 |
+| DC-058 | decision | `OPEN_QUESTIONS #23: The **languages** criterion as the demo rubric levels it: English only = 0, Arabic only = ` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 23 |
+| DC-059 | decision | `OPEN_QUESTIONS #A1: What happens with a corrupt or unreadable CV?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A1 |
+| DC-060 | decision | `OPEN_QUESTIONS #A2: Does a client-specific web form (`job-application-ksa`) exist?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A2 |
+| DC-061 | decision | `OPEN_QUESTIONS #A3: Separate console port?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A3 |
+| DC-062 | decision | `OPEN_QUESTIONS #A4: Who owns the AI/OCR provider settings?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A4 |
+| DC-063 | decision | `OPEN_QUESTIONS #A5: Is the national ID sent to the engine?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A5 |
+| DC-064 | decision | `OPEN_QUESTIONS #A6: Time zones` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A6 |
+| DC-065 | decision | `OPEN_QUESTIONS #A7: GPU cap and ports` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A7 |
+| DC-066 | decision | `OPEN_QUESTIONS #Q5: CV upload for Guests on the application form` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q5 |
+| DC-067 | decision | `OPEN_QUESTIONS #Q10: RQ worker overhead` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q10 |
+| DC-068 | decision | `OPEN_QUESTIONS #Q11: OCR confidence threshold` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q11 |
+| DC-069 | decision | `OPEN_QUESTIONS #Q12: Judge quality of Qwen3-8B-AWQ` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q12 |
+| DC-070 | decision | `OPEN_QUESTIONS #Q14: Commit the dev bench scripts?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q14 |
+| DC-071 | decision | `OPEN_QUESTIONS #Q19: Enforce a reason for every status change?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q19 |
+| DC-072 | decision | `OPEN_QUESTIONS #A8: Which Docker builder may we use?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A8 |
+| DC-073 | decision | `OPEN_QUESTIONS #A9: Frappe MariaDB in memory?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A9 |
 | EV-001 | evaluation | `gold-set run 8B v1` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
 | EV-002 | evaluation | `gold-set run 8B v2` | 132 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
 | EV-003 | evaluation | `gold-set run 4B v1` | 132 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-004 | evaluation | `throughput with 2 workers (13.4 min per 100)` | 132 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-005 | evaluation | `throughput with 4 workers (7.8 min per 100)` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-006 | evaluation | `throughput with 8 workers (5.4 min per 100)` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-007 | evaluation | `evaluation: rerun` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-008 | evaluation | `evaluation: name-swap` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-009 | evaluation | `evaluation: ocr-threshold` | 85 | [CV_scan.png](images/fit/CV_scan.png) | §13 evaluation results |
-| EV-010 | evaluation | `evaluation: quote-ratio` | 80 | [S06_stage_06.png](images/steps/S06_stage_06.png) | §13 evaluation results |
+| EV-004 | evaluation | `gold-set run 8B v1 r6` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-005 | evaluation | `throughput with 2 workers (13.4 min per 100)` | 132 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-006 | evaluation | `throughput with 4 workers (7.8 min per 100)` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-007 | evaluation | `throughput with 8 workers (5.4 min per 100)` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-008 | evaluation | `evaluation: rerun` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-009 | evaluation | `evaluation: name-swap` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-010 | evaluation | `evaluation: ocr-threshold` | 85 | [CV_scan.png](images/fit/CV_scan.png) | §13 evaluation results |
+| EV-011 | evaluation | `evaluation: quote-ratio` | 80 | [S06_stage_06.png](images/steps/S06_stage_06.png) | §13 evaluation results |
 | SY-001 | security | `engine → Frappe results signed with HMAC-SHA256 (timestamp + body)` | 10 | [diagram.png](images/diagram.png) | §10 Frappe `test_callback_signature` |
 | SY-002 | security | `Bearer API key per tenant on every /v1 call; key never in browser code` | 73 | [C_dev.png](images/fit/C_dev.png) | §10 engine auth tests |
 | SY-003 | security | `console login with a signed HttpOnly cookie (12 h)` | 60 | [card_C_login.png](images/fit/card_C_login.png) | §10 engine `test_console` |
@@ -601,12 +604,12 @@ checks that nothing is missing.
 | AR-008 | architecture | `dev bench service redis-cache (compose project talentai-frappe)` | 132 | [diagram.png](images/diagram.png) | §11 `make ps` |
 | AR-009 | architecture | `dev bench service redis-queue (compose project talentai-frappe)` | 132 | [diagram.png](images/diagram.png) | §11 `make ps` |
 | AR-010 | architecture | `dev bench service bench (compose project talentai-frappe)` | 132 | [diagram.png](images/diagram.png) | §11 `make ps` |
-| AR-011 | architecture | `repository talent-ai (workspace, docs, engine, dev bench scripts)` | 132 | [diagram.png](images/diagram.png) | §11 commands |
-| AR-012 | architecture | `repository ido_talent_ai (Frappe app, bench get-app)` | 132 | [diagram.png](images/diagram.png) | §11 commands |
-| AR-013 | architecture | `install on the platform: bench get-app → install-app → migrate → settings` | 132 | [diagram.png](images/diagram.png) | §11 commands |
-| AR-014 | architecture | `uninstall leaves the platform as it was (custom fields and permission rows removed)` | 132 | [diagram.png](images/diagram.png) | §11 commands |
+| AR-011 | architecture | `repository talent-ai (workspace, docs, engine, dev bench scripts)` | 133 | [diagram.png](images/diagram.png) | §11 commands |
+| AR-012 | architecture | `repository ido_talent_ai (Frappe app, bench get-app)` | 133 | [diagram.png](images/diagram.png) | §11 commands |
+| AR-013 | architecture | `install on the platform: bench get-app → install-app → migrate → settings` | 133 | [diagram.png](images/diagram.png) | §11 commands |
+| AR-014 | architecture | `uninstall leaves the platform as it was (custom fields and permission rows removed)` | 133 | [diagram.png](images/diagram.png) | §11 commands |
 | AR-015 | architecture | `the engine is standalone; Frappe is the first adapter (HTTP + HMAC callback)` | 10 | [diagram.png](images/diagram.png) | §11 commands |
 | AR-016 | architecture | `one tenant per host system (API key)` | 10 | [diagram.png](images/diagram.png) | §11 commands |
-| AR-017 | architecture | `vLLM capped at 40% of the shared GPU` | 132 | [diagram.png](images/diagram.png) | §11 commands |
-| AR-018 | architecture | `the dev Frappe database runs in memory, for testing only` | 132 | [diagram.png](images/diagram.png) | §11 commands |
-| AR-019 | architecture | `Docker images built with the default builder only` | 132 | [diagram.png](images/diagram.png) | §11 commands |
+| AR-017 | architecture | `vLLM capped at 40% of the shared GPU` | 133 | [diagram.png](images/diagram.png) | §11 commands |
+| AR-018 | architecture | `the dev Frappe database runs in memory, for testing only` | 133 | [diagram.png](images/diagram.png) | §11 commands |
+| AR-019 | architecture | `Docker images built with the default builder only` | 133 | [diagram.png](images/diagram.png) | §11 commands |

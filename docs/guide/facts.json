@@ -2531,6 +2531,18 @@
     "free_text": 31.0,
     "supervision": 91.0,
     "seconds": 12.05
+   },
+   "8B v1 r6": {
+    "model": "qwen3-8b-awq",
+    "prompt": "judge-v1",
+    "exact": 98.5,
+    "within_one": 100.0,
+    "evidence": 100.0,
+    "eligibility": 100.0,
+    "flags": 100.0,
+    "free_text": 62.0,
+    "supervision": 100.0,
+    "seconds": 21.58
    }
   },
   "throughput": {
@@ -2597,9 +2609,24 @@
     "failed": 0
    }
   },
-  "rerun_pct": 100,
+  "rerun_pct": 98,
   "name_swap_pct": 100,
-  "gold": 50
+  "split": {
+   "code": {
+    "exact": 100,
+    "within": 100,
+    "n": 305
+   },
+   "model": {
+    "exact": 69,
+    "within": 100,
+    "n": 16
+   }
+  },
+  "distinct_free_texts": 5,
+  "cv_documents": 31,
+  "failed": 1,
+  "gold": 55
  },
  "design": {
   "screens": 110,
@@ -2738,6 +2765,20 @@
     "who": "Abdullah + client",
     "when": "before go-live",
     "state": "default in force; client to confirm"
+   },
+   {
+    "n": "22",
+    "q": "An applicant whose **supervision years exceed the security-experience years** (impossible: supervising guards is part of security work). Today both answers are levelled on their own and nothing is flagged; the gold set no longer contains such cases (round 6, 2026-10-18). Should the engine mark this as a contradiction and send the application to «يحتاج مراجعة»?",
+    "who": "Abdullah + client",
+    "when": "before go-live",
+    "state": "open"
+   },
+   {
+    "n": "23",
+    "q": "The **languages** criterion as the demo rubric levels it: English only = 0, Arabic only = 50, Arabic + English = 100. Is that the intended order for the client's roles (an English-only guard scores nothing on languages)?",
+    "who": "Abdullah + client",
+    "when": "before go-live",
+    "state": "open"
    }
   ]
  },

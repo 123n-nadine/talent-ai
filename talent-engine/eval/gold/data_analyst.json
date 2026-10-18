@@ -206,13 +206,13 @@
       "ref": "GOLD-ANA-001",
       "job": "GOLD-ANALYST",
       "archetype": "strong",
-      "name_hint": "عمر الجهني",
+      "name_hint": "راكان السبيعي",
       "facts": {
         "nationality": "السعودية",
-        "age": 22
+        "age": 38
       },
       "answers": {
-        "years_exp": 10,
+        "years_exp": 6,
         "sql": "متقدم",
         "python": "جيد",
         "project": "حللت بيانات شكاوى العملاء (40 ألف سجل) بـ SQL وPython لمعرفة أسباب التأخير، وبنيت لوحة في Power BI؛ انخفض زمن الاستجابة 30% خلال ثلاثة أشهر."
@@ -234,15 +234,15 @@
       "ref": "GOLD-ANA-002",
       "job": "GOLD-ANALYST",
       "archetype": "strong",
-      "name_hint": "خالد الجهني",
+      "name_hint": "تركي الدوسري",
       "facts": {
         "nationality": "السعودية",
-        "age": 32
+        "age": 39
       },
       "answers": {
-        "years_exp": 10,
+        "years_exp": 7,
         "sql": "متقدم",
-        "python": "متقدم",
+        "python": "جيد",
         "project": "حللت بيانات شكاوى العملاء (40 ألف سجل) بـ SQL وPython لمعرفة أسباب التأخير، وبنيت لوحة في Power BI؛ انخفض زمن الاستجابة 30% خلال ثلاثة أشهر."
       },
       "cv_lines": null,
@@ -251,7 +251,7 @@
         "levels": {
           "experience": 100,
           "sql": 100,
-          "python": 100,
+          "python": 75,
           "project": 100
         },
         "flags": [],
@@ -262,13 +262,13 @@
       "ref": "GOLD-ANA-003",
       "job": "GOLD-ANALYST",
       "archetype": "strong",
-      "name_hint": "خالد الزهراني",
+      "name_hint": "سلمان الدوسري",
       "facts": {
-        "nationality": "السعودية",
-        "age": 22
+        "nationality": "مصر",
+        "age": 25
       },
       "answers": {
-        "years_exp": 10,
+        "years_exp": 8,
         "sql": "متقدم",
         "python": "متقدم",
         "project": "حللت بيانات شكاوى العملاء (40 ألف سجل) بـ SQL وPython لمعرفة أسباب التأخير، وبنيت لوحة في Power BI؛ انخفض زمن الاستجابة 30% خلال ثلاثة أشهر."
@@ -290,10 +290,10 @@
       "ref": "GOLD-ANA-004",
       "job": "GOLD-ANALYST",
       "archetype": "strong",
-      "name_hint": "عبدالله القحطاني",
+      "name_hint": "محمد القحطاني",
       "facts": {
-        "nationality": "مصر",
-        "age": 22
+        "nationality": "السعودية",
+        "age": 31
       },
       "answers": {
         "years_exp": 8,
@@ -318,16 +318,16 @@
       "ref": "GOLD-ANA-005",
       "job": "GOLD-ANALYST",
       "archetype": "medium",
-      "name_hint": "تركي الحربي",
+      "name_hint": "خالد الشمري",
       "facts": {
         "nationality": "السعودية",
-        "age": 24
+        "age": 29
       },
       "answers": {
-        "years_exp": 4,
+        "years_exp": 3,
         "sql": "جيد",
         "python": "أساسي",
-        "project": "جمعت بيانات المبيعات من ثلاثة فروع بـ SQL ونظفتها بـ pandas وأعددت تقريرًا شهريًا للإدارة بأهم المنتجات."
+        "project": "استخدمت Excel وSQL لتحليل بيانات الحضور ومعرفة أيام الغياب المتكررة."
       },
       "cv_lines": null,
       "expected": {
@@ -336,7 +336,7 @@
           "experience": 75,
           "sql": 75,
           "python": 25,
-          "project": 75
+          "project": 50
         },
         "flags": [],
         "project_tolerance": 25
@@ -346,14 +346,14 @@
       "ref": "GOLD-ANA-006",
       "job": "GOLD-ANALYST",
       "archetype": "medium",
-      "name_hint": "مشاري المطيري",
+      "name_hint": "تركي القحطاني",
       "facts": {
-        "nationality": "مصر",
-        "age": 36
+        "nationality": "السعودية",
+        "age": 30
       },
       "answers": {
         "years_exp": 2,
-        "sql": "متوسط",
+        "sql": "جيد",
         "python": "أساسي",
         "project": "جمعت بيانات المبيعات من ثلاثة فروع بـ SQL ونظفتها بـ pandas وأعددت تقريرًا شهريًا للإدارة بأهم المنتجات."
       },
@@ -362,7 +362,7 @@
         "eligibility": "eligible",
         "levels": {
           "experience": 50,
-          "sql": 50,
+          "sql": 75,
           "python": 25,
           "project": 75
         },
@@ -374,10 +374,10 @@
       "ref": "GOLD-ANA-007",
       "job": "GOLD-ANALYST",
       "archetype": "medium",
-      "name_hint": "تركي الزهراني",
+      "name_hint": "سلمان الحربي",
       "facts": {
         "nationality": "مصر",
-        "age": 39
+        "age": 34
       },
       "answers": {
         "years_exp": 4,
@@ -402,14 +402,14 @@
       "ref": "GOLD-ANA-008",
       "job": "GOLD-ANALYST",
       "archetype": "medium",
-      "name_hint": "مشاري الجهني",
+      "name_hint": "تركي العنزي",
       "facts": {
         "nationality": "السعودية",
-        "age": 33
+        "age": 23
       },
       "answers": {
         "years_exp": 2,
-        "sql": "متوسط",
+        "sql": "جيد",
         "python": "متوسط",
         "project": "استخدمت Excel وSQL لتحليل بيانات الحضور ومعرفة أيام الغياب المتكررة."
       },
@@ -418,7 +418,7 @@
         "eligibility": "eligible",
         "levels": {
           "experience": 50,
-          "sql": 50,
+          "sql": 75,
           "python": 50,
           "project": 50
         },
@@ -430,25 +430,25 @@
       "ref": "GOLD-ANA-009",
       "job": "GOLD-ANALYST",
       "archetype": "medium",
-      "name_hint": "تركي الدوسري",
+      "name_hint": "تركي الغامدي",
       "facts": {
         "nationality": "السعودية",
-        "age": 30
+        "age": 29
       },
       "answers": {
-        "years_exp": 2,
-        "sql": "جيد",
+        "years_exp": 3,
+        "sql": "متوسط",
         "python": "أساسي",
-        "project": "استخدمت Excel وSQL لتحليل بيانات الحضور ومعرفة أيام الغياب المتكررة."
+        "project": "جمعت بيانات المبيعات من ثلاثة فروع بـ SQL ونظفتها بـ pandas وأعددت تقريرًا شهريًا للإدارة بأهم المنتجات."
       },
       "cv_lines": null,
       "expected": {
         "eligibility": "eligible",
         "levels": {
-          "experience": 50,
-          "sql": 75,
+          "experience": 75,
+          "sql": 50,
           "python": 25,
-          "project": 50
+          "project": 75
         },
         "flags": [],
         "project_tolerance": 25
@@ -458,9 +458,65 @@
       "ref": "GOLD-ANA-010",
       "job": "GOLD-ANALYST",
       "archetype": "low",
-      "name_hint": "نواف الغامدي",
+      "name_hint": "ماجد الجهني",
+      "facts": {
+        "nationality": "السعودية",
+        "age": 39
+      },
+      "answers": {
+        "years_exp": 0,
+        "sql": "لا يوجد",
+        "python": "لا يوجد",
+        "project": "عملت على تحليل البيانات في وظيفتي السابقة."
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "experience": 0,
+          "sql": 0,
+          "python": 0,
+          "project": 25
+        },
+        "flags": [],
+        "project_tolerance": 25
+      }
+    },
+    {
+      "ref": "GOLD-ANA-011",
+      "job": "GOLD-ANALYST",
+      "archetype": "low",
+      "name_hint": "سلمان الزهراني",
       "facts": {
         "nationality": "مصر",
+        "age": 38
+      },
+      "answers": {
+        "years_exp": 0,
+        "sql": "لا يوجد",
+        "python": "لا يوجد",
+        "project": "أحب العمل الجماعي وأتعلم بسرعة."
+      },
+      "cv_lines": null,
+      "expected": {
+        "eligibility": "eligible",
+        "levels": {
+          "experience": 0,
+          "sql": 0,
+          "python": 0,
+          "project": 0
+        },
+        "flags": [],
+        "project_tolerance": 25
+      }
+    },
+    {
+      "ref": "GOLD-ANA-012",
+      "job": "GOLD-ANALYST",
+      "archetype": "low",
+      "name_hint": "ياسر العنزي",
+      "facts": {
+        "nationality": "السعودية",
         "age": 32
       },
       "answers": {
@@ -483,17 +539,17 @@
       }
     },
     {
-      "ref": "GOLD-ANA-011",
+      "ref": "GOLD-ANA-013",
       "job": "GOLD-ANALYST",
       "archetype": "low",
-      "name_hint": "عمر العتيبي",
+      "name_hint": "خالد الغامدي",
       "facts": {
         "nationality": "السعودية",
-        "age": 30
+        "age": 33
       },
       "answers": {
         "years_exp": 0.5,
-        "sql": "أساسي",
+        "sql": "لا يوجد",
         "python": "لا يوجد",
         "project": "أحب العمل الجماعي وأتعلم بسرعة."
       },
@@ -502,63 +558,7 @@
         "eligibility": "eligible",
         "levels": {
           "experience": 25,
-          "sql": 25,
-          "python": 0,
-          "project": 0
-        },
-        "flags": [],
-        "project_tolerance": 25
-      }
-    },
-    {
-      "ref": "GOLD-ANA-012",
-      "job": "GOLD-ANALYST",
-      "archetype": "low",
-      "name_hint": "راكان الشمري",
-      "facts": {
-        "nationality": "مصر",
-        "age": 25
-      },
-      "answers": {
-        "years_exp": 1,
-        "sql": "أساسي",
-        "python": "لا يوجد",
-        "project": "أحب العمل الجماعي وأتعلم بسرعة."
-      },
-      "cv_lines": null,
-      "expected": {
-        "eligibility": "eligible",
-        "levels": {
-          "experience": 50,
-          "sql": 25,
-          "python": 0,
-          "project": 0
-        },
-        "flags": [],
-        "project_tolerance": 25
-      }
-    },
-    {
-      "ref": "GOLD-ANA-013",
-      "job": "GOLD-ANALYST",
-      "archetype": "low",
-      "name_hint": "ماجد الغامدي",
-      "facts": {
-        "nationality": "السعودية",
-        "age": 26
-      },
-      "answers": {
-        "years_exp": 0,
-        "sql": "أساسي",
-        "python": "لا يوجد",
-        "project": "أحب العمل الجماعي وأتعلم بسرعة."
-      },
-      "cv_lines": null,
-      "expected": {
-        "eligibility": "eligible",
-        "levels": {
-          "experience": 0,
-          "sql": 25,
+          "sql": 0,
           "python": 0,
           "project": 0
         },
@@ -570,13 +570,13 @@
       "ref": "GOLD-ANA-014",
       "job": "GOLD-ANALYST",
       "archetype": "no_project",
-      "name_hint": "عبدالله الدوسري",
+      "name_hint": "مشاري القحطاني",
       "facts": {
-        "nationality": "السعودية",
-        "age": 23
+        "nationality": "مصر",
+        "age": 38
       },
       "answers": {
-        "years_exp": 5,
+        "years_exp": 2,
         "sql": "جيد",
         "python": "متوسط",
         "project": ""
@@ -585,7 +585,7 @@
       "expected": {
         "eligibility": "eligible",
         "levels": {
-          "experience": 75,
+          "experience": 50,
           "sql": 75,
           "python": 50,
           "project": null
@@ -600,10 +600,10 @@
       "ref": "GOLD-ANA-015",
       "job": "GOLD-ANALYST",
       "archetype": "no_project",
-      "name_hint": "وليد المطيري",
+      "name_hint": "محمد السبيعي",
       "facts": {
         "nationality": "السعودية",
-        "age": 23
+        "age": 30
       },
       "answers": {
         "years_exp": 5,

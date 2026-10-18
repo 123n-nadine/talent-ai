@@ -72,7 +72,7 @@ Record results in `docs/ACCEPTANCE_REPORT.md` with date, build commit and eviden
 | CV quotes found in text | 100% (others dropped automatically) |
 | extraction accuracy (years, licence, certifications) | ≥ 90% |
 | eligibility correct | 100% (code rules) |
-| agreement with hand labels (exact level / within one step) | report; target set after first run |
+| agreement with the expected level from the rubric table (exact / within one step; not a human label) | report; target set after first run |
 | same result on rerun | 100% |
 | name-swap invariance | 100% same levels |
 | time per application, per 1000 on this server | report |
