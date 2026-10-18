@@ -74,7 +74,9 @@ class OpenAICompatLLM:
             log.warning("LLM provider %s not ready: %s", self.name, e)
             return False
 
-    MAX_TOKENS = {"candidate_profile": 4000, "judgement": 4000, "draft": 4000}  # per-task caps
+    # per-task caps (Nadine, round 8: 2500 — ten times a normal profile answer; a runaway answer
+    # then costs ~40 s instead of ~100 s before the shorter retry)
+    MAX_TOKENS = {"candidate_profile": 2500, "judgement": 2500, "draft": 3000}
     MIN_TOKENS = 256
 
     def output_budget(self, name: str, *texts: str) -> int:
@@ -220,9 +222,15 @@ class OpenAICompatLLM:
         return normalise_draft(out)  # keys, question links, rubric levels and weights fixed in code
 
 
+MAX_LIST_ITEMS = 12  # a CV never needs more; the 8B model otherwise loops on one item (round 8)
+
+
 def strict_schema(model: type[BaseModel]) -> dict[str, Any]:
     """Pydantic schema with every property required and no extra keys, so guided decoding cannot
-    drop the lists (an 8B model otherwise answers with the summary only)."""
+    drop the lists (an 8B model otherwise answers with the summary only), and every list of
+    objects bounded by `maxItems` so a repeating model is stopped by the grammar instead of by the
+    output budget (the three cut-off profiles of round 7 repeated one language item 70–94 times).
+    The result model itself is unchanged: the bound lives only in the schema sent to the model."""
     schema = model.model_json_schema()
 
     def walk(node: Any) -> None:
@@ -230,6 +238,8 @@ def strict_schema(model: type[BaseModel]) -> dict[str, Any]:
             if node.get("type") == "object" and "properties" in node:
                 node["required"] = list(node["properties"].keys())
                 node["additionalProperties"] = False
+            if node.get("type") == "array" and "maxItems" not in node:
+                node["maxItems"] = MAX_LIST_ITEMS
             for v in node.values():
                 walk(v)
         elif isinstance(node, list):

@@ -281,7 +281,7 @@ def decisions() -> None:
 def evaluation() -> None:
     p = os.path.join(ROOT, "docs", "EVALUATION_REPORT.md")
     s = read(p)
-    for m in re.finditer(r"^\| (8B v1 r7|8B v1 r6|8B v1|8B v2|4B v1) \|", s, re.M):
+    for m in re.finditer(r"^\| (8B v1 r8|8B v1 r7|8B v1 r6|8B v1|8B v2|4B v1) \|", s, re.M):
         add("evaluation", f"run:{m.group(1)}", f"gold-set run {m.group(1)}", "", f"{rel(p)}:{line_of(s, m.group(0))}")
     for m in re.finditer(r"^\| (2|4|8) \| ([\d.]+ min)", s, re.M):
         add("evaluation", f"throughput:{m.group(1)}", f"throughput with {m.group(1)} workers ({m.group(2)} per 100)", "", f"{rel(p)}:{line_of(s, m.group(0))}")

@@ -736,70 +736,70 @@
   "cat": "button",
   "name": "Frappe in-page action data-tai=consent",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:130"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:131"
  },
  {
   "id": "button:frappe-action:rescreen",
   "cat": "button",
   "name": "Frappe in-page action data-tai=rescreen",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:136"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:137"
  },
  {
   "id": "button:frappe-action:retry",
   "cat": "button",
   "name": "Frappe in-page action data-tai=retry",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:140"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:141"
  },
  {
   "id": "button:frappe-action:hilite",
   "cat": "button",
   "name": "Frappe in-page action data-tai=hilite",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:151"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:152"
  },
  {
   "id": "button:frappe-action:override",
   "cat": "button",
   "name": "Frappe in-page action data-tai=override",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:157"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:158"
  },
  {
   "id": "button:frappe-action:cv",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cv",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:180"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:182"
  },
  {
   "id": "button:frappe-action:decide",
   "cat": "button",
   "name": "Frappe in-page action data-tai=decide",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:207"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:209"
  },
  {
   "id": "button:frappe-action:cvline",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvline",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:226"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:228"
  },
  {
   "id": "button:frappe-action:cvpage",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvpage",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:230"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:232"
  },
  {
   "id": "button:frappe-action:cvsel",
   "cat": "button",
   "name": "Frappe in-page action data-tai=cvsel",
   "label_ar": "",
-  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:240"
+  "source": "ido_talent_ai/ido_talent_ai/public/js/talent_ai.js:242"
  },
  {
   "id": "button:frappe:فتح المتقدم",
@@ -1935,6 +1935,13 @@
   "cat": "flag",
   "name": "flag redaction_guard — Redaction guard removed leftover data",
   "label_ar": "حارس الإخفاء أزال بيانات متبقية",
+  "source": "talent-engine/app/domain/labels.py"
+ },
+ {
+  "id": "flag:cv_partial_read",
+  "cat": "flag",
+  "name": "flag cv_partial_read — CV read partially",
+  "label_ar": "السيرة قُرئت جزئيًا",
   "source": "talent-engine/app/domain/labels.py"
  },
  {
@@ -3910,6 +3917,13 @@
   "name": "gold-set run 8B v1 r7",
   "label_ar": "",
   "source": "docs/EVALUATION_REPORT.md:72"
+ },
+ {
+  "id": "evaluation:run:8B v1 r8",
+  "cat": "evaluation",
+  "name": "gold-set run 8B v1 r8",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:92"
  },
  {
   "id": "evaluation:throughput:2",

@@ -56,7 +56,7 @@ def engine(path: str):
 def parse_eval() -> dict:
     s = open(os.path.join(ROOT, "docs", "EVALUATION_REPORT.md"), encoding="utf-8").read()
     runs = {}
-    for m in re.finditer(r"^\| (8B v1 r7|8B v1 r6|8B v1|8B v2|4B v1) \| `([^`]+)` \| `([^`]+)` \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+) s \|", s, re.M):
+    for m in re.finditer(r"^\| (8B v1 r8|8B v1 r7|8B v1 r6|8B v1|8B v2|4B v1) \| `([^`]+)` \| `([^`]+)` \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+) s \|", s, re.M):
         runs[m.group(1)] = {"model": m.group(2), "prompt": m.group(3), "exact": float(m.group(4)), "within_one": float(m.group(5)),
                             "evidence": float(m.group(6)), "eligibility": float(m.group(7)), "flags": float(m.group(8)),
                             "free_text": float(m.group(9)), "supervision": float(m.group(10)), "seconds": float(m.group(11))}

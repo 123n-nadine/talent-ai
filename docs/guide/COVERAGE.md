@@ -6,7 +6,7 @@ page (or, for items without a natural picture such as endpoints and settings, th
 settings file without values), and the test is a section of `docs/TEST_REPORT.md`. `tools/guide/coverage_check.py` re-reads the code and
 checks that nothing is missing.
 
-**586 items**, 586 with all three columns filled.
+**588 items**, 588 with all three columns filled.
 
 | Category | Items |
 |---|---|
@@ -17,13 +17,13 @@ checks that nothing is missing.
 | endpoint | 67 |
 | hook | 10 |
 | stage | 10 |
-| flag | 13 |
+| flag | 14 |
 | status | 33 |
 | setting | 78 |
 | role | 16 |
 | command | 73 |
 | decision | 73 |
-| evaluation | 12 |
+| evaluation | 13 |
 | security | 19 |
 | architecture | 19 |
 
@@ -288,10 +288,11 @@ checks that nothing is missing.
 | FL-007 | flag | `flag cv_unreadable — CV file unreadable` | 77 | [S06_stage_03.png](images/steps/S06_stage_03.png) | §10 engine `test_corrupt_cv_never_fails_the_screening` |
 | FL-008 | flag | `flag low_ocr_confidence — Low OCR confidence` | 77 | [S06_stage_03.png](images/steps/S06_stage_03.png) | §10 engine `test_low_ocr_confidence_needs_review` |
 | FL-009 | flag | `flag redaction_guard — Redaction guard removed leftover data` | 78 | [S06_stage_04.png](images/steps/S06_stage_04.png) | §3–7 browser checks |
-| FL-010 | flag | `flag duplicate — Duplicate application` | 100 | [K07_stale_banner.png](images/test/K07_stale_banner.png) | §10 Frappe `test_withdrawn_consent_leaves_the_ranking_and_erases_the_ai_data` |
-| FL-011 | flag | `flag stale — Stale — previous criteria version` | 100 | [K07_stale_banner.png](images/test/K07_stale_banner.png) | §10 Frappe `test_withdrawn_consent_leaves_the_ranking_and_erases_the_ai_data` |
-| FL-012 | flag | `flag data_changed — Result does not reflect the latest edit` | 100 | [K07_stale_banner.png](images/test/K07_stale_banner.png) | §10 Frappe `test_edit_after_evaluation_makes_the_result_stale` |
-| FL-013 | flag | `flag hr_override — HR override` | 45 | [S09c_evidence.png](images/fit/S09c_evidence.png) | §10 engine `test_override_requires_reason_and_recomputes` |
+| FL-010 | flag | `flag cv_partial_read — CV read partially` | 79 | [S06_stage_05.png](images/steps/S06_stage_05.png) | §10 Frappe `test_partial_cv_read_flag_is_shown_on_the_assessment_card` |
+| FL-011 | flag | `flag duplicate — Duplicate application` | 100 | [K07_stale_banner.png](images/test/K07_stale_banner.png) | §10 Frappe `test_withdrawn_consent_leaves_the_ranking_and_erases_the_ai_data` |
+| FL-012 | flag | `flag stale — Stale — previous criteria version` | 100 | [K07_stale_banner.png](images/test/K07_stale_banner.png) | §10 Frappe `test_withdrawn_consent_leaves_the_ranking_and_erases_the_ai_data` |
+| FL-013 | flag | `flag data_changed — Result does not reflect the latest edit` | 100 | [K07_stale_banner.png](images/test/K07_stale_banner.png) | §10 Frappe `test_edit_after_evaluation_makes_the_result_stale` |
+| FL-014 | flag | `flag hr_override — HR override` | 45 | [S09c_evidence.png](images/fit/S09c_evidence.png) | §10 engine `test_override_requires_reason_and_recomputes` |
 | SS-001 | status | `screening status queued → ai_status Processing` | 40 | [S06_stages.png](images/steps/S06_stages.png) | §10 Frappe `test_withdrawn_consent_stops_processing` |
 | SS-002 | status | `screening status processing → ai_status Processing` | 40 | [S06_stages.png](images/steps/S06_stages.png) | §10 Frappe `test_paper_application_waits_until_hr_records_the_consent` |
 | SS-003 | status | `screening status completed → ai_status Completed` | 40 | [S06_stages.png](images/steps/S06_stages.png) | §10 Frappe `test_engine_payload_has_no_identity` |
@@ -369,7 +370,7 @@ checks that nothing is missing.
 | SE-042 | setting | `engine .env VLLM_MAX_NUM_SEQS` | 125 | [env_keys.png](images/terminal/env_keys.png) | §10 engine `test_every_env_key_is_used` |
 | SE-043 | setting | `engine .env LLM_TIMEOUT_S` | 125 | [env_keys.png](images/terminal/env_keys.png) | §10 engine `test_every_env_key_is_used` |
 | SE-044 | setting | `engine .env LLM_MAX_RETRIES` | 125 | [env_keys.png](images/terminal/env_keys.png) | §10 engine `test_every_env_key_is_used` |
-| SE-045 | setting | `engine .env LLM_MAX_MODEL_LEN` | 126 | [env_keys.png](images/terminal/env_keys.png) | §10 engine `test_every_env_key_is_used` |
+| SE-045 | setting | `engine .env LLM_MAX_MODEL_LEN` | 79 | [S06_stage_05.png](images/steps/S06_stage_05.png) | §10 engine `test_every_env_key_is_used` |
 | SE-046 | setting | `engine .env VLLM_GPU_MEMORY_UTILIZATION` | 126 | [env_keys.png](images/terminal/env_keys.png) | §10 engine `test_every_env_key_is_used` |
 | SE-047 | setting | `engine .env CLOUD_LLM_BASE_URL` | 126 | [env_keys.png](images/terminal/env_keys.png) | §10 engine `test_every_env_key_is_used` |
 | SE-048 | setting | `engine .env CLOUD_LLM_MODEL` | 126 | [env_keys.png](images/terminal/env_keys.png) | §10 engine `test_every_env_key_is_used` |
@@ -419,8 +420,8 @@ checks that nothing is missing.
 | RL-014 | role | `role Employee Self Service` | 11 | [hr_manager_home.png](images/roles/hr_manager_home.png) | §2 roles matrix and probes |
 | RL-015 | role | `role Guest` | 11 | [hr_manager_home.png](images/roles/hr_manager_home.png) | §2 roles matrix and probes |
 | RL-016 | role | `role Website User` | 11 | [hr_manager_home.png](images/roles/hr_manager_home.png) | §2 roles matrix and probes |
-| CM-001 | command | `make builder-check` | 127 | [commands.png](images/terminal/commands.png) | §11 `make builder-check` (ok) |
-| CM-002 | command | `make build` | 127 | [commands.png](images/terminal/commands.png) | §11 `make -n build` (dry run ok; built for real this round (default builder)) |
+| CM-001 | command | `make builder-check` | 126 | [commands.png](images/terminal/commands.png) | §11 `make builder-check` (ok) |
+| CM-002 | command | `make build` | 126 | [commands.png](images/terminal/commands.png) | §11 `make -n build` (dry run ok; built for real this round (default builder)) |
 | CM-003 | command | `make env` | 127 | [commands.png](images/terminal/commands.png) | §11 `make -n env` (dry run ok) |
 | CM-004 | command | `make install` | 127 | [commands.png](images/terminal/commands.png) | §11 `make install` (ok) |
 | CM-005 | command | `make test` | 127 | [commands.png](images/terminal/commands.png) | §11 `make test` (ok) |
@@ -446,11 +447,11 @@ checks that nothing is missing.
 | CM-025 | command | `talent-engine/scripts/seed.py` | 127 | [commands.png](images/terminal/commands.png) | §11 `talent-engine/scripts/seed.py` (run in phase 1 (`make seed`)) |
 | CM-026 | command | `talent-engine/scripts/seed_data.py` | 127 | [commands.png](images/terminal/commands.png) | §11 `talent-engine/scripts/seed_data.py` (run in phase 1) |
 | CM-027 | command | `talent-engine/scripts/compose.sh` | 127 | [commands.png](images/terminal/commands.png) | §11 `talent-engine/scripts/compose.sh` (run in round 2: restart of api and workers) |
-| CM-028 | command | `dev-frappe/clean_install.sh` | 128 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/clean_install.sh` (run in phase 7 (clean install rehearsal)) |
-| CM-029 | command | `dev-frappe/init_env.sh` | 128 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/init_env.sh` (run in round 2: extra test-user passwords added) |
-| CM-030 | command | `dev-frappe/reset_demo.sh` | 128 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/reset_demo.sh` (run in round 2: demo rebuilt (25 applicants)) |
-| CM-031 | command | `dev-frappe/setup.sh` | 128 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/setup.sh` (run in round 2: run inside reset_demo (site setup)) |
-| CM-032 | command | `dev-frappe/start.sh` | 128 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/start.sh` (run in round 2: bench restarted twice) |
+| CM-028 | command | `dev-frappe/clean_install.sh` | 127 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/clean_install.sh` (run in phase 7 (clean install rehearsal)) |
+| CM-029 | command | `dev-frappe/init_env.sh` | 127 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/init_env.sh` (run in round 2: extra test-user passwords added) |
+| CM-030 | command | `dev-frappe/reset_demo.sh` | 127 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/reset_demo.sh` (run in round 2: demo rebuilt (25 applicants)) |
+| CM-031 | command | `dev-frappe/setup.sh` | 127 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/setup.sh` (run in round 2: run inside reset_demo (site setup)) |
+| CM-032 | command | `dev-frappe/start.sh` | 127 | [commands.png](images/terminal/commands.png) | §11 `dev-frappe/start.sh` (run in round 2: bench restarted twice) |
 | CM-033 | command | `tools/ui/acceptance.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/ui/acceptance.py` (run in phase 7 (docs/ACCEPTANCE_REPORT.md)) |
 | CM-034 | command | `tools/ui/apply_via_form.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/ui/apply_via_form.py` (run in round 2: applicant 2017 through the real form) |
 | CM-035 | command | `tools/ui/design_audit.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/ui/design_audit.py` (run in round 2: 3 design audits) |
@@ -472,14 +473,14 @@ checks that nothing is missing.
 | CM-051 | command | `tools/guide/coverage.py` | 128 | [commands.png](images/terminal/commands.png) | §11 commands |
 | CM-052 | command | `tools/guide/coverage_check.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/coverage_check.py` (run in round 2: coverage check) |
 | CM-053 | command | `tools/guide/docshots.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/docshots.py` (run in round 2: this file) |
-| CM-054 | command | `tools/guide/explain.py` | 129 | [commands.png](images/terminal/commands.png) | §11 commands |
-| CM-055 | command | `tools/guide/facts.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/facts.py` (run in round 2: guide numbers) |
-| CM-056 | command | `tools/guide/inv.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/inv.py` (run in round 2: item codes) |
-| CM-057 | command | `tools/guide/inventory.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/inventory.py` (run in round 2: inventory) |
-| CM-058 | command | `tools/guide/layout.py` | 129 | [commands.png](images/terminal/commands.png) | §11 commands |
-| CM-059 | command | `tools/guide/lint_ar.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/lint_ar.py` (run in round 2: writing rules) |
-| CM-060 | command | `tools/guide/model.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/model.py` (run in round 2: guide content model) |
-| CM-061 | command | `tools/guide/render_docx.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/render_docx.py` (run in round 2: Word) |
+| CM-054 | command | `tools/guide/explain.py` | 128 | [commands.png](images/terminal/commands.png) | §11 commands |
+| CM-055 | command | `tools/guide/facts.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/facts.py` (run in round 2: guide numbers) |
+| CM-056 | command | `tools/guide/inv.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/inv.py` (run in round 2: item codes) |
+| CM-057 | command | `tools/guide/inventory.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/inventory.py` (run in round 2: inventory) |
+| CM-058 | command | `tools/guide/layout.py` | 128 | [commands.png](images/terminal/commands.png) | §11 commands |
+| CM-059 | command | `tools/guide/lint_ar.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/lint_ar.py` (run in round 2: writing rules) |
+| CM-060 | command | `tools/guide/model.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/model.py` (run in round 2: guide content model) |
+| CM-061 | command | `tools/guide/render_docx.py` | 128 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/render_docx.py` (run in round 2: Word) |
 | CM-062 | command | `tools/guide/render_html.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/render_html.py` (run in round 2: PDF) |
 | CM-063 | command | `tools/guide/shots.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `tools/guide/shots.py` (run in round 2: guide screenshots) |
 | CM-064 | command | `ido_talent_ai/ido_talent_ai/scripts/seed_demo.py` | 129 | [commands.png](images/terminal/commands.png) | §11 `ido_talent_ai/ido_talent_ai/scripts/seed_demo.py` (run in round 2: demo setup and test users) |
@@ -514,12 +515,12 @@ checks that nothing is missing.
 | DC-020 | decision | `PROGRESS.md (Phase 8 — talent pool (feature 13)…): What is embedded` | 53 | [S11_pool.png](images/fit/S11_pool.png) | §12 decisions taken alone |
 | DC-021 | decision | `PROGRESS.md (Phase 8 — talent pool (feature 13)…): One suggestion per person` | 53 | [S11_pool.png](images/fit/S11_pool.png) | §12 decisions taken alone |
 | DC-022 | decision | `PROGRESS.md (Phase 8 — talent pool (feature 13)…): Suggestions are filtered to the host's own applicants` | 53 | [S11_pool.png](images/fit/S11_pool.png) | §12 decisions taken alone |
-| DC-023 | decision | `PROGRESS.md (Phase 8 — talent pool (feature 13)…): Old-application demo case` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
+| DC-023 | decision | `PROGRESS.md (Phase 8 — talent pool (feature 13)…): Old-application demo case` | 129 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
 | DC-024 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): No change to HRMS templates` | 32 | [S03_jobs.png](images/steps/S03_jobs.png) | §12 decisions taken alone |
-| DC-025 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): Fonts bundled in the app` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
-| DC-026 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): English stage notes are stored next to the Arabic ones` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
-| DC-027 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): Synthetic Employee records for the demo users` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
-| DC-028 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): A CV problem never fails a screening` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
+| DC-025 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): Fonts bundled in the app` | 129 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
+| DC-026 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): English stage notes are stored next to the Arabic ones` | 129 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
+| DC-027 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): Synthetic Employee records for the demo users` | 129 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
+| DC-028 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): A CV problem never fails a screening` | 129 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
 | DC-029 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): "إعادة تقييم الكل" skips applicants without consent` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
 | DC-030 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): Screenshots cut to the part the page explains` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
 | DC-031 | decision | `PROGRESS.md (Round 2 — completion, design pass, full…): Page numbers read from the printed PDF` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
@@ -534,10 +535,10 @@ checks that nothing is missing.
 | DC-040 | decision | `PROGRESS.md (Round 4 — Nadine's review of the guide…): A weak OCR line is removed, not down-weighted` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
 | DC-041 | decision | `PROGRESS.md (Round 4 — Nadine's review of the guide…): The leak guard is a second gate` | 130 | [decisions.png](images/terminal/decisions.png) | §12 decisions taken alone |
 | DC-042 | decision | `OPEN_QUESTIONS #1: Production HRMS commit on the `develop` branch (the demo runs 17.0.0-dev). Our dev bench p` | 130 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 1 |
-| DC-043 | decision | `OPEN_QUESTIONS #2: Background **workers** on the production site: `frappe.enqueue` (queue `long`) needs RQ wo` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 2 |
-| DC-044 | decision | `OPEN_QUESTIONS #3: How much GPU memory does the Luna stack (`remote-sdk`, `video-agent`, user awais) need whe` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 3 |
-| DC-045 | decision | `OPEN_QUESTIONS #4: Where is this GPU server physically (inside KSA or not)? Decides whether real CVs may ever` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 4 |
-| DC-046 | decision | `OPEN_QUESTIONS #6: Exact hard-rule values per role (nationality, height, weight, age range) and whether they ` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 6 |
+| DC-043 | decision | `OPEN_QUESTIONS #2: Background **workers** on the production site: `frappe.enqueue` (queue `long`) needs RQ wo` | 130 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 2 |
+| DC-044 | decision | `OPEN_QUESTIONS #3: How much GPU memory does the Luna stack (`remote-sdk`, `video-agent`, user awais) need whe` | 130 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 3 |
+| DC-045 | decision | `OPEN_QUESTIONS #4: Where is this GPU server physically (inside KSA or not)? Decides whether real CVs may ever` | 130 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 4 |
+| DC-046 | decision | `OPEN_QUESTIONS #6: Exact hard-rule values per role (nationality, height, weight, age range) and whether they ` | 130 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 6 |
 | DC-047 | decision | `OPEN_QUESTIONS #7: Consent text (Arabic) for the application form, and the retention period for applicants' d` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 7 |
 | DC-048 | decision | `OPEN_QUESTIONS #8: Dedicated API user / key on the client site for the engine callback, with minimum permissi` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 8 |
 | DC-049 | decision | `OPEN_QUESTIONS #9: Production time zone (demo runs Africa/Cairo; our dev site uses Asia/Riyadh)` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 9 |
@@ -551,12 +552,12 @@ checks that nothing is missing.
 | DC-057 | decision | `OPEN_QUESTIONS #22: An applicant whose **supervision years exceed the security-experience years** (impossible:` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 22 |
 | DC-058 | decision | `OPEN_QUESTIONS #23: The **languages** criterion as the demo rubric levels it: English only = 0, Arabic only = ` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question 23 |
 | DC-059 | decision | `OPEN_QUESTIONS #A1: What happens with a corrupt or unreadable CV?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A1 |
-| DC-060 | decision | `OPEN_QUESTIONS #A2: Does a client-specific web form (`job-application-ksa`) exist?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A2 |
-| DC-061 | decision | `OPEN_QUESTIONS #A3: Separate console port?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A3 |
-| DC-062 | decision | `OPEN_QUESTIONS #A4: Who owns the AI/OCR provider settings?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A4 |
-| DC-063 | decision | `OPEN_QUESTIONS #A5: Is the national ID sent to the engine?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A5 |
-| DC-064 | decision | `OPEN_QUESTIONS #A6: Time zones` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A6 |
-| DC-065 | decision | `OPEN_QUESTIONS #A7: GPU cap and ports` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A7 |
+| DC-060 | decision | `OPEN_QUESTIONS #A2: Does a client-specific web form (`job-application-ksa`) exist?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A2 |
+| DC-061 | decision | `OPEN_QUESTIONS #A3: Separate console port?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A3 |
+| DC-062 | decision | `OPEN_QUESTIONS #A4: Who owns the AI/OCR provider settings?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A4 |
+| DC-063 | decision | `OPEN_QUESTIONS #A5: Is the national ID sent to the engine?` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A5 |
+| DC-064 | decision | `OPEN_QUESTIONS #A6: Time zones` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A6 |
+| DC-065 | decision | `OPEN_QUESTIONS #A7: GPU cap and ports` | 131 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A7 |
 | DC-066 | decision | `OPEN_QUESTIONS #Q5: CV upload for Guests on the application form` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q5 |
 | DC-067 | decision | `OPEN_QUESTIONS #Q10: RQ worker overhead` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q10 |
 | DC-068 | decision | `OPEN_QUESTIONS #Q11: OCR confidence threshold` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q11 |
@@ -565,18 +566,19 @@ checks that nothing is missing.
 | DC-071 | decision | `OPEN_QUESTIONS #Q19: Enforce a reason for every status change?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question Q19 |
 | DC-072 | decision | `OPEN_QUESTIONS #A8: Which Docker builder may we use?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A8 |
 | DC-073 | decision | `OPEN_QUESTIONS #A9: Frappe MariaDB in memory?` | 132 | [open_questions.png](images/terminal/open_questions.png) | §12 open question A9 |
-| EV-001 | evaluation | `gold-set run 8B v1` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-001 | evaluation | `gold-set run 8B v1` | 111 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
 | EV-002 | evaluation | `gold-set run 8B v2` | 132 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
 | EV-003 | evaluation | `gold-set run 4B v1` | 132 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-004 | evaluation | `gold-set run 8B v1 r6` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-005 | evaluation | `gold-set run 8B v1 r7` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-006 | evaluation | `throughput with 2 workers (13.4 min per 100)` | 132 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-007 | evaluation | `throughput with 4 workers (7.8 min per 100)` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-008 | evaluation | `throughput with 8 workers (5.4 min per 100)` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-009 | evaluation | `evaluation: rerun` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-010 | evaluation | `evaluation: name-swap` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
-| EV-011 | evaluation | `evaluation: ocr-threshold` | 85 | [CV_scan.png](images/fit/CV_scan.png) | §13 evaluation results |
-| EV-012 | evaluation | `evaluation: quote-ratio` | 80 | [S06_stage_06.png](images/steps/S06_stage_06.png) | §13 evaluation results |
+| EV-004 | evaluation | `gold-set run 8B v1 r6` | 111 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-005 | evaluation | `gold-set run 8B v1 r7` | 111 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-006 | evaluation | `gold-set run 8B v1 r8` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-007 | evaluation | `throughput with 2 workers (13.4 min per 100)` | 132 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-008 | evaluation | `throughput with 4 workers (7.8 min per 100)` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-009 | evaluation | `throughput with 8 workers (5.4 min per 100)` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-010 | evaluation | `evaluation: rerun` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-011 | evaluation | `evaluation: name-swap` | 9 | [evaluation.png](images/terminal/evaluation.png) | §13 evaluation results |
+| EV-012 | evaluation | `evaluation: ocr-threshold` | 85 | [CV_scan.png](images/fit/CV_scan.png) | §13 evaluation results |
+| EV-013 | evaluation | `evaluation: quote-ratio` | 80 | [S06_stage_06.png](images/steps/S06_stage_06.png) | §13 evaluation results |
 | SY-001 | security | `engine → Frappe results signed with HMAC-SHA256 (timestamp + body)` | 10 | [diagram.png](images/diagram.png) | §10 Frappe `test_callback_signature` |
 | SY-002 | security | `Bearer API key per tenant on every /v1 call; key never in browser code` | 73 | [C_dev.png](images/fit/C_dev.png) | §10 engine auth tests |
 | SY-003 | security | `console login with a signed HttpOnly cookie (12 h)` | 60 | [card_C_login.png](images/fit/card_C_login.png) | §10 engine `test_console` |
@@ -602,10 +604,10 @@ checks that nothing is missing.
 | AR-004 | architecture | `engine service worker (compose project talentai)` | 10 | [diagram.png](images/diagram.png) | §11 `make ps` |
 | AR-005 | architecture | `engine service vllm (compose project talentai)` | 10 | [diagram.png](images/diagram.png) | §11 `make ps` |
 | AR-006 | architecture | `engine service embed (compose project talentai)` | 10 | [diagram.png](images/diagram.png) | §11 `make ps` |
-| AR-007 | architecture | `dev bench service mariadb (compose project talentai-frappe)` | 133 | [diagram.png](images/diagram.png) | §11 `make ps` |
-| AR-008 | architecture | `dev bench service redis-cache (compose project talentai-frappe)` | 133 | [diagram.png](images/diagram.png) | §11 `make ps` |
-| AR-009 | architecture | `dev bench service redis-queue (compose project talentai-frappe)` | 133 | [diagram.png](images/diagram.png) | §11 `make ps` |
-| AR-010 | architecture | `dev bench service bench (compose project talentai-frappe)` | 133 | [diagram.png](images/diagram.png) | §11 `make ps` |
+| AR-007 | architecture | `dev bench service mariadb (compose project talentai-frappe)` | 132 | [diagram.png](images/diagram.png) | §11 `make ps` |
+| AR-008 | architecture | `dev bench service redis-cache (compose project talentai-frappe)` | 132 | [diagram.png](images/diagram.png) | §11 `make ps` |
+| AR-009 | architecture | `dev bench service redis-queue (compose project talentai-frappe)` | 132 | [diagram.png](images/diagram.png) | §11 `make ps` |
+| AR-010 | architecture | `dev bench service bench (compose project talentai-frappe)` | 132 | [diagram.png](images/diagram.png) | §11 `make ps` |
 | AR-011 | architecture | `repository talent-ai (workspace, docs, engine, dev bench scripts)` | 133 | [diagram.png](images/diagram.png) | §11 commands |
 | AR-012 | architecture | `repository ido_talent_ai (Frappe app, bench get-app)` | 133 | [diagram.png](images/diagram.png) | §11 commands |
 | AR-013 | architecture | `install on the platform: bench get-app → install-app → migrate → settings` | 133 | [diagram.png](images/diagram.png) | §11 commands |

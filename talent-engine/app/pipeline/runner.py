@@ -180,6 +180,10 @@ def run_screening(
                 tracker.start("profile")
                 raw_profile = prov.profile(redacted_text)
                 llm_calls.append({"task": "profile", **getattr(prov, "last_usage", {})})
+                if getattr(prov, "last_usage", {}).get("retried_shorter"):
+                    # the first answer overran the budget and the retry read a trimmed CV: HR
+                    # must know the profile covers only the first part of the text (round 8)
+                    extra_flags.add("cv_partial_read")
                 tracker.start("evidence_check")
                 vp = verify_profile(raw_profile, redacted_text, settings.quote_match_threshold)
                 derived = vp.derived
@@ -271,6 +275,8 @@ def run_screening(
             )
             if prov.name != "fake":
                 llm_calls.append({"task": "judge", **getattr(prov, "last_usage", {})})
+                if getattr(prov, "last_usage", {}).get("retried_shorter"):
+                    extra_flags.add("cv_partial_read")
         by_key = {j.key: j for j in raw_judgements}
         rows: list[JudgedCriterion] = []
         problems: list[str] = []
