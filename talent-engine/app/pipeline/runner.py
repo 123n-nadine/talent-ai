@@ -481,6 +481,21 @@ def run_screening(
             {"screening_id": s.id, "attempt": s.attempts, "error": msg},
         )
         db.commit()
+        if s.status == "failed" and deliver and tenant.callback_url and tenant.callback_secret:
+            # the host must hear about the final failure at once (round 12): otherwise the
+            # application stays «Processing» there until its safety net asks
+            outcome = send_callback(
+                tenant.callback_url, tenant.callback_secret, to_out(s), settings
+            )
+            audit.log(
+                db,
+                tenant.id,
+                s.candidate.external_ref,
+                "callback.sent" if outcome["ok"] else "callback.failed",
+                "system",
+                {"screening_id": s.id, **outcome},
+            )
+            db.commit()
         return s
 
     copies = mark_later_duplicates(db, tenant, s)
