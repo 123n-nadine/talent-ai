@@ -184,3 +184,11 @@ Branch `p17-llm-budget`.
 - Tests: `test_cut_off_profile_is_retried_shorter_not_repaired` (GOLD-SEC-015's CV, mocked endpoint cuts the first answer), `test_output_budget_follows_the_context`, `test_long_cv_is_cut_at_a_line_for_the_retry`; 132 + 1 skipped.
 - Rerun `8b-v1-r7` (two passes + name-swap): 0 failures, rerun 100%, name-swap 100%; code part 100% of 311, model part 65% / 94% of 17 (GOLD-SEC-021's licence read from the CV as 0 with a contradiction flag → review); mean 29.8 s (three retried applicants ~140 s each because the first call runs to the budget). `eval/run.py` now counts a CV-overridden level as the model's judgement.
 - Open: lower the per-task cap (e.g. 2500) to halve the cost of a runaway answer — Nadine to decide.
+
+## Round 8 — cap 2500, bounded lists, «CV read partially», 2026-10-18
+
+Branch `p18-cap`.
+- Diagnosis of the round-7 cut-offs (reproduced at temperature 0): repetition, not length — GOLD-SEC-015 wrote one language item 94 times, 023 one certification 69 times, 009 four sentences 14–15 times each, on CVs of 170–380 characters.
+- `openai_compat.py`: per-task cap 2500 (profile, judgement; draft 3000); `strict_schema()` adds `maxItems: 12` to every array (schema sent to the model only, the Pydantic result model unchanged). No `frequency_penalty`: the grammar bound is deterministic and keeps temperature 0.
+- `runner.py`: `cv_partial_read` flag when the profile or judge call was retried shorter; label in `labels.py`, the console `FLAGS` and the Frappe `FLAGS`, plus an amber note on the Frappe assessment card. Tests: `test_partial_cv_read_is_flagged_for_hr` (engine, GOLD-SEC-015's CV), `test_partial_cv_read_flag_is_shown_on_the_assessment_card` (Frappe). Engine 133 + 1 skipped, Frappe 23.
+- Rerun `8b-v1-r8` (one pass + name-swap): 0 failures, name-swap 100%, exact 98.2%, within one step 99.7%, code 100% of 311, model 65% / 94% of 17, mean 17.95 s, median 22.4 s, max 44.5 s, wall 326 s; no answer reached the budget (the repeaters stop at the twelfth item), so no retry and no partial-read flag in this run.

@@ -82,3 +82,22 @@ Fix (`app/llm/openai_compat.py`): the answer budget of every model call is what 
 - The one new model miss: GOLD-SEC-021 answered «منتهية أو قيد الإصدار» for the licence (rubric level 50) and the CV says «رخصة حارس الأمن منتهية وقيد التجديد»; the model read the CV as no valid licence (level 0), raised a contradiction and the lower CV-backed level was used, so the application went to «يحتاج مراجعة» with the contradiction and `mandatory_zero` flags — a stricter reading than the rubric text, visible to HR with its evidence. The same in all three passes. The raw report file still counts this judgement in the code part (99.7% of 312 / 68.8% of 16): `eval/run.py` now classifies a level taken from the CV as the model's judgement, which gives the table above; the next run reports it directly.
 - Distinct texts the model was measured on: unchanged — 5 free-text answers and 31 CV documents.
 - **Time**: mean pipeline time per applicant 29.8 s (round 6: 21.6 s), median 26.4 s, max 249.7 s; wall time for the 55 applicants 491 s (round 6: 431 s), 4 workers. The three retried applicants took ~140 s each: the first profile call ran to the 4000-token budget before the model stopped (~100 s at this GPU's ~40 tokens/s), then the shorter retry answered in 7–12 s; the other applicants average 23.4 s, and the 249 s maximum is an applicant that queued behind those long generations. So the fix trades a «Failed» for about two extra minutes on the rare runaway answer; a lower cap (for example 2500) would halve that cost and still leave ten times the size of a normal profile answer — to decide with Nadine.
+
+## 7. Round 8 rerun (2026-10-18, 55 applicants, cap 2500 and bounded lists)
+
+What the three cut-off first answers of round 7 were (reproduced at temperature 0, raw `eval/reports` not kept — synthetic data): **the model repeated itself, the CVs were short** (170–380 characters, 7–11 lines; prompt 400–480 tokens). GOLD-SEC-015 wrote the language item «اللغة العربية لغة أم» 94 times, GOLD-SEC-023 one certification 69 times, GOLD-SEC-009 four CV sentences 14–15 times each, until the 4000-token budget stopped them. Changes (Nadine's decision): the per-task cap is **2500 tokens** (ten times a normal profile answer of 300–700), and every list in the schema sent to the model carries **`maxItems: 12`** so the grammar stops a repeating model; the result model and the API are unchanged. The shorter-prompt retry stays as the backstop, and a screening whose CV was re-read from its first half now carries the flag **`cv_partial_read`** («السيرة قُرئت جزئيًا»), shown as a chip and an amber note on the Frappe assessment card and in the console (engine test with GOLD-SEC-015's CV and a cut-off first answer; Frappe test on the card). Raw report `eval/reports/2026-10-18_1519-8b-v1-r8.*` (one pass + name-swap).
+
+| run | model | prompt | level exact | level ±1 step | levels>0 with evidence | eligibility | expected flags found | free-text criterion exact | supervision exact | pipeline time / applicant |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 8B v1 r8 | `qwen3-8b-awq` | `judge-v1` | 98.2% | 99.7% | 100% | 100% | 100% | 62% | 100% | 17.95 s |
+
+- **Failures: 0 of 55 in both passes (the run and the name-swap).** No answer reached the budget: the three repeaters stopped at the twelfth item (846–1116 completion tokens, `finish_reason: stop`), so no retry and no `cv_partial_read` flag was needed in this run.
+- Name-swap identical for **100%**.
+
+| part | what it measures | exact | within one step | judgements |
+|---|---|---|---|---|
+| levelled in code from the rubric table | numeric, select and multi-select answers through the thresholds in code, when the model did not override them from the CV | 100% | 100% | 311 |
+| judged by the model | the free-text «وصف مشروع» (13), the CV side of the 3 contradiction cases, and the one level taken from the CV (GOLD-SEC-021, as in round 7) | 65% | 94% | 17 |
+
+- Distinct texts the model was measured on: unchanged, 5 free-text answers and 31 CV documents.
+- **Time**: mean pipeline time per applicant **17.95 s** (round 7: 29.8 s; round 6: 21.6 s), median 22.4 s, **max 44.5 s** (round 7: 249.7 s); wall time for the 55 applicants 326 s (round 7: 491 s), 4 workers. The slowest applicants are now the three former repeaters at 35–44 s, because their answers still run to twelve items before the grammar stops them.

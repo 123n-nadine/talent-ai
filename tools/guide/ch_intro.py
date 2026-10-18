@@ -33,7 +33,7 @@ def summary(F: dict) -> Chapter:
 
 def manager(F: dict) -> Chapter:
     ev = F["evaluation"]
-    r8 = ev["runs"].get("8B v1 r7") or ev["runs"].get("8B v1 r6") or ev["runs"]["8B v1"]  # the latest gold-set run
+    r8 = ev["runs"].get("8B v1 r8") or ev["runs"].get("8B v1 r7") or ev["runs"].get("8B v1 r6") or ev["runs"]["8B v1"]  # the latest gold-set run
     sp = ev.get("split") or {}
     code, model = sp.get("code", {}), sp.get("model", {})
     thr = ev["throughput"]
@@ -72,7 +72,7 @@ def manager(F: dict) -> Chapter:
           "مصدر كل رقم مكتوب في فصل نتائج الاختبارات."),
         Bullets(pts, numbered=True),
         Note("الدرجة ترتيب مقابل معايير معتمدة، وليست احتمال نجاح في الوظيفة.", "warn"),
-    ], terms=["العمّال", "النموذج اللغوي", "إعادة المحاولة"], ids=["evaluation:run:8B v1", "evaluation:run:8B v1 r6", "evaluation:run:8B v1 r7", "evaluation:throughput:4", "evaluation:throughput:8", "evaluation:rerun", "evaluation:name-swap"])])
+    ], terms=["العمّال", "النموذج اللغوي", "إعادة المحاولة"], ids=["evaluation:run:8B v1 r8", "evaluation:throughput:4", "evaluation:throughput:8", "evaluation:rerun", "evaluation:name-swap"])])
 
 
 DIAGRAM_SVG = """<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans Arabic" direction="rtl">

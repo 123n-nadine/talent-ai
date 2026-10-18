@@ -546,7 +546,11 @@ def test_cut_off_profile_is_retried_shorter_not_repaired():
     prof = p.profile(gold_cv_text("GOLD-SEC-015"))
     assert isinstance(prof, CandidateProfile) and m.calls == 2
     first, second = (r["body"] for r in m.requests)
-    assert first["max_tokens"] > 1500  # more than the old fixed limit, inside the 8192 context
+    assert first["max_tokens"] == 2500  # the cap, inside the 8192 context
+    lists = first["response_format"]["json_schema"]["schema"]
+    assert all(
+        v.get("maxItems") == 12 for v in lists["properties"].values() if v.get("type") == "array"
+    )  # a repeating model is stopped by the grammar
     assert (
         first["max_tokens"]
         + len(first["messages"][0]["content"] + first["messages"][1]["content"]) // 2
@@ -560,7 +564,7 @@ def test_cut_off_profile_is_retried_shorter_not_repaired():
 
 def test_output_budget_follows_the_context():
     p = OpenAICompatLLM("local", "http://vllm:8000/v1", "EMPTY", "m", max_model_len=8192)
-    assert p.output_budget("candidate_profile", "x" * 200, "y" * 600) == 4000  # the cap
+    assert p.output_budget("candidate_profile", "x" * 200, "y" * 600) == 2500  # the cap
     assert p.output_budget("candidate_profile", "x" * 200, "y" * 15000) == 8192 - 7800 - 64
     assert (
         p.output_budget("candidate_profile", "x" * 200, "y" * 40000) == 256
@@ -574,3 +578,17 @@ def test_long_cv_is_cut_at_a_line_for_the_retry():
     short = shorten(text, 500)
     assert len(short) <= 500 and short.endswith("الذاتية") and short.count("\n") < text.count("\n")
     assert shorten("قصير", 500) == "قصير"
+
+
+def test_partial_cv_read_is_flagged_for_hr(tmp_path, monkeypatch):
+    """Round 8: when the profile answer overran the budget and the retry read a trimmed CV, the
+    screening carries «cv_partial_read» so the Frappe card and the console say the CV evidence
+    covers the first part of the text only."""
+    m = MockLLM(cut_first=True)
+    monkeypatch.setattr(registry, "HTTP_CLIENT_FACTORY", lambda name: m.client())
+    c = _client(tmp_path, ai_provider="local")
+    s = _seed(c)
+    assert s["status"] == "completed" and "cv_partial_read" in s["flags"]
+    prof = next(x for x in s["versions"]["llm_calls"] if x["task"] == "profile")
+    assert prof["retried_shorter"] is True
+    c.__exit__(None, None, None)

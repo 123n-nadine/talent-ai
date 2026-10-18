@@ -2555,6 +2555,18 @@
     "free_text": 62.0,
     "supervision": 100.0,
     "seconds": 29.82
+   },
+   "8B v1 r8": {
+    "model": "qwen3-8b-awq",
+    "prompt": "judge-v1",
+    "exact": 98.2,
+    "within_one": 99.7,
+    "evidence": 100.0,
+    "eligibility": 100.0,
+    "flags": 100.0,
+    "free_text": 62.0,
+    "supervision": 100.0,
+    "seconds": 17.95
    }
   },
   "throughput": {

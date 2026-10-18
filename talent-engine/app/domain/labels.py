@@ -45,6 +45,7 @@ FLAGS = {
     "cv_unreadable": ("ملف السيرة غير مقروء", "CV file unreadable"),
     "low_ocr_confidence": ("ثقة OCR منخفضة", "Low OCR confidence"),
     "redaction_guard": ("حارس الإخفاء أزال بيانات متبقية", "Redaction guard removed leftover data"),
+    "cv_partial_read": ("السيرة قُرئت جزئيًا", "CV read partially"),
     "duplicate": ("طلب مكرر", "Duplicate application"),
     "stale": ("قديم — نسخة معايير سابقة", "Stale — previous criteria version"),
     "data_changed": ("النتيجة لا تعكس آخر تعديل", "Result does not reflect the latest edit"),
