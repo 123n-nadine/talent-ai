@@ -1,5 +1,11 @@
-"""Build the gold set: 50 synthetic applicants (35 "مشرف أمن", 15 "محلل بيانات") with expected
+"""Build the gold set: 55 synthetic applicants (40 "مشرف أمن", 15 "محلل بيانات") with expected
 eligibility, expected level per criterion and expected flags. Deterministic (seeded), fictional.
+
+The expected levels are NOT a human judgement: a structured answer is levelled with the same rubric
+table the engine uses (`level_from_rubric`), a select answer by its fixed position, the languages
+answer by the demo rule, and each free-text answer is written for one rubric level. The evaluation
+therefore measures whether the pipeline reproduces the rubric table, plus the model's reading of
+five free texts and of the CVs (round 6 review, 2026-10-18).
 
 Outputs: eval/gold/security_supervisor.json, eval/gold/data_analyst.json (machine-readable) and
 eval/gold/GOLD_SET.md (for Nadine's review). Usage: uv run python -m eval.make_gold
@@ -11,6 +17,7 @@ import json
 import random
 import sys
 from pathlib import Path
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -95,12 +102,14 @@ ANALYST_CRITERIA = [
         PROJECT_RUBRIC,
     ),
 ]
+# the demo opening's rules: the template's age value is a placeholder, the client's form says 21
+SEC_RULES = [dict(r, value=21) if r["fact"] == "age" else dict(r) for r in SEC_SUPERVISOR_RULES]
 JOBS = {
     "GOLD-SEC": {
         "title": "مشرف أمن — مجموعة الاختبار",
         "description": SEC_SUPERVISOR_DESCRIPTION,
         "criteria": SEC_SUPERVISOR_CRITERIA,
-        "rules": SEC_SUPERVISOR_RULES,
+        "rules": SEC_RULES,
         "questions": SEC_QUESTIONS,
         "approved_by": "gold-set",
     },
@@ -166,7 +175,16 @@ def lang_level(v: list[str]) -> int:
     return 100 if "العربية" in v and "الإنجليزية" in v else 50 if "العربية" in v else 0
 
 
-def gen_sec(i: int, archetype: str) -> dict:
+EDGE_CASES: dict[str, tuple[str, dict[str, Any]]] = {  # eligibility edge cases (round 6)
+    "non_saudi": ("not_eligible", {"nationality": "مصر"}),
+    "age_20": ("not_eligible", {"age": 20}),
+    "age_21": ("eligible", {"age": 21}),
+    "height_blank": ("needs_review", {"height_cm": None}),
+    "age_blank": ("needs_review", {"age": None}),
+}
+
+
+def gen_sec(i: int, archetype: str, edge: str | None = None) -> dict:
     name = f"{rng.choice(FIRST)} {rng.choice(LAST)}"
     facts = {
         "nationality": "السعودية",
@@ -260,6 +278,23 @@ def gen_sec(i: int, archetype: str) -> dict:
             languages=["العربية", "الإنجليزية"],
         )
         flags += ["contradiction"]
+    elif archetype == "edge":
+        ans.update(
+            years_sec=5,
+            years_sup=3,
+            shifts="شاركت",
+            licence="سارية",
+            reports="بانتظام",
+            first_aid="أقدم من سنتين",
+            languages=["العربية", "الإنجليزية"],
+        )
+        elig, override = EDGE_CASES[edge or "age_21"]
+        facts.update(override)
+    # supervising guards is part of security work: the supervision years never exceed the
+    # security years (round 6 review; whether the engine should flag such an answer is
+    # OPEN_QUESTIONS #22)
+    if ans["years_sup"] != "" and float(ans["years_sup"]) > float(ans["years_sec"]):
+        ans["years_sup"] = ans["years_sec"]
     # expected levels from the rubric (structured answers)
     for key, qk in (("supervision", "years_sup"), ("security_exp", "years_sec")):
         v = ans[qk]
@@ -320,7 +355,7 @@ def gen_sec(i: int, archetype: str) -> dict:
     return {
         "ref": f"GOLD-SEC-{i:03d}",
         "job": "GOLD-SEC",
-        "archetype": archetype,
+        "archetype": archetype if edge is None else f"edge:{edge}",
         "name_hint": name,
         "facts": facts,
         "answers": ans,
@@ -407,6 +442,7 @@ def main() -> int:
     )
     ana_plan = ["strong"] * 4 + ["medium"] * 5 + ["low"] * 4 + ["no_project"] * 2
     sec = [gen_sec(i + 1, a) for i, a in enumerate(sec_plan)]
+    sec += [gen_sec(len(sec_plan) + j + 1, "edge", edge=e) for j, e in enumerate(EDGE_CASES)]
     ana = [gen_analyst(i + 1, a) for i, a in enumerate(ana_plan)]
     (OUT / "security_supervisor.json").write_text(
         json.dumps({"job": JOBS["GOLD-SEC"], "applicants": sec}, ensure_ascii=False, indent=2)
@@ -418,10 +454,13 @@ def main() -> int:
     md = [
         "# مجموعة الاختبار (Gold set) — للمراجعة",
         "",
-        "50 متقدمًا صناعيًا (أسماء وهمية). لكل متقدم: الإجابات، الحقائق، هل له سيرة ذاتية، والمستوى **المتوقع** لكل معيار حسب جدول المستويات المعتمد.",
-        "القواعد: الفراغ = لم يُجب (دليل ناقص)، 0 = إجابة حقيقية. الأهلية تُحسب من الحقائق. في حالات «تعارض» السيرة تقول سنتين إشراف فقط فيُستخدم المستوى الأدنى ويُطلب مراجعة.",
+        f"{len(sec) + len(ana)} متقدمًا صناعيًا (أسماء وهمية). لكل متقدم: الإجابات، الحقائق، هل له سيرة ذاتية، والمستوى **المتوقع** لكل معيار حسب جدول المعايير.",
+        "**المستوى المتوقع ليس تقييمًا بشريًا**: يحسبه `make_gold.py` من جدول المعايير نفسه الذي يستخدمه المحرك (الإجابة الرقمية بحدود الجدول، إجابة الاختيار بموضعها الثابت، اللغات بقاعدة الديمو)، "
+        "والإجابات الحرة مكتوبة نصًا واحدًا لكل مستوى. التقييم يقيس إذن هل يعيد النظام جدول المعايير، وقراءة النموذج اللغوي لخمسة نصوص حرة وللسير الذاتية.",
+        "القواعد: الفراغ = لم يُجب (دليل ناقص)، 0 = إجابة حقيقية. الأهلية تُحسب من الحقائق (السن 21 فأكثر كما في نموذج الديمو). في حالات «تعارض» السيرة تقول سنتين إشراف فقط فيُستخدم المستوى الأدنى ويُطلب مراجعة. "
+        "سنوات الإشراف لا تتجاوز سنوات الأمن أبدًا (السؤال 22 في OPEN_QUESTIONS).",
         "",
-        "## مشرف أمن (35 متقدمًا)",
+        f"## مشرف أمن ({len(sec)} متقدمًا)",
         "",
         "| المرجع | النوع | الحقائق | سنوات أمن | سنوات إشراف | ورديات | رخصة | تقارير | إسعافات | لغات | سيرة | الأهلية المتوقعة | المستويات المتوقعة (إشراف/أمن/ورديات/رخصة/تقارير/إسعافات/لغات) | علامات متوقعة |",
         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|",
@@ -432,7 +471,7 @@ def main() -> int:
         row = [
             a["ref"],
             a["archetype"],
-            f"{f['nationality']}، {f['height_cm']} سم، {f['weight_kg']} كجم، {f['age']} سنة",
+            f"{f['nationality']}، {f['height_cm'] if f['height_cm'] is not None else '—'} سم، {f['weight_kg'] if f['weight_kg'] is not None else '—'} كجم، {f['age'] if f['age'] is not None else '—'} سنة",
             str(an["years_sec"]),
             str(an["years_sup"]) if an["years_sup"] != "" else "—",
             an["shifts"] or "—",
@@ -459,7 +498,7 @@ def main() -> int:
         md.append("| " + " | ".join(row) + " |")
     md += [
         "",
-        "## محلل بيانات (15 متقدمًا)",
+        f"## محلل بيانات ({len(ana)} متقدمًا)",
         "",
         "| المرجع | النوع | سنوات | SQL | Python | وصف المشروع (إجابة حرة) | المستويات المتوقعة (خبرة/SQL/Python/مشروع) |",
         "|---|---|---|---|---|---|---|",
@@ -486,7 +525,8 @@ def main() -> int:
         )
     md += [
         "",
-        "ملاحظة: معيار «وصف المشروع» هو الوحيد الذي يحكم عليه النموذج اللغوي من إجابة حرة؛ يُقبل فرق مستوى واحد (±25) فيه عند القياس.",
+        "ملاحظة: معيار «وصف المشروع» هو الوحيد الذي يحكم عليه النموذج اللغوي من إجابة حرة؛ يُقبل فرق مستوى واحد (±25) فيه عند القياس. "
+        f"الإجابات الحرة المختلفة {len(PROJECTS)} نصوص فقط (نص لكل مستوى) تتكرر بين المتقدمين.",
     ]
     (OUT / "GOLD_SET.md").write_text("\n".join(md) + "\n")
     print(f"gold set: {len(sec)} supervisor + {len(ana)} analyst applicants -> {OUT}")

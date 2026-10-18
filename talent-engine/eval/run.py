@@ -89,13 +89,34 @@ def wait(c: httpx.Client, ids: dict[str, str], timeout: int = 3600) -> dict[str,
     return out
 
 
-def score(apps: list[dict], results: dict[str, dict]) -> dict:
+def model_judged_keys(job: dict) -> set[str]:
+    """Criteria the language model levels from a free-text answer (every other structured answer
+    is levelled in code from the rubric table)."""
+    qtype = {q["key"]: q.get("type") for q in job.get("questions", [])}
+    return {c["key"] for c in job["criteria"] if qtype.get(c.get("question")) == "text"}
+
+
+def score(apps: list[dict], results: dict[str, dict], jobs: dict | None = None) -> dict:
     exact = within = total = 0
     evidence_ok = evidence_total = 0
     elig_ok = elig_total = 0
     flag_hits = flag_total = 0
     times, per_crit, failures = [], {}, []
+    # round 6: the result split in two — what the code computes from the rubric table and what
+    # the model judges (free text, and the CV side in the contradiction cases) — and how many
+    # distinct texts the model was actually measured on
+    split = {"code": {"exact": 0, "within": 0, "n": 0}, "model": {"exact": 0, "within": 0, "n": 0}}
+    free_texts: set[str] = set()
+    cv_docs = 0
     for a in apps:
+        model_keys = model_judged_keys(jobs[a["job"]]) if jobs else set()
+        if str(a.get("archetype", "")).startswith("contradiction"):
+            model_keys = model_keys | {"supervision"}  # the expected level comes from the CV
+        for k in model_judged_keys(jobs[a["job"]]) if jobs else set():
+            q = next(c.get("question") for c in jobs[a["job"]]["criteria"] if c["key"] == k)
+            if a["answers"].get(q):
+                free_texts.add(a["answers"][q])
+        cv_docs += bool(a.get("cv_lines"))
         s = results.get(a["ref"])
         if not s or s["status"] == "failed":
             failures.append(a["ref"])
@@ -123,6 +144,10 @@ def score(apps: list[dict], results: dict[str, dict]) -> dict:
                 d["exact"] += is_exact
                 d["within"] += is_within
                 d["n"] += 1
+                part = split["model" if c["key"] in model_keys else "code"]
+                part["exact"] += is_exact
+                part["within"] += is_within
+                part["n"] += 1
             total += 1
             if c["effective_level"] > 0 and not c["overridden_level"]:
                 evidence_total += 1
@@ -138,6 +163,20 @@ def score(apps: list[dict], results: dict[str, dict]) -> dict:
         else None,
         "eligibility_correct": round(elig_ok / elig_total, 3) if elig_total else None,
         "expected_flags_found": round(flag_hits / flag_total, 3) if flag_total else None,
+        "code_judged": {
+            k: (round(v[k] / v["n"], 3) if v["n"] else None)
+            for v in [split["code"]]
+            for k in ("exact", "within")
+        }
+        | {"n": split["code"]["n"]},
+        "model_judged": {
+            k: (round(v[k] / v["n"], 3) if v["n"] else None)
+            for v in [split["model"]]
+            for k in ("exact", "within")
+        }
+        | {"n": split["model"]["n"]},
+        "distinct_free_texts": len(free_texts),
+        "cv_documents": cv_docs,
         "time_mean_s": round(statistics.mean(times), 2) if times else None,
         "time_median_s": round(statistics.median(times), 2) if times else None,
         "time_max_s": round(max(times), 2) if times else None,
@@ -197,7 +236,7 @@ def main() -> int:
             ids = submit(c, jobs, apps, Path(tmp), name_swap=False, attach_cv=not args.no_cv)
             results = wait(c, ids)
             wall = time.time() - t0
-            m = score(apps, results)
+            m = score(apps, results, jobs)
             m["wall_s"] = round(wall, 1)
             report["runs"].append(m)
             runs_levels.append(levels_of(results))
@@ -253,6 +292,16 @@ def main() -> int:
     for k in ("rerun_identical_applicants", "name_swap_identical_applicants"):
         if k in report:
             md.append(f"| {k} | {report[k]} |")
+    md += ["", "| part | exact | within one step | n |", "|---|---|---|---|"]
+    for k, lab in (
+        ("code_judged", "levelled in code from the rubric table"),
+        ("model_judged", "judged by the model (free text, CV side)"),
+    ):
+        v = m.get(k) or {}
+        md.append(f"| {lab} | {v.get('exact')} | {v.get('within')} | {v.get('n')} |")
+    md.append(
+        f"\ndistinct free texts the model was measured on: {m.get('distinct_free_texts')}; CV documents: {m.get('cv_documents')}"
+    )
     md += ["", "| criterion | exact | within one step | n |", "|---|---|---|---|"]
     for k, v in m["per_criterion"].items():
         md.append(f"| {k} | {v['exact']} | {v['within']} | {v['n']} |")

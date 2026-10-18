@@ -312,7 +312,7 @@ RETENTION_DAYS_DEFAULT=365
 
 - Unit tests: scoring (both worked examples), coverage, bands, mandatory rule, eligibility outcomes, blank vs 0, evidence check, redaction patterns, HMAC.
 - Integration: full pipeline with a fake LLM (deterministic) and with the real local LLM.
-- Gold set: 50–100 synthetic applications for two jobs, labelled by hand (later reviewed by the client's HR). Metrics: evidence present 100%, quotes verified 100%, extraction accuracy ≥ 90%, agreement with HR top-10, same result on rerun, name-swap invariance, time per application and per 1000 on this server.
+- Gold set: synthetic applications for two jobs whose expected levels are **computed from the rubric table by `eval/make_gold.py`** (not a human judgement; the free-text answers are written one per rubric level); real labelling by the client's HR is OPEN_QUESTIONS #13. Metrics: evidence present 100%, quotes verified 100%, extraction accuracy ≥ 90%, agreement with HR top-10, same result on rerun, name-swap invariance, time per application and per 1000 on this server.
 - Acceptance: the client's 8 criteria (TESTING.md).
 
 ## 15. Out of scope now (do not build, do not stub)

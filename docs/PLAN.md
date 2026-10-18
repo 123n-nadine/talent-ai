@@ -71,7 +71,7 @@ Goal: the full pipeline skeleton works end to end with a **fake LLM** and form a
 
 ## Phase 4: gold set and evaluation
 
-- `eval/gold/`: 50–100 synthetic applications for "مشرف أمن" and one non-security job, with expected levels per criterion and expected eligibility, labelled by hand (Nadine reviews the labels).
+- `eval/gold/`: 50–100 synthetic applications for "مشرف أمن" and one non-security job, with expected levels per criterion and expected eligibility computed from the rubric table by `make_gold.py` (not hand labels; Nadine reviews the set).
 - `eval/run.py`: runs the gold set, reports per-metric results (see TESTING.md §3) and time per application; saves a dated report in `eval/reports/`.
 - Compare at least two local models (Qwen3-8B-AWQ vs one Arabic model) and two prompt versions. Name-swap invariance test.
 - promptfoo (or pytest-based) regression so prompt changes are measured.
