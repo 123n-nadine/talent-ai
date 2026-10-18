@@ -5,7 +5,8 @@ Writes demo/screens/NN_name.png and demo/STEPS.md (link, user, what to click, wh
 long the step took). The one write it makes to the demo is the application of a new applicant with
 a scanned CV and one HR decision — exactly what the presentation does; the reset undoes both.
 
-    tools/.venv/bin/python tools/demo/rehearsal.py
+    tools/.venv/bin/python tools/demo/rehearsal.py              # all 16 screens
+    DEMO_STEPS=4-9 tools/.venv/bin/python tools/demo/rehearsal.py  # only steps 4–9 (the other entries are kept)
 """
 
 from __future__ import annotations
@@ -31,6 +32,12 @@ NEW = {"name": "ماجد الشهراني", "email": "demo.majed@example.com", "
 DOWN = {"name": "نواف القحطاني", "email": "demo.nawaf@example.com", "nid": "1000009902"}  # applied while the engine is stopped
 STEPS: list[dict] = []
 T0 = time.time()
+_rng = os.environ.get("DEMO_STEPS", "")  # e.g. 4-9: only these steps run; the others keep their last entry
+LO, HI = (int(_rng.split("-")[0]), int(_rng.split("-")[-1])) if _rng else (1, 99)
+
+
+def wanted(n: int) -> bool:
+    return LO <= n <= HI
 
 
 def step(n: int, title: str, url: str, user: str, click: str, result: str, png: str, t: float) -> None:
@@ -85,205 +92,230 @@ def compose(*args: str) -> None:
 
 async def main() -> None:
     os.makedirs(OUT, exist_ok=True)
-    for f in os.listdir(OUT):
-        os.remove(os.path.join(OUT, f))
+    if not _rng:
+        for f in os.listdir(OUT):
+            os.remove(os.path.join(OUT, f))
     async with browser() as b:
         hr = await new_page(b, "1366", scale=1.5)
         await login(hr, HR, DEV["HR_MANAGER_PASSWORD"])
 
-        # 1 home
-        t = time.time()
-        await go(hr, "/desk/ai-recruitment", "!!document.querySelector('.tai-home-grid')")
-        png = await snap(hr, "01_home", await visible(hr))
-        step(1, "الصفحة الرئيسية «التوظيف الذكي»", f"{LAPTOP}/desk/ai-recruitment", HR, "تسجيل الدخول بيفتحها لوحده؛ لو مش ظاهرة اضغطي «التوظيف الذكي» في القائمة الجانبية",
-             "العدّادات الخمسة فوق (شواغر، طلبات، جاري المعالجة، يحتاج مراجعة، فشل) وتحتها تسع أزرار الدورة بالترتيب", png, time.time() - t)
+        if wanted(1):
+            # 1 home
+            t = time.time()
+            await go(hr, "/desk/ai-recruitment", "!!document.querySelector('.tai-home-grid')")
+            png = await snap(hr, "01_home", await visible(hr))
+            step(1, "الصفحة الرئيسية «التوظيف الذكي»", f"{LAPTOP}/desk/ai-recruitment", HR, "تسجيل الدخول بيفتحها لوحده؛ لو مش ظاهرة اضغطي «التوظيف الذكي» في القائمة الجانبية",
+                 "العدّادات الخمسة فوق (شواغر، طلبات، جاري المعالجة، يحتاج مراجعة، فشل) وتحتها تسع أزرار الدورة بالترتيب", png, time.time() - t)
 
-        # 2 criteria profile
-        t = time.time()
-        prof = (await xcall(hr, "frappe.client.get_value", {"doctype": "Job Opening", "filters": OP1, "fieldname": "ai_profile"}))["ai_profile"]
-        await go(hr, f"/desk/ai-job-profile/{prof}", "window.cur_frm && cur_frm.doc && cur_frm.doc.name")
-        png = await snap(hr, "02_profile", await visible(hr))
-        step(2, "ملف المعايير «مشرف أمن — الرياض»", f"{LAPTOP}/desk/ai-job-profile/{prof}", HR, "الزرار الأول في الرئيسية «ملف المعايير» ثم الملف «مشرف أمن — الرياض»",
-             "الشروط الإلزامية (الجنسية، الطول، الوزن، السن)، وجدول المعايير السبعة بأوزانها (مجموعها 100%)، وأسئلة الفرز، وحالة «معتمد»", png, time.time() - t)
+        if wanted(2):
+            # 2 criteria profile
+            t = time.time()
+            prof = (await xcall(hr, "frappe.client.get_value", {"doctype": "Job Opening", "filters": OP1, "fieldname": "ai_profile"}))["ai_profile"]
+            await go(hr, f"/desk/ai-job-profile/{prof}", "window.cur_frm && cur_frm.doc && cur_frm.doc.name")
+            png = await snap(hr, "02_profile", await visible(hr))
+            step(2, "ملف المعايير «مشرف أمن — الرياض»", f"{LAPTOP}/desk/ai-job-profile/{prof}", HR, "الزرار الأول في الرئيسية «ملف المعايير» ثم الملف «مشرف أمن — الرياض»",
+                 "الشروط الإلزامية (الجنسية، الطول، الوزن، السن)، وجدول المعايير السبعة بأوزانها (مجموعها 100%)، وأسئلة الفرز، وحالة «معتمد»", png, time.time() - t)
 
-        # 3 public job page
-        t = time.time()
-        g = await new_page(b, "1366", scale=1.5)
-        await g.goto(BASE + "/jobs/security/security-supervisor-riyadh")
-        await settle(g, 2)
-        await g.wait_for_function("!!document.querySelector('.tai-reqs')", timeout=60000)
-        png = await snap(g, "03_job_page", ".page_content, .page-content-wrapper, main")
-        step(3, "صفحة الوظيفة العامة (زي ما المتقدم بيشوفها)", f"{LAPTOP}/jobs/security/security-supervisor-riyadh", "زائر (بدون دخول) — افتحيها في نافذة خاصة",
-             "من الرئيسية الزرار الثالث «صفحة التقديم العامة» ثم الوظيفة «مشرف أمن — الرياض»", "وصف الوظيفة، ومربع «شروط التقديم» الأربعة، وزرار «قدّم الآن»", png, time.time() - t)
+        if wanted(3):
+            # 3 public job page
+            t = time.time()
+            g = await new_page(b, "1366", scale=1.5)
+            await g.goto(BASE + "/jobs/security/security-supervisor-riyadh")
+            await settle(g, 2)
+            await g.wait_for_function("!!document.querySelector('.tai-reqs')", timeout=60000)
+            png = await snap(g, "03_job_page", ".page_content, .page-content-wrapper, main")
+            step(3, "صفحة الوظيفة العامة (زي ما المتقدم بيشوفها)", f"{LAPTOP}/jobs/security/security-supervisor-riyadh", "زائر (بدون دخول) — افتحيها في نافذة خاصة",
+                 "من الرئيسية الزرار الثالث «صفحة التقديم العامة» ثم الوظيفة «مشرف أمن — الرياض»", "وصف الوظيفة، ومربع «شروط التقديم» الأربعة، وزرار «قدّم الآن»", png, time.time() - t)
 
-        # 4-5 apply as a new applicant with the scanned CV
-        t = time.time()
-        a = applicant("2002", applicant_name=NEW["name"], email_id=NEW["email"], national_id=NEW["nid"])
-        sub = await submit_public(g, OP1, a, os.path.join(CVS, "HR-APP-2026-2002.jpg"), filled_shot=None, thanks_shot=None)
-        assert sub.get("ok"), sub
-        thanks_png = await snap(g, "05_thanks", ".formcard")
-        t6 = time.time()
-        name = (await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": NEW["email"], "fieldname": "name"}))["name"]
-        # at once, without waiting for the network to go quiet: the page polls the engine every
-        # second while the screening runs, so «idle» only comes when it is over
-        await hr.goto(f"{BASE}/desk/job-applicant/{name}", wait_until="domcontentloaded")
-        await asyncio.sleep(6)  # what the page shows a few seconds after the submission: status and the live stages
-        processing_png = await snap(hr, "06_processing", await visible(hr))
-        processing_state = await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": name, "fieldname": "ai_status"})
-        processing_s = time.time() - t6
-        # the filled form is shown after the real submission: re-open and fill it without sending
-        await g.goto(f"{BASE}/ai-apply/new?job_title={OP1}")
-        await g.wait_for_selector("#tai-form", timeout=60000)
-        from full_test import FILL_JS, form_values
+        if wanted(4):
+            # 4-5 apply as a new applicant with the scanned CV
+            if not wanted(3):
+                g = await new_page(b, "1366", scale=1.5)  # the guest window steps 3 would have opened
+            t = time.time()
+            a = applicant("2002", applicant_name=NEW["name"], email_id=NEW["email"], national_id=NEW["nid"])
+            sub = await submit_public(g, OP1, a, os.path.join(CVS, "demo-majed-cv.jpg"), filled_shot=None, thanks_shot=None)
+            assert sub.get("ok"), sub
+            thanks_png = await snap(g, "05_thanks", ".formcard")
+            t6 = time.time()
+            name = (await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": NEW["email"], "fieldname": "name"}))["name"]
+            # at once, without waiting for the network to go quiet: the page polls the engine every
+            # second while the screening runs, so «idle» only comes when it is over
+            await hr.goto(f"{BASE}/desk/job-applicant/{name}", wait_until="domcontentloaded")
+            await asyncio.sleep(6)  # what the page shows a few seconds after the submission: status and the live stages
+            processing_png = await snap(hr, "06_processing", await visible(hr))
+            processing_state = await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": name, "fieldname": "ai_status"})
+            processing_s = time.time() - t6
+            # the filled form is shown after the real submission: re-open and fill it without sending
+            await g.goto(f"{BASE}/ai-apply/new?job_title={OP1}")
+            await g.wait_for_selector("#tai-form", timeout=60000)
+            from full_test import FILL_JS, form_values
 
-        vals, ans = form_values(a)
-        await g.evaluate(FILL_JS, [vals, ans])
-        await g.set_input_files("#f-cv", os.path.join(CVS, "HR-APP-2026-2002.jpg"))
-        await g.evaluate("window.scrollTo(0, 0)")
-        png = await snap(g, "04_apply_form", "#tai-form")
-        step(4, "نموذج التقديم بسيرة ممسوحة (متقدم جديد)", f"{LAPTOP}/ai-apply/new?job_title={OP1}", "زائر",
-             f"«قدّم الآن» ← املي البيانات (الاسم {NEW['name']}، الإيميل {NEW['email']}) والأسئلة ← «Choose File» واختاري الصورة الممسوحة ← علّمي «موافقة على المعالجة» ← «إرسال الطلب»",
-             f"الطلب اتبعت في {sub.get('submit_s')} ثانية ورسالة الشكر ظهرت (الصورة الجاية)", png, time.time() - t)
-        step(5, "رسالة الشكر بعد الإرسال", "نفس الصفحة بعد الإرسال", "زائر", "لا شيء — بتظهر لوحدها بعد «إرسال الطلب»",
-             f"علامة صح، واسم الوظيفة، وجملة إن الموارد البشرية هي اللي هتراجع؛ مفيش أي درجة للمتقدم (الإرسال خد {sub.get('submit_s')} ثانية)", thanks_png, 0.0)
-        await g.context.close()
+            vals, ans = form_values(a)
+            await g.evaluate(FILL_JS, [vals, ans])
+            await g.set_input_files("#f-cv", os.path.join(CVS, "demo-majed-cv.jpg"))
+            await g.evaluate("window.scrollTo(0, 0)")
+            png = await snap(g, "04_apply_form", "#tai-form")
+            step(4, "نموذج التقديم بسيرة ممسوحة (متقدم جديد)", f"{LAPTOP}/ai-apply/new?job_title={OP1}", "زائر",
+                 f"«قدّم الآن» ← املي البيانات (الاسم {NEW['name']}، الإيميل {NEW['email']}) والأسئلة ← «Choose File» واختاري الصورة الممسوحة `demo-majed-cv.jpg` ← علّمي «موافقة على المعالجة» ← «إرسال الطلب»",
+                 f"الطلب اتبعت في {sub.get('submit_s')} ثانية ورسالة الشكر ظهرت (الصورة الجاية)", png, time.time() - t)
+            step(5, "رسالة الشكر بعد الإرسال", "نفس الصفحة بعد الإرسال", "زائر", "لا شيء — بتظهر لوحدها بعد «إرسال الطلب»",
+                 f"علامة صح، واسم الوظيفة، وجملة إن الموارد البشرية هي اللي هتراجع؛ مفيش أي درجة للمتقدم (الإرسال خد {sub.get('submit_s')} ثانية)", thanks_png, 0.0)
+            await g.context.close()
 
-        # 6 processing while it runs (captured right after the submission, above)
-        st = processing_state.get("ai_status")
-        step(6, "طلب المتقدم أثناء المعالجة", f"{LAPTOP}/desk/job-applicant/{name}", HR, "من الرئيسية «قائمة المتقدمين» ثم الطلب الجديد (أو افتحي الرابط فورًا بعد الإرسال)",
-             f"الحالة «{ {'Processing': 'جاري المعالجة', 'Completed': 'مكتمل', 'Needs Review': 'يحتاج مراجعة'}.get(st, st)}» ورسالة «جاري المعالجة… تتحدث هذه الشاشة تلقائيًا عند وصول النتيجة» مكان التقييم؛ أول ما النتيجة توصل (حوالي 40 ثانية للسيرة الممسوحة) كارت التقييم ومراحل المعالجة العشرة بيظهروا لوحدهم من غير تحديث للصفحة", processing_png, processing_s)
+            # 6 processing while it runs (captured right after the submission, above)
+            st = processing_state.get("ai_status")
+            step(6, "طلب المتقدم أثناء المعالجة", f"{LAPTOP}/desk/job-applicant/{name}", HR, "من الرئيسية «قائمة المتقدمين» ثم الطلب الجديد (أو افتحي الرابط فورًا بعد الإرسال)",
+                 f"الحالة «{ {'Processing': 'جاري المعالجة', 'Completed': 'مكتمل', 'Needs Review': 'يحتاج مراجعة'}.get(st, st)}» ورسالة «جاري المعالجة… تتحدث هذه الشاشة تلقائيًا عند وصول النتيجة» مكان التقييم؛ أول ما النتيجة توصل (حوالي 40 ثانية للسيرة الممسوحة) كارت التقييم ومراحل المعالجة العشرة بيظهروا لوحدهم من غير تحديث للصفحة", processing_png, processing_s)
 
-        # 7 CV analysis (after the result)
-        t = time.time()
-        final, secs = await wait_value(hr, "Job Applicant", name, "ai_status", lambda v: v in ("Completed", "Needs Review", "Failed"), 600, 1.0)
-        await open_applicant(hr, name)
-        await hr.evaluate(f"talent_ai.openCvAnalysis({json.dumps(name)})")
-        await hr.wait_for_selector(".modal.show .tai .pageview img", timeout=90000)
-        await asyncio.sleep(2)
-        png = await snap(hr, "07_cv_analysis", ".modal.show .modal-content")
-        await hr.evaluate("cur_dialog && cur_dialog.hide()")
-        step(7, "تحليل السيرة الممسوحة", f"{LAPTOP}/desk/job-applicant/{name}", HR, "زرار «تحليل السيرة» فوق الطلب (مجموعة Talent AI)",
-             f"صورة السيرة وعليها مربعات القراءة بالألوان حسب الثقة، والنص المستخرج سطر سطر، وإخفاء الهوية قبل وبعد (النتيجة ظهرت بعد {secs} ثانية من الإرسال)", png, time.time() - t)
-
-        # 8 assessment
-        t = time.time()
-        await open_applicant(hr, name)
-        png = await snap(hr, "08_assessment", await mark(hr, f"document.querySelector('{AI}')"))
-        step(8, "شاشة التقييم", f"{LAPTOP}/desk/job-applicant/{name}", HR, "انزلي لقسم «تقييم الذكاء الاصطناعي» في نفس الطلب",
-             "الدرجة والفئة والأهلية، ونقاط القوة والنواقص، وجدول المعايير معيار معيار مع الدليل (إجابة النموذج والجملة من السيرة)، ونص السيرة كما يراه النموذج", png, time.time() - t)
-
-        # 9-10 ranking and compare
-        t = time.time()
-        await go(hr, f"/desk/ai-ranking?opening={OP1}", "!!document.querySelector('.tai .rankrow')", 3)
-        png = await snap(hr, "09_ranking", await visible(hr))
-        step(9, "الترتيب", f"{LAPTOP}/desk/ai-ranking?opening={OP1}", HR, "من الرئيسية الزرار الخامس «الترتيب» واختاري «مشرف أمن — الرياض»",
-             "المستوفين مرتبين من الأعلى للأقل بالدرجة والفئة ونقاط القوة، وتحتهم المجموعات المقفولة (غير مستوفين، يحتاج مراجعة، مكرر، بانتظار الموافقة…)", png, time.time() - t)
-        t = time.time()
-        await hr.wait_for_selector(".tai .rankrow [data-sel]", timeout=60000)
-        boxes = hr.locator(".tai .rankrow [data-sel]")
-        for i in range(3):
-            await boxes.nth(i).check()
-        await hr.evaluate("""() => { const b = Array.from(document.querySelectorAll('.page-actions button, .page-actions .btn')).find(x => /مقارنة|Compare/.test(x.innerText)); b.click(); }""")
-        await hr.wait_for_selector(".modal.show .tai table.cmptable", timeout=60000)
-        await asyncio.sleep(2)
-        png = await snap(hr, "10_compare", ".modal.show .modal-content")
-        await hr.evaluate("cur_dialog && cur_dialog.hide()")
-        step(10, "مقارنة ثلاثة متقدمين", f"{LAPTOP}/desk/ai-ranking?opening={OP1}", HR, "علّمي المربع جنب أول ثلاثة في الترتيب ثم زرار «مقارنة» فوق",
-             "جدول جنب بعض: كل معيار في سطر، ولكل متقدم مستواه ودليله، والدرجة في الآخر", png, time.time() - t)
-
-        # 11-12 decision with a reason
-        t = time.time()
-        await open_applicant(hr, name)
-        await hr.evaluate("talent_ai_form.decide(cur_frm, 'Shortlisted')")
-        await hr.wait_for_selector(".modal.show [data-fieldname=reason] textarea", timeout=20000)
-        await asyncio.sleep(0.8)  # the dialog object is set once it is shown
-        reason = "خبرة إشراف أربع سنوات ورخصة سارية، والسيرة تؤكد الإجابات — مناسب للمقابلة"
-        await hr.evaluate(f"cur_dialog.set_value('reason', {json.dumps(reason)})")
-        await asyncio.sleep(0.4)
-        png = await snap(hr, "11_decision_dialog", ".modal.show .modal-content")
-        await hr.evaluate("cur_dialog.get_primary_btn().click()")
-        await asyncio.sleep(3)
-        step(11, "قرار الموارد البشرية بسبب", f"{LAPTOP}/desk/job-applicant/{name}", HR, "زرار «ترشيح للمقابلة» (في كارت «قرار الموارد البشرية» أو من قائمة «قرار» فوق) ← اكتبي السبب ← «تأكيد»",
-             "لو السبب فاضي الزرار بيترفض؛ بعد التأكيد الحالة بتتغير والقرار والسبب واسمك والوقت بيتسجلوا", png, time.time() - t)
-        t = time.time()
-        await open_applicant(hr, name)
-        sel = await mark(hr, card("قرار الموارد البشرية|HR decision"))
-        png = await snap(hr, "12_decision_done", sel)
-        step(12, "القرار بعد التأكيد", f"{LAPTOP}/desk/job-applicant/{name}", HR, "لا شيء — الكارت بيتحدّث بعد التأكيد",
-             "كارت «قرار الموارد البشرية» فيه الحالة الجديدة «Shortlisted» والسبب ومين قرر وإمتى؛ الذكاء ما غيّرش الحالة", png, time.time() - t)
-
-        # 13 audit log
-        t = time.time()
-        await go(hr, "/desk/ai-recruitment-audit-log", "window.cur_list && cur_list.data")
-        png = await snap(hr, "13_audit", await visible(hr))
-        step(13, "سجل التدقيق", f"{LAPTOP}/desk/ai-recruitment-audit-log", HR, "من الرئيسية الزرار التاسع «سجل التدقيق»",
-             "آخر الإجراءات فوق: القرار اللي لسه اتاخد بسببه، والتقييم، والمعالجة — كل سطر باسم صاحبه ووقته", png, time.time() - t)
-        await hr.context.close()
-
-        # 14 permissions: HR User refused on the settings
-        t = time.time()
-        u = await new_page(b, "1366", scale=1.5)
-        await login(u, HRU, DEV["HR_USER_PASSWORD"])
-        await u.goto(BASE + "/desk/ai-recruitment-settings")
-        await settle(u, 3)
-        png = await snap(u, "14_hr_user_refused", await visible(u))
-        await u.context.close()
-        step(14, "الصلاحيات: أخصائي التوظيف يحاول يفتح الإعدادات", f"{LAPTOP}/desk/ai-recruitment-settings", HRU, "سجّلي الخروج وادخلي بأخصائي التوظيف ثم افتحي الرابط (أو الزرار الثامن «الإعدادات» وهو رمادي)",
-             "رسالة «لا يسمح لك بالوصول إلى هذه الصفحة»؛ الإعدادات والمفاتيح لمدير الموارد البشرية ومدير النظام بس", png, time.time() - t)
-
-        # 15 engine down: only the engine's API container is stopped (vLLM keeps running); a new
-        # application is saved as usual, fails after the retries, and is assessed on «إعادة المحاولة»
-        # once the API is back
-        t = time.time()
-        t_stop = time.time()
-        compose("stop", "api")
-        stop_s = time.time() - t_stop
-        hr2 = await new_page(b, "1366", scale=1.5)
-        await login(hr2, HR, DEV["HR_MANAGER_PASSWORD"])
-        g2 = await new_page(b, "1366", scale=1.5)
-        a2 = applicant("2003", applicant_name=DOWN["name"], email_id=DOWN["email"], national_id=DOWN["nid"])
-        try:
-            sub2 = await submit_public(g2, OP1, a2, None)
-            assert sub2.get("ok"), sub2
-            name2 = (await xcall(hr2, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": DOWN["email"], "fieldname": "name"}))["name"]
-            failed, t_failed = await wait_value(hr2, "Job Applicant", name2, "ai_status", lambda v: v == "Failed", 600, 2)
-            await hr2.goto(f"{BASE}/desk/job-applicant/{name2}", wait_until="domcontentloaded")
-            await asyncio.sleep(5)
-            png_a = await snap(hr2, "15a_engine_down_failed", await visible(hr2))
-        finally:
-            t_start = time.time()
-            compose("start", "api")
-        import urllib.request
-
-        for _ in range(90):
-            try:
-                if urllib.request.urlopen("http://127.0.0.1:18000/health", timeout=3).status == 200:
-                    break
-            except Exception:  # noqa: BLE001
-                pass
+            # 7 CV analysis (after the result)
+            t = time.time()
+            final, secs = await wait_value(hr, "Job Applicant", name, "ai_status", lambda v: v in ("Completed", "Needs Review", "Failed"), 600, 1.0)
+            await open_applicant(hr, name)
+            await hr.evaluate(f"talent_ai.openCvAnalysis({json.dumps(name)})")
+            await hr.wait_for_selector(".modal.show .tai .pageview img", timeout=90000)
             await asyncio.sleep(2)
-        start_s = time.time() - t_start
-        await g2.context.close()
-        step(15, "المحرك واقف: طلب جديد بيتحفظ وبيفشل تقييمه", f"{LAPTOP}/desk/job-applicant/{name2}", f"زائر ثم {HR}",
-             f"(على السيرفر) `talent-engine/scripts/compose.sh stop api` ← قدّمي طلب جديد من النموذج العام (الاسم {DOWN['name']}، الإيميل {DOWN['email']}) ← افتحي الطلب من قائمة المتقدمين",
-             f"الطلب اتحفظ في {sub2.get('submit_s')} ثانية والمحرك واقف؛ بعد {t_failed} ثانية (تلات محاولات) ظهر شريط «فشلت المعالجة» الأحمر مع رسالة المحرك غير متاح وزرار «إعادة المحاولة»؛ إيقاف المحرك خد {stop_s:.1f} ثانية",
-             png_a, time.time() - t)
-        t = time.time()
-        await open_applicant(hr2, name2, wait_card=False)
-        await hr2.wait_for_selector("[data-tai=retry]", timeout=60000)
-        t_retry = time.time()
-        await hr2.evaluate("document.querySelector('[data-tai=retry]').click()")
-        st2, _ = await wait_value(hr2, "Job Applicant", name2, "ai_status", lambda v: v in ("Completed", "Needs Review"), 300, 1.0)
-        retry_s = time.time() - t_retry
-        await open_applicant(hr2, name2)
-        sel = await mark(hr2, card("تقييم الذكاء|AI assessment"))
-        png_b = await snap(hr2, "15b_after_retry", sel)
-        await hr2.context.close()
-        step(16, "المحرك رجع: «إعادة المحاولة» بتقيّم الطلب", f"{LAPTOP}/desk/job-applicant/{name2}", HR,
-             f"(على السيرفر) `talent-engine/scripts/compose.sh start api` واستني لحد ما `curl -fs http://127.0.0.1:18000/health` يرد (خد {start_s:.0f} ثانية) ← في الطلب دوسي «إعادة المحاولة»",
-             f"الحالة بقت «{ {'Completed': 'مكتمل', 'Needs Review': 'يحتاج مراجعة'}.get(st2, st2)}» وكارت التقييم ظهر بعد {retry_s:.0f} ثانية من الضغط (طلب من غير سيرة)",
-             png_b, time.time() - t)
+            png = await snap(hr, "07_cv_analysis", ".modal.show .modal-content")
+            await hr.evaluate("cur_dialog && cur_dialog.hide()")
+            step(7, "تحليل السيرة الممسوحة", f"{LAPTOP}/desk/job-applicant/{name}", HR, "زرار «تحليل السيرة» فوق الطلب (مجموعة Talent AI)",
+                 f"صورة السيرة وعليها مربعات القراءة بالألوان حسب الثقة، والنص المستخرج سطر سطر، وإخفاء الهوية قبل وبعد (النتيجة ظهرت بعد {secs} ثانية من الإرسال)", png, time.time() - t)
 
+            # 8 assessment
+            t = time.time()
+            await open_applicant(hr, name)
+            png = await snap(hr, "08_assessment", await mark(hr, f"document.querySelector('{AI}')"))
+            step(8, "شاشة التقييم", f"{LAPTOP}/desk/job-applicant/{name}", HR, "انزلي لقسم «تقييم الذكاء الاصطناعي» في نفس الطلب",
+                 "الدرجة والفئة والأهلية، ونقاط القوة والنواقص، وجدول المعايير معيار معيار مع الدليل (إجابة النموذج والجملة من السيرة)، ونص السيرة كما يراه النموذج", png, time.time() - t)
+
+        if not wanted(4):
+            name = (await xcall(hr, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": NEW["email"], "fieldname": "name"}))["name"]
+        if wanted(9):
+            # 9-10 ranking and compare
+            t = time.time()
+            await go(hr, f"/desk/ai-ranking?opening={OP1}", "!!document.querySelector('.tai .rankrow')", 3)
+            png = await snap(hr, "09_ranking", await visible(hr))
+            step(9, "الترتيب", f"{LAPTOP}/desk/ai-ranking?opening={OP1}", HR, "من الرئيسية الزرار الخامس «الترتيب» واختاري «مشرف أمن — الرياض»",
+                 "المستوفين مرتبين من الأعلى للأقل بالدرجة والفئة ونقاط القوة، وتحتهم المجموعات المقفولة (غير مستوفين، يحتاج مراجعة، مكرر، بانتظار الموافقة…)", png, time.time() - t)
+        if wanted(10):
+            t = time.time()
+            await hr.wait_for_selector(".tai .rankrow [data-sel]", timeout=60000)
+            boxes = hr.locator(".tai .rankrow [data-sel]")
+            for i in range(3):
+                await boxes.nth(i).check()
+            await hr.evaluate("""() => { const b = Array.from(document.querySelectorAll('.page-actions button, .page-actions .btn')).find(x => /مقارنة|Compare/.test(x.innerText)); b.click(); }""")
+            await hr.wait_for_selector(".modal.show .tai table.cmptable", timeout=60000)
+            await asyncio.sleep(2)
+            png = await snap(hr, "10_compare", ".modal.show .modal-content")
+            await hr.evaluate("cur_dialog && cur_dialog.hide()")
+            step(10, "مقارنة ثلاثة متقدمين", f"{LAPTOP}/desk/ai-ranking?opening={OP1}", HR, "علّمي المربع جنب أول ثلاثة في الترتيب ثم زرار «مقارنة» فوق",
+                 "جدول جنب بعض: كل معيار في سطر، ولكل متقدم مستواه ودليله، والدرجة في الآخر", png, time.time() - t)
+
+        if wanted(11):
+            # 11-12 decision with a reason
+            t = time.time()
+            await open_applicant(hr, name)
+            await hr.evaluate("talent_ai_form.decide(cur_frm, 'Shortlisted')")
+            await hr.wait_for_selector(".modal.show [data-fieldname=reason] textarea", timeout=20000)
+            await asyncio.sleep(0.8)  # the dialog object is set once it is shown
+            reason = "خبرة إشراف أربع سنوات ورخصة سارية، والسيرة تؤكد الإجابات — مناسب للمقابلة"
+            await hr.evaluate(f"cur_dialog.set_value('reason', {json.dumps(reason)})")
+            await asyncio.sleep(0.4)
+            png = await snap(hr, "11_decision_dialog", ".modal.show .modal-content")
+            await hr.evaluate("cur_dialog.get_primary_btn().click()")
+            await asyncio.sleep(3)
+            step(11, "قرار الموارد البشرية بسبب", f"{LAPTOP}/desk/job-applicant/{name}", HR, "زرار «ترشيح للمقابلة» (في كارت «قرار الموارد البشرية» أو من قائمة «قرار» فوق) ← اكتبي السبب ← «تأكيد»",
+                 "لو السبب فاضي الزرار بيترفض؛ بعد التأكيد الحالة بتتغير والقرار والسبب واسمك والوقت بيتسجلوا", png, time.time() - t)
+            t = time.time()
+            await open_applicant(hr, name)
+            sel = await mark(hr, card("قرار الموارد البشرية|HR decision"))
+            png = await snap(hr, "12_decision_done", sel)
+            step(12, "القرار بعد التأكيد", f"{LAPTOP}/desk/job-applicant/{name}", HR, "لا شيء — الكارت بيتحدّث بعد التأكيد",
+                 "كارت «قرار الموارد البشرية» فيه الحالة الجديدة «Shortlisted» والسبب ومين قرر وإمتى؛ الذكاء ما غيّرش الحالة", png, time.time() - t)
+
+        if wanted(13):
+            # 13 audit log
+            t = time.time()
+            await go(hr, "/desk/ai-recruitment-audit-log", "window.cur_list && cur_list.data")
+            png = await snap(hr, "13_audit", await visible(hr))
+            step(13, "سجل التدقيق", f"{LAPTOP}/desk/ai-recruitment-audit-log", HR, "من الرئيسية الزرار التاسع «سجل التدقيق»",
+                 "آخر الإجراءات فوق: القرار اللي لسه اتاخد بسببه، والتقييم، والمعالجة — كل سطر باسم صاحبه ووقته", png, time.time() - t)
+            await hr.context.close()
+
+        if wanted(14):
+            # 14 permissions: HR User refused on the settings
+            t = time.time()
+            u = await new_page(b, "1366", scale=1.5)
+            await login(u, HRU, DEV["HR_USER_PASSWORD"])
+            await u.goto(BASE + "/desk/ai-recruitment-settings")
+            await settle(u, 3)
+            png = await snap(u, "14_hr_user_refused", await visible(u))
+            await u.context.close()
+            step(14, "الصلاحيات: أخصائي التوظيف يحاول يفتح الإعدادات", f"{LAPTOP}/desk/ai-recruitment-settings", HRU, "سجّلي الخروج وادخلي بأخصائي التوظيف ثم افتحي الرابط (أو الزرار الثامن «الإعدادات» وهو رمادي)",
+                 "رسالة «لا يسمح لك بالوصول إلى هذه الصفحة»؛ الإعدادات والمفاتيح لمدير الموارد البشرية ومدير النظام بس", png, time.time() - t)
+
+        if wanted(15):
+            # 15 engine down: only the engine's API container is stopped (vLLM keeps running); a new
+            # application is saved as usual, fails after the retries, and is assessed on «إعادة المحاولة»
+            # once the API is back
+            t = time.time()
+            t_stop = time.time()
+            compose("stop", "api")
+            stop_s = time.time() - t_stop
+            hr2 = await new_page(b, "1366", scale=1.5)
+            await login(hr2, HR, DEV["HR_MANAGER_PASSWORD"])
+            g2 = await new_page(b, "1366", scale=1.5)
+            a2 = applicant("2003", applicant_name=DOWN["name"], email_id=DOWN["email"], national_id=DOWN["nid"])
+            try:
+                sub2 = await submit_public(g2, OP1, a2, None)
+                assert sub2.get("ok"), sub2
+                name2 = (await xcall(hr2, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": DOWN["email"], "fieldname": "name"}))["name"]
+                failed, t_failed = await wait_value(hr2, "Job Applicant", name2, "ai_status", lambda v: v == "Failed", 600, 2)
+                await hr2.goto(f"{BASE}/desk/job-applicant/{name2}", wait_until="domcontentloaded")
+                await asyncio.sleep(5)
+                png_a = await snap(hr2, "15a_engine_down_failed", await visible(hr2))
+            finally:
+                t_start = time.time()
+                compose("start", "api")
+            import urllib.request
+
+            for _ in range(90):
+                try:
+                    if urllib.request.urlopen("http://127.0.0.1:18000/health", timeout=3).status == 200:
+                        break
+                except Exception:  # noqa: BLE001
+                    pass
+                await asyncio.sleep(2)
+            start_s = time.time() - t_start
+            await g2.context.close()
+            step(15, "المحرك واقف: طلب جديد بيتحفظ وبيفشل تقييمه", f"{LAPTOP}/desk/job-applicant/{name2}", f"زائر ثم {HR}",
+                 f"(على السيرفر) `talent-engine/scripts/compose.sh stop api` ← قدّمي طلب جديد من النموذج العام (الاسم {DOWN['name']}، الإيميل {DOWN['email']}) ← افتحي الطلب من قائمة المتقدمين",
+                 f"الطلب اتحفظ في {sub2.get('submit_s')} ثانية والمحرك واقف؛ بعد {t_failed} ثانية (تلات محاولات) ظهر شريط «فشلت المعالجة» الأحمر مع رسالة المحرك غير متاح وزرار «إعادة المحاولة»؛ إيقاف المحرك خد {stop_s:.1f} ثانية",
+                 png_a, time.time() - t)
+            t = time.time()
+            await open_applicant(hr2, name2, wait_card=False)
+            await hr2.wait_for_selector("[data-tai=retry]", timeout=60000)
+            t_retry = time.time()
+            await hr2.evaluate("document.querySelector('[data-tai=retry]').click()")
+            st2, _ = await wait_value(hr2, "Job Applicant", name2, "ai_status", lambda v: v in ("Completed", "Needs Review"), 300, 1.0)
+            retry_s = time.time() - t_retry
+            await open_applicant(hr2, name2)
+            sel = await mark(hr2, card("تقييم الذكاء|AI assessment"))
+            png_b = await snap(hr2, "15b_after_retry", sel)
+            await hr2.context.close()
+            step(16, "المحرك رجع: «إعادة المحاولة» بتقيّم الطلب", f"{LAPTOP}/desk/job-applicant/{name2}", HR,
+                 f"(على السيرفر) `talent-engine/scripts/compose.sh start api` واستني لحد ما `curl -fs http://127.0.0.1:18000/health` يرد (خد {start_s:.0f} ثانية) ← في الطلب دوسي «إعادة المحاولة»",
+                 f"الحالة بقت «{ {'Completed': 'مكتمل', 'Needs Review': 'يحتاج مراجعة'}.get(st2, st2)}» وكارت التقييم ظهر بعد {retry_s:.0f} ثانية من الضغط (طلب من غير سيرة)",
+                 png_b, time.time() - t)
+
+    if not wanted(13):
+        try:
+            await hr.context.close()
+        except Exception:  # noqa: BLE001
+            pass
+    prev_path = os.path.join(ROOT, "demo", "steps.json")
+    if _rng and os.path.exists(prev_path):
+        prev = {x["n"]: x for x in json.load(open(prev_path, encoding="utf-8"))}
+        prev.update({x["n"]: x for x in STEPS})
+        STEPS[:] = [prev[k] for k in sorted(prev)]
     md = ["# بروفة العرض — الخطوات بالترتيب", "", f"اتصوّرت بمتصفح حقيقي على الديمو النضيف. الروابط من اللابتوب عبر Tailscale. الوقت الكلي {round(time.time() - T0)} ثانية.", ""]
     for s in STEPS:
         md += [f"## {s['n']:02d} — {s['title']}", "", f"- الرابط: `{s['url']}`", f"- المستخدم: `{s['user']}`", f"- تدوسي على: {s['click']}", f"- النتيجة: {s['result']}",
