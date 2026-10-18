@@ -28,6 +28,7 @@ LAPTOP = f"http://{TS}:18050"  # what the presenter types from the laptop
 HR = "hr.manager@example.com"
 HRU = "hr.user@example.com"
 NEW = {"name": "ماجد الشهراني", "email": "demo.majed@example.com", "nid": "1000009901"}
+DOWN = {"name": "نواف القحطاني", "email": "demo.nawaf@example.com", "nid": "1000009902"}  # applied while the engine is stopped
 STEPS: list[dict] = []
 T0 = time.time()
 
@@ -230,29 +231,58 @@ async def main() -> None:
         step(14, "الصلاحيات: أخصائي التوظيف يحاول يفتح الإعدادات", f"{LAPTOP}/desk/ai-recruitment-settings", HRU, "سجّلي الخروج وادخلي بأخصائي التوظيف ثم افتحي الرابط (أو الزرار الثامن «الإعدادات» وهو رمادي)",
              "رسالة «لا يسمح لك بالوصول إلى هذه الصفحة»؛ الإعدادات والمفاتيح لمدير الموارد البشرية ومدير النظام بس", png, time.time() - t)
 
-        # 15 engine down
+        # 15 engine down: only the engine's API container is stopped (vLLM keeps running); a new
+        # application is saved as usual, fails after the retries, and is assessed on «إعادة المحاولة»
+        # once the API is back
         t = time.time()
+        t_stop = time.time()
         compose("stop", "api")
+        stop_s = time.time() - t_stop
+        hr2 = await new_page(b, "1366", scale=1.5)
+        await login(hr2, HR, DEV["HR_MANAGER_PASSWORD"])
+        g2 = await new_page(b, "1366", scale=1.5)
+        a2 = applicant("2003", applicant_name=DOWN["name"], email_id=DOWN["email"], national_id=DOWN["nid"])
         try:
-            hr2 = await new_page(b, "1366", scale=1.5)
-            await login(hr2, HR, DEV["HR_MANAGER_PASSWORD"])
-            await go(hr2, "/desk/ai-recruitment-settings", "window.cur_frm && cur_frm.doc", 3)
-            await asyncio.sleep(2)
-            png = await snap(hr2, "15_engine_down", await visible(hr2))
-            await hr2.context.close()
+            sub2 = await submit_public(g2, OP1, a2, None)
+            assert sub2.get("ok"), sub2
+            name2 = (await xcall(hr2, "frappe.client.get_value", {"doctype": "Job Applicant", "filters": DOWN["email"], "fieldname": "name"}))["name"]
+            failed, t_failed = await wait_value(hr2, "Job Applicant", name2, "ai_status", lambda v: v == "Failed", 600, 2)
+            await hr2.goto(f"{BASE}/desk/job-applicant/{name2}", wait_until="domcontentloaded")
+            await asyncio.sleep(5)
+            png_a = await snap(hr2, "15a_engine_down_failed", await visible(hr2))
         finally:
+            t_start = time.time()
             compose("start", "api")
-        for _ in range(60):
-            try:
-                import urllib.request
+        import urllib.request
 
+        for _ in range(90):
+            try:
                 if urllib.request.urlopen("http://127.0.0.1:18000/health", timeout=3).status == 200:
                     break
             except Exception:  # noqa: BLE001
                 pass
             await asyncio.sleep(2)
-        step(15, "حالة المحرك واقف", f"{LAPTOP}/desk/ai-recruitment-settings", HR, "(على السيرفر) `talent-engine/scripts/compose.sh stop api` ثم افتحي الإعدادات؛ وبعد العرض `… start api`",
-             "كارت «حالة المحرك» بيقول إنه غير متاح؛ أي طلب يتقدّم في الوقت ده بيتحفظ عادي وبيتقيّم لما المحرك يرجع (لوحده كل ساعة أو بزرار «إعادة المحاولة»)", png, time.time() - t)
+        start_s = time.time() - t_start
+        await g2.context.close()
+        step(15, "المحرك واقف: طلب جديد بيتحفظ وبيفشل تقييمه", f"{LAPTOP}/desk/job-applicant/{name2}", f"زائر ثم {HR}",
+             f"(على السيرفر) `talent-engine/scripts/compose.sh stop api` ← قدّمي طلب جديد من النموذج العام (الاسم {DOWN['name']}، الإيميل {DOWN['email']}) ← افتحي الطلب من قائمة المتقدمين",
+             f"الطلب اتحفظ في {sub2.get('submit_s')} ثانية والمحرك واقف؛ بعد {t_failed} ثانية (تلات محاولات) ظهر شريط «فشلت المعالجة» الأحمر مع رسالة المحرك غير متاح وزرار «إعادة المحاولة»؛ إيقاف المحرك خد {stop_s:.1f} ثانية",
+             png_a, time.time() - t)
+        t = time.time()
+        await open_applicant(hr2, name2, wait_card=False)
+        await hr2.wait_for_selector("[data-tai=retry]", timeout=60000)
+        t_retry = time.time()
+        await hr2.evaluate("document.querySelector('[data-tai=retry]').click()")
+        st2, _ = await wait_value(hr2, "Job Applicant", name2, "ai_status", lambda v: v in ("Completed", "Needs Review"), 300, 1.0)
+        retry_s = time.time() - t_retry
+        await open_applicant(hr2, name2)
+        sel = await mark(hr2, card("تقييم الذكاء|AI assessment"))
+        png_b = await snap(hr2, "15b_after_retry", sel)
+        await hr2.context.close()
+        step(16, "المحرك رجع: «إعادة المحاولة» بتقيّم الطلب", f"{LAPTOP}/desk/job-applicant/{name2}", HR,
+             f"(على السيرفر) `talent-engine/scripts/compose.sh start api` واستني لحد ما `curl -fs http://127.0.0.1:18000/health` يرد (خد {start_s:.0f} ثانية) ← في الطلب دوسي «إعادة المحاولة»",
+             f"الحالة بقت «{ {'Completed': 'مكتمل', 'Needs Review': 'يحتاج مراجعة'}.get(st2, st2)}» وكارت التقييم ظهر بعد {retry_s:.0f} ثانية من الضغط (طلب من غير سيرة)",
+             png_b, time.time() - t)
 
     md = ["# بروفة العرض — الخطوات بالترتيب", "", f"اتصوّرت بمتصفح حقيقي على الديمو النضيف. الروابط من اللابتوب عبر Tailscale. الوقت الكلي {round(time.time() - T0)} ثانية.", ""]
     for s in STEPS:

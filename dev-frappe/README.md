@@ -11,6 +11,9 @@ MariaDB on 127.0.0.1:18052. Versions follow the client site: see `VERSIONS.md`.
 - `reset_demo.sh` rebuilds the demo from scratch: erases this site's data in the engine, recreates
   `talent.localhost` with ERPNext + HRMS + Talent AI, runs the setup (opening «مشرف أمن — الرياض»,
   approved profile, HR users) and submits the 25 synthetic applicants through the public form.
+- `make_test_site.sh` (re)creates `test.localhost` for the automated tests: the in-memory database
+  keeps only the demo site across a full stop/start (restored from backup), the test site has no
+  backup and is rebuilt by this script in a few minutes.
 - `.env` (chmod 600, never committed) holds the database root password, the Administrator and HR
   user passwords and the Tailscale address.
 
