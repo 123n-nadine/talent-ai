@@ -609,3 +609,73 @@ def test_repeated_profile_items_are_kept_once():
     assert len(vp.data["languages"]) == 1 and vp.data["languages"][0]["language"] == "العربية"
     assert [c["status"] for c in vp.data["certifications"]] == ["valid", "expired"]
     assert vp.duplicates == 12 and vp.dropped == 0
+
+
+def test_final_failure_is_delivered_to_the_host(tmp_path, monkeypatch):
+    """Round 12: when the screening fails inside the engine after its last attempt, the host gets
+    the signed result with status «failed» at once, so the application shows «Failed» there
+    instead of staying «Processing» until its safety net asks."""
+    import httpx2
+
+    from app.core.security import verify_callback
+    from app.services import callback as cb
+
+    class AlwaysBroken(MockLLM):
+        def handler(self, request):
+            if request.url.path.endswith("/models"):
+                return super().handler(request)
+            self.calls += 1
+            return httpx2.Response(
+                200,
+                json={
+                    "choices": [
+                        {
+                            "index": 0,
+                            "message": {"role": "assistant", "content": "nope"},
+                            "finish_reason": "stop",
+                        }
+                    ]
+                },
+            )
+
+    received: list[dict] = []
+
+    def receiver(request: httpx2.Request) -> httpx2.Response:
+        assert verify_callback(
+            "cb-secret",
+            request.headers["X-Talent-Timestamp"],
+            request.content,
+            request.headers["X-Talent-Signature"],
+        )
+        received.append(json.loads(request.content))
+        return httpx2.Response(200, json={"ok": True})
+
+    original = cb.send
+
+    def patched(url, secret, payload, settings, event="screening.result", client=None):
+        return original(
+            url,
+            secret,
+            payload,
+            settings,
+            event,
+            client=httpx2.Client(transport=httpx2.MockTransport(receiver)),
+        )
+
+    monkeypatch.setattr("app.pipeline.runner.send_callback", patched)
+    m = AlwaysBroken()
+    monkeypatch.setattr(registry, "HTTP_CLIENT_FACTORY", lambda name: m.client())
+    c = _client(
+        tmp_path,
+        ai_provider="local",
+        callback_url="http://frappe.local/api/method/ido_talent_ai.api.receive_result",
+        callback_secret="cb-secret",
+        retry_backoff_s="0,0,0",
+    )
+    s = _seed(c)
+    assert s["status"] == "failed" and "LLMOutputError" in (s["error"] or "")
+    assert [r["status"] for r in received] == [
+        "failed"
+    ]  # one signed result, after the last attempt
+    assert received[0]["candidate_ref"] == "C-LLM" and received[0]["error"]
+    c.__exit__(None, None, None)
