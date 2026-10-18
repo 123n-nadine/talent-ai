@@ -33,7 +33,7 @@ def summary(F: dict) -> Chapter:
 
 def manager(F: dict) -> Chapter:
     ev = F["evaluation"]
-    r8 = ev["runs"].get("8B v1 r6") or ev["runs"]["8B v1"]  # the latest gold-set run
+    r8 = ev["runs"].get("8B v1 r7") or ev["runs"].get("8B v1 r6") or ev["runs"]["8B v1"]  # the latest gold-set run
     sp = ev.get("split") or {}
     code, model = sp.get("code", {}), sp.get("model", {})
     thr = ev["throughput"]
@@ -52,10 +52,12 @@ def manager(F: dict) -> Chapter:
         f"متوسط معالجة الطلب فيه {b8.get('pipeline_mean_s', '—')} ثانية بثمانية عمّال، و{b8.get('n', '—')} طلب × {b8.get('pipeline_mean_s', '—')} ثانية ÷ 8 عمّال = {round(b8.get('n', 0) * b8.get('pipeline_mean_s', 0) / 8)} ثانية، "
         f"والمقاس فعلًا {round(b8.get('processing_wall_s', 0))} ثانية من آخر إرسال لآخر نتيجة.",
         f"الدقة: على {ev['gold']} متقدم اختبار، النظام جاب المستوى المتوقع حسب جدول المعايير في {pct(r8['exact'])} من المعايير؛ المستوى المتوقع محسوب من الجدول بالكود، مش تقييم بشري.\n"
-        f"الجزء اللي بيحسبه الكود (الإجابات الرقمية والاختيارية): {code.get('exact', '—')}% من {code.get('n', '—')} حكم. "
-        f"الجزء اللي بيحكم عليه النموذج اللغوي (النص الحر وجانب السيرة): {model.get('exact', '—')}% بالظبط و{model.get('within', '—')}% في حدود خطوة، من {model.get('n', '—')} حكم بس، "
-        f"على {ev.get('distinct_free_texts', '—')} نصوص حرة مختلفة و{ev.get('cv_documents', '—')} سيرة.",
-        f"القرب: الباقي كله كان على بُعد درجة واحدة بس، يعني {pct(r8['within_one'])} في حدود خطوة.",
+        f"جزء الكود (الإجابات الرقمية والاختيارية): {code.get('exact', '—')}% من {code.get('n', '—')} حكم. "
+        f"جزء النموذج اللغوي (النص الحر وجانب السيرة): {model.get('exact', '—')}% بالظبط و{model.get('within', '—')}% في حدود خطوة من {model.get('n', '—')} حكم، "
+        f"على {ev.get('distinct_free_texts', '—')} نصوص حرة و{ev.get('cv_documents', '—')} سيرة.",
+        (f"القرب: الباقي كله كان على بُعد درجة واحدة بس، يعني {pct(r8['within_one'])} في حدود خطوة."
+         if r8["within_one"] >= 100
+         else f"القرب: {pct(r8['within_one'])} من الأحكام في حدود خطوة واحدة؛ الأبعد الوحيد رخصة قراها النموذج من السيرة بصرامة، وعلّمها تعارض وبعتها للمراجعة."),
         f"الأدلة: {pct(r8['evidence'])} من الأحكام اللي فوق الصفر ليها دليل اتراجع بالكود.",
         f"الشروط: القواعد الإلزامية اتطبقت صح في {pct(r8['eligibility'])} من الحالات، والنموذج اللغوي مش بيشوفها أصلًا.",
         f"العدل: تغيير اسم المتقدم ما غيّرش ولا مستوى في {ev['name_swap_pct']}% من الحالات.",
@@ -70,7 +72,7 @@ def manager(F: dict) -> Chapter:
           "مصدر كل رقم مكتوب في فصل نتائج الاختبارات."),
         Bullets(pts, numbered=True),
         Note("الدرجة ترتيب مقابل معايير معتمدة، وليست احتمال نجاح في الوظيفة.", "warn"),
-    ], terms=["العمّال", "النموذج اللغوي", "إعادة المحاولة"], ids=["evaluation:run:8B v1", "evaluation:run:8B v1 r6", "evaluation:throughput:4", "evaluation:throughput:8", "evaluation:rerun", "evaluation:name-swap"])])
+    ], terms=["العمّال", "النموذج اللغوي", "إعادة المحاولة"], ids=["evaluation:run:8B v1", "evaluation:run:8B v1 r6", "evaluation:run:8B v1 r7", "evaluation:throughput:4", "evaluation:throughput:8", "evaluation:rerun", "evaluation:name-swap"])])
 
 
 DIAGRAM_SVG = """<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans Arabic" direction="rtl">

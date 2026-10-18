@@ -144,7 +144,10 @@ def score(apps: list[dict], results: dict[str, dict], jobs: dict | None = None) 
                 d["exact"] += is_exact
                 d["within"] += is_within
                 d["n"] += 1
-                part = split["model" if c["key"] in model_keys else "code"]
+                # a level taken from the CV (the model's reading overrode the form level) is the
+                # model's judgement even when the criterion is a structured one
+                by_model = c["key"] in model_keys or c.get("source") == "cv_quote"
+                part = split["model" if by_model else "code"]
                 part["exact"] += is_exact
                 part["within"] += is_within
                 part["n"] += 1

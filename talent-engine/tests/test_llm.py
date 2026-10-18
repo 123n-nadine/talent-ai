@@ -140,11 +140,12 @@ def judge_json(
 class MockLLM:
     """Pretends to be vLLM / a cloud API. Records requests; answers by task."""
 
-    def __init__(self, judge=None, profile=None, broken_first=False):
+    def __init__(self, judge=None, profile=None, broken_first=False, cut_first=False):
         self.requests: list[dict] = []
         self.judge = judge or judge_json()
         self.profile = profile or PROFILE_JSON
         self.broken_first = broken_first
+        self.cut_first = cut_first  # the first answer stops at the output budget, JSON unclosed
         self.calls = 0
 
     def handler(self, request: httpx2.Request) -> httpx2.Response:
@@ -158,8 +159,12 @@ class MockLLM:
         )
         self.calls += 1
         name = body["response_format"]["json_schema"]["name"]
+        finish = "stop"
         if self.broken_first and self.calls == 1:
             content = "{not json"
+        elif self.cut_first and self.calls == 1:
+            content = json.dumps(self.profile, ensure_ascii=False)[:120]  # cut mid-way, like vLLM
+            finish = "length"
         elif name == "candidate_profile":
             content = json.dumps(self.profile, ensure_ascii=False)
         elif name == "judgement":
@@ -176,7 +181,7 @@ class MockLLM:
                     {
                         "index": 0,
                         "message": {"role": "assistant", "content": content},
-                        "finish_reason": "stop",
+                        "finish_reason": finish,
                     }
                 ],
                 "usage": {"prompt_tokens": 1200, "completion_tokens": 300, "total_tokens": 1500},
@@ -519,3 +524,53 @@ def test_cv_duration_is_levelled_in_code_not_by_the_model():
     assert probs == []
     assert j.cv_level == 50 and j.form_level == 100
     assert j.contradiction and j.level == 50
+
+
+def gold_cv_text(ref: str) -> str:
+    """The CV of a gold-set applicant as the redacted text the model sees."""
+    gold = json.load(
+        open("eval/gold/security_supervisor.json", encoding="utf-8")
+    )  # synthetic, committed
+    app = next(a for a in gold["applicants"] if a["ref"] == ref)
+    return "\n".join(app["cv_lines"])
+
+
+def test_cut_off_profile_is_retried_shorter_not_repaired():
+    """Round 7: GOLD-SEC-015's profile answer hit the output budget three times (unclosed JSON).
+    The answer budget is now what the context leaves, and a cut-off answer is retried once with a
+    trimmed CV and a request for a compact answer instead of the same request again."""
+    m = MockLLM(cut_first=True)
+    p = OpenAICompatLLM(
+        "local", "http://vllm:8000/v1", "EMPTY", "qwen3-8b-awq", http_client=m.client()
+    )
+    prof = p.profile(gold_cv_text("GOLD-SEC-015"))
+    assert isinstance(prof, CandidateProfile) and m.calls == 2
+    first, second = (r["body"] for r in m.requests)
+    assert first["max_tokens"] > 1500  # more than the old fixed limit, inside the 8192 context
+    assert (
+        first["max_tokens"]
+        + len(first["messages"][0]["content"] + first["messages"][1]["content"]) // 2
+        <= 8192
+    )
+    cut = second["messages"][1]["content"]
+    assert "cut off" in cut and "compact" in cut and "corrected JSON" not in cut  # not a repair
+    assert "GOLD" not in cut  # the retry still carries only the CV text and the note
+    assert p.last_usage["retried_shorter"] is True and p.last_usage["finish_reason"] == "stop"
+
+
+def test_output_budget_follows_the_context():
+    p = OpenAICompatLLM("local", "http://vllm:8000/v1", "EMPTY", "m", max_model_len=8192)
+    assert p.output_budget("candidate_profile", "x" * 200, "y" * 600) == 4000  # the cap
+    assert p.output_budget("candidate_profile", "x" * 200, "y" * 15000) == 8192 - 7800 - 64
+    assert (
+        p.output_budget("candidate_profile", "x" * 200, "y" * 40000) == 256
+    )  # never below the floor
+
+
+def test_long_cv_is_cut_at_a_line_for_the_retry():
+    from app.llm.openai_compat import shorten
+
+    text = "\n".join(f"سطر رقم {i} في السيرة الذاتية" for i in range(100))
+    short = shorten(text, 500)
+    assert len(short) <= 500 and short.endswith("الذاتية") and short.count("\n") < text.count("\n")
+    assert shorten("قصير", 500) == "قصير"

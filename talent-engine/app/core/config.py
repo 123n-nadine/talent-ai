@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     llm_model: str = "qwen3-8b-awq"
     llm_timeout_s: int = 120
     llm_max_retries: int = 2
+    llm_max_model_len: int = (
+        8192  # context of the served model (VLLM_MAX_MODEL_LEN): bounds the answer budget
+    )
     cloud_llm_base_url: str = "https://api.openai.com/v1"
     cloud_llm_model: str = ""
     cloud_llm_api_key: str = ""

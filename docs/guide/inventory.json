@@ -2505,151 +2505,158 @@
   "source": "talent-engine/.env.example:35"
  },
  {
+  "id": "setting:engine-env:LLM_MAX_MODEL_LEN",
+  "cat": "setting",
+  "name": "engine .env LLM_MAX_MODEL_LEN",
+  "label_ar": "",
+  "source": "talent-engine/.env.example:32"
+ },
+ {
   "id": "setting:engine-env:VLLM_GPU_MEMORY_UTILIZATION",
   "cat": "setting",
   "name": "engine .env VLLM_GPU_MEMORY_UTILIZATION",
   "label_ar": "",
-  "source": "talent-engine/.env.example:36"
+  "source": "talent-engine/.env.example:37"
  },
  {
   "id": "setting:engine-env:CLOUD_LLM_BASE_URL",
   "cat": "setting",
   "name": "engine .env CLOUD_LLM_BASE_URL",
   "label_ar": "",
-  "source": "talent-engine/.env.example:38"
+  "source": "talent-engine/.env.example:39"
  },
  {
   "id": "setting:engine-env:CLOUD_LLM_MODEL",
   "cat": "setting",
   "name": "engine .env CLOUD_LLM_MODEL",
   "label_ar": "",
-  "source": "talent-engine/.env.example:39"
+  "source": "talent-engine/.env.example:40"
  },
  {
   "id": "setting:engine-env:CLOUD_LLM_API_KEY",
   "cat": "setting",
   "name": "engine .env CLOUD_LLM_API_KEY",
   "label_ar": "",
-  "source": "talent-engine/.env.example:40"
+  "source": "talent-engine/.env.example:41"
  },
  {
   "id": "setting:engine-env:OCR_PROVIDER",
   "cat": "setting",
   "name": "engine .env OCR_PROVIDER",
   "label_ar": "",
-  "source": "talent-engine/.env.example:41"
+  "source": "talent-engine/.env.example:42"
  },
  {
   "id": "setting:engine-env:OCR_THREADS",
   "cat": "setting",
   "name": "engine .env OCR_THREADS",
   "label_ar": "",
-  "source": "talent-engine/.env.example:42"
+  "source": "talent-engine/.env.example:43"
  },
  {
   "id": "setting:engine-env:MAX_UPLOAD_MB",
   "cat": "setting",
   "name": "engine .env MAX_UPLOAD_MB",
   "label_ar": "",
-  "source": "talent-engine/.env.example:43"
+  "source": "talent-engine/.env.example:44"
  },
  {
   "id": "setting:engine-env:OCR_MIN_CONFIDENCE",
   "cat": "setting",
   "name": "engine .env OCR_MIN_CONFIDENCE",
   "label_ar": "",
-  "source": "talent-engine/.env.example:44"
+  "source": "talent-engine/.env.example:45"
  },
  {
   "id": "setting:engine-env:EMBEDDING_MODEL",
   "cat": "setting",
   "name": "engine .env EMBEDDING_MODEL",
   "label_ar": "",
-  "source": "talent-engine/.env.example:45"
+  "source": "talent-engine/.env.example:46"
  },
  {
   "id": "setting:engine-env:EMBEDDING_PROVIDER",
   "cat": "setting",
   "name": "engine .env EMBEDDING_PROVIDER",
   "label_ar": "",
-  "source": "talent-engine/.env.example:46"
+  "source": "talent-engine/.env.example:47"
  },
  {
   "id": "setting:engine-env:EMBEDDING_BASE_URL",
   "cat": "setting",
   "name": "engine .env EMBEDDING_BASE_URL",
   "label_ar": "",
-  "source": "talent-engine/.env.example:47"
+  "source": "talent-engine/.env.example:48"
  },
  {
   "id": "setting:engine-env:FILE_STORE",
   "cat": "setting",
   "name": "engine .env FILE_STORE",
   "label_ar": "",
-  "source": "talent-engine/.env.example:48"
+  "source": "talent-engine/.env.example:49"
  },
  {
   "id": "setting:engine-env:RETENTION_DAYS_DEFAULT",
   "cat": "setting",
   "name": "engine .env RETENTION_DAYS_DEFAULT",
   "label_ar": "",
-  "source": "talent-engine/.env.example:49"
+  "source": "talent-engine/.env.example:50"
  },
  {
   "id": "setting:engine-env:MAX_ATTEMPTS",
   "cat": "setting",
   "name": "engine .env MAX_ATTEMPTS",
   "label_ar": "",
-  "source": "talent-engine/.env.example:50"
+  "source": "talent-engine/.env.example:51"
  },
  {
   "id": "setting:engine-env:TENANT_NAME",
   "cat": "setting",
   "name": "engine .env TENANT_NAME",
   "label_ar": "",
-  "source": "talent-engine/.env.example:54"
+  "source": "talent-engine/.env.example:55"
  },
  {
   "id": "setting:engine-env:ALLOWED_FACTS",
   "cat": "setting",
   "name": "engine .env ALLOWED_FACTS",
   "label_ar": "",
-  "source": "talent-engine/.env.example:55"
+  "source": "talent-engine/.env.example:56"
  },
  {
   "id": "setting:engine-env:CONSOLE_USER",
   "cat": "setting",
   "name": "engine .env CONSOLE_USER",
   "label_ar": "",
-  "source": "talent-engine/.env.example:58"
+  "source": "talent-engine/.env.example:59"
  },
  {
   "id": "setting:engine-env:CONSOLE_PASSWORD",
   "cat": "setting",
   "name": "engine .env CONSOLE_PASSWORD",
   "label_ar": "",
-  "source": "talent-engine/.env.example:59"
+  "source": "talent-engine/.env.example:60"
  },
  {
   "id": "setting:engine-env:CONSOLE_SESSION_SECRET",
   "cat": "setting",
   "name": "engine .env CONSOLE_SESSION_SECRET",
   "label_ar": "",
-  "source": "talent-engine/.env.example:60"
+  "source": "talent-engine/.env.example:61"
  },
  {
   "id": "setting:engine-env:CONSOLE_ID_TOKEN_SECRET",
   "cat": "setting",
   "name": "engine .env CONSOLE_ID_TOKEN_SECRET",
   "label_ar": "",
-  "source": "talent-engine/.env.example:61"
+  "source": "talent-engine/.env.example:62"
  },
  {
   "id": "setting:engine-env:CALLBACK_URL",
   "cat": "setting",
   "name": "engine .env CALLBACK_URL",
   "label_ar": "",
-  "source": "talent-engine/.env.example:65"
+  "source": "talent-engine/.env.example:66"
  },
  {
   "id": "setting:dev-env:DB_ROOT_PASSWORD",
@@ -3896,6 +3903,13 @@
   "name": "gold-set run 8B v1 r6",
   "label_ar": "",
   "source": "docs/EVALUATION_REPORT.md:52"
+ },
+ {
+  "id": "evaluation:run:8B v1 r7",
+  "cat": "evaluation",
+  "name": "gold-set run 8B v1 r7",
+  "label_ar": "",
+  "source": "docs/EVALUATION_REPORT.md:72"
  },
  {
   "id": "evaluation:throughput:2",
