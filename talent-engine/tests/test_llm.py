@@ -592,3 +592,20 @@ def test_partial_cv_read_is_flagged_for_hr(tmp_path, monkeypatch):
     prof = next(x for x in s["versions"]["llm_calls"] if x["task"] == "profile")
     assert prof["retried_shorter"] is True
     c.__exit__(None, None, None)
+
+
+def test_repeated_profile_items_are_kept_once():
+    """Round 8: an 8B model may write one language or certification item many times; the code
+    keeps the first occurrence and counts the rest, before anything is shown or saved."""
+    text = "\n".join(CV_LINES)
+    lang = {"language": "العربية", "level": "لغة أم", "quote": CV_LINES[-1]}
+    cert = {"name": "رخصة حارس أمن", "status": "valid", "quote": CV_LINES[3]}
+    prof = CandidateProfile(
+        languages=[lang] * 12,
+        certifications=[cert, {**cert, "quote": CV_LINES[3] + " "}, {**cert, "status": "expired"}],
+        experience=[],
+    )
+    vp = verify_profile(prof, text)
+    assert len(vp.data["languages"]) == 1 and vp.data["languages"][0]["language"] == "العربية"
+    assert [c["status"] for c in vp.data["certifications"]] == ["valid", "expired"]
+    assert vp.duplicates == 12 and vp.dropped == 0
