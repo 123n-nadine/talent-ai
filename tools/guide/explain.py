@@ -52,7 +52,7 @@ ENV = {
     "REDIS_PASSWORD": "كلمة سر الطابور", "TENANT_API_KEY": "مفتاح النظام المضيف", "CALLBACK_SECRET": "سر توقيع النتائج", "DATABASE_URL": "رابط قاعدة البيانات",
     "REDIS_URL": "رابط الطابور", "QUEUE_MODE": "طريقة تشغيل الطابور", "AI_PROVIDER": "مزوّد الذكاء الافتراضي", "LLM_BASE_URL": "رابط النموذج اللغوي",
     "LLM_MODEL": "اسم النموذج اللغوي", "VLLM_MODEL": "النموذج اللي بيتحمّل على كرت الشاشة", "VLLM_IMAGE_TAG": "نسخة خادم النموذج",
-    "VLLM_MAX_MODEL_LEN": "أقصى طول نص للنموذج", "VLLM_MAX_NUM_SEQS": "أقصى طلبات متزامنة للنموذج", "LLM_TIMEOUT_S": "مهلة النموذج بالثواني",
+    "LLM_MAX_MODEL_LEN": "طول النص الكلي للنموذج، ومنه بتتحسب ميزانية الرد؛ نفس قيمة خادم النموذج", "VLLM_MAX_MODEL_LEN": "أقصى طول نص للنموذج", "VLLM_MAX_NUM_SEQS": "أقصى طلبات متزامنة للنموذج", "LLM_TIMEOUT_S": "مهلة النموذج بالثواني",
     "LLM_MAX_RETRIES": "محاولات النموذج", "VLLM_GPU_MEMORY_UTILIZATION": "نصيبنا من ذاكرة كرت الشاشة", "CLOUD_LLM_BASE_URL": "رابط المزوّد السحابي",
     "CLOUD_LLM_MODEL": "نموذج المزوّد السحابي", "CLOUD_LLM_API_KEY": "مفتاح المزوّد السحابي", "OCR_PROVIDER": "مزوّد القراءة الضوئية",
     "OCR_THREADS": "عدد خيوط القراءة الضوئية", "MAX_UPLOAD_MB": "أقصى حجم للملف", "OCR_MIN_CONFIDENCE": "أقل ثقة مقبولة للقراءة",

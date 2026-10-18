@@ -56,7 +56,7 @@ def engine(path: str):
 def parse_eval() -> dict:
     s = open(os.path.join(ROOT, "docs", "EVALUATION_REPORT.md"), encoding="utf-8").read()
     runs = {}
-    for m in re.finditer(r"^\| (8B v1 r6|8B v1|8B v2|4B v1) \| `([^`]+)` \| `([^`]+)` \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+) s \|", s, re.M):
+    for m in re.finditer(r"^\| (8B v1 r7|8B v1 r6|8B v1|8B v2|4B v1) \| `([^`]+)` \| `([^`]+)` \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+)% \| ([\d.]+) s \|", s, re.M):
         runs[m.group(1)] = {"model": m.group(2), "prompt": m.group(3), "exact": float(m.group(4)), "within_one": float(m.group(5)),
                             "evidence": float(m.group(6)), "eligibility": float(m.group(7)), "flags": float(m.group(8)),
                             "free_text": float(m.group(9)), "supervision": float(m.group(10)), "seconds": float(m.group(11))}
@@ -69,7 +69,7 @@ def parse_eval() -> dict:
     for m in re.finditer(r"^\| (levelled in code from the rubric table|judged by the model) \| [^|]+\| (\d+)% \| (\d+)% \| (\d+) \|", s, re.M):
         split["code" if m.group(1).startswith("levelled") else "model"] = {"exact": int(m.group(2)), "within": int(m.group(3)), "n": int(m.group(4))}
     texts = re.search(r"model was measured on: (\d+) free-text answers\*\* .*?\*\*and (\d+) CV documents", s)
-    fails = re.search(r"\*\*Failures: (\d+) applicant of (\d+) in both passes", s)
+    fails = (re.findall(r"\*\*Failures: (\d+) (?:applicant )?of (\d+) in both passes", s) or [("0", "0")])[-1]
     # the raw throughput reports (eval/bench.py): what the batch was made of and the measured times,
     # so the guide explains the thousand-applicant figure from the numbers themselves
     bench = {}
@@ -82,7 +82,7 @@ def parse_eval() -> dict:
     return {"runs": runs, "throughput": thr, "bench": bench, "rerun_pct": int(rerun) if rerun else None,
             "name_swap_pct": int(swap) if swap else None, "split": split,
             "distinct_free_texts": int(texts.group(1)) if texts else None, "cv_documents": int(texts.group(2)) if texts else None,
-            "failed": int(fails.group(1)) if fails else 0,
+            "failed": int(fails[0]),
             "gold": int(g.group(1)) if (g := re.search(r"Gold set: (\d+) synthetic applicants", s)) else 50}
 
 

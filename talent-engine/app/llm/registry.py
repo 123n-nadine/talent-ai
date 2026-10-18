@@ -43,6 +43,7 @@ def get_provider(
             disable_thinking=True,
             http_client=_http_client("local"),
             judge_prompt=judge_prompt or "judge-v1",
+            max_model_len=settings.llm_max_model_len,
         )
     if name == "cloud":
         if not settings.cloud_llm_api_key:
@@ -59,6 +60,7 @@ def get_provider(
             disable_thinking=False,
             http_client=_http_client("cloud"),
             judge_prompt=judge_prompt or "judge-v1",
+            max_model_len=settings.llm_max_model_len,
         )
     raise ProviderNotAvailable(f"unknown provider '{name}'")
 
