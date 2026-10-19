@@ -5,7 +5,7 @@ import copy
 import httpx
 
 from app.core.security import verify_callback
-from scripts.seed_data import JOBS
+from scripts.seed_data import CANDIDATES, JOBS
 
 SEC = "HR-OPN-2026-0011"
 
@@ -516,3 +516,58 @@ def test_talent_pool_rules_first_then_similarity_with_exclusions(client, seeded,
         client.get("/v1/talent-pool/status").json()["indexed_profiles"]
         == st["indexed_profiles"] - 1
     )
+
+
+def test_api_docs_follow_the_setting():
+    """Final QA: /docs and /openapi.json are on in dev, off in production unless enabled."""
+    from fastapi.testclient import TestClient
+
+    from app.main import create_app
+    from tests.conftest import make_settings
+
+    for kwargs, expect in (
+        ({"app_env": "dev"}, 200),
+        ({"app_env": "production"}, 404),
+        ({"app_env": "production", "api_docs_enabled": True}, 200),
+        ({"app_env": "dev", "api_docs_enabled": False}, 404),
+    ):
+        with TestClient(create_app(make_settings(**kwargs))) as client:
+            assert client.get("/docs").status_code == expect, kwargs
+            assert client.get("/openapi.json").status_code == expect, kwargs
+            assert client.get("/health").status_code == 200
+
+
+def test_screening_is_not_left_queued_when_the_queue_is_down(sec_job):
+    """Final QA (Q7b): Redis restarting during the request left a «queued» screening that no worker
+    would ever see, and the host's retry got the same stuck row back. Now the screening is marked
+    failed, the host gets 503, and its retry (queue back) creates a new screening that runs."""
+    from fastapi.testclient import TestClient
+
+    from app.main import create_app
+    from tests.conftest import API_KEY, make_settings
+
+    s = make_settings(
+        queue_mode="rq", redis_url="redis://127.0.0.1:1/0"
+    )  # nothing listens on port 1
+    with TestClient(create_app(s)) as c:
+        c.headers.update({"Authorization": f"Bearer {API_KEY}", "X-Talent-Actor": "pytest"})
+        assert c.put("/v1/jobs/HR-OPN-2026-0011", json=sec_job).status_code == 200
+        cand = next(x for x in CANDIDATES if x["job"] == "HR-OPN-2026-0011")
+        body = {"id_token": cand["id_token"], "facts": cand["facts"], "answers": cand["answers"]}
+        assert c.put(f"/v1/candidates/{cand['ref']}", json=body).status_code == 200
+        req = {"job_ref": "HR-OPN-2026-0011", "candidate_ref": cand["ref"]}
+        r = c.post("/v1/screenings", json=req)
+        assert r.status_code == 503, r.text
+        rows = c.get("/v1/screenings", params={"candidate_ref": cand["ref"]}).json()["screenings"]
+        assert [x["status"] for x in rows] == ["failed"]
+        assert "queue unavailable" in (rows[0].get("error") or "")
+        # the queue is back (inline here): the host's retry gets a new screening, not the failed one
+        c.app.state.settings.queue_mode = "inline"
+        r2 = c.post("/v1/screenings", json=req)
+        assert r2.status_code == 202, r2.text
+        assert r2.json()["created"] is True
+        assert r2.json()["screening_id"] != rows[0]["screening_id"]
+        assert c.get(f"/v1/screenings/{r2.json()['screening_id']}").json()["status"] in (
+            "completed",
+            "needs_review",
+        )

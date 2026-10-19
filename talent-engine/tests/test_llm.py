@@ -679,3 +679,81 @@ def test_final_failure_is_delivered_to_the_host(tmp_path, monkeypatch):
     ]  # one signed result, after the last attempt
     assert received[0]["candidate_ref"] == "C-LLM" and received[0]["error"]
     c.__exit__(None, None, None)
+
+
+def test_no_personal_data_in_any_model_payload(tmp_path, monkeypatch):
+    """Final QA: every request body the engine sends to the model is inspected. The applicant's
+    phone, e-mail, national ID, date of birth, name (from the CV, with the upload hint) and the
+    free-text answer's personal data must not appear; the facts (nationality, age) are never sent."""
+    import copy
+
+    m = MockLLM()
+    monkeypatch.setattr(registry, "HTTP_CLIENT_FACTORY", lambda name: m.client())
+    c = _client(tmp_path, ai_provider="local")
+    job = copy.deepcopy(JOBS[SEC])
+    # a free-text criterion so the model receives the free answer
+    job["criteria"][0]["weight"] = float(job["criteria"][0]["weight"]) - 10
+    job["criteria"].append(
+        {
+            "key": "last_job_text",
+            "text": "وصف آخر عمل",
+            "text_en": "Last job",
+            "weight": 10,
+            "mandatory": False,
+            "question": "last_job",
+            "rubric": [{"level": lv, "text": f"مستوى {lv}"} for lv in (0, 25, 50, 75, 100)],
+        }
+    )
+    c.put(f"/v1/jobs/{SEC}", json=job)
+    pii = {
+        "phone": "0520202002",
+        "email": "demo.majed@example.com",
+        "nid": "1000009901",
+        "dob": "20/06/1997",
+        "name": "ماجد الشهراني",
+    }
+    c.put(
+        "/v1/candidates/C-PII",
+        json={
+            "facts": {"nationality": "السعودية", "height_cm": 181, "weight_kg": 79, "age": 29},
+            "answers": {
+                "years_sup": 4,
+                "years_sec": 6,
+                "shifts": "أعددتها بنفسي",
+                "licence": "سارية",
+                "reports": "أحيانًا",
+                "first_aid": "لا",
+                "languages": ["العربية", "الإنجليزية"],
+                "last_job": f"مشرف وردية بالرياض منذ 2019، للتواصل {pii['phone']} أو {pii['email']}، هويتي {pii['nid']}، مواليد {pii['dob']}.",
+            },
+        },
+    )
+    cv_lines = [
+        f"{pii['name']} — مشرف وردية أمن",
+        f"الاسم: {pii['name']}",
+        f"الجوال: {pii['phone']}",
+        f"البريد: {pii['email']}",
+        f"رقم الهوية: {pii['nid']}",
+        f"تاريخ الميلاد: {pii['dob']}",
+        "الجنسية: السعودية",
+        "الجنس: ذكر",
+        *CV_LINES,
+    ]
+    r = c.put(
+        "/v1/candidates/C-PII/cv",
+        files={"file": ("cv.pdf", text_pdf_bytes(cv_lines), "application/pdf")},
+        data={"name_hint": pii["name"]},
+    )
+    assert r.json()["document"]["status"] == "ready"
+    r = c.post("/v1/screenings", json={"job_ref": SEC, "candidate_ref": "C-PII"})
+    s = c.get(f"/v1/screenings/{r.json()['screening_id']}").json()
+    assert s["status"] in ("completed", "needs_review")
+    bodies = [json.dumps(req["body"], ensure_ascii=False) for req in m.requests]
+    assert bodies, "the model was called"
+    for k, v in pii.items():
+        assert all(v not in b for b in bodies), f"{k} reached the model"
+    for word in ("السعودية", "ذكر", '"age": 29', "181", "79"):  # the facts' values, never sent
+        assert all(word not in b for b in bodies), f"fact {word} reached the model"
+    judge = [b for b in bodies if "judgement" in b][0]
+    assert "[الهاتف]" in judge and "[البريد]" in judge  # the free answer went through the redaction
+    c.__exit__(None, None, None)

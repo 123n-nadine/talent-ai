@@ -75,9 +75,9 @@
    "user": "hr.manager@example.com",
    "file": null,
    "expected": "/desk/ai-recruitment, language ar",
-   "actual": "/desk/ai-recruitment, language ar, 2.97s",
+   "actual": "/desk/ai-recruitment, language ar, 3.72s",
    "ok": true,
-   "seconds": 2.97,
+   "seconds": 3.72,
    "shots": [
     "guide/images/test/R08_hr_manager_login.png",
     "guide/images/test/R08_hr_manager_home.png"
@@ -88,9 +88,9 @@
    "user": "hr.user@example.com",
    "file": null,
    "expected": "/desk/ai-recruitment, language ar",
-   "actual": "/desk/ai-recruitment, language ar, 3.59s",
+   "actual": "/desk/ai-recruitment, language ar, 2.84s",
    "ok": true,
-   "seconds": 3.59,
+   "seconds": 2.84,
    "shots": [
     "guide/images/test/R08_hr_user_home.png"
    ]
@@ -115,7 +115,7 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 81.5 (high); method ocr:paddle_cpu, OCR confidence 0.91; flags quote_not_found",
    "ok": true,
-   "seconds": 51.7,
+   "seconds": 52.8,
    "shots": [
     "guide/images/test/C01_form.png",
     "guide/images/test/C01_thanks.png",
@@ -123,21 +123,21 @@
     "guide/images/test/C01_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.68,
-    "submit_s": 0.69,
-    "until_result_s": 51.7,
-    "pipeline_s": 21.4,
+    "form_load_s": 0.63,
+    "submit_s": 0.16,
+    "until_result_s": 52.8,
+    "pipeline_s": 22.3,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2,
      "cv_text": null,
      "redaction": null,
-     "profile": 9111,
+     "profile": 9107,
      "evidence_check": 2,
      "eligibility": 0,
-     "judgement": 10277,
+     "judgement": 11457,
      "scoring": 0,
-     "index": 1904
+     "index": 1591
     }
    },
    "applicant": "t.cv.scan@example.com"
@@ -149,27 +149,27 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method pdf_text",
    "ok": true,
-   "seconds": 33.0,
+   "seconds": 71.4,
    "shots": [
     "guide/images/test/C02_assessment.png",
     "guide/images/test/C02_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.52,
+    "form_load_s": 0.6,
     "submit_s": 0.16,
-    "until_result_s": 33.0,
-    "pipeline_s": 20.2,
+    "until_result_s": 71.4,
+    "pipeline_s": 20.9,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2,
      "cv_text": null,
      "redaction": null,
-     "profile": 6797,
+     "profile": 6748,
      "evidence_check": 2,
      "eligibility": 0,
-     "judgement": 11467,
+     "judgement": 12193,
      "scoring": 0,
-     "index": 1822
+     "index": 1789
     }
    },
    "applicant": "t.cv.arpdf@example.com"
@@ -181,27 +181,27 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method pdf_text",
    "ok": true,
-   "seconds": 27.6,
+   "seconds": 373.1,
    "shots": [
     "guide/images/test/C03_assessment.png",
     "guide/images/test/C03_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.31,
-    "submit_s": 0.16,
-    "until_result_s": 27.6,
-    "pipeline_s": 17.1,
+    "form_load_s": 0.43,
+    "submit_s": 0.15,
+    "until_result_s": 373.1,
+    "pipeline_s": 19.1,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2655,
      "cv_text": null,
      "redaction": null,
-     "profile": 4435,
+     "profile": 4368,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 11057,
+     "judgement": 10433,
      "scoring": 0,
-     "index": 1469
+     "index": 1563
     }
    },
    "applicant": "t.cv.enpdf@example.com"
@@ -213,27 +213,27 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method docx",
    "ok": true,
-   "seconds": 36.9,
+   "seconds": 495.0,
    "shots": [
     "guide/images/test/C04_assessment.png",
     "guide/images/test/C04_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.37,
+    "form_load_s": 0.67,
     "submit_s": 0.16,
-    "until_result_s": 36.9,
-    "pipeline_s": 20.2,
+    "until_result_s": 495.0,
+    "pipeline_s": 19.4,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2,
      "cv_text": null,
      "redaction": null,
-     "profile": 6075,
-     "evidence_check": 1,
+     "profile": 6064,
+     "evidence_check": 3,
      "eligibility": 0,
-     "judgement": 12223,
+     "judgement": 11539,
      "scoring": 0,
-     "index": 1788
+     "index": 1695
     }
    },
    "applicant": "t.cv.docx@example.com"
@@ -245,27 +245,27 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method libreoffice+pdf_text",
    "ok": true,
-   "seconds": 33.7,
+   "seconds": 96.2,
    "shots": [
     "guide/images/test/C05_assessment.png",
     "guide/images/test/C05_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.3,
-    "submit_s": 1.33,
-    "until_result_s": 33.7,
-    "pipeline_s": 19.6,
+    "form_load_s": 0.43,
+    "submit_s": 0.89,
+    "until_result_s": 96.2,
+    "pipeline_s": 19.3,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2,
      "cv_text": null,
      "redaction": null,
-     "profile": 5945,
+     "profile": 5997,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 11514,
+     "judgement": 11543,
      "scoring": 0,
-     "index": 2045
+     "index": 1629
     }
    },
    "applicant": "t.cv.rtf@example.com"
@@ -277,27 +277,27 @@
    "expected": "CV read, redacted, quotes verified",
    "actual": "Completed; score 100 (high); method libreoffice+pdf_text",
    "ok": true,
-   "seconds": 33.5,
+   "seconds": 33.1,
    "shots": [
     "guide/images/test/C06_assessment.png",
     "guide/images/test/C06_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.41,
-    "submit_s": 0.89,
-    "until_result_s": 33.5,
-    "pipeline_s": 19.7,
+    "form_load_s": 0.29,
+    "submit_s": 0.88,
+    "until_result_s": 33.1,
+    "pipeline_s": 19.3,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2,
      "cv_text": null,
      "redaction": null,
-     "profile": 5939,
+     "profile": 6011,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 11508,
+     "judgement": 11502,
      "scoring": 0,
-     "index": 2152
+     "index": 1711
     }
    },
    "applicant": "t.cv.doc@example.com"
@@ -309,19 +309,19 @@
    "expected": "Completed from the answers; no CV",
    "actual": "Completed; score 89 (high); method -",
    "ok": true,
-   "seconds": 11.4,
+   "seconds": 10.0,
    "shots": [
     "guide/images/test/C07_form.png",
     "guide/images/test/C07_assessment.png"
    ],
    "timing": {
-    "form_load_s": 0.34,
-    "submit_s": 0.15,
-    "until_result_s": 11.4,
-    "pipeline_s": 1.1,
+    "form_load_s": 0.64,
+    "submit_s": 0.09,
+    "until_result_s": 10.0,
+    "pipeline_s": 1.0,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2,
      "cv_text": null,
      "redaction": null,
      "profile": null,
@@ -329,7 +329,7 @@
      "eligibility": 0,
      "judgement": 0,
      "scoring": 0,
-     "index": 1028
+     "index": 899
     }
    },
    "applicant": "t.cv.none@example.com"
@@ -341,18 +341,18 @@
    "expected": "the platform refuses the file, the application is saved and assessed from the answers (decision 14)",
    "actual": "Completed; score 65 (medium); method -; note: ملف السيرة «HR-APP-2026-2013.pdf» تالف أو غير آمن ولم يُحفظ (PdfStreamError). التقييم من الإجابات فقط.",
    "ok": true,
-   "seconds": 12.2,
+   "seconds": 10.9,
    "shots": [
     "guide/images/test/C08_assessment.png"
    ],
    "timing": {
-    "form_load_s": 0.29,
-    "submit_s": 0.16,
-    "until_result_s": 12.2,
-    "pipeline_s": 1.0,
+    "form_load_s": 0.43,
+    "submit_s": 0.15,
+    "until_result_s": 10.9,
+    "pipeline_s": 1.1,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2,
      "cv_text": null,
      "redaction": null,
      "profile": null,
@@ -360,7 +360,7 @@
      "eligibility": 0,
      "judgement": 0,
      "scoring": 0,
-     "index": 919
+     "index": 997
     }
    },
    "applicant": "t.cv.corrupt@example.com"
@@ -372,27 +372,27 @@
    "expected": "read with OCR; low confidence flagged if under the threshold",
    "actual": "Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence",
    "ok": true,
-   "seconds": 40.9,
+   "seconds": 42.2,
    "shots": [
     "guide/images/test/C09_assessment.png",
     "guide/images/test/C09_cv_analysis.png"
    ],
    "timing": {
-    "form_load_s": 0.72,
-    "submit_s": 0.89,
-    "until_result_s": 40.9,
-    "pipeline_s": 14.1,
+    "form_load_s": 0.3,
+    "submit_s": 0.9,
+    "until_result_s": 42.2,
+    "pipeline_s": 13.7,
     "stages": {
      "intake": 0,
-     "answers": 0,
+     "answers": 2,
      "cv_text": null,
      "redaction": null,
-     "profile": 3545,
+     "profile": 3565,
      "evidence_check": 1,
      "eligibility": 0,
-     "judgement": 8973,
+     "judgement": 8572,
      "scoring": 0,
-     "index": 1489
+     "index": 1478
     }
    },
    "applicant": "t.cv.badimg@example.com"
@@ -418,7 +418,7 @@
    "expected": "not eligible with both reasons, kept out of the ranking, score shown in grey",
    "actual": "Completed; eligibility not_eligible; failed rules: الجنسية: المصرّح به مصر — المطلوب ضمن: السعودية | الطول (سم): المصرّح به 172 سم — المطلوب 180 سم أو أكثر; ranked: False",
    "ok": true,
-   "seconds": 18.0,
+   "seconds": 20.9,
    "shots": [
     "guide/images/test/K02_not_eligible.png"
    ],
@@ -479,9 +479,9 @@
    "user": "HR Manager",
    "file": null,
    "expected": "result marked stale (grey), out of the ranking; re-score → new score, ranked again",
-   "actual": "stale 1 after 0.0s; in stale group True; score 63 → 78 after re-score (7.4s, Completed); ranked again True",
+   "actual": "stale 1 after 0.1s; in stale group True; score 63 → 78 after re-score (8.6s, Completed); ranked again True",
    "ok": true,
-   "seconds": 7.4,
+   "seconds": 8.6,
    "shots": [
     "guide/images/test/K07_stale_banner.png",
     "guide/images/test/K07_rescored.png"
@@ -494,7 +494,7 @@
    "user": "HR Manager",
    "file": null,
    "expected": "no reason → refused; with a reason → new level, new score, «تعديل HR» tag, audit row",
-   "actual": "no reason: undefined; supervision → 100; score 81.5 → 89; audit 2 row(s)",
+   "actual": "no reason: undefined; supervision → 100; score 81.5 → 89; audit 1 row(s)",
    "ok": true,
    "seconds": null,
    "shots": [
@@ -506,8 +506,7 @@
    "criterion_text": "خبرة الإشراف على أفراد الأمن",
    "level_before": 75,
    "score_before": 81.5,
-   "score_after": 89,
-   "history": "first run failed because the test closed the override dialog together with the «السبب مطلوب» message; it now drives the dialog itself"
+   "score_after": 89
   },
   "K09": {
    "title": "Shortlist, hold and reject, each with a reason; no reason → refused",
@@ -551,13 +550,13 @@
    "user": "HR Manager",
    "file": null,
    "expected": "rules first, then similarity; withdrawn consent and expired retention excluded with the reason",
-   "actual": "20 suggested, 9 excluded (consent_withdrawn, duplicate, not_eligible, retention_expired); page 4.8s",
+   "actual": "13 suggested, 9 excluded (consent_withdrawn, duplicate, not_eligible, retention_expired); page 5.3s",
    "ok": true,
-   "seconds": 4.8,
+   "seconds": 5.3,
    "shots": [
     "guide/images/test/K12_talent_pool.png"
    ],
-   "suggested": 20,
+   "suggested": 13,
    "excluded": 9,
    "reasons": [
     "consent_withdrawn",
@@ -583,9 +582,9 @@
    "user": "HR Manager",
    "file": null,
    "expected": "105% refused; impact preview; v2 approved; old results stale until re-scored; re-score all",
-   "actual": "weights before {'supervision': 30, 'security_exp': 20, 'shifts': 20, 'licence': 10, 'reports': 8, 'first_aid': 7, 'languages': 5}; 105% approval refused; v3 with 37 stale; 37 re-scored in 448.8s, 1 skipped (consent withdrawn); stale left 1; top 5 before ['applicant.2001@example.com', 'applicant.2008@example.com', 'applicant.2002@example.com', 'applicant.2003@example.com', 'applicant.2017@example.com'] after ['applicant.2001@example.com', 'applicant.2018@example.com', 'applicant.2022@example.com', 't.cv.arpdf@example.com', 't.cv.enpdf@example.com']",
+   "actual": "weights before {'supervision': 30, 'security_exp': 20, 'shifts': 15, 'licence': 15, 'reports': 8, 'first_aid': 7, 'languages': 5}; 105% approval refused; v2 with 36 stale; 36 re-scored in 172.7s, 0 skipped (consent withdrawn); stale left 0; top 5 before ['applicant.2001@example.com', 'applicant.2018@example.com', 'applicant.2022@example.com', 'paper.2027@example.com', 't.cv.arpdf@example.com'] after ['applicant.2001@example.com', 'applicant.2018@example.com', 'applicant.2022@example.com', 'paper.2027@example.com', 't.cv.arpdf@example.com']",
    "ok": true,
-   "seconds": 448.8,
+   "seconds": 172.7,
    "shots": [
     "guide/images/test/K14_weights_105.png",
     "guide/images/test/K14_impact_preview.png",
@@ -593,51 +592,49 @@
     "guide/images/test/K14_batch_rescoring.png",
     "guide/images/test/K14_ranking_v2.png"
    ],
-   "rescored": 37,
+   "rescored": 36,
    "top_before": [
     "applicant.2001@example.com",
-    "applicant.2008@example.com",
-    "applicant.2002@example.com",
-    "applicant.2003@example.com",
-    "applicant.2017@example.com"
+    "applicant.2018@example.com",
+    "applicant.2022@example.com",
+    "paper.2027@example.com",
+    "t.cv.arpdf@example.com"
    ],
    "top_after": [
     "applicant.2001@example.com",
     "applicant.2018@example.com",
     "applicant.2022@example.com",
-    "t.cv.arpdf@example.com",
-    "t.cv.enpdf@example.com"
+    "paper.2027@example.com",
+    "t.cv.arpdf@example.com"
    ],
-   "version": 3,
-   "history": "first run: 19 of 36 results stayed «قديم» — bug F2; after the fix: all re-scored but the one applicant without consent"
+   "version": 2
   },
   "K15": {
    "title": "Engine stopped: apply, then retry",
    "user": "Guest → HR Manager",
    "file": null,
    "expected": "the application is saved at once; «فشل» after the retries; «إعادة المحاولة» works when the engine is back",
-   "actual": "saved in 0.13s while the engine was down; Failed after 25.2s; after retry Completed in 8.7s",
+   "actual": "saved in 0.1s while the engine was down; Failed after 25.3s; after retry Completed in 9.0s",
    "ok": true,
-   "seconds": 8.7,
+   "seconds": 9.0,
    "shots": [
     "guide/images/test/K15_saved_engine_down.png",
     "guide/images/test/K15_failed.png",
     "guide/images/test/K15_after_retry.png"
    ],
-   "saved_s": 0.13,
-   "failed_after_s": 25.2,
-   "retry_s": 8.7,
-   "final": "Completed",
-   "history": "first two runs failed in the test only (a screenshot selector, then an e-mail reused from the first run); the product behaved the same in all three runs"
+   "saved_s": 0.1,
+   "failed_after_s": 25.3,
+   "retry_s": 9.0,
+   "final": "Completed"
   },
   "N01": {
    "title": "Talent Console: login and the main screens",
    "user": "Nadine (console)",
    "file": null,
    "expected": "every screen opens",
-   "actual": "login 1.43s; screens home 2.17s, profile 1.12s, list 1.09s, ranking 1.09s, jobs 1.6s, audit 2.54s, settings 1.83s",
+   "actual": "login 1.59s; screens home 2.11s, profile 1.12s, list 1.33s, ranking 1.1s, jobs 1.83s, audit 1.17s, settings 3.93s",
    "ok": true,
-   "seconds": 1.43,
+   "seconds": 1.59,
    "shots": [
     "guide/images/test/N01_console_home.png",
     "guide/images/test/N01_console_profile.png",
@@ -653,7 +650,7 @@
    "user": "Nadine (console)",
    "file": null,
    "expected": "eligibility «يحتاج مراجعة» with «?» on the height rule, not «غير مستوفٍ»",
-   "actual": "CON-APP-MVARLAJI: eligibility needs_review; height check الطول (سم): غير مصرّح به (المطلوب 180 سم أو أكثر) — يحتاج مراجعة ok=None",
+   "actual": "CON-APP-MVFEXF52: eligibility needs_review; height check الطول (سم): غير مصرّح به (المطلوب 180 سم أو أكثر) — يحتاج مراجعة ok=None",
    "ok": true,
    "seconds": null,
    "shots": [
@@ -679,7 +676,7 @@
    "user": "HR Manager, Guest",
    "file": null,
    "expected": "every main page ready in under 5 s (warm)",
-   "actual": "desk: home: 0.45s; desk: applicant list: 0.96s; desk: applicant with assessment: 0.71s; desk: ranking: 0.46s; desk: talent pool: 2.33s; desk: AI job profile: 0.45s; public: jobs: 0.88s; public: job page: 0.5s; public: application form: 0.28s; public: application form (phone 390 px): 0.72s",
+   "actual": "desk: home: 0.415s; desk: applicant list: 1.115s; desk: applicant with assessment: 1.065s; desk: ranking: 1.025s; desk: talent pool: 2.56s; desk: AI job profile: 0.745s; public: jobs: 0.29000000000000004s; public: job page: 0.255s; public: application form: 0.42500000000000004s; public: application form (phone 390 px): 0.82s",
    "ok": true,
    "seconds": null,
    "shots": []
@@ -689,9 +686,9 @@
    "user": "HR Manager",
    "file": null,
    "expected": "saved, «بانتظار الموافقة», nothing sent to the AI; empty source refused; consent recorded with its source, who and when; screening starts by itself",
-   "actual": "status before Awaiting Consent, engine ref none, AI jobs 0, ranking group awaiting_consent: True; empty source refused: True; recorded by hr.manager@example.com at 2026-10-16 15:55:00.509486 (source «ورقة موقّعة»); result Completed 11.1s after the consent; audit rows 1",
+   "actual": "status before Awaiting Consent, engine ref none, AI jobs 0, ranking group awaiting_consent: True; empty source refused: True; recorded by hr.manager@example.com at 2026-10-19 18:30:12.039296 (source «ورقة موقّعة»); result Completed 10.7s after the consent; audit rows 1",
    "ok": true,
-   "seconds": 11.1,
+   "seconds": 10.7,
    "shots": [
     "guide/images/test/K16_awaiting.png",
     "guide/images/test/K16_source_required.png",
@@ -705,9 +702,9 @@
    "user": "HR Manager",
    "file": null,
    "expected": "out of the ranking at once into «مستبعد: سحب الموافقة» with no score; engine documents, CV file, profile, index and results erased; Frappe assessment gone; application kept",
-   "actual": "before: Completed, ranked True, CV file present; after 4.0s: status Consent Withdrawn, score 0, assessments 0, answers kept 11; engine: consent False, facts {}, documents 0, screenings 0, CV file removed, audit findings scrubbed True; ranking group: True, score None; talent pool: consent_withdrawn",
+   "actual": "before: Completed, ranked True, CV file present; after 3.8s: status Consent Withdrawn, score 0, assessments 0, answers kept 11; engine: consent False, facts {}, documents 0, screenings 0, CV file removed, audit findings scrubbed True; ranking group: True, score None; talent pool: consent_withdrawn",
    "ok": true,
-   "seconds": 4.0,
+   "seconds": 3.8,
    "shots": [
     "guide/images/test/K17_reason.png",
     "guide/images/test/K17_after.png",
@@ -2227,103 +2224,103 @@
  },
  "timings": {
   "console": {
-   "home": 2.17,
+   "home": 2.11,
    "profile": 1.12,
-   "list": 1.09,
-   "ranking": 1.09,
-   "jobs": 1.6,
-   "audit": 2.54,
-   "settings": 1.83
+   "list": 1.33,
+   "ranking": 1.1,
+   "jobs": 1.83,
+   "audit": 1.17,
+   "settings": 3.93
   },
   "pages": {
    "desk: home": {
-    "cold": 0.58,
-    "warm_median": 0.45,
+    "cold": 0.74,
+    "warm_median": 0.415,
     "runs": [
-     0.58,
-     0.43,
-     0.48
+     0.74,
+     0.42,
+     0.41
     ]
    },
    "desk: applicant list": {
-    "cold": 2.51,
-    "warm_median": 0.96,
+    "cold": 0.8,
+    "warm_median": 1.115,
     "runs": [
-     2.51,
-     0.62,
-     1.29
+     0.8,
+     1.38,
+     0.85
     ]
    },
    "desk: applicant with assessment": {
-    "cold": 1.36,
-    "warm_median": 0.71,
+    "cold": 2.04,
+    "warm_median": 1.065,
     "runs": [
-     1.36,
-     0.66,
-     0.75
-    ]
-   },
-   "desk: ranking": {
-    "cold": 0.71,
-    "warm_median": 0.46,
-    "runs": [
-     0.71,
-     0.43,
-     0.5
-    ]
-   },
-   "desk: talent pool": {
-    "cold": 2.81,
-    "warm_median": 2.33,
-    "runs": [
-     2.81,
-     2.38,
-     2.29
-    ]
-   },
-   "desk: AI job profile": {
-    "cold": 0.52,
-    "warm_median": 0.45,
-    "runs": [
-     0.52,
-     0.46,
-     0.44
-    ]
-   },
-   "public: jobs": {
-    "cold": 1.19,
-    "warm_median": 0.88,
-    "runs": [
-     1.19,
-     1.16,
+     2.04,
+     1.53,
      0.6
     ]
    },
-   "public: job page": {
-    "cold": 0.3,
-    "warm_median": 0.5,
+   "desk: ranking": {
+    "cold": 0.91,
+    "warm_median": 1.025,
     "runs": [
+     0.91,
+     0.99,
+     1.06
+    ]
+   },
+   "desk: talent pool": {
+    "cold": 2.55,
+    "warm_median": 2.56,
+    "runs": [
+     2.55,
+     2.54,
+     2.58
+    ]
+   },
+   "desk: AI job profile": {
+    "cold": 0.89,
+    "warm_median": 0.745,
+    "runs": [
+     0.89,
+     1.06,
+     0.43
+    ]
+   },
+   "public: jobs": {
+    "cold": 0.61,
+    "warm_median": 0.29000000000000004,
+    "runs": [
+     0.61,
      0.3,
-     0.55,
-     0.45
+     0.28
+    ]
+   },
+   "public: job page": {
+    "cold": 0.28,
+    "warm_median": 0.255,
+    "runs": [
+     0.28,
+     0.25,
+     0.26
     ]
    },
    "public: application form": {
-    "cold": 0.78,
-    "warm_median": 0.28,
+    "cold": 0.35,
+    "warm_median": 0.42500000000000004,
     "runs": [
-     0.78,
-     0.31,
-     0.25
+     0.35,
+     0.33,
+     0.52
     ]
    },
    "public: application form (phone 390 px)": {
-    "cold": 0.72
+    "cold": 0.82
    }
   }
  },
  "run_started": "2026-10-16 08:22:42",
- "updated_at": "2026-10-16 14:38:50",
+ "updated_at": "2026-10-19 15:33:20",
  "engine_suite": "129 passed, 1 skipped (the PaddleOCR test runs only with RUN_OCR_TESTS=1)",
  "frappe_suite": "22 passed",
  "not_done": [

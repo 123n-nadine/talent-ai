@@ -1,11 +1,11 @@
 # Talent AI — full test report (rounds 2 and 3)
 
-Run on the local bench, last update 2026-10-16 17:38:50 (Asia/Riyadh). Synthetic data only.
+Run on the local bench, last update 2026-10-19 18:33:20 (Asia/Riyadh). Synthetic data only.
 
 | | |
 |---|---|
-| Workspace commit | `2c3939f` (`p14-review`) |
-| Frappe app commit | `66b40ec` |
+| Workspace commit | `886bf5b` (`p23-final-qa`) |
+| Frappe app commit | `cee20f7` |
 | Platform | Frappe v16.31.0, ERPNext v16.32.0, HRMS develop 640af1592a01 (`dev-frappe/VERSIONS.md`) |
 | Engine | FastAPI + 4 RQ workers, Qwen3-8B-AWQ (vLLM, GPU cap 0.40), prompt `judge-v1`, PaddleOCR on CPU, Qwen3-Embedding-0.6B on CPU |
 | Browser | Chrome 153 headless driven by Playwright 1.64 for Python (`tools/ui/full_test.py`). The Playwright MCP server was not available in this session, so the same Playwright engine was driven from Python. |
@@ -406,8 +406,8 @@ Each call was made from the user's own browser session. 200 = allowed; 403 = ref
 |---|---|
 | User | hr.manager@example.com |
 | Expected | /desk/ai-recruitment, language ar |
-| Actual | /desk/ai-recruitment, language ar, 2.97s |
-| Time | 2.97 s |
+| Actual | /desk/ai-recruitment, language ar, 3.72s |
+| Time | 3.72 s |
 
 <img src="guide/images/test/R08_hr_manager_login.png" width="520" alt="">
 
@@ -419,8 +419,8 @@ All screenshots: [R08_hr_manager_login.png](guide/images/test/R08_hr_manager_log
 |---|---|
 | User | hr.user@example.com |
 | Expected | /desk/ai-recruitment, language ar |
-| Actual | /desk/ai-recruitment, language ar, 3.59s |
-| Time | 3.59 s |
+| Actual | /desk/ai-recruitment, language ar, 2.84s |
+| Time | 2.84 s |
 
 <img src="guide/images/test/R08_hr_user_home.png" width="520" alt="">
 
@@ -446,8 +446,8 @@ All screenshots: [R09_portal_other_application.png](guide/images/test/R09_portal
 | File | `HR-APP-2026-2002.jpg` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 81.5 (high); method ocr:paddle_cpu, OCR confidence 0.91; flags quote_not_found |
-| Time | 51.7 s |
-| Timing | form 0.68 s · submit 0.69 s · result 51.7 s after submit · engine pipeline 21.4 s |
+| Time | 52.8 s |
+| Timing | form 0.63 s · submit 0.16 s · result 52.8 s after submit · engine pipeline 22.3 s |
 
 <img src="guide/images/test/C01_cv_analysis.png" width="520" alt="">
 
@@ -461,8 +461,8 @@ All screenshots: [C01_form.png](guide/images/test/C01_form.png) · [C01_thanks.p
 | File | `HR-APP-2026-2001.pdf` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method pdf_text |
-| Time | 33.0 s |
-| Timing | form 0.52 s · submit 0.16 s · result 33.0 s after submit · engine pipeline 20.2 s |
+| Time | 71.4 s |
+| Timing | form 0.6 s · submit 0.16 s · result 71.4 s after submit · engine pipeline 20.9 s |
 
 <img src="guide/images/test/C02_cv_analysis.png" width="520" alt="">
 
@@ -476,8 +476,8 @@ All screenshots: [C02_assessment.png](guide/images/test/C02_assessment.png) · [
 | File | `HR-APP-2026-2022.pdf` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method pdf_text |
-| Time | 27.6 s |
-| Timing | form 0.31 s · submit 0.16 s · result 27.6 s after submit · engine pipeline 17.1 s |
+| Time | 373.1 s |
+| Timing | form 0.43 s · submit 0.15 s · result 373.1 s after submit · engine pipeline 19.1 s |
 
 <img src="guide/images/test/C03_cv_analysis.png" width="520" alt="">
 
@@ -491,8 +491,8 @@ All screenshots: [C03_assessment.png](guide/images/test/C03_assessment.png) · [
 | File | `HR-APP-2026-2018.docx` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method docx |
-| Time | 36.9 s |
-| Timing | form 0.37 s · submit 0.16 s · result 36.9 s after submit · engine pipeline 20.2 s |
+| Time | 495.0 s |
+| Timing | form 0.67 s · submit 0.16 s · result 495.0 s after submit · engine pipeline 19.4 s |
 
 <img src="guide/images/test/C04_cv_analysis.png" width="520" alt="">
 
@@ -506,8 +506,8 @@ All screenshots: [C04_assessment.png](guide/images/test/C04_assessment.png) · [
 | File | `HR-APP-2026-2018.rtf` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method libreoffice+pdf_text |
-| Time | 33.7 s |
-| Timing | form 0.3 s · submit 1.33 s · result 33.7 s after submit · engine pipeline 19.6 s |
+| Time | 96.2 s |
+| Timing | form 0.43 s · submit 0.89 s · result 96.2 s after submit · engine pipeline 19.3 s |
 
 <img src="guide/images/test/C05_cv_analysis.png" width="520" alt="">
 
@@ -521,8 +521,8 @@ All screenshots: [C05_assessment.png](guide/images/test/C05_assessment.png) · [
 | File | `HR-APP-2026-2018.doc` |
 | Expected | CV read, redacted, quotes verified |
 | Actual | Completed; score 100 (high); method libreoffice+pdf_text |
-| Time | 33.5 s |
-| Timing | form 0.41 s · submit 0.89 s · result 33.5 s after submit · engine pipeline 19.7 s |
+| Time | 33.1 s |
+| Timing | form 0.29 s · submit 0.88 s · result 33.1 s after submit · engine pipeline 19.3 s |
 
 <img src="guide/images/test/C06_cv_analysis.png" width="520" alt="">
 
@@ -535,8 +535,8 @@ All screenshots: [C06_assessment.png](guide/images/test/C06_assessment.png) · [
 | User | Guest → HR Manager |
 | Expected | Completed from the answers; no CV |
 | Actual | Completed; score 89 (high); method - |
-| Time | 11.4 s |
-| Timing | form 0.34 s · submit 0.15 s · result 11.4 s after submit · engine pipeline 1.1 s |
+| Time | 10.0 s |
+| Timing | form 0.64 s · submit 0.09 s · result 10.0 s after submit · engine pipeline 1.0 s |
 
 <img src="guide/images/test/C07_assessment.png" width="520" alt="">
 
@@ -550,8 +550,8 @@ All screenshots: [C07_form.png](guide/images/test/C07_form.png) · [C07_assessme
 | File | `HR-APP-2026-2013.pdf` |
 | Expected | the platform refuses the file, the application is saved and assessed from the answers (decision 14) |
 | Actual | Completed; score 65 (medium); method -; note: ملف السيرة «HR-APP-2026-2013.pdf» تالف أو غير آمن ولم يُحفظ (PdfStreamError). التقييم من الإجابات فقط. |
-| Time | 12.2 s |
-| Timing | form 0.29 s · submit 0.16 s · result 12.2 s after submit · engine pipeline 1.0 s |
+| Time | 10.9 s |
+| Timing | form 0.43 s · submit 0.15 s · result 10.9 s after submit · engine pipeline 1.1 s |
 
 <img src="guide/images/test/C08_assessment.png" width="520" alt="">
 
@@ -563,8 +563,8 @@ All screenshots: [C07_form.png](guide/images/test/C07_form.png) · [C07_assessme
 | File | `HR-APP-2026-2025-bad.jpg` |
 | Expected | read with OCR; low confidence flagged if under the threshold |
 | Actual | Needs Review; score 93 (high); method ocr:paddle_cpu, OCR confidence 0.79; flags low_ocr_confidence |
-| Time | 40.9 s |
-| Timing | form 0.72 s · submit 0.89 s · result 40.9 s after submit · engine pipeline 14.1 s |
+| Time | 42.2 s |
+| Timing | form 0.3 s · submit 0.9 s · result 42.2 s after submit · engine pipeline 13.7 s |
 
 <img src="guide/images/test/C09_cv_analysis.png" width="520" alt="">
 
@@ -591,7 +591,7 @@ All screenshots: [K01_strong_2001.png](guide/images/test/K01_strong_2001.png) ·
 | User | Guest → HR Manager |
 | Expected | not eligible with both reasons, kept out of the ranking, score shown in grey |
 | Actual | Completed; eligibility not_eligible; failed rules: الجنسية: المصرّح به مصر — المطلوب ضمن: السعودية \| الطول (سم): المصرّح به 172 سم — المطلوب 180 سم أو أكثر; ranked: False |
-| Time | 18.0 s |
+| Time | 20.9 s |
 
 <img src="guide/images/test/K02_not_eligible.png" width="520" alt="">
 
@@ -611,7 +611,7 @@ All screenshots: [K01_strong_2001.png](guide/images/test/K01_strong_2001.png) ·
 |---|---|
 | User | Nadine (console) |
 | Expected | eligibility «يحتاج مراجعة» with «?» on the height rule, not «غير مستوفٍ» |
-| Actual | CON-APP-MVARLAJI: eligibility needs_review; height check الطول (سم): غير مصرّح به (المطلوب 180 سم أو أكثر) — يحتاج مراجعة ok=None |
+| Actual | CON-APP-MVFEXF52: eligibility needs_review; height check الطول (سم): غير مصرّح به (المطلوب 180 سم أو أكثر) — يحتاج مراجعة ok=None |
 
 <img src="guide/images/test/K03b_console_form.png" width="520" alt="">
 
@@ -657,8 +657,8 @@ All screenshots: [K05_contradiction_head.png](guide/images/test/K05_contradictio
 |---|---|
 | User | HR Manager |
 | Expected | result marked stale (grey), out of the ranking; re-score → new score, ranked again |
-| Actual | stale 1 after 0.0s; in stale group True; score 63 → 78 after re-score (7.4s, Completed); ranked again True |
-| Time | 7.4 s |
+| Actual | stale 1 after 0.1s; in stale group True; score 63 → 78 after re-score (8.6s, Completed); ranked again True |
+| Time | 8.6 s |
 
 <img src="guide/images/test/K07_stale_banner.png" width="520" alt="">
 
@@ -670,8 +670,7 @@ All screenshots: [K07_stale_banner.png](guide/images/test/K07_stale_banner.png) 
 |---|---|
 | User | HR Manager |
 | Expected | no reason → refused; with a reason → new level, new score, «تعديل HR» tag, audit row |
-| Actual | no reason: undefined; supervision → 100; score 81.5 → 89; audit 2 row(s) |
-| History | first run failed because the test closed the override dialog together with the «السبب مطلوب» message; it now drives the dialog itself |
+| Actual | no reason: undefined; supervision → 100; score 81.5 → 89; audit 1 row(s) |
 
 <img src="guide/images/test/K08_override_no_reason.png" width="520" alt="">
 
@@ -716,8 +715,8 @@ All screenshots: [K11_ranking_selected.png](guide/images/test/K11_ranking_select
 |---|---|
 | User | HR Manager |
 | Expected | rules first, then similarity; withdrawn consent and expired retention excluded with the reason |
-| Actual | 20 suggested, 9 excluded (consent_withdrawn, duplicate, not_eligible, retention_expired); page 4.8s |
-| Time | 4.8 s |
+| Actual | 13 suggested, 9 excluded (consent_withdrawn, duplicate, not_eligible, retention_expired); page 5.3s |
+| Time | 5.3 s |
 
 <img src="guide/images/test/K12_talent_pool.png" width="520" alt="">
 
@@ -737,9 +736,8 @@ All screenshots: [K11_ranking_selected.png](guide/images/test/K11_ranking_select
 |---|---|
 | User | HR Manager |
 | Expected | 105% refused; impact preview; v2 approved; old results stale until re-scored; re-score all |
-| Actual | weights before {'supervision': 30, 'security_exp': 20, 'shifts': 20, 'licence': 10, 'reports': 8, 'first_aid': 7, 'languages': 5}; 105% approval refused; v3 with 37 stale; 37 re-scored in 448.8s, 1 skipped (consent withdrawn); stale left 1; top 5 before ['applicant.2001@example.com', 'applicant.2008@example.com', 'applicant.2002@example.com', 'applicant.2003@example.com', 'applicant.2017@example.com'] after ['applicant.2001@example.com', 'applicant.2018@example.com', 'applicant.2022@example.com', 't.cv.arpdf@example.com', 't.cv.enpdf@example.com'] |
-| History | first run: 19 of 36 results stayed «قديم» — bug F2; after the fix: all re-scored but the one applicant without consent |
-| Time | 448.8 s |
+| Actual | weights before {'supervision': 30, 'security_exp': 20, 'shifts': 15, 'licence': 15, 'reports': 8, 'first_aid': 7, 'languages': 5}; 105% approval refused; v2 with 36 stale; 36 re-scored in 172.7s, 0 skipped (consent withdrawn); stale left 0; top 5 before ['applicant.2001@example.com', 'applicant.2018@example.com', 'applicant.2022@example.com', 'paper.2027@example.com', 't.cv.arpdf@example.com'] after ['applicant.2001@example.com', 'applicant.2018@example.com', 'applicant.2022@example.com', 'paper.2027@example.com', 't.cv.arpdf@example.com'] |
+| Time | 172.7 s |
 
 <img src="guide/images/test/K14_weights_105.png" width="520" alt="">
 
@@ -751,9 +749,8 @@ All screenshots: [K14_weights_105.png](guide/images/test/K14_weights_105.png) ·
 |---|---|
 | User | Guest → HR Manager |
 | Expected | the application is saved at once; «فشل» after the retries; «إعادة المحاولة» works when the engine is back |
-| Actual | saved in 0.13s while the engine was down; Failed after 25.2s; after retry Completed in 8.7s |
-| History | first two runs failed in the test only (a screenshot selector, then an e-mail reused from the first run); the product behaved the same in all three runs |
-| Time | 8.7 s |
+| Actual | saved in 0.1s while the engine was down; Failed after 25.3s; after retry Completed in 9.0s |
+| Time | 9.0 s |
 
 <img src="guide/images/test/K15_saved_engine_down.png" width="520" alt="">
 
@@ -765,8 +762,8 @@ All screenshots: [K15_saved_engine_down.png](guide/images/test/K15_saved_engine_
 |---|---|
 | User | HR Manager |
 | Expected | saved, «بانتظار الموافقة», nothing sent to the AI; empty source refused; consent recorded with its source, who and when; screening starts by itself |
-| Actual | status before Awaiting Consent, engine ref none, AI jobs 0, ranking group awaiting_consent: True; empty source refused: True; recorded by hr.manager@example.com at 2026-10-16 15:55:00.509486 (source «ورقة موقّعة»); result Completed 11.1s after the consent; audit rows 1 |
-| Time | 11.1 s |
+| Actual | status before Awaiting Consent, engine ref none, AI jobs 0, ranking group awaiting_consent: True; empty source refused: True; recorded by hr.manager@example.com at 2026-10-19 18:30:12.039296 (source «ورقة موقّعة»); result Completed 10.7s after the consent; audit rows 1 |
+| Time | 10.7 s |
 
 <img src="guide/images/test/K16_awaiting.png" width="520" alt="">
 
@@ -778,8 +775,8 @@ All screenshots: [K16_awaiting.png](guide/images/test/K16_awaiting.png) · [K16_
 |---|---|
 | User | HR Manager |
 | Expected | out of the ranking at once into «مستبعد: سحب الموافقة» with no score; engine documents, CV file, profile, index and results erased; Frappe assessment gone; application kept |
-| Actual | before: Completed, ranked True, CV file present; after 4.0s: status Consent Withdrawn, score 0, assessments 0, answers kept 11; engine: consent False, facts {}, documents 0, screenings 0, CV file removed, audit findings scrubbed True; ranking group: True, score None; talent pool: consent_withdrawn |
-| Time | 4.0 s |
+| Actual | before: Completed, ranked True, CV file present; after 3.8s: status Consent Withdrawn, score 0, assessments 0, answers kept 11; engine: consent False, facts {}, documents 0, screenings 0, CV file removed, audit findings scrubbed True; ranking group: True, score None; talent pool: consent_withdrawn |
+| Time | 3.8 s |
 
 <img src="guide/images/test/K17_reason.png" width="520" alt="">
 
@@ -793,8 +790,8 @@ All screenshots: [K17_reason.png](guide/images/test/K17_reason.png) · [K17_afte
 |---|---|
 | User | Nadine (console) |
 | Expected | every screen opens |
-| Actual | login 1.43s; screens home 2.17s, profile 1.12s, list 1.09s, ranking 1.09s, jobs 1.6s, audit 2.54s, settings 1.83s |
-| Time | 1.43 s |
+| Actual | login 1.59s; screens home 2.11s, profile 1.12s, list 1.33s, ranking 1.1s, jobs 1.83s, audit 1.17s, settings 3.93s |
+| Time | 1.59 s |
 
 <img src="guide/images/test/N01_console_home.png" width="520" alt="">
 
@@ -820,34 +817,34 @@ All screenshots: [N01_console_home.png](guide/images/test/N01_console_home.png) 
 |---|---|
 | User | HR Manager, Guest |
 | Expected | every main page ready in under 5 s (warm) |
-| Actual | desk: home: 0.45s; desk: applicant list: 0.96s; desk: applicant with assessment: 0.71s; desk: ranking: 0.46s; desk: talent pool: 2.33s; desk: AI job profile: 0.45s; public: jobs: 0.88s; public: job page: 0.5s; public: application form: 0.28s; public: application form (phone 390 px): 0.72s |
+| Actual | desk: home: 0.415s; desk: applicant list: 1.115s; desk: applicant with assessment: 1.065s; desk: ranking: 1.025s; desk: talent pool: 2.56s; desk: AI job profile: 0.745s; public: jobs: 0.29000000000000004s; public: job page: 0.255s; public: application form: 0.42500000000000004s; public: application form (phone 390 px): 0.82s |
 
 | Page | First load (s) | Warm, median of 2 (s) |
 |---|---|---|
-| desk: home | 0.58 | 0.45 |
-| desk: applicant list | 2.51 | 0.96 |
-| desk: applicant with assessment | 1.36 | 0.71 |
-| desk: ranking | 0.71 | 0.46 |
-| desk: talent pool | 2.81 | 2.33 |
-| desk: AI job profile | 0.52 | 0.45 |
-| public: jobs | 1.19 | 0.88 |
-| public: job page | 0.3 | 0.5 |
-| public: application form | 0.78 | 0.28 |
-| public: application form (phone 390 px) | 0.72 | — |
+| desk: home | 0.74 | 0.415 |
+| desk: applicant list | 0.8 | 1.115 |
+| desk: applicant with assessment | 2.04 | 1.065 |
+| desk: ranking | 0.91 | 1.025 |
+| desk: talent pool | 2.55 | 2.56 |
+| desk: AI job profile | 0.89 | 0.745 |
+| public: jobs | 0.61 | 0.29000000000000004 |
+| public: job page | 0.28 | 0.255 |
+| public: application form | 0.35 | 0.42500000000000004 |
+| public: application form (phone 390 px) | 0.82 | — |
 
 ### Processing time by CV type
 
 | Test | File | Submit (s) | Result after submit (s) | Engine pipeline (s) |
 |---|---|---|---|---|
-| C01 Arabic scanned image (JPG, OCR) | `HR-APP-2026-2002.jpg` | 0.69 | 51.7 | 21.4 |
-| C02 Arabic text PDF | `HR-APP-2026-2001.pdf` | 0.16 | 33.0 | 20.2 |
-| C03 English PDF | `HR-APP-2026-2022.pdf` | 0.16 | 27.6 | 17.1 |
-| C04 Word (DOCX) | `HR-APP-2026-2018.docx` | 0.16 | 36.9 | 20.2 |
-| C05 RTF (converted from the Word CV) | `HR-APP-2026-2018.rtf` | 1.33 | 33.7 | 19.6 |
-| C06 DOC, Word 97 (converted from the Word CV) | `HR-APP-2026-2018.doc` | 0.89 | 33.5 | 19.7 |
-| C07 No CV | `—` | 0.15 | 11.4 | 1.1 |
-| C08 Corrupt PDF | `HR-APP-2026-2013.pdf` | 0.16 | 12.2 | 1.0 |
-| C09 Bad-quality image (blurred, noisy, JPEG quality 18) | `HR-APP-2026-2025-bad.jpg` | 0.89 | 40.9 | 14.1 |
+| C01 Arabic scanned image (JPG, OCR) | `HR-APP-2026-2002.jpg` | 0.16 | 52.8 | 22.3 |
+| C02 Arabic text PDF | `HR-APP-2026-2001.pdf` | 0.16 | 71.4 | 20.9 |
+| C03 English PDF | `HR-APP-2026-2022.pdf` | 0.15 | 373.1 | 19.1 |
+| C04 Word (DOCX) | `HR-APP-2026-2018.docx` | 0.16 | 495.0 | 19.4 |
+| C05 RTF (converted from the Word CV) | `HR-APP-2026-2018.rtf` | 0.89 | 96.2 | 19.3 |
+| C06 DOC, Word 97 (converted from the Word CV) | `HR-APP-2026-2018.doc` | 0.88 | 33.1 | 19.3 |
+| C07 No CV | `—` | 0.09 | 10.0 | 1.0 |
+| C08 Corrupt PDF | `HR-APP-2026-2013.pdf` | 0.15 | 10.9 | 1.1 |
+| C09 Bad-quality image (blurred, noisy, JPEG quality 18) | `HR-APP-2026-2025-bad.jpg` | 0.9 | 42.2 | 13.7 |
 
 ## 8. Design pass (before → after)
 
@@ -934,6 +931,8 @@ Engine: `make test` in `talent-engine/` — 129 passed, 1 skipped (the PaddleOCR
 | engine | `talent-engine/tests/test_api.py` | `test_applied_at_orders_duplicates_and_starts_retention` |  |
 | engine | `talent-engine/tests/test_api.py` | `test_copy_screened_before_its_original_is_marked_duplicate_afterwards` |  |
 | engine | `talent-engine/tests/test_api.py` | `test_talent_pool_rules_first_then_similarity_with_exclusions` | Feature 13 on the demo candidates (fake embeddings): a new opening of the same kind. |
+| engine | `talent-engine/tests/test_api.py` | `test_api_docs_follow_the_setting` | Final QA: /docs and /openapi.json are on in dev, off in production unless enabled. |
+| engine | `talent-engine/tests/test_api.py` | `test_screening_is_not_left_queued_when_the_queue_is_down` | Final QA (Q7b): Redis restarting during the request left a «queued» screening that no worker |
 | engine | `talent-engine/tests/test_config.py` | `test_every_env_key_is_used` |  |
 | engine | `talent-engine/tests/test_config.py` | `test_settings_load_with_defaults_only` |  |
 | engine | `talent-engine/tests/test_consent.py` | `test_withdrawn_consent_erases_the_ai_data_and_leaves_the_ranking` |  |
@@ -985,6 +984,13 @@ Engine: `make test` in `talent-engine/` — 129 passed, 1 skipped (the PaddleOCR
 | engine | `talent-engine/tests/test_llm.py` | `test_form_value_tolerance_and_question_from_job` |  |
 | engine | `talent-engine/tests/test_llm.py` | `test_llm_draft_is_normalised_into_an_approvable_job` |  |
 | engine | `talent-engine/tests/test_llm.py` | `test_cv_duration_is_levelled_in_code_not_by_the_model` | Demo 2012: the model gave «لمدة سنتين» level 100; code reads 2 years -> 50 -> contradiction. |
+| engine | `talent-engine/tests/test_llm.py` | `test_cut_off_profile_is_retried_shorter_not_repaired` | Round 7: GOLD-SEC-015's profile answer hit the output budget three times (unclosed JSON). |
+| engine | `talent-engine/tests/test_llm.py` | `test_output_budget_follows_the_context` |  |
+| engine | `talent-engine/tests/test_llm.py` | `test_long_cv_is_cut_at_a_line_for_the_retry` |  |
+| engine | `talent-engine/tests/test_llm.py` | `test_partial_cv_read_is_flagged_for_hr` | Round 8: when the profile answer overran the budget and the retry read a trimmed CV, the |
+| engine | `talent-engine/tests/test_llm.py` | `test_repeated_profile_items_are_kept_once` | Round 8: an 8B model may write one language or certification item many times; the code |
+| engine | `talent-engine/tests/test_llm.py` | `test_final_failure_is_delivered_to_the_host` | Round 12: when the screening fails inside the engine after its last attempt, the host gets |
+| engine | `talent-engine/tests/test_llm.py` | `test_no_personal_data_in_any_model_payload` | Final QA: every request body the engine sends to the model is inspected. The applicant's |
 | engine | `talent-engine/tests/test_ocr_paddle.py` | `test_paddle_cpu_reads_arabic_scan` |  |
 | engine | `talent-engine/tests/test_pdftext.py` | `test_inverse_of_the_bidi_display_on_every_synthetic_line` | python-bidi turns logical text into what is printed; our reconstruction must give the |
 | engine | `talent-engine/tests/test_pdftext.py` | `test_mirrored_brackets_and_mixed_lines` |  |
@@ -1008,6 +1014,7 @@ Engine: `make test` in `talent-engine/` — 129 passed, 1 skipped (the PaddleOCR
 | engine | `talent-engine/tests/test_redaction.py` | `test_no_email_phone_or_id_of_any_synthetic_cv_reaches_the_model` | Every line of the 20 synthetic CVs and the gold set, as written and as a PDF writer |
 | engine | `talent-engine/tests/test_redaction.py` | `test_leak_check_catches_what_a_model_must_never_see` |  |
 | engine | `talent-engine/tests/test_redaction.py` | `test_reprocess_recovers_the_name_hint_from_the_earlier_redaction` | The engine keeps no name: when a stored CV is re-extracted, the name the host gave at |
+| engine | `talent-engine/tests/test_redaction.py` | `test_free_text_answer_redaction_keeps_the_evidence` | Final QA: the redaction now runs over free-text answers before the judge. Numbers that are |
 | engine | `talent-engine/tests/test_rules.py` | `test_eligible` |  |
 | engine | `talent-engine/tests/test_rules.py` | `test_not_eligible_as_declared_height` |  |
 | engine | `talent-engine/tests/test_rules.py` | `test_not_eligible_nationality_beats_missing` |  |
@@ -1054,6 +1061,13 @@ Engine: `make test` in `talent-engine/` — 129 passed, 1 skipped (the PaddleOCR
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_text_cv_is_sent_as_bytes_and_cv_problems_never_fail` | RTF is a text format, so Frappe's File.get_content() returns str for it (the full browser test |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_every_hr_method_refuses_other_users_first` | Every whitelisted method except the public form, the job requirements, the signed engine |
 | Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_hr_users_land_on_the_home_page_in_arabic` |  |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_partial_cv_read_flag_is_shown_on_the_assessment_card` | Round 8: the engine raises «cv_partial_read» when the model's first answer overran and the |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_engine_down_message_is_plain_arabic` | Round 10: with the engine unreachable the settings screen gets a plain sentence for HR, |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_engine_settings_are_refused_to_hr_user` | Final QA (Q5): the settings screen refuses an HR User, and so do the two API reads behind it |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_empty_cv_file_is_refused_with_a_clear_message` | Final QA (Q6): a 0-byte CV was saved as «no CV» without a word; now the form refuses it like a |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_engine_5xx_is_the_plain_sentence_for_hr` | Final QA (Q9): an engine 5xx (e.g. 503 «queue unavailable» while its Redis restarts) reached |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_engine_failure_result_marks_the_application_failed` | Round 12: the engine's signed «failed» result (sent after its last attempt) makes the |
+| Frappe | `ido_talent_ai/ido_talent_ai/tests/test_talent_ai.py` | `test_free_text_answer_never_carries_the_applicant_name` | Final QA: a free answer that mentions the applicant's own name is sent to the engine |
 
 ## 11. Commands
 
@@ -1159,11 +1173,11 @@ Gold set of 50 synthetic applicants: Qwen3-8B-AWQ with `judge-v1` — 98% exact 
 
 | Check | PDF | Word |
 |---|---|---|
-| Pages | 130 | 130 |
+| Pages | 136 | 136 |
 | Page problems | 0 | 0 |
-| Page numbers of the contents and the index | stable after the second print | 331 of 331 page fields show their page; 0 moved |
+| Page numbers of the contents and the index | stable after the second print | 344 of 344 page fields show their page; 0 moved |
 
-Inventory read from the code: **576 items, 576 with a guide page, a screenshot and a test** (`docs/guide/COVERAGE.md`); the independent check reports **MISSING: 1**.
+Inventory read from the code: **588 items, 588 with a guide page, a screenshot and a test** (`docs/guide/COVERAGE.md`); the independent check reports **MISSING: 2**.
 
 ## 15. Not done, and why
 

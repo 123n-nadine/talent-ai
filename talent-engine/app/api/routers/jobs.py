@@ -167,6 +167,23 @@ def rescreen(
         db, tenant.id, ref, "job.rescreen", actor, {"queued": len(queued), "skipped": len(skipped)}
     )
     db.commit()
+    not_queued = []
     for sid in queued:
-        queue_svc.dispatch(settings, request.app.state.sessionmaker, sid, background_tasks)
-    return {"job_ref": ref, "job_version": version.version, "queued": queued, "skipped": skipped}
+        try:
+            queue_svc.dispatch_or_fail(
+                db, settings, request.app.state.sessionmaker, sid, background_tasks
+            )
+        except queue_svc.QueueUnavailable:
+            not_queued.append(
+                sid
+            )  # marked failed: «re-score the old and failed» picks them up again
+    if not_queued and len(not_queued) == len(queued):
+        raise HTTPException(status_code=503, detail="queue unavailable, try again")
+    queued = [sid for sid in queued if sid not in not_queued]
+    return {
+        "job_ref": ref,
+        "job_version": version.version,
+        "queued": queued,
+        "skipped": skipped,
+        "failed_to_queue": not_queued,
+    }

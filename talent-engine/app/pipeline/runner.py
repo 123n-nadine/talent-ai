@@ -26,7 +26,7 @@ from app.embeddings.registry import get_embedding_provider
 from app.llm.base import JudgeRequest, LLMProvider
 from app.llm.registry import get_provider
 from app.llm.schemas import CriterionJudgement
-from app.pipeline.stages.answers import NormalisedAnswer, normalise_answers
+from app.pipeline.stages.answers import NormalisedAnswer, normalise_answers, redact_free_text
 from app.pipeline.stages.cv_text import evidence_text
 from app.pipeline.stages.evidence import resolve
 from app.pipeline.stages.profile import verify_profile
@@ -110,13 +110,24 @@ def run_screening(
 
         tracker.start("answers")
         answers = normalise_answers(version.questions, cand.answers)
+        answers, redacted_answers = redact_free_text(answers, version.questions)
         answered = sum(1 for a in answers.values() if a.answered)
         total_q = len(version.questions)
         tracker.set(
             "answers",
             "done",
-            f"أجاب عن {answered} من {count(total_q, 'سؤال', 'سؤالين', 'أسئلة').replace('لا ', '0 ')}",
-            f"{answered} of {count_en(total_q, 'question', 'questions')} answered",
+            f"أجاب عن {answered} من {count(total_q, 'سؤال', 'سؤالين', 'أسئلة').replace('لا ', '0 ')}"
+            + (
+                f" · أُخفيت بيانات شخصية في {count(redacted_answers, 'إجابة حرة', 'إجابتين حرتين', 'إجابات حرة')}"
+                if redacted_answers
+                else ""
+            ),
+            f"{answered} of {count_en(total_q, 'question', 'questions')} answered"
+            + (
+                f" · personal data redacted in {count_en(redacted_answers, 'free-text answer', 'free-text answers')}"
+                if redacted_answers
+                else ""
+            ),
         )
 
         extra_flags = {f for f in (s.flags or []) if f not in SCORE_FLAGS}

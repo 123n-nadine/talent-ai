@@ -96,3 +96,25 @@ def normalise_answers(
         if key not in out:
             out[key] = normalise_one(key, "text", raw)
     return out
+
+
+def redact_free_text(
+    answers: dict[str, NormalisedAnswer], questions: list[dict[str, Any]]
+) -> tuple[dict[str, NormalisedAnswer], int]:
+    """Free-text answers go through the same redaction as a CV before the model sees them
+    (decision 4): an applicant may type a phone, an e-mail, an ID or a date into «describe your
+    last job». The redacted string is what the model sees and what its evidence must equal.
+    Returns the answers and how many were changed. Final QA, 2026-10-19."""
+    from app.redaction.engine import redact
+
+    types = {q["key"]: q.get("type", "text") for q in questions}
+    out: dict[str, NormalisedAnswer] = {}
+    changed = 0
+    for key, a in answers.items():
+        if a.answered and types.get(key, "text") == "text" and isinstance(a.value, str):
+            r = redact(a.value)
+            if r.text != a.value:
+                changed += 1
+                a = NormalisedAnswer(a.key, a.raw, r.text, True, canonical_str(r.text))
+        out[key] = a
+    return out, changed
