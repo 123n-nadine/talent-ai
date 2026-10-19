@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     app_env: str = "dev"
+    # the interactive API docs (/docs, /openapi.json): on in dev, off in production unless set
+    api_docs_enabled: bool | None = None
     log_level: str = "INFO"
     api_port: int = 18000
 
@@ -84,6 +86,12 @@ class Settings(BaseSettings):
     @property
     def allowed_facts_list(self) -> list[str]:
         return [f.strip() for f in self.allowed_facts.split(",") if f.strip()]
+
+    @property
+    def docs_enabled(self) -> bool:
+        if self.api_docs_enabled is not None:
+            return self.api_docs_enabled
+        return self.app_env != "production"
 
     @property
     def retry_backoff(self) -> list[float]:

@@ -516,3 +516,22 @@ def test_talent_pool_rules_first_then_similarity_with_exclusions(client, seeded,
         client.get("/v1/talent-pool/status").json()["indexed_profiles"]
         == st["indexed_profiles"] - 1
     )
+
+
+def test_api_docs_follow_the_setting():
+    """Final QA: /docs and /openapi.json are on in dev, off in production unless enabled."""
+    from fastapi.testclient import TestClient
+
+    from app.main import create_app
+    from tests.conftest import make_settings
+
+    for kwargs, expect in (
+        ({"app_env": "dev"}, 200),
+        ({"app_env": "production"}, 404),
+        ({"app_env": "production", "api_docs_enabled": True}, 200),
+        ({"app_env": "dev", "api_docs_enabled": False}, 404),
+    ):
+        with TestClient(create_app(make_settings(**kwargs))) as client:
+            assert client.get("/docs").status_code == expect, kwargs
+            assert client.get("/openapi.json").status_code == expect, kwargs
+            assert client.get("/health").status_code == 200

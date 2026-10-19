@@ -42,6 +42,8 @@ make env                      # random keys in .env (chmod 600); never commit it
 # edit .env: AI_PROVIDER=local (or cloud + CLOUD_LLM_API_KEY), OCR_PROVIDER=paddle_cpu,
 #            EMBEDDING_PROVIDER=local, VLLM_GPU_MEMORY_UTILIZATION to the agreed cap,
 #            ports/bind addresses for this host
+#            APP_ENV=production (turns the API docs /docs and /openapi.json off; API_DOCS_ENABLED=true
+#            overrides it for a staging host only)
 nvidia-smi                    # free memory must cover the cap before vLLM starts
 make up WORKERS=4             # builds the images, runs migrations, starts every service
 curl -s http://127.0.0.1:18000/ready          # db, redis, llm, ocr all ok

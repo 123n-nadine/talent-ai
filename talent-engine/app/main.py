@@ -79,11 +79,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         ensure_default_tenant(sessionmaker, settings)
         yield
 
+    docs = settings.docs_enabled  # final QA: the API docs are a dev convenience, off in production
     app = FastAPI(
         title="Talent Engine",
         version="0.1.0",
         description="AI screening and ranking engine. The LLM judges, code computes, HR decides.",
         lifespan=lifespan,
+        docs_url="/docs" if docs else None,
+        redoc_url="/redoc" if docs else None,
+        openapi_url="/openapi.json" if docs else None,
     )
     app.state.settings = settings
     app.state.engine = engine
