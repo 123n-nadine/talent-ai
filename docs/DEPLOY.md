@@ -44,6 +44,13 @@ make env                      # random keys in .env (chmod 600); never commit it
 #            ports/bind addresses for this host
 #            APP_ENV=production (turns the API docs /docs and /openapi.json off; API_DOCS_ENABLED=true
 #            overrides it for a staging host only)
+#            The api and worker containers restart after a failure exit (`restart: on-failure`, final
+#            QA: a Redis restart made the workers exit); a clean stop stays stopped, and `make up`
+#            remains the way to start the engine after a reboot. If Redis is unreachable when a
+#            screening is created, the engine marks it failed and answers 503: the app retries, then
+#            shows «Failed» with «إعادة المحاولة» (and retries by itself every hour). A job that
+#            Redis loses in a crash (it snapshots every 60 s) stays «Processing» until the app's
+#            30-minute safety net marks it Failed and the hourly retry re-screens it.
 nvidia-smi                    # free memory must cover the cap before vLLM starts
 make up WORKERS=4             # builds the images, runs migrations, starts every service
 curl -s http://127.0.0.1:18000/ready          # db, redis, llm, ocr all ok

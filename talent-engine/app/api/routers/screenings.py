@@ -64,7 +64,12 @@ def create_screening(
     )
     db.commit()
     if created:
-        queue_svc.dispatch(settings, request.app.state.sessionmaker, s.id, background_tasks)
+        try:
+            queue_svc.dispatch_or_fail(
+                db, settings, request.app.state.sessionmaker, s.id, background_tasks
+            )
+        except queue_svc.QueueUnavailable as e:
+            raise HTTPException(status_code=503, detail="queue unavailable, try again") from e
     return {
         "screening_id": s.id,
         "status": s.status,
@@ -143,5 +148,10 @@ def retry(
     except scr_svc.ScreeningError as e:
         raise HTTPException(status_code=409, detail=str(e)) from e
     db.commit()
-    queue_svc.dispatch(settings, request.app.state.sessionmaker, s.id, background_tasks)
+    try:
+        queue_svc.dispatch_or_fail(
+            db, settings, request.app.state.sessionmaker, s.id, background_tasks
+        )
+    except queue_svc.QueueUnavailable as e:
+        raise HTTPException(status_code=503, detail="queue unavailable, try again") from e
     return {"screening_id": s.id, "status": "queued"}

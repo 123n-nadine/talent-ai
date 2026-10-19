@@ -16,6 +16,10 @@ x-engine: &engine
   volumes:
     - files:/data/files
     - models:/data/models
+  # Final QA: a Redis restart made the four workers exit (connection error) and nothing brought them
+  # back. Restart after a failure exit only (Docker backs off up to a minute between tries); a clean
+  # stop (`make down`, `compose stop`) stays stopped. vLLM, db and redis keep no policy.
+  restart: on-failure
 
 services:
   db:
