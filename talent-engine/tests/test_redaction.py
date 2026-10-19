@@ -247,3 +247,22 @@ def test_reprocess_recovers_the_name_hint_from_the_earlier_redaction():
     again = redact(raw, name_hint=" ".join(hints), use_nlp=False).text
     assert "فهد" not in again and "العتيبي" not in again and "2017" in again
     assert recover_name_hints(raw, "x") == []  # line counts differ: nothing guessed
+
+
+def test_free_text_answer_redaction_keeps_the_evidence():
+    """Final QA: the redaction now runs over free-text answers before the judge. Numbers that are
+    evidence (team sizes, years, durations) must survive; only personal data goes."""
+    from app.redaction.engine import redact
+
+    keep = [
+        "مشرف وردية في مجمع سكني كبير بالرياض منذ 2019، أتابع 8 حراس.",
+        "عندي 10 سنوات خبرة، أشرف على 8 حراس منذ 2019 في مجمع سكني",
+        "مشرف أمن من 2015 إلى 2024، فريق من 12 فرد، رخصة سارية حتى 2027",
+        "حللت بيانات شكاوى العملاء (40 ألف سجل) بـ SQL وPython لمعرفة أسباب التأخير؛ انخفض زمن الاستجابة 30% خلال ثلاثة أشهر.",
+        "Security shift supervisor at a shopping mall in Cairo, 2015–2023.",
+    ]
+    for t in keep:
+        assert redact(t).text == t, t
+    pii = "للتواصل 0520202002 أو demo.majed@example.com، هويتي 1000009901، مواليد 20/06/1997"
+    out = redact(pii).text
+    assert out == "للتواصل [الهاتف] أو [البريد]، هويتي [الهوية]، مواليد [تاريخ الميلاد]"
