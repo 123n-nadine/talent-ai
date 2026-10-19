@@ -808,10 +808,10 @@ async def case_decisions(hr) -> None:
                                          (2020, "Rejected", "رفض", "الوزن المصرّح به أعلى من شرط الشاغر")):
             await hr.goto(f"{BASE}/desk/job-applicant/{A(n)}")
             await settle(hr, 3)
-            await hr.evaluate("window.__d = null")
-            await hr.evaluate(f"(() => {{ const before = cur_dialog; talent_ai_form.decide(cur_frm, {json.dumps(status)}); window.__d = cur_dialog; }})()")
+            await hr.evaluate(f"talent_ai_form.decide(cur_frm, {json.dumps(status)})")
             await hr.wait_for_selector(".modal.show [data-fieldname=reason] textarea", timeout=20000)
-            await asyncio.sleep(0.6)
+            await asyncio.sleep(0.8)  # the dialog object is set once it is shown (final QA: K09 raced here)
+            await hr.evaluate("window.__d = cur_dialog")
             if n == 2001:  # empty reason first
                 await hr.evaluate("window.__d.get_primary_btn().click()")
                 await asyncio.sleep(1.2)
@@ -1006,6 +1006,9 @@ async def case_engine_down(hr, guest) -> None:
         await open_applicant(hr, a["email_id"])
         t0 = time.time()
         await hr.evaluate("document.querySelector('[data-tai=retry]').click()")
+        # the retry call sets «Processing» synchronously; wait for it before waiting for the end
+        # (final QA: the first poll raced the click and saw the old «Failed»)
+        await wait_value(hr, "Job Applicant", a["email_id"], "ai_status", lambda v: v != "Failed", 60, 0.5)
         st, _ = await wait_final(hr, a["email_id"], 300)
         secs = round(time.time() - t0, 1)
         await open_applicant(hr, a["email_id"])

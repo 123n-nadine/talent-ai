@@ -1,0 +1,92 @@
+{
+  "label": "qa-8b-v1",
+  "date": "2026-10-19T10:42:04.986336+00:00",
+  "provider": "local",
+  "model": "qwen3-8b-awq",
+  "judge_prompt": "judge-v1",
+  "runs": [
+    {
+      "applicants": 55,
+      "failed": [],
+      "level_exact": 0.988,
+      "level_within_one_step": 1.0,
+      "levels_gt0_with_evidence": 1.0,
+      "eligibility_correct": 1.0,
+      "expected_flags_found": 1.0,
+      "code_judged": {
+        "exact": 1.0,
+        "within": 1.0,
+        "n": 312
+      },
+      "model_judged": {
+        "exact": 0.75,
+        "within": 1.0,
+        "n": 16
+      },
+      "distinct_free_texts": 5,
+      "cv_documents": 31,
+      "time_mean_s": 17.6,
+      "time_median_s": 22.33,
+      "time_max_s": 44.34,
+      "per_criterion": {
+        "supervision": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 38
+        },
+        "security_exp": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 40
+        },
+        "shifts": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 38
+        },
+        "licence": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 38
+        },
+        "reports": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 38
+        },
+        "first_aid": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 38
+        },
+        "languages": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 40
+        },
+        "experience": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 15
+        },
+        "sql": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 15
+        },
+        "python": {
+          "exact": 1.0,
+          "within": 1.0,
+          "n": 15
+        },
+        "project": {
+          "exact": 0.69,
+          "within": 1.0,
+          "n": 13
+        }
+      },
+      "wall_s": 328.0
+    }
+  ],
+  "name_swap_identical_applicants": 1.0
+}

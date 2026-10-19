@@ -1,0 +1,44 @@
+[
+ {
+  "area": "files",
+  "case": "0-byte file (after Q6)",
+  "expected": "refused in the form and by the endpoint with «ملف السيرة فارغ»; nothing saved",
+  "actual": "form: refused راجع ما يلي:\nملف السيرة فارغ — ارفع الملف الصحيح أو اتركه بدون سيرة | ملف السيرة فارغ — ارفع الملف الصحيح أو اتركه بدون سيرة; endpoint HTTP 422 True; saved 0",
+  "ok": true
+ },
+ {
+  "area": "text",
+  "case": "HTML/script in the name and a free answer",
+  "expected": "no script runs; stored and shown as harmless text",
+  "actual": "stored name '<img src=\"x\">عمر'; stored answer '<b>مشرف</b> وردية منذ 2019'; injected element False; alerts 0; ai_status Completed",
+  "ok": true
+ },
+ {
+  "area": "files",
+  "case": "multi-page PDF (3 pages)",
+  "expected": "all pages read",
+  "actual": "ai_status Completed after 33.0s; method pdf_text; pages 3; chars 1650; flags []",
+  "ok": true
+ },
+ {
+  "area": "security",
+  "case": "public-form rate limit (5 per 10 min for the probe)",
+  "expected": "at most 5 accepted in the window, then 429 only; normal again after the limit is restored",
+  "actual": "codes [200, 200, 200, 200, 429, 429, 429, 429]; after restoring 100: HTTP 200",
+  "ok": true
+ },
+ {
+  "area": "behaviour",
+  "case": "restart engine Redis mid-processing (with restart: on-failure)",
+  "expected": "workers back by themselves; the application not lost",
+  "actual": "restart took 44.6s; workers before 4, back after 69.3s (4 up); ai_status after 5 min: Completed (8.6s); flags ['quote_not_found']",
+  "ok": true
+ },
+ {
+  "area": "behaviour",
+  "case": "engine Redis down when an application arrives (after Q7b)",
+  "expected": "Failed with a reason (never stuck); workers back; HR retry → assessed; no screening left «queued»",
+  "actual": "Failed after 30.4s (3/3 attempts: خطأ في محرك الذكاء 503: queue unavailable, try again); workers back 0.1s after the start; retry ok → Completed in 12.3s; engine screenings ['failed', 'failed', 'failed', 'completed']",
+  "ok": true
+ }
+]

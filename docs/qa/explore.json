@@ -1,0 +1,188 @@
+[
+ {
+  "area": "files",
+  "case": "0-byte file",
+  "expected": "saved; CV unreadable, assessed from the answers",
+  "actual": "saved; ai_status Completed after 12.6s; flags []; cv status None method None pages None conf None chars None",
+  "ok": false,
+  "email": "q.empty@example.com"
+ },
+ {
+  "area": "files",
+  "case": "wrong file type (.exe)",
+  "expected": "refused with a clear message (type not supported); nothing saved with a bad file",
+  "actual": "refused at submission: راجع ما يلي:\nنوع ملف السيرة غير مدعوم (PDF أو Word أو صورة) | نوع ملف السيرة غير مدعوم (PDF أو Word أو صورة)",
+  "ok": true
+ },
+ {
+  "area": "files",
+  "case": "huge file (11 MB)",
+  "expected": "refused: larger than 10 MB",
+  "actual": "refused at submission: راجع ما يلي:\nحجم ملف السيرة أكبر من 10 ميجابايت | حجم ملف السيرة أكبر من 10 ميجابايت",
+  "ok": true
+ },
+ {
+  "area": "files",
+  "case": "password-protected PDF",
+  "expected": "saved; CV unreadable, assessed from the answers",
+  "actual": "saved; ai_status Completed after 10.5s; flags ['cv_unreadable']; cv status None method None pages None conf None chars None",
+  "ok": true,
+  "email": "q.encrypted@example.com"
+ },
+ {
+  "area": "files",
+  "case": "multi-page PDF (3 pages)",
+  "expected": "saved; all pages read",
+  "actual": "saved; ai_status Completed after 35.3s; flags []; cv status None method None pages None conf None chars None",
+  "ok": false,
+  "email": "q.multi@example.com"
+ },
+ {
+  "area": "files",
+  "case": "DOCX CV",
+  "expected": "saved; read as text",
+  "actual": "saved; ai_status Completed after 39.3s; flags []; cv status None method None pages None conf None chars None",
+  "ok": true,
+  "email": "q.docx@example.com"
+ },
+ {
+  "area": "files",
+  "case": "rotated scan (90°)",
+  "expected": "saved; OCR weak or unreadable, never a crash",
+  "actual": "saved; ai_status Needs Review after 40.8s; flags ['low_ocr_confidence']; cv status None method None pages None conf None chars None",
+  "ok": true,
+  "email": "q.rotated@example.com"
+ },
+ {
+  "area": "files",
+  "case": "low-quality photo",
+  "expected": "saved; low confidence → needs review or weak lines",
+  "actual": "saved; ai_status Needs Review after 43.7s; flags ['low_ocr_confidence']; cv status None method None pages None conf None chars None",
+  "ok": true,
+  "email": "q.bad@example.com"
+ },
+ {
+  "area": "files",
+  "case": "fully English scanned CV",
+  "expected": "saved; OCR reads English (report confidence)",
+  "actual": "saved; ai_status Completed after 43.7s; flags []; cv status None method None pages None conf None chars None",
+  "ok": true,
+  "email": "q.enscan@example.com"
+ },
+ {
+  "area": "text",
+  "case": "very long free answer (5,000 chars)",
+  "expected": "saved; shown as plain text; evaluation runs",
+  "actual": "saved; ai_status Completed after 10.2s; flags []; injected element: False; literal tags visible: True; alerts: 0",
+  "ok": true,
+  "email": "q.long@example.com"
+ },
+ {
+  "area": "text",
+  "case": "emoji in name and answer",
+  "expected": "saved; shown as plain text; evaluation runs",
+  "actual": "saved; ai_status Completed after 10.3s; flags []; injected element: False; literal tags visible: True; alerts: 0",
+  "ok": true,
+  "email": "q.emoji@example.com"
+ },
+ {
+  "area": "text",
+  "case": "mixed Arabic/English",
+  "expected": "saved; shown as plain text; evaluation runs",
+  "actual": "saved; ai_status Completed after 10.4s; flags []; injected element: False; literal tags visible: True; alerts: 0",
+  "ok": true,
+  "email": "q.mixed@example.com"
+ },
+ {
+  "area": "text",
+  "case": "HTML/script in text fields",
+  "expected": "saved; shown as plain text; evaluation runs",
+  "actual": "saved; ai_status Completed after 10.3s; flags []; injected element: False; literal tags visible: False; alerts: 0",
+  "ok": false,
+  "email": "q.html@example.com"
+ },
+ {
+  "area": "behaviour",
+  "case": "double submit (two clicks)",
+  "expected": "one application",
+  "actual": "1 application(s) for the e-mail; button disabled while sending",
+  "ok": true
+ },
+ {
+  "area": "behaviour",
+  "case": "20 concurrent submissions (10 with a CV)",
+  "expected": "all saved; all assessed; none failed",
+  "actual": "20/20 saved in 0.8s; 20 assessed after 132s; failed 0; codes [200]",
+  "ok": true
+ },
+ {
+  "area": "behaviour",
+  "case": "restart engine worker mid-processing",
+  "expected": "the application is not lost: assessed later (or Failed with retry), never stuck",
+  "actual": "restart took 61.0s; ai_status Completed after 10.5s from the restart; flags ['quote_not_found']",
+  "ok": true
+ },
+ {
+  "area": "behaviour",
+  "case": "restart engine Redis mid-processing",
+  "expected": "the application is not lost: assessed later (or Failed with retry), never stuck",
+  "actual": "restart took 50.3s; ai_status Processing after Nones from the restart; flags []",
+  "ok": false
+ },
+ {
+  "area": "security",
+  "case": "API key in the public page source",
+  "expected": "absent",
+  "actual": "key present: False; 'Bearer' in page: False",
+  "ok": true
+ },
+ {
+  "area": "security",
+  "case": "desk pages without login",
+  "expected": "redirect to login",
+  "actual": "HTTP 301",
+  "ok": true
+ },
+ {
+  "area": "security",
+  "case": "engine /console without credentials",
+  "expected": "console → login; /v1 → 401; docs: report",
+  "actual": "HTTP 303",
+  "ok": true
+ },
+ {
+  "area": "security",
+  "case": "engine /docs without credentials",
+  "expected": "console → login; /v1 → 401; docs: report",
+  "actual": "HTTP 200 (API docs follow API_DOCS_ENABLED: on in dev, off when APP_ENV=production — Q2; no secrets in them, the port is loopback + Tailscale only)",
+  "ok": true
+ },
+ {
+  "area": "security",
+  "case": "engine /openapi.json without credentials",
+  "expected": "console → login; /v1 → 401; docs: report",
+  "actual": "HTTP 200 (API docs follow API_DOCS_ENABLED: on in dev, off when APP_ENV=production — Q2; no secrets in them, the port is loopback + Tailscale only)",
+  "ok": true
+ },
+ {
+  "area": "security",
+  "case": "engine /v1/jobs without credentials",
+  "expected": "console → login; /v1 → 401; docs: report",
+  "actual": "HTTP 401",
+  "ok": true
+ },
+ {
+  "area": "security",
+  "case": "engine /v1/settings without credentials",
+  "expected": "console → login; /v1 → 401; docs: report",
+  "actual": "HTTP 401",
+  "ok": true
+ },
+ {
+  "area": "security",
+  "case": "public-form rate limit (5 per 10 min for the probe)",
+  "expected": "the sixth and later submissions refused with 429",
+  "actual": "codes [200, 200, 200, 200, 200, 200, 200, 200]",
+  "ok": false
+ }
+]

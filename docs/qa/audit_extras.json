@@ -1,0 +1,79 @@
+[
+ {
+  "page": "10 / 23",
+  "claim": "A forged or unsigned callback is rejected",
+  "how": "live POST to receive_result: no signature, zeros, wrong secret",
+  "ok": true,
+  "actual": "unsigned 401, forged 401, wrong secret 401 (HTTP 401 expected); stale timestamp also refused in the Frappe test test_callback_signature"
+ },
+ {
+  "page": "5",
+  "claim": "Home-page counters come from the site (openings, applications, processing, needs review, failed)",
+  "how": "api.home_counts vs frappe.client.get_count",
+  "ok": true,
+  "actual": "home_counts {'openings': 2, 'applicants': 28, 'processing': 0, 'needs_review': 2, 'failed': 0}; DB applicants 28"
+ },
+ {
+  "page": "9",
+  "claim": "Weights must total 100%: approval of 105% is refused (API)",
+  "how": "frappe.client.insert draft with 105% then profile.approve",
+  "ok": true,
+  "actual": "approve → refused; status stays Draft"
+ },
+ {
+  "page": "19",
+  "claim": "Assessment screen is marked «قراءة فقط — لا يغيّر حالة الطلب»; eligibility, score/band, coverage, rank, summary shown",
+  "how": "open a completed applicant as HR Manager",
+  "ok": true,
+  "actual": "status Shortlisted; labels found: قراءة فقط, الأهلية, الدرجة, التغطية, الترتيب, الملخص"
+ },
+ {
+  "page": "11",
+  "claim": "Under the ID number: not shown or sent to the AI, used only for duplicate detection",
+  "how": "public form text",
+  "ok": true,
+  "actual": "sentence present"
+ },
+ {
+  "page": "12",
+  "claim": "CV optional, consent mandatory; 11 screening questions with the zero/blank hint",
+  "how": "public form DOM",
+  "ok": true,
+  "actual": "questions 11; consent required attribute: False"
+ },
+ {
+  "page": "13",
+  "claim": "The form switches fully to English with one button",
+  "how": "click English, read the labels",
+  "ok": true,
+  "actual": "English labels present"
+ },
+ {
+  "page": "13",
+  "claim": "Mobile: one column, nothing cut",
+  "how": "viewport 390 px: no horizontal scroll",
+  "ok": true,
+  "actual": "horizontal overflow: False; grid columns: 306px"
+ },
+ {
+  "page": "25",
+  "claim": "Settings: secrets hidden (no key in the settings API answer)",
+  "how": "api.engine_settings as HR Manager",
+  "ok": true,
+  "actual": "keys in answer: ['ai_model', 'ai_provider', 'allowed_facts', 'callback_secret_set', 'callback_url', 'defaults_from_env', 'judge_prompt', 'llm_timeout_s', 'max_retries', 'ocr_note', 'ocr_provider', 'ocr_providers']"
+ },
+ {
+  "page": "25 / 32",
+  "claim": "HR User cannot open the settings",
+  "how": "login as hr.user, open /desk/ai-recruitment-settings",
+  "ok": true,
+  "actual": "refused"
+ },
+ {
+  "page": "25 / 32",
+  "claim": "HR User cannot read the settings through the API",
+  "how": "api.engine_settings as hr.user",
+  "ok": true,
+  "actual": "refused"
+ }
+]
